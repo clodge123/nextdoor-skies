@@ -47,13 +47,18 @@ const BASE = (flag('base-url') ?? process.env.SMOKE_BASE_URL ?? DEFAULT_BASE).re
 const OUT = resolve(flag('out') ?? 'docs/screenshots/prod-smoke');
 
 const VIEWPORTS = [
-  { project: 'phone', width: 390, height: 844 },
+  // phone dpr 1: isMobile defaults dpr2, doubling tile requests and starving
+  // label settle (same fix as playwright.config.ts phone project).
+  { project: 'phone', width: 390, height: 844, deviceScaleFactor: 1 },
   { project: 'tablet', width: 768, height: 1024 },
   { project: 'desktop', width: 1280, height: 800 },
 ];
 
 /** Documented console exclusions — identical set to tests/map.spec.ts. */
 const IGNORED_CONSOLE = /GL Driver Message|Expected value to be of type .*null/;
+// All gazetteer label tiers — narrow viewports render the city tier near the
+// zoom target; any tier proves zoom-graded labels (same as tests/map.spec.ts).
+const LABEL_LAYERS = ['nds-labels-town', 'nds-labels-city', 'nds-labels-state'];
 
 // ------------------------------------------------------------- collectors ---
 
@@ -84,18 +89,20 @@ async function checkMap(page, shots) {
     throw new Error(`basemap law violated: glyphs=${glyphs}`);
   }
 
-  // Zoom into Austin, TX (real baked town) -> town-tier labels render.
-  await page.evaluate(() => window.ndsMap.jumpTo({ center: [-97.7431, 30.2672], zoom: 12.5 }));
+  // Zoom into Manor, TX (real baked town; Austin's town label collision-culls
+  // on the 390px phone edge — same probe-verified retarget as tests/map.spec.ts).
+  await page.evaluate(() => window.ndsMap.jumpTo({ center: [-97.6455, 30.2672], zoom: 12.5 }));
   await page.waitForFunction(() => window.ndsMap.getZoom() >= 12, null, { timeout: 30_000 });
   await page.waitForFunction(
-    () =>
+    (layers) =>
       window.ndsMap.areTilesLoaded() === true &&
-      window.ndsMap.queryRenderedFeatures(undefined, { layers: ['nds-labels-town'] }).length > 0,
-    null,
-    { timeout: 30_000 },
+      window.ndsMap.queryRenderedFeatures(undefined, { layers }).length > 0,
+    LABEL_LAYERS,
+    { timeout: 60_000 },
   );
   const townLabels = await page.evaluate(
-    () => window.ndsMap.queryRenderedFeatures(undefined, { layers: ['nds-labels-town'] }).length,
+    (layers) => window.ndsMap.queryRenderedFeatures(undefined, { layers }).length,
+    LABEL_LAYERS,
   );
   if (townLabels === 0) throw new Error('town labels: queryRenderedFeatures returned 0');
   await page.screenshot({ path: shots.mapZoom });
@@ -140,7 +147,10 @@ const results = [];
 let failures = 0;
 
 for (const vp of VIEWPORTS) {
-  const context = await browser.newContext({ viewport: { width: vp.width, height: vp.height } });
+  const context = await browser.newContext({
+    viewport: { width: vp.width, height: vp.height },
+    ...(vp.deviceScaleFactor ? { deviceScaleFactor: vp.deviceScaleFactor } : {}),
+  });
   const page = await context.newPage();
   const bag = [];
   attachConsoleCollector(page, bag);

@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import { ThemeToggle } from './ThemeToggle'
 
 export default function Header() {
   return (
@@ -10,6 +11,7 @@ export default function Header() {
         </NavLink>
         <NavLink to="/feed" data-route="/feed">Feed</NavLink>
       </nav>
+      <ThemeToggle />
     </header>
   )
 }
