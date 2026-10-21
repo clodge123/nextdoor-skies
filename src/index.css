@@ -129,3 +129,36 @@ body {
   padding: 4px 10px;
   font: 600 13px/1 system-ui, sans-serif;
 }
+
+/* W3-IDENTITY — IdentityPicker (square geometry: var(--radius) only, R20). */
+.identity-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.identity-picker input {
+  padding: 8px;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.identity-picker button {
+  padding: 8px 12px;
+  background: var(--surface);
+  color: var(--current-accent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.identity-picker button:hover {
+  border-color: var(--current-accent);
+}
