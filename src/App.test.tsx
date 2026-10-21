@@ -52,13 +52,14 @@ describe('App shell', () => {
     expect(screen.getByRole('button', { name: 'zoom out' })).toBeInTheDocument()
   });
 
-  it('renders the feed placeholder on /feed', () => {
+  it('renders the feed identity gate on /feed', () => {
     render(
       <MemoryRouter initialEntries={['/feed']}>
         <App />
       </MemoryRouter>,
     );
     expect(screen.getByRole('heading', { name: 'Feed' })).toBeInTheDocument()
-    expect(screen.getByText(/awaiting feed/i)).toBeInTheDocument()
+    // W5: honest gate — no session means no town, so the picker shows first-click.
+    expect(screen.getByTestId('identity-picker')).toBeInTheDocument()
   });
 });

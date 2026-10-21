@@ -51,6 +51,7 @@ export default function MapView({ center = [-98.5, 39.8], zoom = 3, children }: 
       center,
       zoom,
       maxZoom: 18,
+      canvasContextAttributes: { preserveDrawingBuffer: true }, // W5 snapshot seam (S7): canvas capture from window.ndsMap
     });
     mapRef.current = m;
     setMap(m);

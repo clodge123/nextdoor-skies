@@ -325,3 +325,268 @@ body {
 .identity-picker button:hover {
   border-color: var(--current-accent);
 }
+
+/* W5 FEED — per-town feed (square geometry law R20: only var(--radius),
+   which the global * rule already applies; nothing here sets border-radius). */
+.feed-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.feed-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.feed-toolbar h1 {
+  margin: 0;
+  border-left: 4px solid var(--current-accent);
+  padding-left: 10px;
+  font-size: 1.5rem;
+}
+
+.feed-town-context {
+  color: var(--text);
+  opacity: 0.7;
+  font-size: 0.9rem;
+}
+
+.feed-sort {
+  margin-left: auto;
+  display: flex;
+  gap: 0;
+}
+
+.feed-sort button {
+  padding: 6px 14px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.feed-sort button[aria-pressed="true"] {
+  border-color: var(--current-accent);
+  color: var(--current-accent);
+}
+
+.feed-composer {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.feed-composer textarea {
+  width: 100%;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 8px;
+  font: inherit;
+  resize: vertical;
+}
+
+.feed-composer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.feed-composer-hint {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.feed-composer button,
+.feed-reply-form button,
+.feed-flag,
+.feed-reply-toggle,
+.feed-reaction,
+.feed-retry {
+  padding: 6px 12px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.feed-composer button:disabled,
+.feed-reply-form button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.feed-section {
+  margin-bottom: 16px;
+}
+
+.feed-section-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--current-accent);
+  margin: 0 0 8px;
+}
+
+.feed-card {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.feed-card-meta {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+}
+
+.feed-author {
+  color: var(--current-accent);
+}
+
+.feed-town {
+  opacity: 0.7;
+}
+
+.feed-stamp {
+  opacity: 0.6;
+  font-family: ui-monospace, monospace;
+  font-size: 0.75rem;
+}
+
+.feed-hot-badge {
+  border: 1px solid var(--current-accent);
+  color: var(--current-accent);
+  padding: 1px 6px;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.feed-card-text {
+  margin: 8px 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.feed-snapshot {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid var(--border);
+  margin: 8px 0;
+}
+
+.feed-reactions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.feed-reaction[aria-pressed="true"] {
+  border-color: var(--current-accent);
+  color: var(--current-accent);
+}
+
+.feed-reaction-count {
+  margin-left: 4px;
+  font-size: 0.8rem;
+}
+
+.feed-reply-toggle {
+  margin-left: auto;
+}
+
+.feed-flag {
+  color: var(--warn);
+}
+
+.feed-replies {
+  border-top: 1px solid var(--border);
+  margin-top: 8px;
+  padding-top: 8px;
+}
+
+.feed-reply {
+  font-size: 0.85rem;
+  margin: 6px 0;
+}
+
+.feed-reply p {
+  margin: 2px 0 0;
+}
+
+.feed-reply-form {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.feed-reply-form input {
+  flex: 1;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 6px 8px;
+  font: inherit;
+}
+
+.feed-error {
+  color: var(--warn);
+  margin: 8px 0 0;
+}
+
+.feed-status {
+  opacity: 0.7;
+}
+
+.feed-empty {
+  border: 1px dashed var(--border);
+  padding: 24px;
+  text-align: center;
+  opacity: 0.8;
+}
+
+.identity-picker {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 16px;
+  max-width: 360px;
+}
+
+.identity-picker label {
+  display: block;
+  margin: 8px 0;
+  font-size: 0.85rem;
+}
+
+.identity-picker input {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 6px 8px;
+  font: inherit;
+}
+
+.identity-picker button {
+  padding: 8px 16px;
+  background: var(--surface);
+  color: var(--current-accent);
+  border: 1px solid var(--current-accent);
+  cursor: pointer;
+}
