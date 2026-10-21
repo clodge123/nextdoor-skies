@@ -1,7 +1,1 @@
-# NextDoor Skies — Run 2
-
-Fresh restart of the neighborhood weather app, rebuilt with browser-level
-testing (Playwright + hands-on browser sessions) as the primary gate.
-
-Run 1 history: github.com/clodge123/nextdoor-skies-run1 (archived).
-Docs: docs/WAVE-1-BRIEF.md, docs/DEFINITION-OF-DONE.md, docs/REQUIREMENTS-LEDGER.md
+IyBOZXh0RG9vciBTa2llcyDigJQgUnVuIDIKCkZyZXNoIHJlc3RhcnQgb2YgdGhlIG5laWdoYm9yaG9vZCB3ZWF0aGVyIGFwcCwgcmVidWlsdCB3aXRoIGJyb3dzZXItbGV2ZWwKdGVzdGluZyAoUGxheXdyaWdodCArIGhhbmRzLW9uIGJyb3dzZXIgc2Vzc2lvbnMpIGFzIHRoZSBwcmltYXJ5IGdhdGUuCgpSdW4gMSBoaXN0b3J5OiBnaXRodWIuY29tL2Nsb2RnZTEyMy9uZXh0ZG9vci1za2llcy1ydW4xIChhcmNoaXZlZCkuCkRvY3M6IGRvY3MvV0FWRS0xLUJSSUVGLm1kLCBkb2NzL0RFRklOSVRJT04tT0YtRE9ORS5tZCwgZG9jcy9SRVFVSVJFTUVOVFMtTEVER0VSLm1kCg==
