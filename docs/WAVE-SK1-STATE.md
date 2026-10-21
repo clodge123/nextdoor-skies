@@ -28,7 +28,7 @@ live-egress law:
 - W3 IDENTITY ✅ MERGED (`890e2b9`): session lib S1 + IdentityPicker + nearestTown, 25 new tests, gates 81/81 vitest
 - W4 POSTS-API (posts/comments/reactions/flags, 1 function, migrations)
 - W5 FEED-UI (hot-pinned + newest, canvas snapshots, reply flow)
-- W6 POLISH (nav CSS owner-flagged, mobile parity, 44px targets)
+- W6 POLISH ✅ MERGED (`e505ac7`): header/nav CSS + 44px targets + zoom-9 regression guard, gated spec 9/9, screenshots archived
 
 Slot plan: 6 lanes + orchestrator integration slot (me). Browser runs
 gate-serialized (E2E_SLOTS=1) — lanes queue, never collide. Deploy: per-wave
