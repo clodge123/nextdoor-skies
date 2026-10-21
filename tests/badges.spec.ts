@@ -21,7 +21,25 @@ import { mkdirSync } from 'node:fs'
  */
 
 const SHOT_DIR = path.join(process.cwd(), 'docs', 'screenshots', 'L6')
-const BATCH_URL = 'https://api.open-meteo.com/v1/batch'
+// W1 wave-2: the app now GETs the same-origin /api/weather proxy (S5).
+// The old api.open-meteo.com/v1/batch POST stub is retired — that endpoint
+// never existed (the production bug this lane fixes).
+const WEATHER_URL = /\/api\/weather\?.*/
+
+// Mirror of api/weather.js slug/townId + gazetteer.townsInBbox: the stubbed
+// proxy resolves towns inside the requested bbox and keys temps by the SAME
+// slug ids the client computes (slug-name-lat-lon), so badges light up.
+import { readFileSync } from 'node:fs'
+
+const TOWNS_PATH = path.join(process.cwd(), 'data', 'towns', 'us-towns.json')
+let stubTowns: Array<{ name: string; lat: number; lon: number }> | null = null
+
+function slugify(name: string): string {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+}
+function stubTownId(name: string, lat: number, lon: number): string {
+  return `${slugify(name)}-${Math.round(lat * 100) / 100}-${Math.round(lon * 100) / 100}`
+}
 
 const IGNORED = /GL Driver Message|Expected value to be of type .*null/
 
@@ -68,17 +86,24 @@ async function relayOfm(route: Route) {
 }
 
 function stubOpenMeteo(page: Page): Promise<void> {
-  return page.route(BATCH_URL, async (route) => {
-    const body = route.request().postDataJSON() as {
-      batch: Array<{ latitude: number; longitude: number }>
+  return page.route(WEATHER_URL, async (route) => {
+    if (!stubTowns) {
+      stubTowns = (JSON.parse(readFileSync(TOWNS_PATH, 'utf8')) as { towns: typeof stubTowns }).towns!
     }
-    const temps = [21.4, -3.2, 8.7, 15.1, 0.5, 30.9, -12.4, 42.0]
-    const response = {
-      batch: body.batch.map((_, i) => ({
-        current: { temperature_2m: temps[i % temps.length] },
-      })),
+    const params = new URL(route.request().url()).searchParams
+    const [lng1, lat1, lng2, lat2] = params.get('bbox')!.split(',').map(Number)
+    const w = Math.min(lng1, lng2), e = Math.max(lng1, lng2)
+    const s = Math.min(lat1, lat2), n = Math.max(lat1, lat2)
+    // Deterministic F temps (no RNG): cycle a fixed ladder per town index.
+    const ladder = [70.5, 66.4, 31.3, 55.0, -2.5, 88.9]
+    const temps: Record<string, number> = {}
+    let i = 0
+    for (const t of stubTowns) {
+      if (t.lon >= w && t.lon <= e && t.lat >= s && t.lat <= n) {
+        temps[stubTownId(t.name, t.lat, t.lon)] = ladder[i++ % ladder.length]
+      }
     }
-    await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(response) })
+    await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ temps, stale: false }) })
   })
 }
 
@@ -93,7 +118,9 @@ async function setup(page: Page): Promise<string[]> {
   const errors = attachConsoleCollector(page)
   await page.route('**tiles.openfreemap.org/**', relayOfm)
   await stubOpenMeteo(page)
-  await page.goto('/', { waitUntil: 'domcontentloaded' })
+  // Center on Salina, KS: zoom-9 viewports are ~3.5deg wide and the default
+  // center sits between baked towns, so badge temps would never resolve.
+  await page.goto('/?ndsCenter=-97.6114,38.8403', { waitUntil: 'domcontentloaded' })
   // Real map mounted (canvas exists, style loaded).
   await expect(page.getByTestId('map-view').locator('canvas')).toBeVisible({ timeout: 30_000 })
   await page.waitForFunction(
@@ -105,12 +132,17 @@ async function setup(page: Page): Promise<string[]> {
 }
 
 test('badge shows temp number over a town when zoomed', async ({ page }, testInfo) => {
+  // Style load + zoom-9 tile settling through the node relay can exceed the
+  // 30s default on this host (same budget bump as map.spec.ts).
+  test.setTimeout(120_000)
   const errors = await setup(page)
 
   // Zoomed out (initial zoom 3, below TOWN_BADGE_MIN_ZOOM=6): no badges.
   await expect(page.getByTestId('town-badges')).toHaveCount(0)
 
-  // ONE click of 'zoom in' (3 -> 6) crosses the badge zoom grade.
+  // TWO clicks of 'zoom in' (3 -> 6 -> 9) cross the wave-2 zoom-9 badge grade
+  // (TOWN_BADGE_MIN_ZOOM=9 on main; MapView steps +3 per click).
+  await tapOrClick(page, page.getByRole('button', { name: 'zoom in' }))
   await tapOrClick(page, page.getByRole('button', { name: 'zoom in' }))
 
   // At least one badge visible, carrying a real ° number (stubbed temps).
@@ -121,11 +153,13 @@ test('badge shows temp number over a town when zoomed', async ({ page }, testInf
   // Square geometry (R20): zero border-radius.
   await expect(badge).toHaveCSS('border-radius', '0px')
 
-  // Zoom back out (6 -> 3): zoom-graded visibility hides badges.
+  // Zoom back out (9 -> 6 -> 3): zoom-graded visibility hides badges.
+  await tapOrClick(page, page.getByRole('button', { name: 'zoom out' }))
   await tapOrClick(page, page.getByRole('button', { name: 'zoom out' }))
   await expect(page.getByTestId('town-badges')).toHaveCount(0)
 
   // Gate 1: archive screenshot into docs/screenshots/L6/.
+  await tapOrClick(page, page.getByRole('button', { name: 'zoom in' }))
   await tapOrClick(page, page.getByRole('button', { name: 'zoom in' }))
   await expect(page.locator('.town-badge').first()).toBeVisible({ timeout: 10_000 })
   await page.screenshot({
@@ -137,7 +171,9 @@ test('badge shows temp number over a town when zoomed', async ({ page }, testInf
 })
 
 test('mobile viewport: badge renders temp after tap-zoom', async ({ page }, testInfo) => {
+  test.setTimeout(120_000)
   const errors = await setup(page)
+  await tapOrClick(page, page.getByRole('button', { name: 'zoom in' }))
   await tapOrClick(page, page.getByRole('button', { name: 'zoom in' }))
   const badge = page.locator('.town-badge').first()
   await expect(badge).toBeVisible({ timeout: 10_000 })

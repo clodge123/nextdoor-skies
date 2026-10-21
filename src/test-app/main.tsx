@@ -78,7 +78,7 @@ function App() {
 
   const fetchImpl = useMemo(
     () =>
-      (input: string, init: { method: string; headers: Record<string, string>; body: string }) =>
+      (input: string, init: { method: string; signal?: AbortSignal }) =>
         window.fetch(input, init),
     [],
   )
@@ -87,6 +87,7 @@ function App() {
     const refresher = createWeatherRefresher({
       getTowns: () => TOWNS,
       getViewport: () => map.getBounds(),
+      getZoom: () => map.getZoom(),
       fetchImpl,
       onTemps: (list: CurrentTemp[]) =>
         setTemps((prev) => {

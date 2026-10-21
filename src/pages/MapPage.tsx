@@ -89,6 +89,7 @@ function MapBadges() {
       getTowns: () =>
         map.getZoom() >= TOWN_BADGE_MIN_ZOOM ? visibleRef.current : [],
       getViewport: () => boundsOf(map),
+      getZoom: () => map.getZoom(),
       fetchImpl: (input, init) => fetch(input, init),
       onTemps: (batch: CurrentTemp[]) =>
         setTemps((prev) => {
@@ -128,11 +129,27 @@ function MapBadges() {
   return <TownBadges towns={visible} temps={temps} />;
 }
 
+/**
+ * Test hook: ?ndsCenter=lng,lat overrides the initial map center so specs can
+ * land on a town-dense region (zoom-9 viewports are ~11 km wide; the default
+ * center sits between baked towns). Production default unchanged.
+ */
+function centerFromLocation(): [number, number] {
+  try {
+    const raw = new URLSearchParams(window.location.search).get('ndsCenter')
+    if (!raw) return [-98.5, 39.8]
+    const [lng, lat] = raw.split(',').map(Number)
+    return Number.isFinite(lng) && Number.isFinite(lat) ? [lng, lat] : [-98.5, 39.8]
+  } catch {
+    return [-98.5, 39.8]
+  }
+}
+
 export default function MapPage() {
   return (
     <section aria-labelledby="map-heading" className="map-page">
       <h1 id="map-heading">Map</h1>
-      <MapView center={[-98.5, 39.8]} zoom={3}>
+      <MapView center={centerFromLocation()} zoom={3}>
         <MapBadges />
       </MapView>
     </section>

@@ -18,19 +18,15 @@ const OUT = 'docs/screenshots/L5-map';
  * gate stays honest. No console-exclusion widening was needed for real-app
  * usage beyond the pre-existing style-validation/GL-driver exclusions below.
  */
-const BATCH_URL = 'https://api.open-meteo.com/v1/batch';
+// W1 wave-2: the app GETs the same-origin /api/weather proxy (S5); the old
+// api.open-meteo.com/v1/batch POST endpoint never existed. Stub the proxy so
+// this spec makes zero real weather calls (the badge pipeline is asserted in
+// badges.spec.ts; here we only need silence + no console noise).
+const WEATHER_URL = /\/api\/weather\?.*/;
 
 function stubOpenMeteo(page: Page): Promise<void> {
-  return page.route(BATCH_URL, async (route) => {
-    const body = route.request().postDataJSON() as {
-      batch: Array<{ latitude: number; longitude: number }>;
-    };
-    const temps = [21.4, -3.2, 8.7, 15.1, 0.5, 30.9, -12.4, 42.0];
-    const response = {
-      batch: body.batch.map((_, i) => ({
-        current: { temperature_2m: temps[i % temps.length] },
-      })),
-    };
+  return page.route(WEATHER_URL, async (route) => {
+    const response = { temps: {}, stale: false };
     await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(response) });
   });
 }
