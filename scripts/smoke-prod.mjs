@@ -167,7 +167,9 @@ async function checkFeed(page, shots) {
   await page.goto(`${BASE}/feed`, { waitUntil: 'domcontentloaded', timeout: 30_000 });
   await page.getByRole('heading', { name: 'Feed' }).waitFor({ state: 'visible', timeout: 15_000 });
   const body = await page.locator('main').innerText();
-  if (!/awaiting feed/i.test(body)) {
+  // Wave 2 honest states: identity gate (no session) OR "No posts in {town}
+  // yet" (session, empty town). Fake posts = instant fail (law #1).
+  if (!/not in a town yet|No posts in/i.test(body)) {
     throw new Error(`/feed not in honest state; main text: ${body.slice(0, 200)}`);
   }
   await page.screenshot({ path: shots.feed });
