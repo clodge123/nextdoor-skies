@@ -25,7 +25,7 @@ live-egress law:
 
 - W1 WEATHER-PROXY (fixes Open-Meteo batch 404 "awaiting feed" bug)
 - W2 NWS-ALERTS-PROXY (points->FIPS cache, UA server-side)
-- W3 IDENTITY (nickname + town picker, geolocation->search)
+- W3 IDENTITY ✅ MERGED (`890e2b9`): session lib S1 + IdentityPicker + nearestTown, 25 new tests, gates 81/81 vitest
 - W4 POSTS-API (posts/comments/reactions/flags, 1 function, migrations)
 - W5 FEED-UI (hot-pinned + newest, canvas snapshots, reply flow)
 - W6 POLISH (nav CSS owner-flagged, mobile parity, 44px targets)

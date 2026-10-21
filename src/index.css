@@ -11,6 +11,8 @@
   --accent: #00ff9d;
   --current-accent: var(--accent);
   --radius: 0px;
+  /* W6: header band height; map-page subtracts it. Phone layout stacks. */
+  --header-h: 60px;
 }
 
 html[data-theme="light"] {
@@ -45,8 +47,9 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  /* W6 mobile parity: >=44px touch target. */
+  width: 44px;
+  height: 44px;
   padding: 0;
   background: var(--surface);
   color: var(--current-accent);
@@ -104,11 +107,23 @@ body {
 }
 
 /* L12 app wiring: MapView is position:absolute inset:0, so the page section
-   must be positioned and sized. Header is ~60px; map fills the rest. */
+   must be positioned and sized. Header is --header-h; map fills the rest. */
 .map-page {
   position: relative;
-  height: calc(100vh - 60px);
+  height: calc(100vh - var(--header-h));
   min-height: 480px;
+  padding: 0;
+}
+
+/* The map page heading is for a11y/semantics only — it sits ON the live map,
+   so it is visually hidden (still exposed to screen readers). */
+.map-page > h1 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .map-controls {
@@ -126,8 +141,156 @@ body {
   border: 2px solid var(--current-accent);
   background: #101014;
   color: #f5f5f5;
-  padding: 4px 10px;
+  padding: 8px 12px;
   font: 600 13px/1 system-ui, sans-serif;
+  /* W6 mobile parity: discoverable, tappable >=44px targets. */
+  min-width: 44px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   W6 POLISH — app shell + header (owner field-test: "nav bar renders but
+   has no CSS"). Square geometry law (R20): border-radius ONLY var(--radius).
+   ========================================================================== */
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  min-height: var(--header-h);
+  padding: 8px 16px;
+  background: var(--surface);
+  border-bottom: 2px solid var(--border);
+}
+
+.app-brand {
+  display: inline-flex;
+  align-items: center;
+  font: 700 15px/1.2 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.app-brand::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 8px;
+  background: var(--current-accent);
+}
+
+.app-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+/* Nav links: >=44px hit boxes (touch law), square, visible affordance. */
+.app-nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 14px;
+  font: 600 14px/1 system-ui, sans-serif;
+  color: var(--text);
+  text-decoration: none;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.app-nav-link:hover {
+  border-color: var(--current-accent);
+}
+
+/* Active-route state (NavLink .active; data-route attrs kept for e2e). */
+.app-nav-link.is-active {
+  color: var(--current-accent);
+  border-color: var(--current-accent);
+  background: var(--surface);
+  box-shadow: inset 0 -4px 0 var(--current-accent);
+}
+
+.app-header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.app-main {
+  flex: 1 1 auto;
+}
+
+/* Feed placeholder page: legible honest state, not unstyled text at 0,0. */
+.app-main > section:not(.map-page) {
+  padding: 16px;
+}
+
+.app-main > section:not(.map-page) h1 {
+  margin: 0 0 8px;
+  font: 700 22px/1.3 system-ui, sans-serif;
+  color: var(--text);
+}
+
+.app-main > section:not(.map-page) p {
+  margin: 0;
+  font: 500 15px/1.5 system-ui, sans-serif;
+  color: var(--text);
+}
+
+/* Phone layout: brand row on top, nav + toggle stack below, all >=44px. */
+@media (max-width: 480px) {
+  :root {
+    --header-h: 104px;
+  }
+
+  .app-header {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .app-brand {
+    width: 100%;
+  }
+
+  .app-nav {
+    margin-left: 0;
+    flex: 1 1 auto;
+  }
+
+  .app-nav-link {
+    flex: 1 1 auto;
+    padding: 0 10px;
+  }
+}
+
+/* W6 badge tier visuals: >=40px tap target, square, accent border, legible
+   honest "awaiting feed" state. (Zoom gate lives in TownBadges.tsx.) */
+.town-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  min-width: 40px;
+  padding: 4px 8px;
+  pointer-events: auto;
+}
+
+.town-badge-temp {
+  padding: 2px 4px;
+  font-size: 13px;
 }
 
 /* W3-IDENTITY — IdentityPicker (square geometry: var(--radius) only, R20). */
