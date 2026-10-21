@@ -21,7 +21,7 @@ function stubMap(zoom: number): MapLike {
 describe('TownBadges', () => {
   it('renders rounded temp numbers over towns when zoomed in', () => {
     render(
-      <MapContext.Provider value={stubMap(8)}>
+      <MapContext.Provider value={stubMap(10)}>
         <TownBadges towns={towns} temps={{ springfield: 21.6, faraway: 4 }} />
       </MapContext.Provider>,
     )
@@ -32,7 +32,7 @@ describe('TownBadges', () => {
 
   it('shows honest "awaiting feed" for towns without data (R19)', () => {
     render(
-      <MapContext.Provider value={stubMap(8)}>
+      <MapContext.Provider value={stubMap(10)}>
         <TownBadges towns={towns} temps={{}} />
       </MapContext.Provider>,
     )
@@ -50,7 +50,7 @@ describe('TownBadges', () => {
 
   it('positions badges via map.project()', () => {
     render(
-      <MapContext.Provider value={stubMap(8)}>
+      <MapContext.Provider value={stubMap(10)}>
         <TownBadges towns={towns} temps={{ springfield: 10 }} />
       </MapContext.Provider>,
     )
