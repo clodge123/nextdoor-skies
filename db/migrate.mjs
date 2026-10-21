@@ -8,7 +8,11 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
-const EXPECTED_TABLES = ['reports', 'comments', 'flags', 'reactions', 'rate_limit'];
+const EXPECTED_TABLES = [
+  'reports', 'comments', 'flags', 'reactions', 'rate_limit',
+  // wave-2 (W4-POSTS): prefixed post_* to avoid collision with run-1 tables
+  'posts', 'post_comments', 'post_reactions', 'post_flags',
+];
 
 function die(msg) {
   console.error(`[migrate] ${msg}`);
