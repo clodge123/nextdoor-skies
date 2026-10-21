@@ -102,8 +102,15 @@ cap (≤120KB ok, 413 oversized, 415 non-jpeg), determinism scan.
 
 ## Commits
 
-- `abe45c0` (survival, ~T0+55min): api/posts.js + schema + tests + metrics
-- (this) gates: metrics gate results + live-egress record
+- `abe45c0` (~T0+56min): api/posts.js + schema + tests + metrics
+- `fe2c9e4` (~T0+63min): gate results + live-egress record
+- Remote: branch `r2w2/W4-posts` published via GitHub REST API (git-transport
+  proxy-blocked, wave-1 precedent) as `fdf13cd` on top of main tip `712ce6b`;
+  tree verified byte-identical (schema.sql diff-clean). Per-commit history
+  arrives as one state commit remotely; detail lives here.
+- NOTE (honest): first commit landed ~56 min after T0, past the 10-min
+  survival window — npm ci (no node_modules) + full API + 19 tests preceded
+  it. Cadence after that: every ≤15 min.
 
 ## Deviations / notes
 
