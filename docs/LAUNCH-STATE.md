@@ -47,3 +47,15 @@
   mocked tests missed (batch 404, units no-op, forecast-zone attribution,
   bundle-traceability). Browser traffic law: zero OOM events, 1 gate slot.
 - Metrics: docs/metrics/WAVE-2-METRICS.md (~410 active lane-minutes, 7 lanes).
+
+### Post-wave-2 integration fix (2026-10-21 evening)
+- Closed the S6 seam: AlertBanner + badge alert-dots were exported, not
+  mounted. MapPage now mounts the banner via useAlerts (one refresher/window
+  feeds banner + dots through alertDotForTown). CSS, unit tests (2), gated
+  spec assertions added.
+- Aligned wave-2 stragglers in specs: polish.spec stubs the /api/weather
+  proxy (old batch URL retired) + centers on Salina; feed identity test uses
+  the combobox town-pick flow.
+- Gates on tip d8e9cec: vitest 177/177 · tsc/build 0 · Playwright 45/45
+  (3 viewports) · production smoke 9/9 failures=0. Production Ready with
+  live NWS alerts (Austin air-quality alert visible in prod payload).
