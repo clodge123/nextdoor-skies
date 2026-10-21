@@ -37,4 +37,4 @@ jobs:
       - name: Seed shard ${{ matrix.shard }}
         env:
           SEED_BASE_URL: https://nextdoor-skies-run2.vercel.app
-        run: node scripts/seed-wave2.mjs --offset ${{ matrix.shard * 5 }} --count 5
+        run: node scripts/seed-wave2.mjs --shard ${{ matrix.shard }} --count 5

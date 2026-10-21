@@ -351,6 +351,15 @@ const COUNT = (() => {
   const i = process.argv.indexOf('--count');
   return i >= 0 ? Math.max(1, Number(process.argv[i + 1]) || 0) : Infinity;
 })();
+/** CI shard index: offset = shard * count (Actions expressions forbid math). */
+{
+  const i = process.argv.indexOf('--shard');
+  if (i >= 0) {
+    const shard = Math.max(0, Number(process.argv[i + 1]) || 0);
+    const c = COUNT === Infinity ? 5 : COUNT;
+    if (OFFSET === 0) process.argv.push('--offset', String(shard * c));
+  }
+}
 const DB_MODE = process.argv.includes('--db');
 
 async function apiGet(path) {
