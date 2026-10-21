@@ -44,7 +44,10 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
-  workers: process.env.CI ? 2 : undefined,
+  // FLEET BROWSER LAW: this host (7.3 GiB, shared with ollama+TTS) OOM-killed
+  // once from lanes running browsers simultaneously. Default 1 worker per run;
+  // fleet-wide serialization lives in scripts/e2e-gate.sh.
+  workers: Number(process.env.E2E_WORKERS ?? 1),
   reporter: process.env.CI
     ? [['list'], ['html', { open: 'never', outputFolder: 'playwright-report' }]]
     : [['list']],

@@ -80,6 +80,12 @@ per-lane proxy archaeology.
 5. One shared e2e config: NO_PROXY + fixed port + port probe, inherited by all lanes.
 6. Gate 1 requires the archived screenshot as a merge artifact (CI runs the spec and commits the PNG) — closes the L4/L5-style "test exists, proof missing" gap.
 7. Owner interventions: 2 this wave (base64 fix + lane-resume) — target ≤1.
+8. **BROWSER TRAFFIC LAW** (post-incident, 2026-10-21): 489 leaked
+   chrome-headless zombies from parallel lane Playwright runs OOM-killed the
+   7.3 GiB host. All browser runs go through `scripts/e2e-gate.sh`
+   (fleet-serialized, 1 slot); playwright workers default 1; code work stays
+   fully parallel. Full law + zombie-repair recipe: `docs/BROWSER-TRAFFIC-LAW.md`.
+   Lane prompts must carry the law's header block verbatim.
 
 ## Article notes (LinkedIn series data points)
 

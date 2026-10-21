@@ -1,6 +1,21 @@
 # Wave SK1 (run 2 wave 1) state — orchestrator ledger
 T0: 2026-10-20 19:45 CDT. Deploy cadence: per-wave only. No deploy in-lane.
 
+## Fleet law v2 (2026-10-21, post-incident): BROWSER TRAFFIC LAW
+
+**Incident:** wave-1 lanes each ran Playwright in parallel (`fullyParallel`,
+default workers=CPU) → dozens of chromiums + **489 leaked chrome-headless
+zombies** OOM-killed the 7.3 GiB host. Owner rebooted. Root cause fixed:
+`scripts/e2e-gate.sh` serializes ALL browser runs fleet-wide (`E2E_SLOTS=1`),
+playwright workers default 1, zombie-reaping documented. Full law:
+`docs/BROWSER-TRAFFIC-LAW.md`.
+
+- Code work (vitest/tsc/build/git/docs): fully parallel, 7 slots, unchanged.
+- Browser runs (Playwright/smoke): queue on the gate; exit 75 = queue+retry,
+  never bypass. Non-browser lanes fill the wall-clock gaps while a browser
+  run holds the gate.
+- Lane prompts must carry the law's header block verbatim.
+
 ## Lane status (fleet law: keep all 7 slots busy; next lane starts the moment one ends)
 | Lane | Branch | Run id | Status |
 |------|--------|--------|--------|
