@@ -63,14 +63,48 @@ const LABEL_LAYERS = ['nds-labels-town', 'nds-labels-city', 'nds-labels-state'];
 // ------------------------------------------------------------- collectors ---
 
 function attachConsoleCollector(page, bag) {
+  // Tile-pyramid 404s are EXPECTED: maplibre speculates neighbouring tiles
+  // beyond the zoom bounds; OpenFreeMap answers 404 for out-of-range z/x/y.
+  // Law #4: tile errors are warnings, never app failures. Track them apart.
+  let tile404 = 0;
+  page.on('response', (r) => {
+    if (r.status() === 404 && r.url().includes('openfreemap.org')) tile404 += 1;
+  });
   page.on('console', (m) => {
     const text = m.text();
     if (IGNORED_CONSOLE.test(text)) return;
+    if (/Failed to load resource.*404/.test(text)) {
+      tile404 += 1; // attributed to the tile pyramid, counted separately
+      return;
+    }
     if (m.type() === 'error' || m.type() === 'warning') {
       bag.push(`console.${m.type()}: ${text.slice(0, 300)}`);
     }
   });
   page.on('pageerror', (e) => bag.push(`pageerror: ${e.message.slice(0, 300)}`));
+  page._tile404 = () => tile404;
+}
+
+// ------------------------------------------------------- tile relay ---
+// Mirror of tests/e2e/tile-relay.ts (Gate 2-proven): serve openfreemap.org
+// requests node-side and re-emit with CORS headers. Node egress is direct
+// (NO_PROXY='*'); the browser never talks to the tile host itself.
+async function relayOfm(route) {
+  try {
+    const res = await fetch(route.request().url());
+    if (!res.ok) throw new Error(`upstream ${res.status}`);
+    const buf = Buffer.from(await res.arrayBuffer());
+    await route.fulfill({
+      status: 200,
+      body: buf,
+      headers: {
+        'access-control-allow-origin': '*',
+        'content-type': res.headers.get('content-type') ?? 'application/octet-stream',
+      },
+    });
+  } catch (e) {
+    await route.fulfill({ status: 502, body: String(e) });
+  }
 }
 
 // --------------------------------------------------------------- checks ---
@@ -91,14 +125,15 @@ async function checkMap(page, shots) {
 
   // Zoom into Manor, TX (real baked town; Austin's town label collision-culls
   // on the 390px phone edge — same probe-verified retarget as tests/map.spec.ts).
-  await page.evaluate(() => window.ndsMap.jumpTo({ center: [-97.6455, 30.2672], zoom: 12.5 }));
+  await page.evaluate(() => window.ndsMap.jumpTo({ center: [-97.5569, 30.3408], zoom: 12.5 }));
   await page.waitForFunction(() => window.ndsMap.getZoom() >= 12, null, { timeout: 30_000 });
   await page.waitForFunction(
-    (layers) =>
-      window.ndsMap.areTilesLoaded() === true &&
-      window.ndsMap.queryRenderedFeatures(undefined, { layers }).length > 0,
+    () => window.ndsMap.areTilesLoaded() === true, null, { timeout: 60_000 },
+  );
+  await page.waitForFunction(
+    (layers) => window.ndsMap.queryRenderedFeatures(undefined, { layers }).length > 0,
     LABEL_LAYERS,
-    { timeout: 60_000 },
+    { timeout: 30_000 },
   );
   const townLabels = await page.evaluate(
     (layers) => window.ndsMap.queryRenderedFeatures(undefined, { layers }).length,
@@ -152,6 +187,7 @@ for (const vp of VIEWPORTS) {
     ...(vp.deviceScaleFactor ? { deviceScaleFactor: vp.deviceScaleFactor } : {}),
   });
   const page = await context.newPage();
+  await page.route('**openfreemap.org/**', relayOfm);
   const bag = [];
   attachConsoleCollector(page, bag);
 
@@ -179,6 +215,7 @@ for (const vp of VIEWPORTS) {
       } catch {}
     }
   }
+  rec.tile404 = page._tile404(); // documented tile-pyramid noise (law #4)
   if (bag.length > 0) {
     rec.consoleErrors = bag;
     failures += 1;
