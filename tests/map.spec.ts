@@ -31,6 +31,14 @@ function stubOpenMeteo(page: Page): Promise<void> {
   });
 }
 
+// S6 wave-2: the map page polls /api/alerts per window. Stub it (clear) so
+// this spec makes zero real NWS calls and the console gate stays clean.
+function stubAlerts(page: Page): Promise<void> {
+  return page.route(/\/api\/alerts\?.*/, async (route) => {
+    await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ alerts: [], stale: false }) });
+  });
+}
+
 async function relayOfm(route: Route) {
   const url = route.request().url();
   // L12: the host egress proxy intermittently 502s glyph pbf/tile fetches,

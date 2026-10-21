@@ -8,6 +8,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import townsData from '../../data/towns/us-towns.json';
 import MapView from '../components/MapView';
 import { TownBadges, TOWN_BADGE_MIN_ZOOM } from '../components/TownBadges';
+import { AlertBanner, useAlerts } from '../components/AlertBanner';
+import { alertDotForTown } from '../lib/weather/alerts';
 import { useMapContext } from '../lib/map/map-context';
 import { townsInBbox, type TownsFile } from '../lib/map/gazetteer';
 import {
@@ -54,6 +56,13 @@ function MapBadges() {
   const refresherRef = useRef<ReturnType<typeof createWeatherRefresher> | null>(null);
   const visibleRef = useRef<TownCoord[]>([]);
   const belowRef = useRef(true);
+
+  // S6 ALERTS: one viewport-bounded refresher per 5-min window (fetch-per-
+  // window law, same cadence as weather). The banner and the badge alert-dots
+  // read the SAME last-good payload — one poll drives both surfaces.
+  const alertState = useAlerts(
+    () => (map ? boundsOf(map) : { west: 0, south: 0, east: 0, north: 0 }),
+  );
 
   // Re-render on map motion so visible-town selection tracks the viewport.
   useEffect(() => {
@@ -126,7 +135,16 @@ function MapBadges() {
   }, [map]);
 
   if (!ready) return null;
-  return <TownBadges towns={visible} temps={temps} />;
+  // Badge alert-dots (contract consumer seam): highest active severity per
+  // visible town from the shared last-good alert payload.
+  const alertsByTown: Record<string, string | null> = {};
+  for (const t of visible) alertsByTown[t.id] = alertDotForTown(alertState.alerts, t.id);
+  return (
+    <>
+      <TownBadges towns={visible} temps={temps} alerts={alertsByTown} />
+      <AlertBanner state={alertState} />
+    </>
+  );
 }
 
 /**

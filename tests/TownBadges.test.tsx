@@ -59,6 +59,30 @@ describe('TownBadges', () => {
     expect(badge.getAttribute('style')).toContain('top: 397.817px')
   })
 
+  it('renders alert dots for towns with active alerts (S6 seam)', () => {
+    render(
+      <MapContext.Provider value={stubMap(10)}>
+        <TownBadges
+          towns={towns}
+          temps={{ springfield: 10 }}
+          alerts={{ springfield: 'Severe', faraway: null }}
+        />
+      </MapContext.Provider>,
+    )
+    const dot = screen.getByTestId('alert-dot-springfield')
+    expect(dot.getAttribute('data-alert-severity')).toBe('Severe')
+    expect(screen.queryByTestId('alert-dot-faraway')).toBeNull()
+  })
+
+  it('renders no dots when the alerts map is absent', () => {
+    render(
+      <MapContext.Provider value={stubMap(10)}>
+        <TownBadges towns={towns} temps={{ springfield: 10 }} />
+      </MapContext.Provider>,
+    )
+    expect(screen.queryByTestId(/alert-dot-/)).toBeNull()
+  })
+
   it('throws a clear seam error without map context', () => {
     expect(() => render(<TownBadges towns={towns} temps={{}} />)).toThrow(/no map instance/)
   })

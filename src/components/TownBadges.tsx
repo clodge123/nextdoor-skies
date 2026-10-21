@@ -18,10 +18,16 @@ export interface TownBadgesProps {
   towns: readonly TownCoord[]
   /** townId -> Celsius, last-data-wins from the weather refresher. */
   temps: Readonly<Record<string, number>>
+  /**
+   * S6 consumer seam: townId -> highest active alert severity (from
+   * alertDotForTown), or null/absent when the town has no alerts. A dot
+   * renders inside the badge for any non-null severity.
+   */
+  alerts?: Readonly<Record<string, string | null>>
   minZoom?: number
 }
 
-export function TownBadges({ towns, temps, minZoom = TOWN_BADGE_MIN_ZOOM }: TownBadgesProps) {
+export function TownBadges({ towns, temps, alerts, minZoom = TOWN_BADGE_MIN_ZOOM }: TownBadgesProps) {
   const map = useMap()
   const [tick, setTick] = useState(0)
 
@@ -55,6 +61,14 @@ export function TownBadges({ towns, temps, minZoom = TOWN_BADGE_MIN_ZOOM }: Town
             <span className="town-badge-temp">
               {hasTemp ? `${Math.round(temp)}°` : 'awaiting feed'}
             </span>
+            {alerts?.[town.id] ? (
+              <span
+                className="town-badge-alert-dot"
+                data-alert-severity={alerts[town.id] as string}
+                data-testid={`alert-dot-${town.id}`}
+                title={`Active alert: ${alerts[town.id]}`}
+              />
+            ) : null}
           </div>
         )
       })}

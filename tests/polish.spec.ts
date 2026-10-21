@@ -23,7 +23,20 @@ import { mkdirSync } from 'node:fs'
  */
 
 const SHOT_DIR = path.join(process.cwd(), 'docs', 'screenshots', 'W6')
-const BATCH_URL = 'https://api.open-meteo.com/v1/batch'
+// W1 wave-2: the app GETs the same-origin /api/weather proxy (S5); the old
+// api.open-meteo.com/v1/batch endpoint never existed. Stub the proxy the
+// same way badges.spec.ts does (deterministic temps keyed by town slug).
+const WEATHER_URL = /\/api\/weather\?.*/
+
+import { readFileSync } from 'node:fs'
+const TOWNS_PATH = path.join(process.cwd(), 'data', 'towns', 'us-towns.json')
+let stubTowns: Array<{ name: string; lat: number; lon: number }> | null = null
+function slugify(name: string): string {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+}
+function stubTownId(name: string, lat: number, lon: number): string {
+  return `${slugify(name)}-${Math.round(lat * 100) / 100}-${Math.round(lon * 100) / 100}`
+}
 
 const IGNORED = /GL Driver Message|Expected value to be of type .*null/
 
@@ -66,19 +79,39 @@ async function relayOfm(route: Route) {
   await route.fulfill({ status: 502, body: String(lastErr) })
 }
 
-/** Stub the batch API. tempsNull=true -> every entry null (honest awaiting-feed). */
+/** Stub the weather proxy. tempsNull=true -> no temps (honest awaiting-feed). */
 function stubOpenMeteo(page: Page, tempsNull = false) {
-  return page.route(BATCH_URL, async (route) => {
-    const body = route.request().postDataJSON() as {
-      batch: Array<{ latitude: number; longitude: number }>
+  return page.route(WEATHER_URL, async (route) => {
+    if (!stubTowns) {
+      stubTowns = (JSON.parse(readFileSync(TOWNS_PATH, 'utf8')) as { towns: NonNullable<typeof stubTowns> }).towns
     }
-    const temps = [21.4, -3.2, 8.7, 15.1, 0.5, 30.9, -12.4, 42.0]
-    const response = {
-      batch: body.batch.map((_, i) => ({
-        current: { temperature_2m: tempsNull ? null : temps[i % temps.length] },
-      })),
+    const params = new URL(route.request().url()).searchParams
+    const [lng1, lat1, lng2, lat2] = params.get('bbox')!.split(',').map(Number)
+    const w = Math.min(lng1, lng2), e = Math.max(lng1, lng2)
+    const s = Math.min(lat1, lat2), n = Math.max(lat1, lat2)
+    const ladder = [21.4, -3.2, 8.7, 15.1, 0.5, 30.9, -12.4, 42.0]
+    const temps: Record<string, number> = {}
+    let i = 0
+    if (!tempsNull) {
+      for (const t of stubTowns) {
+        if (t.lon >= w && t.lon <= e && t.lat >= s && t.lat <= n) {
+          temps[stubTownId(t.name, t.lat, t.lon)] = ladder[i++ % ladder.length]
+        }
+      }
     }
-    await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(response) })
+    await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ temps, stale: false }) })
+  })
+}
+
+// S6 wave-2: the map page polls /api/alerts per window. Stub it (clear) so
+// this spec makes zero real NWS calls and no 404 console noise enters the gate.
+function stubAlerts(page: Page): Promise<void> {
+  return page.route(/\/api\/alerts\?.*/, async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ alerts: [], stale: false }),
+    })
   })
 }
 
@@ -92,7 +125,11 @@ async function setup(page: Page, tempsNull = false): Promise<string[]> {
   const errors = attachConsoleCollector(page)
   await page.route('**tiles.openfreemap.org/**', relayOfm)
   await stubOpenMeteo(page, tempsNull)
-  await page.goto('/', { waitUntil: 'domcontentloaded' })
+  await stubAlerts(page)
+  // Center on Salina, KS (same as badges.spec.ts): zoom-9 viewports are
+  // ~11km wide, so the default center sits between towns and no badge would
+  // ever resolve temps there.
+  await page.goto('/?ndsCenter=-97.6114,38.8403', { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('map-view').locator('canvas')).toBeVisible({ timeout: 30_000 })
   await page.waitForFunction(
     () => (window as { ndsMap?: { isStyleLoaded?: () => boolean } }).ndsMap?.isStyleLoaded?.() === true,
@@ -138,7 +175,8 @@ test('header: visible, >=44px nav hit boxes, active-route highlight, theme toggl
   // Tap Feed -> route changes, highlight follows (data-route attrs exist).
   await tapOrClick(page, feedLink)
   await expect(page.getByRole('heading', { name: 'Feed' })).toBeVisible()
-  await expect(page.getByText('Awaiting feed — wave 2.')).toBeVisible()
+  // Wave 2 honest state: no session -> identity gate, never a fake feed.
+  await expect(page.getByTestId('identity-picker')).toBeVisible()
   await expect(feedLink).toHaveClass(/is-active/)
   await expect(mapLink).not.toHaveClass(/is-active/)
   await expect(page.locator('[data-route="/feed"].is-active')).toHaveCount(1)

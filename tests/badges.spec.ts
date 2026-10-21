@@ -25,6 +25,11 @@ const SHOT_DIR = path.join(process.cwd(), 'docs', 'screenshots', 'L6')
 // The old api.open-meteo.com/v1/batch POST stub is retired — that endpoint
 // never existed (the production bug this lane fixes).
 const WEATHER_URL = /\/api\/weather\?.*/
+// S6 wave-2 integration: the map page polls /api/alerts per window. Stub it
+// deterministically (Salina gets one Severe alert) so the banner + badge dot
+// assertions never depend on live NWS state.
+const ALERTS_URL = /\/api\/alerts\?.*/
+const SALINA_SLUG = 'salina-38.84--97.61'
 
 // Mirror of api/weather.js slug/townId + gazetteer.townsInBbox: the stubbed
 // proxy resolves towns inside the requested bbox and keys temps by the SAME
@@ -107,6 +112,27 @@ function stubOpenMeteo(page: Page): Promise<void> {
   })
 }
 
+function stubAlerts(page: Page): Promise<void> {
+  return page.route(ALERTS_URL, async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        alerts: [
+          {
+            id: 'urn:oid:stub-salina-flood',
+            event: 'Flood Warning',
+            town: SALINA_SLUG,
+            severity: 'Severe',
+            expires: null,
+          },
+        ],
+        stale: false,
+      }),
+    })
+  })
+}
+
 /** Tap on touch contexts, click elsewhere (R13: touch verified on mobile). */
 async function tapOrClick(page: Page, locator: ReturnType<Page['locator']>): Promise<void> {
   if (page.hasTouch) await locator.tap()
@@ -118,6 +144,7 @@ async function setup(page: Page): Promise<string[]> {
   const errors = attachConsoleCollector(page)
   await page.route('**tiles.openfreemap.org/**', relayOfm)
   await stubOpenMeteo(page)
+  await stubAlerts(page)
   // Center on Salina, KS: zoom-9 viewports are ~3.5deg wide and the default
   // center sits between baked towns, so badge temps would never resolve.
   await page.goto('/?ndsCenter=-97.6114,38.8403', { waitUntil: 'domcontentloaded' })
@@ -152,6 +179,15 @@ test('badge shows temp number over a town when zoomed', async ({ page }, testInf
 
   // Square geometry (R20): zero border-radius.
   await expect(badge).toHaveCSS('border-radius', '0px')
+
+  // S6 integration: alert banner lists the stubbed alert, and the Salina
+  // badge carries a severity dot (contract consumer seam alertDotForTown).
+  const banner = page.getByTestId('alert-banner')
+  await expect(banner).toBeVisible({ timeout: 10_000 })
+  await expect(banner).toContainText('Flood Warning (Severe)')
+  const dot = page.getByTestId(`alert-dot-${SALINA_SLUG}`)
+  await expect(dot).toBeVisible({ timeout: 10_000 })
+  await expect(dot).toHaveAttribute('data-alert-severity', 'Severe')
 
   // Zoom back out (9 -> 6 -> 3): zoom-graded visibility hides badges.
   await tapOrClick(page, page.getByRole('button', { name: 'zoom out' }))

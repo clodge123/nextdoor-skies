@@ -238,7 +238,10 @@ test('no session: identity picker gate, never a fake feed', async ({ page }, tes
 
   await expect(page.getByTestId('identity-picker')).toBeVisible()
   await page.getByTestId('identity-nickname').fill('jordan')
-  await page.getByTestId('identity-town').fill('Springfield')
+  // Town is a combobox (search + pick), not a plain field: type, pick the
+  // first result, then save.
+  await page.getByTestId('identity-town-search').fill('Springfield')
+  await page.getByTestId('identity-town-option').first().click()
   await page.getByTestId('identity-save').click()
 
   // session saved -> feed loads (mocked API returns its posts)
