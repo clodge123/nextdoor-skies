@@ -1,1 +1,7 @@
-bm9kZV9tb2R1bGVzCmRpc3QKLm5leHQKLmVudioKLnZlcmNlbAoqLmxvY2FsCg==
+node_modules
+dist
+.env*
+.vercel
+*.local
+coverage
+playwright-report
