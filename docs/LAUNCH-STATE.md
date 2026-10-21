@@ -26,3 +26,24 @@
    third-party OpenFreeMap style expressions (documented exclusion); glyph
    range 404s = OpenFreeMap font pyramid, rendered locally; `tenantID` errors =
    owner's browser extension, not our code.
+
+## Run 2, Wave 2 — COMPLETE (2026-10-21)
+
+- **All 7 lanes merged** (W1 weather proxy, W2 alerts, W3 identity, W4 posts API,
+  W5 feed UI, W6 polish, W7 seed). Tip `8ecdbe6`.
+- **Fixes the owner field-test bug**: badge temps via `/api/weather` server proxy
+  (Open-Meteo batch 404 root cause); zoom-9 badge rule (names-only below, no
+  "awaiting feed" wall); nav bar CSS (owner-flagged unstyled header).
+- **Live features**: per-town feed (hot-pinned + newest), posts with canvas
+  map-snapshot images (data URL, zero storage), one-level replies, reactions
+  (👍❤️😂), flag-to-hide, nickname+town-picker identity (geolocation→search),
+  NWS alert banner + badge dots, 5/hr IP rate limit.
+- **Seed**: 177 posts / 35 towns, 147 real canvas snapshots (CI shard fan-out
+  beat the IP rate limit).
+- **Gates**: vitest 175/175 · tsc/build exit 0 · Playwright 44/44 (3 viewports)
+  · production smoke 9/9, zero console errors. Production Ready:
+  https://nextdoor-skies-run2.vercel.app (4 of 12 functions used).
+- **Laws proven**: live-egress law caught 4 production-adjacent defects that
+  mocked tests missed (batch 404, units no-op, forecast-zone attribution,
+  bundle-traceability). Browser traffic law: zero OOM events, 1 gate slot.
+- Metrics: docs/metrics/WAVE-2-METRICS.md (~410 active lane-minutes, 7 lanes).
