@@ -1,0 +1,62 @@
+{
+  "base": "https://nextdoor-skies-run2.vercel.app",
+  "out": "/home/glman123/projects/nextdoor-skies-run2/docs/screenshots/prod-smoke",
+  "viewports": 3,
+  "failures": 0,
+  "results": [
+    {
+      "viewport": "phone 390x844",
+      "checks": {
+        "map": {
+          "townLabels": 1
+        },
+        "theme": {
+          "bgBefore": "rgb(245, 245, 242)",
+          "bgAfter": "rgb(180, 180, 179)",
+          "themeAttr": "dark"
+        },
+        "feed": {
+          "honest": true
+        }
+      },
+      "consoleErrors": [],
+      "tile404": 1
+    },
+    {
+      "viewport": "tablet 768x1024",
+      "checks": {
+        "map": {
+          "townLabels": 1
+        },
+        "theme": {
+          "bgBefore": "rgb(245, 245, 242)",
+          "bgAfter": "rgb(180, 180, 179)",
+          "themeAttr": "dark"
+        },
+        "feed": {
+          "honest": true
+        }
+      },
+      "consoleErrors": [],
+      "tile404": 1
+    },
+    {
+      "viewport": "desktop 1280x800",
+      "checks": {
+        "map": {
+          "townLabels": 1
+        },
+        "theme": {
+          "bgBefore": "rgb(245, 245, 242)",
+          "bgAfter": "rgb(212, 212, 210)",
+          "themeAttr": "dark"
+        },
+        "feed": {
+          "honest": true
+        }
+      },
+      "consoleErrors": [],
+      "tile404": 1
+    }
+  ]
+}
