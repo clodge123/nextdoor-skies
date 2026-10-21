@@ -351,15 +351,14 @@ const COUNT = (() => {
   const i = process.argv.indexOf('--count');
   return i >= 0 ? Math.max(1, Number(process.argv[i + 1]) || 0) : Infinity;
 })();
-/** CI shard index: offset = shard * count (Actions expressions forbid math). */
-{
+/** CI shard index: effective offset = shard * count (Actions expressions forbid math). */
+const SHARD_OFFSET = (() => {
   const i = process.argv.indexOf('--shard');
-  if (i >= 0) {
-    const shard = Math.max(0, Number(process.argv[i + 1]) || 0);
-    const c = COUNT === Infinity ? 5 : COUNT;
-    if (OFFSET === 0) process.argv.push('--offset', String(shard * c));
-  }
-}
+  if (i < 0) return OFFSET;
+  const shard = Math.max(0, Number(process.argv[i + 1]) || 0);
+  const c = COUNT === Infinity ? 5 : COUNT;
+  return OFFSET || shard * c;
+})();
 const DB_MODE = process.argv.includes('--db');
 
 async function apiGet(path) {
@@ -473,7 +472,7 @@ for (const s of SMALL) {
   }
 }
 
-console.log(`W7 SEED plan: ${plan.length} posts across ${METROS.length + SMALL.length} towns (${METROS.length} metros, ${SMALL.length} small) — ${DRY ? 'DRY RUN' : DB_MODE ? 'LIVE (direct DB)' : `LIVE${LIMIT !== Infinity ? ` limit ${LIMIT}` : ''}${OFFSET || COUNT !== Infinity ? ` shard ${OFFSET}+${COUNT}` : ''}`}`);
+console.log(`W7 SEED plan: ${plan.length} posts across ${METROS.length + SMALL.length} towns (${METROS.length} metros, ${SMALL.length} small) — ${DRY ? 'DRY RUN' : DB_MODE ? 'LIVE (direct DB)' : `LIVE${LIMIT !== Infinity ? ` limit ${LIMIT}` : ''}${SHARD_OFFSET || COUNT !== Infinity ? ` shard ${SHARD_OFFSET}+${COUNT}` : ''}`}`);
 if (DRY) {
   for (const p of plan) console.log(`  ${p.town} [${p.nickname}] ${p.snapshot ? 'snap ' : 'text '} ${p.text}`);
   process.exit(0);
@@ -511,7 +510,7 @@ const perTown = {};
 const failures = [];
 let snapshotTown = null;
 let currentSnapshot = null;
-const shard = plan.slice(OFFSET, COUNT === Infinity ? undefined : OFFSET + COUNT);
+const shard = plan.slice(SHARD_OFFSET, COUNT === Infinity ? undefined : SHARD_OFFSET + COUNT);
 outer: for (const post of shard) {
   if (posted >= LIMIT) break outer;
   if (existing.get(post.town)?.has(post.text)) continue; // already seeded
