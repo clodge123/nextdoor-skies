@@ -1,1 +1,95 @@
-IyBORVhURE9PUiBTS0lFUyDigJQgUlVOIDIg4oCUIFdBVkUgMSBCUklFRiAoRk9VTkRBVElPTikKClN0YXR1czogRFJBRlQgRk9SIE9XTkVSIFNJR04tT0ZGIOKAlCBubyBsYW5lcyBsYXVuY2ggdW50aWwgR08uCk93bmVyOiBHYXJ5IExvZGdlLiBPcmNoZXN0cmF0b3I6IG1haW4gYWdlbnQuIEZsZWV0OiB1cCB0byA3IGFnZW50cyArIG9yY2hlc3RyYXRvci4KUmVwbzogZ2l0aHViLmNvbS9jbG9kZ2UxMjMvbmV4dGRvb3Itc2tpZXMgKHByaXZhdGUsIHJ1biAyKS4gUnVuIDEgYXJjaGl2ZWQ6CmdpdGh1Yi5jb20vY2xvZGdlMTIzL25leHRkb29yLXNraWVzLXJ1bjEuCgojIyBNaXNzaW9uCgpMYXkgYW4gdW5icmVha2FibGUgZm91bmRhdGlvbiBzbyB3YXZlcyAyIGFuZCAzIG5ldmVyIGRpc2NvdmVyIHdhdmUtMSBwcm9ibGVtcy4KRXZlcnkgcmVxdWlyZW1lbnQgYmVsb3cgaXMgbnVtYmVyZWQgKFIjKSBhbmQgbXVzdCBiZSB2ZXJpZmlhYmxlIGJ5IGEgYnJvd3Nlcgp0ZXN0LCBhIHNjcmVlbnNob3QsIG9yIGEgZGVwbG95IGFydGlmYWN0LiBUaGUgcmVxdWlyZW1lbnRzIGxlZGdlciBJUyB0aGUKc291cmNlIG9mIHRydXRoIGZvciAid2hhdCBnb3QgbG9zdCBhbG9uZyB0aGUgd2F5IiDigJQgbm90aGluZyBjbG9zZXMgd2l0aG91dAppdHMgcHJvb2YgbGluZS4KCiMjIFJlcXVpcmVtZW50cyBsZWRnZXIgKHJ1biAyLCBhbGwgd2F2ZXMpCgp8IElEIHwgUmVxdWlyZW1lbnQgfCBXYXZlIHwgUHJvb2YgcmVxdWlyZWQgfAp8LS0tLXwtLS0tLS0tLS0tLS0tfC0tLS0tLXwtLS0tLS0tLS0tLS0tLS0tfAp8IFIxIHwgTWFwIHJlbmRlcnMgYSByZWFsIHByb2R1Y3Rpb24gYmFzZW1hcCAoT3BlbkZyZWVNYXAsIGtleWxlc3MpLCB6b29tIHRpZXJzIGNvdW50cnnihpJzdGF0ZeKGkmNpdHnihpJ0b3duIHwgMSB8IEJyb3dzZXIgc2NyZWVuc2hvdCBhdCA0IHpvb20gdGllcnMgfAp8IFIyIHwgVVMgdG93bnMgZ2F6ZXR0ZWVyOiBhbGwgVVMgcGxhY2VzIOKJpTUwMCBwb3AgKEdlb05hbWVzKSwgem9vbS1ncmFkZWQgbGFiZWxzIHwgMSB8IENvdW50IGFzc2VydGlvbiArIHpvb20taW4gc2NyZWVuc2hvdCBzaG93aW5nIGEgbmFtZWQgdG93biB8CnwgUjMgfCBXZWF0aGVyIE5VTUJFUiB2aXNpYmxlIHBlciB0b3duIGJhZGdlIHdoZW4gem9vbWVkIChPcGVuLU1ldGVvIGJhdGNoLCBrZXlsZXNzKSB8IDEgfCBCcm93c2VyIGFzc2VydHMgdGVtcCB0ZXh0IG9uIGJhZGdlIHwKfCBSNCB8IFBlci10b3duIGZlZWQgcGFnZXMgPSBwcmltYXJ5IHNvY2lhbCBzdXJmYWNlOyBtYXAgaXMgaG9tZSB8IDIgfCBCcm93c2VyOiBjbGljayB0b3duIOKGkiBwb3B1cCBsYXRlc3QgY29tbWVudHMg4oaSIHRvd24gcGFnZSB8CnwgUjUgfCBOZXh0ZG9vci1zdHlsZSBmZWVkOiBzY3JvbGxhYmxlLCBpbmZpbml0ZSBzY3JvbGwsIHRpbWVzdGFtcHMsIGF1dGhvciwgcmVhY3Rpb25zIHwgMiB8IEJyb3dzZXIgc2Nyb2xsLXRocm91Z2ggdGVzdCB8CnwgUjYgfCBDb21wb3NlcjogcG9zdCB3aXRoIGxvY2F0aW9uIGF1dG8tc2V0OyBOTyB1c2VyIHBob3RvIHVwbG9hZHMgfCAyIHwgQnJvd3NlciBwb3N0IGZsb3cgfAp8IFI3IHwgQVVUTyBtYXAtc25hcHNob3QgaW1hZ2Ugb24gZXZlcnkgcG9zdDogc2VydmVyLXJlbmRlcmVkIG1hcCB0aWxlIGF0IHBvc3QgY29vcmRzLCBzdG9yZWQgVmVyY2VsIEJsb2IgfCAyIHwgQnJvd3NlciBhc3NlcnRzIDxpbWc+IHNob3dzIHRoZSBsb2NhdGlvbiB8CnwgUjggfCBPbmUtbGV2ZWwgY29tbWVudHMgKHBvc3Qg4oaSIHJlcGxpZXMpIHwgMiB8IEJyb3dzZXIgcmVwbHkgdGVzdCB8CnwgUjkgfCBSZWFjdGlvbnMgKyBmbGFncyArIHJhdGUgbGltaXRpbmcgKHJ1bi0xIG1lY2hhbmljcywgaGFyZGVuZWQpIHwgMiB8IEJyb3dzZXIgKyBBUEkgdGVzdHMgfAp8IFIxMCB8IE5XUyBhbGVydHMgdmlhIFNFUlZFUiBQUk9YWSAoVXNlci1BZ2VudCBoZWFkZXIgd29ya3Mgc2VydmVyLXNpZGUgb25seSkgfCAyIHwgQnJvd3NlcjogYmFubmVyIHJlbmRlcnMgcmVhbCBhbGVydHMsIG5vIDQwMyB8CnwgUjExIHwgUmFkYXIgbGF5ZXIgKFJhaW5WaWV3ZXIpIG9wdC1pbiwgdGltZWxpbmUgc2NydWJiZXIgfCAzIHwgQnJvd3NlciB0b2dnbGUgdGVzdCB8CnwgUjEyIHwgV2VhdGhlci1yZWFjdGl2ZSBORU9OIHRoZW1lOiByYWlu4oaSY3lhbi9ibHVlLCBzdG9ybeKGknB1cnBsZSwgc25vd+KGkmljZS13aGl0ZSwgY2xlYXLihpJuZW9uIGdyZWVuLCBoZWF04oaSb3JhbmdlL3JlZC4gTVVTVCB2aXNpYmx5IGZpcmUgfCAxIChlbmdpbmUpICsgMyAocG9saXNoKSB8IEJyb3dzZXIgdGVzdDogbW9jayB3ZWF0aGVyIGNoYW5nZSDihpIgYWNjZW50IENTUyB2YXIgY2hhbmdlcyB8CnwgUjEzIHwgUmVzcG9uc2l2ZSBFUVVBTDogZGVza3RvcCwgdGFibGV0LCBwaG9uZS4gTW9iaWxlLWZpcnN0IHF1YWxpdHkgYmFyLiB8IDEgKHRva2VucykgKyBhbGwgfCBFdmVyeSBnYXRlIHJ1bnMgMyB2aWV3cG9ydHMgfAp8IFIxNCB8IERlbW8gZGF0YSBzZWVkZWQgcGVyIHRvd24gKGFwcCBpcyBuZXZlciBlbXB0eSkgfCAxIChpbmZyYSkgKyAyIChjb250ZW50KSB8IEZyZXNoIHByb2QgZGVwbG95IHNob3dzIHNlZWRlZCBwb3N0cyBwZXIgdG93biB8CnwgUjE1IHwgQWNjb3VudC1sZXNzIGlkZW50aXR5OiBkZXZpY2UtdG9rZW4gcHJvdmVzIGF1dGhvcnNoaXAgKGVkaXQvZGVsZXRlIG93biBwb3N0cykgfCAyIHwgQnJvd3NlcjogcG9zdCwgZWRpdCwgZGVsZXRlIGZyb20gc2FtZSBkZXZpY2UgfAp8IFIxNiB8IERlcGxveSBwaXBlbGluZTogY29tbWl0LWF1dGhvciBwcmVmbGlnaHQsIGZ1bmN0aW9uLWNvdW50IOKJpDEyIGNoZWNrLCBhdXRvLW1pZ3JhdGlvbiwgZW52LXZhciBhdWRpdCB8IDEgfCBDSSBnYXRlIHJ1bnMgYWxsIGZvdXIgY2hlY2tzIHwKfCBSMTcgfCBEZXRlcm1pbmlzbSBsYXc6IG5vIE1hdGgucmFuZG9tIC8gRGF0ZS5ub3cgLyBuZXcgRGF0ZSBpbiByZW5kZXIvbG9naWMgcGF0aHMgfCAxIHwgU3RhdGljIHNjYW4gZ2F0ZSAoQ0kpIHwKfCBSMTggfCBNZXRyaWNzIGluZnJhOiBhY3RpdmUtdGltZS1vbmx5IGFjY291bnRpbmcsIHBlci1sYW5lIHJvd3MsIGdhdGUgY291bnRlcnMgfCAxIHwgTWV0cmljcyBmaWxlIHdyaXR0ZW4gcGVyIGxhbmUgfAp8IFIxOSB8IEhvbmVzdCBzdGF0ZXM6IHJlYWwgZGF0YSBvciBleHBsaWNpdCAiYXdhaXRpbmcgZmVlZCIg4oCUIG5ldmVyIGxvb2thbGlrZSBmYWxsYmFja3MgfCBhbGwgfCBDb2RlIHJldmlldyArIGJyb3dzZXIgdGVzdCBwZXIgc3VyZmFjZSB8CnwgUjIwIHwgU3F1YXJlIGdlb21ldHJ5LCB6ZXJvIGJvcmRlci1yYWRpdXMsIGRlc2lnbiB0b2tlbnMgKGFudGktc2xvcCBzaWduYXR1cmUpIHwgMSB8IFN0YXRpYyBzY2FuICsgc2NyZWVuc2hvdCByZXZpZXcgfAoKIyMgRGVzaWduIGxhd3MgKGJha2VkIGludG8gYXJjaGl0ZWN0dXJlLCBub3QgVE9ETyBpdGVtcykKClJ1bi0xIGF1dG9wc3kgZml4ZXMsIHByb21vdGVkIHRvIGxhdzoKMS4gUHJvZHVjdGlvbiBiYXNlbWFwIG9ubHkgKG5vIGRlbW90aWxlcyBDRE4pLgoyLiBGZXRjaCBwZXIgfjUtbWluIHdpbmRvdywgTk9UIHBlciBwYW4gKG5vIHJlZmV0Y2ggc3Rvcm1zLCBubyBvdmVybGF5IGZsaWNrZXIpLgozLiBMYXN0LWRhdGEtd2lucyBsb2FkaW5nOiBrZWVwIHNob3dpbmcgbGFzdCByZXN1bHQgd2hpbGUgcG9sbGluZzsgYGxvYWRpbmdgCiAgIG9ubHkgb24gZmlyc3QtZXZlciBmZXRjaCAobm8gYmFubmVyIGZsaWNrZXIpLgo0LiBUaWxlIGVycm9ycyA9IHdhcm5pbmdzIChjb3VudCwgZG9uJ3QgZmxpcCBVSSB0byBlcnJvcik7IG1hcCBzdGF0dXMgcmVzZXRzLgo1LiBGb3JiaWRkZW4gYnJvd3NlciBoZWFkZXJzIChVc2VyLUFnZW50KSBuZXZlciByZWxpZWQgb24gY2xpZW50LXNpZGUg4oCUIHByb3h5Lgo2LiBDYW52YXMgcmVzaXplIG9ubHkgd2hlbiBzaXplIGFjdHVhbGx5IGNoYW5nZXMuCjcuIENvb3JkaW5hdGUta2V5IGRlYm91bmNpbmcgKH4wLjAwNcKwKSBzbyBwYW5uaW5nIGNhbid0IHN0b3JtIHN1YnNjcmlwdGlvbnMuCgojIyBXYXZlIDEgbGFuZXMgKDcgbGFuZXMsIHBhcmFsbGVsLCBzbWFsbGVyIHNjb3BlIGVhY2gpCgotICoqTDEgU0NBRkZPTEQqKiDigJQgVml0ZSArIFJlYWN0ICsgVFMgKyBSb3V0ZXIsIEVTTGludC9QcmV0dGllciwgdml0ZXN0LCBDSQogICh0c2MvZXNsaW50L2J1aWxkL3ZpdGVzdCksIGRldGVybWluaXNtICsgcmFkaXVzIHN0YXRpYyBzY2FucyAoUjE3LCBSMjApLgotICoqTDIgUExBWVdSSUdIVC1IQVJORVNTKiog4oCUIFBsYXl3cmlnaHQgd2lyZWQgZGF5IDE6IGNvbmZpZywgZGVza3RvcCt0YWJsZXQrCiAgcGhvbmUgcHJvamVjdHMsIGNvbnNvbGUtZXJyb3IgY29sbGVjdG9yLCBzY3JlZW5zaG90IGFyY2hpdmluZywgQ0kgam9iLgogIE5vdGhpbmcgbWVyZ2VzIGFmdGVyIHRoaXMgbGFuZSB3aXRob3V0IGEgYnJvd3NlciB0ZXN0LiAoR2F0ZSBmb3VuZGF0aW9uLikKLSAqKkwzIERFUExPWS1QSVBFTElORSoqIOKAlCBWZXJjZWwgcHJvamVjdCAoQ0xJIGRlcGxveXM7IG93bmVyIGxpbmtzIEdpdEh1YgogIGFwcCksIGF1dGhvci1wcmVmbGlnaHQgc2NyaXB0LCBmdW5jdGlvbi1jb3VudCBjaGVjaywgTmVvbiBlbnYtdmFyIGF1ZGl0LAogIGF1dG8tbWlncmF0aW9uIGluIGRlcGxveSBsaWZlY3ljbGUsIHByZXZpZXcrcHJvZCBVUkxzIHJlY29yZGVkLiAoUjE2KQotICoqTDQgREVTSUdOLVRPS0VOUy1USEVNRSoqIOKAlCBpbmRleC5jc3MgdG9rZW5zLCBzcXVhcmUgZ2VvbWV0cnksIGxpZ2h0L2RhcmssCiAgYC0tY3VycmVudC1hY2NlbnRgIHdlYXRoZXIgbWFwcGluZyArIHNldEFjY2VudCBBUEkgKyBicm93c2VyIHRlc3QgYXNzZXJ0aW5nCiAgdGhlIGFjY2VudCB2aXNpYmx5IGNoYW5nZXMuIChSMTIsIFIyMCkKLSAqKkw1IE1BUC1TSEVMTC1HQVpFVFRFRVIqKiDigJQgTWFwTGlicmUgKyBPcGVuRnJlZU1hcCBzdHlsZSwgem9vbS10aWVyIGNvbnRyb2wsCiAgR2VvTmFtZXMgVVMgdG93bnMg4omlNTAwIHBvcCBwaXBlbGluZSAoZmV0Y2jihpJiYWtl4oaSdGlsZXMvZ2VvanNvbiksIHRvd24gbGFiZWxzLgogIChSMSwgUjIsIGxhd3MgMSwgMiwgNCwgNykKLSAqKkw2IFRPV04tV0VBVEhFUi1CQURHRVMqKiDigJQgT3Blbi1NZXRlbyBiYXRjaCAoMTAwMC1jb29yZCBjYWxscyksIHRlbXAtbnVtYmVyCiAgYmFkZ2VzIG9uIHRvd24gbGFiZWxzLCB6b29tLWdyYWRlZC4gKFIzKQotICoqTDcgU0VFRC1ERU1PLUlORlJBKiog4oCUIHNlZWQtb25jZSBtZWNoYW5pc20ga2V5ZWQgdG8gdG93bnMsIGRlbW8gcG9zdHMgcGVyCiAgdG93biwgbWlncmF0aW9uIFNRTCwgaG9uZXN0ICJEZW1vIGRhdGEiIGxhYmVsaW5nLiAoUjE0LCBSMTYgbWlncmF0aW9uIHBhcnQpCgojIyBXYXZlIDEgY2xvc2Utb3V0IGdhdGVzIChhbGwgbWFuZGF0b3J5KQoKMS4gQWxsIDcgbGFuZXMgbWVyZ2VkLCBmdWxsIENJIGdyZWVuLgoyLiBJbnRlZ3JhdGlvbiBicm93c2VyIHN1aXRlIG9uIGRldiBzZXJ2ZXI6IGhvbWUgbWFwIHJlbmRlcnMsIHpvb20gdG8gdG93biwKICAgYmFkZ2Ugc2hvd3MgdGVtcCwgdGhlbWUgZmlyZXMsIDMgdmlld3BvcnRzLCB6ZXJvIGNvbnNvbGUgZXJyb3JzLgozLiBEZXBsb3kgdG8gcHJvZHVjdGlvbiAobmV3IFZlcmNlbCBwcm9qZWN0KS4KNC4gUHJvZHVjdGlvbiBzbW9rZSBpbiByZWFsIGJyb3dzZXIgKFBsYXl3cmlnaHQgKyBoYW5kcy1vbiBPcGVuQ2xhdyBicm93c2VyCiAgIHNlc3Npb24pOiBzY3JlZW5zaG90cyBkZXNrdG9wL3RhYmxldC9waG9uZSwgY29uc29sZSBjbGVhbi4KNS4gTGVkZ2VyIGF1ZGl0OiBldmVyeSB3YXZlLTEgUiMgaGFzIGl0cyBwcm9vZiBsaW5lLgo2LiBSZXRybyBkb2MgKyBtZXRyaWNzIHJvbGx1cC4KNy4gT3duZXIgcmV2aWV3IGJldHdlZW4gd2F2ZXMgKHN0ZWVyaW5nIHdpbmRvdykuCgojIyBDb25zdHJhaW50cwoKLSBGcmVlL2tleWxlc3Mgb25seSAoT3BlbkZyZWVNYXAsIEdlb05hbWVzLCBPcGVuLU1ldGVvLCBSYWluVmlld2VyLCBOV1MsCiAgTmVvbiwgVmVyY2VsIEhvYmJ5KS4gTm8gcGFpZCBzZXJ2aWNlcy4KLSDiiaQxMiBzZXJ2ZXJsZXNzIGZ1bmN0aW9ucyAoSG9iYnkpIOKAlCBmdW5jdGlvbi1jb3VudCBnYXRlIGVuZm9yY2VzLgotIENvbW1pdCBhdXRob3I6IGBjbG9kZ2UxMjMgPGNsb2RnZTEyM0B1c2Vycy5ub3JlcGx5LmdpdGh1Yi5jb20+YCAodmVyaWZpZWQKICB3b3JraW5nIGNyZWRlbnRpYWw7IG93bmVyIGxpbmtzIEdpdEh1YuKGklZlcmNlbCBtYW51YWxseSkuCi0gTm8gaW1wb3J0cyBmcm9tIGNyeXB0by13ZWF0aGVyLWNlbnRyYWwuCi0gNGggY2FwIHBlciBsYW5lOyBzdXJ2aXZhbCBjb21taXQg4omkMTAgbWluIHRoZW4g4omkMTUgbWluIGNhZGVuY2UuCi0gTm8gT3BlbkNsYXcgYXV0by11cGRhdGVzIGR1cmluZyB3YXZlcyAob3duZXItZW5mb3JjZWQpLgo=
+# NEXTDOOR SKIES — RUN 2 — WAVE 1 BRIEF (FOUNDATION)
+
+Status: DRAFT FOR OWNER SIGN-OFF — no lanes launch until GO.
+Owner: Gary Lodge. Orchestrator: main agent. Fleet: up to 7 agents + orchestrator.
+Repo: github.com/clodge123/nextdoor-skies (private, run 2). Run 1 archived:
+github.com/clodge123/nextdoor-skies-run1.
+
+## Mission
+
+Lay an unbreakable foundation so waves 2 and 3 never discover wave-1 problems.
+Every requirement below is numbered (R#) and must be verifiable by a browser
+test, a screenshot, or a deploy artifact. The requirements ledger IS the
+source of truth for "what got lost along the way" — nothing closes without
+its proof line.
+
+## Requirements ledger (run 2, all waves)
+
+| ID | Requirement | Wave | Proof required |
+|----|-------------|------|----------------|
+| R1 | Map renders a real production basemap (OpenFreeMap, keyless), zoom tiers country→state→city→town | 1 | Browser screenshot at 4 zoom tiers |
+| R2 | US towns gazetteer: all US places ≥500 pop (GeoNames), zoom-graded labels | 1 | Count assertion + zoom-in screenshot showing a named town |
+| R3 | Weather NUMBER visible per town badge when zoomed (Open-Meteo batch, keyless) | 1 | Browser asserts temp text on badge |
+| R4 | Per-town feed pages = primary social surface; map is home | 2 | Browser: click town → popup latest comments → town page |
+| R5 | Nextdoor-style feed: scrollable, infinite scroll, timestamps, author, reactions | 2 | Browser scroll-through test |
+| R6 | Composer: post with location auto-set; NO user photo uploads | 2 | Browser post flow |
+| R7 | AUTO map-snapshot image on every post: server-rendered map tile at post coords, stored Vercel Blob | 2 | Browser asserts <img> shows the location |
+| R8 | One-level comments (post → replies) | 2 | Browser reply test |
+| R9 | Reactions + flags + rate limiting (run-1 mechanics, hardened) | 2 | Browser + API tests |
+| R10 | NWS alerts via SERVER PROXY (User-Agent header works server-side only) | 2 | Browser: banner renders real alerts, no 403 |
+| R11 | Radar layer (RainViewer) opt-in, timeline scrubber | 3 | Browser toggle test |
+| R12 | Weather-reactive NEON theme: rain→cyan/blue, storm→purple, snow→ice-white, clear→neon green, heat→orange/red. MUST visibly fire | 1 (engine) + 3 (polish) | Browser test: mock weather change → accent CSS var changes |
+| R13 | Responsive EQUAL: desktop, tablet, phone. Mobile-first quality bar. | 1 (tokens) + all | Every gate runs 3 viewports |
+| R14 | Demo data seeded per town (app is never empty) | 1 (infra) + 2 (content) | Fresh prod deploy shows seeded posts per town |
+| R15 | Account-less identity: device-token proves authorship (edit/delete own posts) | 2 | Browser: post, edit, delete from same device |
+| R16 | Deploy pipeline: commit-author preflight, function-count ≤12 check, auto-migration, env-var audit | 1 | CI gate runs all four checks |
+| R17 | Determinism law: no Math.random / Date.now / new Date in render/logic paths | 1 | Static scan gate (CI) |
+| R18 | Metrics infra: active-time-only accounting, per-lane rows, gate counters | 1 | Metrics file written per lane |
+| R19 | Honest states: real data or explicit "awaiting feed" — never lookalike fallbacks | all | Code review + browser test per surface |
+| R20 | Square geometry, zero border-radius, design tokens (anti-slop signature) | 1 | Static scan + screenshot review |
+
+## Design laws (baked into architecture, not TODO items)
+
+Run-1 autopsy fixes, promoted to law:
+1. Production basemap only (no demotiles CDN).
+2. Fetch per ~5-min window, NOT per pan (no refetch storms, no overlay flicker).
+3. Last-data-wins loading: keep showing last result while polling; `loading`
+   only on first-ever fetch (no banner flicker).
+4. Tile errors = warnings (count, don't flip UI to error); map status resets.
+5. Forbidden browser headers (User-Agent) never relied on client-side — proxy.
+6. Canvas resize only when size actually changes.
+7. Coordinate-key debouncing (~0.005°) so panning can't storm subscriptions.
+
+## Wave 1 lanes (7 lanes, parallel, smaller scope each)
+
+- **L1 SCAFFOLD** — Vite + React + TS + Router, ESLint/Prettier, vitest, CI
+  (tsc/eslint/build/vitest), determinism + radius static scans (R17, R20).
+- **L2 PLAYWRIGHT-HARNESS** — Playwright wired day 1: config, desktop+tablet+
+  phone projects, console-error collector, screenshot archiving, CI job.
+  Nothing merges after this lane without a browser test. (Gate foundation.)
+- **L3 DEPLOY-PIPELINE** — Vercel project (CLI deploys; owner links GitHub
+  app), author-preflight script, function-count check, Neon env-var audit,
+  auto-migration in deploy lifecycle, preview+prod URLs recorded. (R16)
+- **L4 DESIGN-TOKENS-THEME** — index.css tokens, square geometry, light/dark,
+  `--current-accent` weather mapping + setAccent API + browser test asserting
+  the accent visibly changes. (R12, R20)
+- **L5 MAP-SHELL-GAZETTEER** — MapLibre + OpenFreeMap style, zoom-tier control,
+  GeoNames US towns ≥500 pop pipeline (fetch→bake→tiles/geojson), town labels.
+  (R1, R2, laws 1, 2, 4, 7)
+- **L6 TOWN-WEATHER-BADGES** — Open-Meteo batch (1000-coord calls), temp-number
+  badges on town labels, zoom-graded. (R3)
+- **L7 SEED-DEMO-INFRA** — seed-once mechanism keyed to towns, demo posts per
+  town, migration SQL, honest "Demo data" labeling. (R14, R16 migration part)
+
+## Wave 1 close-out gates (all mandatory)
+
+1. All 7 lanes merged, full CI green.
+2. Integration browser suite on dev server: home map renders, zoom to town,
+   badge shows temp, theme fires, 3 viewports, zero console errors.
+3. Deploy to production (new Vercel project).
+4. Production smoke in real browser (Playwright + hands-on OpenClaw browser
+   session): screenshots desktop/tablet/phone, console clean.
+5. Ledger audit: every wave-1 R# has its proof line.
+6. Retro doc + metrics rollup.
+7. Owner review between waves (steering window).
+
+## Constraints
+
+- Free/keyless only (OpenFreeMap, GeoNames, Open-Meteo, RainViewer, NWS,
+  Neon, Vercel Hobby). No paid services.
+- ≤12 serverless functions (Hobby) — function-count gate enforces.
+- Commit author: `clodge123 <clodge123@users.noreply.github.com>` (verified
+  working credential; owner links GitHub→Vercel manually).
+- No imports from crypto-weather-central.
+- 4h cap per lane; survival commit ≤10 min then ≤15 min cadence.
+- No OpenClaw auto-updates during waves (owner-enforced).
