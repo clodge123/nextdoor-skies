@@ -34,7 +34,20 @@ instant death on this machine.
    ps -eo pid,comm | awk '$2=="chrome-headless"{print $1}' | xargs -r kill -9
    ```
    Zombies are reaped by killing their dead exec wrappers, not by reboot.
-6. **Memory tripwire.** If `free` shows < 500 MB available, ALL lanes pause
+6. **Closeout sweep (mandatory, owner law 2026-10-21).** Every run/wave/lane
+   ends with a process sweep — never leave stale processes idle:
+   ```bash
+   # chrome zombies (see rule 5) + leaked exec anchors. Anchors older than
+   # ~1h with no live work belong to finished lanes; kill them:
+   ps -eo pid,etime,args | grep service-child-group-anchor | grep -v grep \
+     | awk '{split($2,a,":"); if (length(a)==3) print $1}' | xargs -r kill -9
+   ps -eo pid,comm | awk '$2=="chrome-headless"{print $1}' | xargs -r kill -9
+   uptime   # load average must be trending toward idle, not pinned high
+   ```
+   Rationale: leaked OpenClaw exec anchors (~5% CPU each) pinned the Jetson
+   at load 42 with zero running work. Cleanup is part of the lane definition,
+   not an optional extra.
+7. **Memory tripwire.** If `free` shows < 500 MB available, ALL lanes pause
    browser starts (gate refuses new runs) until it recovers.
 
 ## Fleet slot model (updated)
