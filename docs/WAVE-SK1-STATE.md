@@ -16,6 +16,24 @@ playwright workers default 1, zombie-reaping documented. Full law:
   run holds the gate.
 - Lane prompts must carry the law's header block verbatim.
 
+## Wave 2 (run 2) — LANDED & RUNNING (2026-10-21 11:05 CDT)
+
+Day-0 contracts merged (`f732d5b`, S1-S8). Zoom-9 badge rule landed on main
+(`6267310` + test fix `acfb923`). Six lanes launched, one per worktree
+(~/.openclaw/worktrees/r2/w2-W*), all carrying browser traffic law +
+live-egress law:
+
+- W1 WEATHER-PROXY (fixes Open-Meteo batch 404 "awaiting feed" bug)
+- W2 NWS-ALERTS-PROXY (points->FIPS cache, UA server-side)
+- W3 IDENTITY (nickname + town picker, geolocation->search)
+- W4 POSTS-API (posts/comments/reactions/flags, 1 function, migrations)
+- W5 FEED-UI (hot-pinned + newest, canvas snapshots, reply flow)
+- W6 POLISH (nav CSS owner-flagged, mobile parity, 44px targets)
+
+Slot plan: 6 lanes + orchestrator integration slot (me). Browser runs
+gate-serialized (E2E_SLOTS=1) — lanes queue, never collide. Deploy: per-wave
+only, after Gate 2 green. Metrics: docs/metrics/W*.md per lane.
+
 ## Lane status (fleet law: keep all 7 slots busy; next lane starts the moment one ends)
 | Lane | Branch | Run id | Status |
 |------|--------|--------|--------|
