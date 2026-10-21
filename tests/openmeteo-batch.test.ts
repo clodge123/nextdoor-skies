@@ -1,1 +1,193 @@
-aW1wb3J0IHsgZGVzY3JpYmUsIGV4cGVjdCwgaXQsIHZpIH0gZnJvbSAndml0ZXN0JwppbXBvcnQgewogIE9QRU5fTUVURU9fQkFUQ0hfVVJMLAogIE1BWF9CQVRDSF9DT09SRFMsCiAgUkVGUkVTSF9JTlRFUlZBTF9NUywKICBidWlsZEJhdGNoUmVxdWVzdEJvZHksCiAgY2h1bmtUb3ducywKICBjcmVhdGVXZWF0aGVyUmVmcmVzaGVyLAogIGZldGNoQ3VycmVudFRlbXBzLAogIGZpbHRlclZpc2libGVUb3ducywKICBwYXJzZUJhdGNoUmVzcG9uc2UsCiAgdHlwZSBGZXRjaEltcGwsCiAgdHlwZSBUb3duQ29vcmQsCn0gZnJvbSAnLi4vc3JjL2xpYi93ZWF0aGVyL29wZW5tZXRlby1iYXRjaCcKCmZ1bmN0aW9uIHRvd24oaWQ6IHN0cmluZywgbGF0OiBudW1iZXIsIGxvbjogbnVtYmVyKTogVG93bkNvb3JkIHsKICByZXR1cm4geyBpZCwgbmFtZTogaWQsIGxhdCwgbG9uIH0KfQoKaW50ZXJmYWNlIENhbGxSZWNvcmQgewogIHVybDogc3RyaW5nCiAgaW5pdDogeyBtZXRob2Q6IHN0cmluZzsgaGVhZGVyczogUmVjb3JkPHN0cmluZywgc3RyaW5nPjsgYm9keTogc3RyaW5nIH0KfQoKZnVuY3Rpb24gbWFrZUZldGNoKAogIHBheWxvYWQ6IHVua25vd24sCiAgb2sgPSB0cnVlLAopOiBGZXRjaEltcGwgJiB7IGNhbGxzOiBDYWxsUmVjb3JkW10gfSB7CiAgY29uc3QgY2FsbHM6IENhbGxSZWNvcmRbXSA9IFtdCiAgY29uc3QgaW1wbCA9ICgodXJsOiBzdHJpbmcsIGluaXQ6IENhbGxSZWNvcmRbJ2luaXQnXSkgPT4gewogICAgY2FsbHMucHVzaCh7IHVybCwgaW5pdCB9KQogICAgcmV0dXJuIFByb21pc2UucmVzb2x2ZSh7IG9rLCBzdGF0dXM6IG9rID8gMjAwIDogNTAwLCBqc29uOiBhc3luYyAoKSA9PiBwYXlsb2FkIH0pCiAgfSkgYXMgRmV0Y2hJbXBsICYgeyBjYWxsczogQ2FsbFJlY29yZFtdIH0KICBpbXBsLmNhbGxzID0gY2FsbHMKICByZXR1cm4gaW1wbAp9CgpkZXNjcmliZSgnb3Blbm1ldGVvLWJhdGNoIHJlcXVlc3Qgc2hhcGUnLCAoKSA9PiB7CiAgaXQoJ1BPU1RzIHRvIHRoZSBiYXRjaCBlbmRwb2ludCB3aXRoIHBhcmFsbGVsLWFycmF5IGJvZHknLCBhc3luYyAoKSA9PiB7CiAgICBjb25zdCBmZXRjaEltcGwgPSBtYWtlRmV0Y2goeyBiYXRjaDogW3sgY3VycmVudDogeyB0ZW1wZXJhdHVyZV8ybTogMjEuNSB9IH1dIH0pCiAgICBjb25zdCB0b3ducyA9IFt0b3duKCdhJywgMzkuNzgsIC04OS42NSldCiAgICBjb25zdCB0ZW1wcyA9IGF3YWl0IGZldGNoQ3VycmVudFRlbXBzKHRvd25zLCBmZXRjaEltcGwpCgogICAgZXhwZWN0KGZldGNoSW1wbC5jYWxscykudG9IYXZlTGVuZ3RoKDEpCiAgICBjb25zdCBjYWxsID0gZmV0Y2hJbXBsLmNhbGxzWzBdCiAgICBleHBlY3QoY2FsbC51cmwpLnRvQmUoT1BFTl9NRVRFT19CQVRDSF9VUkwpCiAgICBleHBlY3QoY2FsbC51cmwpLnRvQ29udGFpbignL3YxL2JhdGNoJykKICAgIGV4cGVjdChjYWxsLmluaXQubWV0aG9kKS50b0JlKCdQT1NUJykKICAgIGV4cGVjdChjYWxsLmluaXQuaGVhZGVyc1snQ29udGVudC1UeXBlJ10pLnRvQmUoJ2FwcGxpY2F0aW9uL2pzb24nKQogICAgY29uc3QgYm9keSA9IEpTT04ucGFyc2UoY2FsbC5pbml0LmJvZHkpCiAgICBleHBlY3QoYm9keS5iYXRjaCkudG9IYXZlTGVuZ3RoKDEpCiAgICBleHBlY3QoYm9keS5iYXRjaFswXSkudG9NYXRjaE9iamVjdCh7CiAgICAgIGxhdGl0dWRlOiAzOS43OCwKICAgICAgbG9uZ2l0dWRlOiAtODkuNjUsCiAgICAgIGN1cnJlbnQ6ICd0ZW1wZXJhdHVyZV8ybScsCiAgICB9KQogICAgZXhwZWN0KHRlbXBzKS50b0VxdWFsKFt7IHRvd25JZDogJ2EnLCB0ZW1wZXJhdHVyZUM6IDIxLjUgfV0pCiAgfSkKCiAgaXQoJ2J1aWxkcyBvbmUgYmF0Y2ggZW50cnkgcGVyIHRvd24sIG9yZGVyLXByZXNlcnZlZCcsICgpID0+IHsKICAgIGNvbnN0IHRvd25zID0gW3Rvd24oJ2EnLCAxLCAyKSwgdG93bignYicsIDMsIDQpXQogICAgY29uc3QgYm9keSA9IGJ1aWxkQmF0Y2hSZXF1ZXN0Qm9keSh0b3ducykKICAgIGV4cGVjdChib2R5LmJhdGNoLm1hcCgoYikgPT4gYi5sYXRpdHVkZSkpLnRvRXF1YWwoWzEsIDNdKQogICAgZXhwZWN0KGJvZHkuYmF0Y2gubWFwKChiKSA9PiBiLmxvbmdpdHVkZSkpLnRvRXF1YWwoWzIsIDRdKQogIH0pCgogIGl0KCd0aHJvd3Mgb24gbm9uLW9rIHJlc3BvbnNlcycsIGFzeW5jICgpID0+IHsKICAgIGNvbnN0IGZldGNoSW1wbCA9IG1ha2VGZXRjaCh7fSwgZmFsc2UpCiAgICBhd2FpdCBleHBlY3QoZmV0Y2hDdXJyZW50VGVtcHMoW3Rvd24oJ2EnLCAxLCAxKV0sIGZldGNoSW1wbCkpLnJlamVjdHMudG9UaHJvdygvSFRUUCA1MDAvKQogIH0pCn0pCgpkZXNjcmliZSgnb3Blbm1ldGVvLWJhdGNoIGNodW5raW5nICg8PTEwMDAgY29vcmRzIHBlciBjYWxsKScsICgpID0+IHsKICBpdCgnY2h1bmtUb3ducyBzcGxpdHMgYXQgdGhlIDEwMDAgYm91bmRhcnknLCAoKSA9PiB7CiAgICBjb25zdCB0b3ducyA9IEFycmF5LmZyb20oeyBsZW5ndGg6IDI1MDAgfSwgKF8sIGkpID0+IHRvd24oYHQke2l9YCwgMCwgMCkpCiAgICBjb25zdCBjaHVua3MgPSBjaHVua1Rvd25zKHRvd25zKQogICAgZXhwZWN0KGNodW5rcy5tYXAoKGMpID0+IGMubGVuZ3RoKSkudG9FcXVhbChbMTAwMCwgMTAwMCwgNTAwXSkKICAgIGV4cGVjdChjaHVua3MuZXZlcnkoKGMpID0+IGMubGVuZ3RoIDw9IE1BWF9CQVRDSF9DT09SRFMpKS50b0JlKHRydWUpCiAgfSkKCiAgaXQoJ2V4YWN0bHkgMTAwMCBzdGF5cyBvbmUgY2h1bmsnLCAoKSA9PiB7CiAgICBjb25zdCB0b3ducyA9IEFycmF5LmZyb20oeyBsZW5ndGg6IDEwMDAgfSwgKF8sIGkpID0+IHRvd24oYHQke2l9YCwgMCwgMCkpCiAgICBleHBlY3QoY2h1bmtUb3ducyh0b3ducykubWFwKChjKSA9PiBjLmxlbmd0aCkpLnRvRXF1YWwoWzEwMDBdKQogIH0pCgogIGl0KCdlbXB0eSBpbnB1dCB5aWVsZHMgbm8gY2h1bmtzJywgKCkgPT4gewogICAgZXhwZWN0KGNodW5rVG93bnMoW10pKS50b0VxdWFsKFtdKQogIH0pCgogIGl0KCdmZXRjaEN1cnJlbnRUZW1wcyBpc3N1ZXMgb25lIFBPU1QgcGVyIGNodW5rLCBlYWNoIDw9MTAwMCBlbnRyaWVzJywgYXN5bmMgKCkgPT4gewogICAgY29uc3QgdG93bnMgPSBBcnJheS5mcm9tKHsgbGVuZ3RoOiAxNTAwIH0sIChfLCBpKSA9PiB0b3duKGB0JHtpfWAsIGkgKiAwLjAwMSwgMCkpCiAgICBjb25zdCBmZXRjaEltcGwgPSBtYWtlRmV0Y2goeyBiYXRjaDogW10gfSkKICAgIGF3YWl0IGZldGNoQ3VycmVudFRlbXBzKHRvd25zLCBmZXRjaEltcGwpCiAgICBleHBlY3QoZmV0Y2hJbXBsLmNhbGxzKS50b0hhdmVMZW5ndGgoMikKICAgIGNvbnN0IHNpemVzID0gZmV0Y2hJbXBsLmNhbGxzLm1hcCgoYykgPT4gSlNPTi5wYXJzZShjLmluaXQuYm9keSkuYmF0Y2gubGVuZ3RoKQogICAgZXhwZWN0KHNpemVzKS50b0VxdWFsKFsxMDAwLCA1MDBdKQogIH0pCn0pCgpkZXNjcmliZSgnb3Blbm1ldGVvLWJhdGNoIHZpZXdwb3J0IGN1bGxpbmcnLCAoKSA9PiB7CiAgY29uc3QgdG93bnMgPSBbCiAgICB0b3duKCdpbi12aWV3JywgMzkuNzgsIC04OS42NSksCiAgICB0b3duKCdlZGdlJywgMzkuNzYsIC04OS42OSksCiAgICB0b3duKCdmYXJhd2F5JywgNDQuOTgsIC05My4yNyksCiAgXQogIGNvbnN0IGJvdW5kcyA9IHsgd2VzdDogLTg5LjcsIGVhc3Q6IC04OS42LCBzb3V0aDogMzkuNywgbm9ydGg6IDM5LjggfQoKICBpdCgna2VlcHMgdG93bnMgaW5zaWRlIGJvdW5kcyBhbmQgZHJvcHMgb3V0c2lkZSBvbmVzJywgKCkgPT4gewogICAgY29uc3QgdmlzaWJsZSA9IGZpbHRlclZpc2libGVUb3ducyh0b3ducywgYm91bmRzLCAwKQogICAgZXhwZWN0KHZpc2libGUubWFwKCh0KSA9PiB0LmlkKSkudG9FcXVhbChbJ2luLXZpZXcnLCAnZWRnZSddKQogIH0pCgogIGl0KCdtYXJnaW4gd2lkZW5zIHRoZSBjdWxsIGJveCcsICgpID0+IHsKICAgIGNvbnN0IHZpc2libGUgPSBmaWx0ZXJWaXNpYmxlVG93bnModG93bnMsIGJvdW5kcywgMC41KQogICAgZXhwZWN0KHZpc2libGUubWFwKCh0KSA9PiB0LmlkKSkudG9Db250YWluKCdlZGdlJykKICAgIGV4cGVjdCh2aXNpYmxlLm1hcCgodCkgPT4gdC5pZCkpLm5vdC50b0NvbnRhaW4oJ2ZhcmF3YXknKQogIH0pCn0pCgpkZXNjcmliZSgncGFyc2VCYXRjaFJlc3BvbnNlIGhvbmVzdHkgKFIxOSknLCAoKSA9PiB7CiAgaXQoJ3NraXBzIGVudHJpZXMgd2l0aG91dCBhIGZpbml0ZSB0ZW1wZXJhdHVyZScsICgpID0+IHsKICAgIGNvbnN0IHRvd25zID0gW3Rvd24oJ2EnLCAwLCAwKSwgdG93bignYicsIDAsIDApXQogICAgY29uc3QgcGFyc2VkID0gcGFyc2VCYXRjaFJlc3BvbnNlKAogICAgICB7IGJhdGNoOiBbeyBjdXJyZW50OiB7IHRlbXBlcmF0dXJlXzJtOiAxMCB9IH0sIHsgY3VycmVudDogeyB0ZW1wZXJhdHVyZV8ybTogbnVsbCB9IH1dIH0sCiAgICAgIHRvd25zLAogICAgKQogICAgZXhwZWN0KHBhcnNlZCkudG9FcXVhbChbeyB0b3duSWQ6ICdhJywgdGVtcGVyYXR1cmVDOiAxMCB9XSkKICB9KQoKICBpdCgncmV0dXJucyBbXSBmb3IgbWFsZm9ybWVkIHBheWxvYWRzJywgKCkgPT4gewogICAgZXhwZWN0KHBhcnNlQmF0Y2hSZXNwb25zZSh7fSwgW3Rvd24oJ2EnLCAwLCAwKV0pKS50b0VxdWFsKFtdKQogIH0pCn0pCgpkZXNjcmliZSgncmVmcmVzaGVyIGNhZGVuY2UgKGxhdyAyOiBwZXIgNS1taW4gd2luZG93LCBOT1QgcGVyIHBhbiknLCAoKSA9PiB7CiAgaXQoJ2ZldGNoZXMgb24gd2luZG93IGNhZGVuY2Ugd2l0aCBjdXJyZW50IHZpZXdwb3J0LCBub3Qgb24gcGFuJywgYXN5bmMgKCkgPT4gewogICAgdmkudXNlRmFrZVRpbWVycygpCiAgICB0cnkgewogICAgICBsZXQgdmlld3BvcnQgPSB7IHdlc3Q6IC05MCwgZWFzdDogLTg5LCBzb3V0aDogMzksIG5vcnRoOiA0MCB9CiAgICAgIGNvbnN0IGZldGNoSW1wbCA9IG1ha2VGZXRjaCh7IGJhdGNoOiBbeyBjdXJyZW50OiB7IHRlbXBlcmF0dXJlXzJtOiA3IH0gfV0gfSkKICAgICAgY29uc3Qgb25UZW1wcyA9IHZpLmZuKCkKICAgICAgY29uc3QgcmVmcmVzaGVyID0gY3JlYXRlV2VhdGhlclJlZnJlc2hlcih7CiAgICAgICAgZ2V0VG93bnM6ICgpID0+IFt0b3duKCdhJywgMzkuNSwgLTg5LjUpXSwKICAgICAgICBnZXRWaWV3cG9ydDogKCkgPT4gdmlld3BvcnQsCiAgICAgICAgZmV0Y2hJbXBsLAogICAgICAgIG9uVGVtcHMsCiAgICAgICAgaW50ZXJ2YWxNczogUkVGUkVTSF9JTlRFUlZBTF9NUywKICAgICAgICBzZXRJbnRlcnZhbEZuOiAoY2IsIG1zKSA9PiBzZXRJbnRlcnZhbChjYiwgbXMpLAogICAgICAgIGNsZWFySW50ZXJ2YWxGbjogKGlkKSA9PiBjbGVhckludGVydmFsKGlkKSwKICAgICAgfSkKICAgICAgcmVmcmVzaGVyLnN0YXJ0KCkKICAgICAgZXhwZWN0KGZldGNoSW1wbC5jYWxscykudG9IYXZlTGVuZ3RoKDEpIC8vIGZpcnN0IHdpbmRvdyBmaXJlcyBpbW1lZGlhdGVseQoKICAgICAgLy8gUGFubmluZyAodmlld3BvcnQgY2hhbmdlKSBtdXN0IE5PVCB0cmlnZ2VyIGEgZmV0Y2guCiAgICAgIHZpZXdwb3J0ID0geyB3ZXN0OiAtOTAuNSwgZWFzdDogLTg4LjUsIHNvdXRoOiAzOC41LCBub3J0aDogNDAuNSB9CiAgICAgIGV4cGVjdChmZXRjaEltcGwuY2FsbHMpLnRvSGF2ZUxlbmd0aCgxKQoKICAgICAgdmkuYWR2YW5jZVRpbWVyc0J5VGltZShSRUZSRVNIX0lOVEVSVkFMX01TKQogICAgICBhd2FpdCB2aS53YWl0Rm9yKCgpID0+IGV4cGVjdChmZXRjaEltcGwuY2FsbHMpLnRvSGF2ZUxlbmd0aCgyKSkKICAgICAgYXdhaXQgdmkud2FpdEZvcigoKSA9PiBleHBlY3Qob25UZW1wcykudG9IYXZlQmVlbkNhbGxlZFdpdGgoW3sgdG93bklkOiAnYScsIHRlbXBlcmF0dXJlQzogNyB9XSkpCiAgICAgIHJlZnJlc2hlci5zdG9wKCkKCiAgICAgIHZpLmFkdmFuY2VUaW1lcnNCeVRpbWUoUkVGUkVTSF9JTlRFUlZBTF9NUyAqIDMpCiAgICAgIGV4cGVjdChmZXRjaEltcGwuY2FsbHMpLnRvSGF2ZUxlbmd0aCgyKSAvLyBzdG9wcGVkOiBubyBtb3JlIHdpbmRvd3MKICAgIH0gZmluYWxseSB7CiAgICAgIHZpLnVzZVJlYWxUaW1lcnMoKQogICAgfQogIH0pCgogIGl0KCdmYWlsZWQgd2luZG93IGtlZXBzIGxhc3QgZGF0YSAobGF3IDMpJywgYXN5bmMgKCkgPT4gewogICAgbGV0IG9rID0gdHJ1ZQogICAgY29uc3QgZmV0Y2hJbXBsOiBGZXRjaEltcGwgPSAoX3VybCwgX2luaXQpID0+CiAgICAgIFByb21pc2UucmVzb2x2ZSh7CiAgICAgICAgb2ssCiAgICAgICAgc3RhdHVzOiBvayA/IDIwMCA6IDUwMCwKICAgICAgICBqc29uOiBhc3luYyAoKSA9PiAoeyBiYXRjaDogW3sgY3VycmVudDogeyB0ZW1wZXJhdHVyZV8ybTogMTIgfSB9XSB9KSwKICAgICAgfSkKICAgIGNvbnN0IG9uVGVtcHMgPSB2aS5mbigpCiAgICBjb25zdCByZWZyZXNoZXIgPSBjcmVhdGVXZWF0aGVyUmVmcmVzaGVyKHsKICAgICAgZ2V0VG93bnM6ICgpID0+IFt0b3duKCdhJywgMCwgMCldLAogICAgICBnZXRWaWV3cG9ydDogKCkgPT4gKHsgd2VzdDogLTEsIGVhc3Q6IDEsIHNvdXRoOiAtMSwgbm9ydGg6IDEgfSksCiAgICAgIGZldGNoSW1wbCwKICAgICAgb25UZW1wcywKICAgICAgc2V0SW50ZXJ2YWxGbjogKCkgPT4gMCBhcyB1bmtub3duIGFzIFJldHVyblR5cGU8dHlwZW9mIHNldEludGVydmFsPiwKICAgIH0pCiAgICByZWZyZXNoZXIuc3RhcnQoKQogICAgYXdhaXQgdmkud2FpdEZvcigoKSA9PiBleHBlY3Qob25UZW1wcykudG9IYXZlQmVlbkNhbGxlZFRpbWVzKDEpKQogICAgb2sgPSBmYWxzZQogICAgcmVmcmVzaGVyLnN0YXJ0KCkgLy8gbm8tb3AgKGFscmVhZHkgc3RhcnRlZCkKICAgIGF3YWl0IFByb21pc2UucmVzb2x2ZSgpCiAgICBleHBlY3Qob25UZW1wcykudG9IYXZlQmVlbkNhbGxlZFRpbWVzKDEpIC8vIG5vIG5ldyBlbWlzc2lvbiwgbGFzdCBkYXRhIHdpbnMKICB9KQp9KQo=
+import { describe, expect, it, vi } from 'vitest'
+import {
+  OPEN_METEO_BATCH_URL,
+  MAX_BATCH_COORDS,
+  REFRESH_INTERVAL_MS,
+  buildBatchRequestBody,
+  chunkTowns,
+  createWeatherRefresher,
+  fetchCurrentTemps,
+  filterVisibleTowns,
+  parseBatchResponse,
+  type FetchImpl,
+  type TownCoord,
+} from '../src/lib/weather/openmeteo-batch'
+
+function town(id: string, lat: number, lon: number): TownCoord {
+  return { id, name: id, lat, lon }
+}
+
+interface CallRecord {
+  url: string
+  init: { method: string; headers: Record<string, string>; body: string }
+}
+
+function makeFetch(
+  payload: unknown,
+  ok = true,
+): FetchImpl & { calls: CallRecord[] } {
+  const calls: CallRecord[] = []
+  const impl = ((url: string, init: CallRecord['init']) => {
+    calls.push({ url, init })
+    return Promise.resolve({ ok, status: ok ? 200 : 500, json: async () => payload })
+  }) as FetchImpl & { calls: CallRecord[] }
+  impl.calls = calls
+  return impl
+}
+
+describe('openmeteo-batch request shape', () => {
+  it('POSTs to the batch endpoint with parallel-array body', async () => {
+    const fetchImpl = makeFetch({ batch: [{ current: { temperature_2m: 21.5 } }] })
+    const towns = [town('a', 39.78, -89.65)]
+    const temps = await fetchCurrentTemps(towns, fetchImpl)
+
+    expect(fetchImpl.calls).toHaveLength(1)
+    const call = fetchImpl.calls[0]
+    expect(call.url).toBe(OPEN_METEO_BATCH_URL)
+    expect(call.url).toContain('/v1/batch')
+    expect(call.init.method).toBe('POST')
+    expect(call.init.headers['Content-Type']).toBe('application/json')
+    const body = JSON.parse(call.init.body)
+    expect(body.batch).toHaveLength(1)
+    expect(body.batch[0]).toMatchObject({
+      latitude: 39.78,
+      longitude: -89.65,
+      current: 'temperature_2m',
+    })
+    expect(temps).toEqual([{ townId: 'a', temperatureC: 21.5 }])
+  })
+
+  it('builds one batch entry per town, order-preserved', () => {
+    const towns = [town('a', 1, 2), town('b', 3, 4)]
+    const body = buildBatchRequestBody(towns)
+    expect(body.batch.map((b) => b.latitude)).toEqual([1, 3])
+    expect(body.batch.map((b) => b.longitude)).toEqual([2, 4])
+  })
+
+  it('throws on non-ok responses', async () => {
+    const fetchImpl = makeFetch({}, false)
+    await expect(fetchCurrentTemps([town('a', 1, 1)], fetchImpl)).rejects.toThrow(/HTTP 500/)
+  })
+})
+
+describe('openmeteo-batch chunking (<=1000 coords per call)', () => {
+  it('chunkTowns splits at the 1000 boundary', () => {
+    const towns = Array.from({ length: 2500 }, (_, i) => town(`t${i}`, 0, 0))
+    const chunks = chunkTowns(towns)
+    expect(chunks.map((c) => c.length)).toEqual([1000, 1000, 500])
+    expect(chunks.every((c) => c.length <= MAX_BATCH_COORDS)).toBe(true)
+  })
+
+  it('exactly 1000 stays one chunk', () => {
+    const towns = Array.from({ length: 1000 }, (_, i) => town(`t${i}`, 0, 0))
+    expect(chunkTowns(towns).map((c) => c.length)).toEqual([1000])
+  })
+
+  it('empty input yields no chunks', () => {
+    expect(chunkTowns([])).toEqual([])
+  })
+
+  it('fetchCurrentTemps issues one POST per chunk, each <=1000 entries', async () => {
+    const towns = Array.from({ length: 1500 }, (_, i) => town(`t${i}`, i * 0.001, 0))
+    const fetchImpl = makeFetch({ batch: [] })
+    await fetchCurrentTemps(towns, fetchImpl)
+    expect(fetchImpl.calls).toHaveLength(2)
+    const sizes = fetchImpl.calls.map((c) => JSON.parse(c.init.body).batch.length)
+    expect(sizes).toEqual([1000, 500])
+  })
+})
+
+describe('openmeteo-batch viewport culling', () => {
+  const towns = [
+    town('in-view', 39.78, -89.65),
+    town('edge', 39.76, -89.69),
+    town('faraway', 44.98, -93.27),
+  ]
+  const bounds = { west: -89.7, east: -89.6, south: 39.7, north: 39.8 }
+
+  it('keeps towns inside bounds and drops outside ones', () => {
+    const visible = filterVisibleTowns(towns, bounds, 0)
+    expect(visible.map((t) => t.id)).toEqual(['in-view', 'edge'])
+  })
+
+  it('margin widens the cull box', () => {
+    const visible = filterVisibleTowns(towns, bounds, 0.5)
+    expect(visible.map((t) => t.id)).toContain('edge')
+    expect(visible.map((t) => t.id)).not.toContain('faraway')
+  })
+})
+
+describe('parseBatchResponse honesty (R19)', () => {
+  it('skips entries without a finite temperature', () => {
+    const towns = [town('a', 0, 0), town('b', 0, 0)]
+    const parsed = parseBatchResponse(
+      { batch: [{ current: { temperature_2m: 10 } }, { current: { temperature_2m: null } }] },
+      towns,
+    )
+    expect(parsed).toEqual([{ townId: 'a', temperatureC: 10 }])
+  })
+
+  it('returns [] for malformed payloads', () => {
+    expect(parseBatchResponse({}, [town('a', 0, 0)])).toEqual([])
+  })
+})
+
+describe('refresher cadence (law 2: per 5-min window, NOT per pan)', () => {
+  it('fetches on window cadence with current viewport, not on pan', async () => {
+    vi.useFakeTimers()
+    try {
+      let viewport = { west: -90, east: -89, south: 39, north: 40 }
+      const fetchImpl = makeFetch({ batch: [{ current: { temperature_2m: 7 } }] })
+      const onTemps = vi.fn()
+      const refresher = createWeatherRefresher({
+        getTowns: () => [town('a', 39.5, -89.5)],
+        getViewport: () => viewport,
+        fetchImpl,
+        onTemps,
+        intervalMs: REFRESH_INTERVAL_MS,
+        setIntervalFn: (cb, ms) => setInterval(cb, ms),
+        clearIntervalFn: (id) => clearInterval(id),
+      })
+      refresher.start()
+      expect(fetchImpl.calls).toHaveLength(1) // first window fires immediately
+
+      // Panning (viewport change) must NOT trigger a fetch.
+      viewport = { west: -90.5, east: -88.5, south: 38.5, north: 40.5 }
+      expect(fetchImpl.calls).toHaveLength(1)
+
+      vi.advanceTimersByTime(REFRESH_INTERVAL_MS)
+      await vi.waitFor(() => expect(fetchImpl.calls).toHaveLength(2))
+      await vi.waitFor(() => expect(onTemps).toHaveBeenCalledWith([{ townId: 'a', temperatureC: 7 }]))
+      refresher.stop()
+
+      vi.advanceTimersByTime(REFRESH_INTERVAL_MS * 3)
+      expect(fetchImpl.calls).toHaveLength(2) // stopped: no more windows
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
+  it('failed window keeps last data (law 3)', async () => {
+    let ok = true
+    const fetchImpl: FetchImpl = (_url, _init) =>
+      Promise.resolve({
+        ok,
+        status: ok ? 200 : 500,
+        json: async () => ({ batch: [{ current: { temperature_2m: 12 } }] }),
+      })
+    const onTemps = vi.fn()
+    const refresher = createWeatherRefresher({
+      getTowns: () => [town('a', 0, 0)],
+      getViewport: () => ({ west: -1, east: 1, south: -1, north: 1 }),
+      fetchImpl,
+      onTemps,
+      setIntervalFn: () => 0 as unknown as ReturnType<typeof setInterval>,
+    })
+    refresher.start()
+    await vi.waitFor(() => expect(onTemps).toHaveBeenCalledTimes(1))
+    ok = false
+    refresher.start() // no-op (already started)
+    await Promise.resolve()
+    expect(onTemps).toHaveBeenCalledTimes(1) // no new emission, last data wins
+  })
+})

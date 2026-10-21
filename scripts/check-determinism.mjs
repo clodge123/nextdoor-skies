@@ -1,1 +1,43 @@
-IyEvdXNyL2Jpbi9lbnYgbm9kZQovLyBSMTcgZGV0ZXJtaW5pc20gc2Nhbjogbm8gTWF0aC5yYW5kb20gLyBEYXRlLm5vdyAvIG5ldyBEYXRlIGluIHNyYywKLy8gZXhjbHVkaW5nIHRlc3QgZmlsZXMgKCoudGVzdC50cyh4KSwgc3JjL3Rlc3QvKiopLgppbXBvcnQgeyByZWFkZGlyU3luYywgcmVhZEZpbGVTeW5jLCBzdGF0U3luYyB9IGZyb20gJ25vZGU6ZnMnCmltcG9ydCB7IGpvaW4sIHBvc2l4IH0gZnJvbSAnbm9kZTpwYXRoJwoKY29uc3QgUk9PVCA9ICdzcmMnCmNvbnN0IEZPUkJJRERFTiA9IFsvXGJNYXRoXC5yYW5kb21cYi9nLCAvXGJEYXRlXC5ub3dcYi9nLCAvXGJuZXdccytEYXRlXGIvZ10KCmZ1bmN0aW9uIHdhbGsoZGlyLCBvdXQgPSBbXSkgewogIGZvciAoY29uc3QgZW50cnkgb2YgcmVhZGRpclN5bmMoZGlyKSkgewogICAgY29uc3QgZnVsbCA9IGpvaW4oZGlyLCBlbnRyeSkKICAgIGNvbnN0IHN0ID0gc3RhdFN5bmMoZnVsbCkKICAgIGlmIChzdC5pc0RpcmVjdG9yeSgpKSB3YWxrKGZ1bGwsIG91dCkKICAgIGVsc2UgaWYgKC9cLih0c3x0c3gpJC8udGVzdChlbnRyeSkpIG91dC5wdXNoKGZ1bGwpCiAgfQogIHJldHVybiBvdXQKfQoKZnVuY3Rpb24gaXNUZXN0RmlsZShmaWxlKSB7CiAgY29uc3QgcmVsID0gZmlsZS5zcGxpdCgvW1xcL10vKS5qb2luKCcvJykKICByZXR1cm4gcmVsLmVuZHNXaXRoKCcudGVzdC50cycpIHx8IHJlbC5lbmRzV2l0aCgnLnRlc3QudHN4JykgfHwgcmVsLmluY2x1ZGVzKCcvdGVzdC8nKQp9Cgpjb25zdCBmaWxlcyA9IHdhbGsoUk9PVCkuZmlsdGVyKChmKSA9PiAhaXNUZXN0RmlsZShmKSkKY29uc3QgaGl0cyA9IFtdCmZvciAoY29uc3QgZmlsZSBvZiBmaWxlcykgewogIGNvbnN0IGxpbmVzID0gcmVhZEZpbGVTeW5jKGZpbGUsICd1dGY4Jykuc3BsaXQoJ1xuJykKICBsaW5lcy5mb3JFYWNoKChsaW5lLCBpKSA9PiB7CiAgICBmb3IgKGNvbnN0IHJlIG9mIEZPUkJJRERFTikgewogICAgICByZS5sYXN0SW5kZXggPSAwCiAgICAgIGlmIChyZS50ZXN0KGxpbmUpKSBoaXRzLnB1c2goYCR7ZmlsZX06JHtpICsgMX06ICR7bGluZS50cmltKCl9YCkKICAgIH0KICB9KQp9CgppZiAoaGl0cy5sZW5ndGggPiAwKSB7CiAgY29uc29sZS5lcnJvcigKICAgICdERVRFUk1JTklTTSBTQ0FOIEZBSUxFRCAoUjE3KTogZm9yYmlkZGVuIG5vbmRldGVybWluaXN0aWMgY2FsbHMgaW4gc3JjOlxuJyArIGhpdHMuam9pbignXG4nKSwKICApCiAgcHJvY2Vzcy5leGl0KDEpCn0KY29uc29sZS5sb2coYGRldGVybWluaXNtIHNjYW4gT0sgKCR7ZmlsZXMubGVuZ3RofSBzb3VyY2UgZmlsZXMgc2Nhbm5lZClgKQo=
+#!/usr/bin/env node
+// R17 determinism scan: no Math.random / Date.now / new Date in src,
+// excluding test files (*.test.ts(x), src/test/**).
+import { readdirSync, readFileSync, statSync } from 'node:fs'
+import { join, posix } from 'node:path'
+
+const ROOT = 'src'
+const FORBIDDEN = [/\bMath\.random\b/g, /\bDate\.now\b/g, /\bnew\s+Date\b/g]
+
+function walk(dir, out = []) {
+  for (const entry of readdirSync(dir)) {
+    const full = join(dir, entry)
+    const st = statSync(full)
+    if (st.isDirectory()) walk(full, out)
+    else if (/\.(ts|tsx)$/.test(entry)) out.push(full)
+  }
+  return out
+}
+
+function isTestFile(file) {
+  const rel = file.split(/[\\/]/).join('/')
+  return rel.endsWith('.test.ts') || rel.endsWith('.test.tsx') || rel.includes('/test/')
+}
+
+const files = walk(ROOT).filter((f) => !isTestFile(f))
+const hits = []
+for (const file of files) {
+  const lines = readFileSync(file, 'utf8').split('\n')
+  lines.forEach((line, i) => {
+    for (const re of FORBIDDEN) {
+      re.lastIndex = 0
+      if (re.test(line)) hits.push(`${file}:${i + 1}: ${line.trim()}`)
+    }
+  })
+}
+
+if (hits.length > 0) {
+  console.error(
+    'DETERMINISM SCAN FAILED (R17): forbidden nondeterministic calls in src:\n' + hits.join('\n'),
+  )
+  process.exit(1)
+}
+console.log(`determinism scan OK (${files.length} source files scanned)`)

@@ -1,1 +1,168 @@
-Ly8gTDUgTUFQLVNIRUxMLUdBWkVUVEVFUiDigJQgTWFwTGlicmUgR0wgc2hlbGwgKyB6b29tLWdyYWRlZCB0b3duIGdhemV0dGVlci4KLy8gTGF3cyBob25vcmVkIGhlcmU6Ci8vICAjMSBwcm9kdWN0aW9uIGJhc2VtYXAgb25seSAoT3BlbkZyZWVNYXAgYnJpZ2h0LCBrZXlsZXNzOyBORVZFUiBkZW1vdGlsZXMpCi8vICAjMiBmZXRjaC1wZXItd2luZG93IChzZWUgbGliL21hcC9mZXRjaC13aW5kb3cudHM7IGJhc2VtYXAgdGlsZXMgYXJlIGNhY2hlZCBieSBtYXBsaWJyZSkKLy8gICM0IHRpbGUgZXJyb3JzID0gd2FybmluZ3MgKGNvdW50ZWQgaW4gc3RhdGUsIFVJIG5ldmVyIGZsaXBzIHRvIHN0dWNrIGVycm9yKQovLyAgIzcgY29vcmRpbmF0ZS1rZXkgZGVib3VuY2UgfjAuMDA1IGRlZyAocGFubmluZyB3aXRoaW4gYSBjZWxsIGVtaXRzIG5vdGhpbmcpCi8vICBSMTcgZGV0ZXJtaW5pc206IG5vIE1hdGgucmFuZG9tIC8gRGF0ZS5ub3cgLyBuZXcgRGF0ZSBpbiB0aGlzIGZpbGUuCmltcG9ydCB7IHVzZUVmZmVjdCwgdXNlUmVmLCB1c2VTdGF0ZSwgdHlwZSBSZWFjdE5vZGUgfSBmcm9tICdyZWFjdCc7CmltcG9ydCBtYXBsaWJyZWdsIGZyb20gJ21hcGxpYnJlLWdsJzsKaW1wb3J0ICdtYXBsaWJyZS1nbC9kaXN0L21hcGxpYnJlLWdsLmNzcyc7CmltcG9ydCB0b3duc0RhdGEgZnJvbSAnLi4vLi4vZGF0YS90b3ducy91cy10b3ducy5qc29uJzsKaW1wb3J0IHR5cGUgeyBUb3duc0ZpbGUgfSBmcm9tICcuLi9saWIvbWFwL2dhemV0dGVlcic7CmltcG9ydCB7IE1hcFByb3ZpZGVyIH0gZnJvbSAnLi4vbGliL21hcC9tYXAtY29udGV4dCc7CmltcG9ydCB7IGNvb3JkS2V5LCB0aWVyRm9yWm9vbSwgVElFUl9SVUxFUywgdHlwZSBUaWVyIH0gZnJvbSAnLi4vbGliL21hcC90aWVycyc7Cgpjb25zdCBTVFlMRV9VUkwgPSAnaHR0cHM6Ly90aWxlcy5vcGVuZnJlZW1hcC5vcmcvc3R5bGVzL2JyaWdodCc7CmNvbnN0IFRPV05TOiBUb3duc0ZpbGUgPSB0b3duc0RhdGEgYXMgVG93bnNGaWxlOwoKLyoqIFN5bWJvbC1sYXllciBwYWludC90ZXh0IHNwZWMgcGVyIHRpZXIuIG1pbnpvb20gZ2F0ZXMgbGFiZWwgdmlzaWJpbGl0eS4gKi8KZnVuY3Rpb24gdGllckxheWVycyh0aWVyOiBUaWVyKTogeyBpZDogc3RyaW5nOyBtaW56b29tOiBudW1iZXI7IG1heHpvb206IG51bWJlcjsgc2l6ZTogW251bWJlciwgbnVtYmVyXSB9IHsKICBjb25zdCBydWxlID0gVElFUl9SVUxFUy5maW5kKChyKSA9PiByLnRpZXIgPT09IHRpZXIpITsKICByZXR1cm4gewogICAgaWQ6IGBuZHMtbGFiZWxzLSR7dGllcn1gLAogICAgbWluem9vbTogcnVsZS5taW56b29tLAogICAgbWF4em9vbTogcnVsZS5tYXh6b29tLAogICAgc2l6ZTogdGllciA9PT0gJ3Rvd24nID8gWzEyLCAxNl0gOiB0aWVyID09PSAnY2l0eScgPyBbMTMsIDE3XSA6IHRpZXIgPT09ICdzdGF0ZScgPyBbMTIsIDE1XSA6IFsxMSwgMTNdLAogIH07Cn0KCmV4cG9ydCBpbnRlcmZhY2UgTWFwVmlld1Byb3BzIHsKICAvKiogaW5pdGlhbCB2aWV3IOKAlCBkZWZhdWx0cyB0byBjb250aW5lbnRhbCBVUyAqLwogIGNlbnRlcj86IFtudW1iZXIsIG51bWJlcl07CiAgem9vbT86IG51bWJlcjsKICBjaGlsZHJlbj86IFJlYWN0Tm9kZTsKfQoKZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gTWFwVmlldyh7IGNlbnRlciA9IFstOTguNSwgMzkuOF0sIHpvb20gPSAzLCBjaGlsZHJlbiB9OiBNYXBWaWV3UHJvcHMpIHsKICBjb25zdCBjb250YWluZXJSZWYgPSB1c2VSZWY8SFRNTERpdkVsZW1lbnQgfCBudWxsPihudWxsKTsKICBjb25zdCBtYXBSZWYgPSB1c2VSZWY8bWFwbGlicmVnbC5NYXAgfCBudWxsPihudWxsKTsKICBjb25zdCBsYXN0S2V5UmVmID0gdXNlUmVmPHN0cmluZz4oJycpOwogIGNvbnN0IFttYXAsIHNldE1hcF0gPSB1c2VTdGF0ZTxtYXBsaWJyZWdsLk1hcCB8IG51bGw+KG51bGwpOwogIGNvbnN0IFtyZWFkeSwgc2V0UmVhZHldID0gdXNlU3RhdGUoZmFsc2UpOwogIGNvbnN0IFt0aWxlV2FybmluZ3MsIHNldFRpbGVXYXJuaW5nc10gPSB1c2VTdGF0ZSgwKTsKICBjb25zdCBbdGllciwgc2V0VGllcl0gPSB1c2VTdGF0ZTxUaWVyPignY291bnRyeScpOwoKICB1c2VFZmZlY3QoKCkgPT4gewogICAgaWYgKCFjb250YWluZXJSZWYuY3VycmVudCB8fCBtYXBSZWYuY3VycmVudCkgcmV0dXJuOwogICAgY29uc3QgbSA9IG5ldyBtYXBsaWJyZWdsLk1hcCh7CiAgICAgIGNvbnRhaW5lcjogY29udGFpbmVyUmVmLmN1cnJlbnQsCiAgICAgIHN0eWxlOiBTVFlMRV9VUkwsCiAgICAgIGNlbnRlciwKICAgICAgem9vbSwKICAgICAgbWF4Wm9vbTogMTgsCiAgICB9KTsKICAgIG1hcFJlZi5jdXJyZW50ID0gbTsKICAgIHNldE1hcChtKTsKICAgIC8vIERlYnVnL2UyZSBzZWFtIChkb2N1bWVudGVkKTogbGV0cyB0ZXN0cyArIEw2IGluc3BlY3QgbGF5ZXJzIHZpYQogICAgLy8gd2luZG93Lm5kc01hcC5xdWVyeVJlbmRlcmVkRmVhdHVyZXMoLi4uKS4KICAgICh3aW5kb3cgYXMgeyBuZHNNYXA/OiBtYXBsaWJyZWdsLk1hcCB9KS5uZHNNYXAgPSBtOwoKICAgIC8vIExhdyAjNDogdGlsZSBlcnJvcnMgYXJlIFdBUk5JTkdTIOKAlCBjb3VudCB0aGVtLCBuZXZlciBmbGlwIHRoZSBVSS4KICAgIGxldCB3YXJuQ291bnQgPSAwOwogICAgbS5vbignZXJyb3InLCAoZSkgPT4gewogICAgICBjb25zdCBzcmMgPSAoZSBhcyB7IHNvdXJjZVR5cGU/OiBzdHJpbmcgfSkuc291cmNlVHlwZTsKICAgICAgaWYgKHNyYyA9PT0gJ3RpbGUnIHx8IHNyYyA9PT0gJ3NvdXJjZScpIHsKICAgICAgICB3YXJuQ291bnQgKz0gMTsKICAgICAgICBtLmdldENvbnRhaW5lcigpLmRhdGFzZXQubmRzVGlsZVdhcm5pbmdzID0gU3RyaW5nKHdhcm5Db3VudCk7CiAgICAgICAgc2V0VGlsZVdhcm5pbmdzKHdhcm5Db3VudCk7CiAgICAgIH0KICAgIH0pOwoKICAgIG0ub24oJ2xvYWQnLCAoKSA9PiB7CiAgICAgIC8vIEdhemV0dGVlciBzb3VyY2U6IGJha2VkIEdlb05hbWVzIHRvd25zLCBvbmUgZmVhdHVyZSBwZXIgdG93bi4KICAgICAgbS5hZGRTb3VyY2UoJ25kcy10b3ducycsIHsKICAgICAgICB0eXBlOiAnZ2VvanNvbicsCiAgICAgICAgZGF0YTogewogICAgICAgICAgdHlwZTogJ0ZlYXR1cmVDb2xsZWN0aW9uJywKICAgICAgICAgIGZlYXR1cmVzOiBUT1dOUy50b3ducy5tYXAoKHQpID0+ICh7CiAgICAgICAgICAgIHR5cGU6ICdGZWF0dXJlJywKICAgICAgICAgICAgcHJvcGVydGllczogeyBuYW1lOiB0Lm5hbWUsIHBvcDogdC5wb3AsIHRpZXI6IHQudGllciB9LAogICAgICAgICAgICBnZW9tZXRyeTogeyB0eXBlOiAnUG9pbnQnLCBjb29yZGluYXRlczogW3QubG9uLCB0LmxhdF0gfSwKICAgICAgICAgIH0pKSwKICAgICAgICB9LAogICAgICB9KTsKICAgICAgZm9yIChjb25zdCB0IG9mIFsnY291bnRyeScsICdzdGF0ZScsICdjaXR5JywgJ3Rvd24nXSBhcyBUaWVyW10pIHsKICAgICAgICBjb25zdCB7IGlkLCBtaW56b29tLCBtYXh6b29tLCBzaXplIH0gPSB0aWVyTGF5ZXJzKHQpOwogICAgICAgIG0uYWRkTGF5ZXIoewogICAgICAgICAgaWQsCiAgICAgICAgICB0eXBlOiAnc3ltYm9sJywKICAgICAgICAgIHNvdXJjZTogJ25kcy10b3ducycsCiAgICAgICAgICBtaW56b29tLAogICAgICAgICAgbWF4em9vbSwKICAgICAgICAgIGZpbHRlcjogWyc9PScsIFsnZ2V0JywgJ3RpZXInXSwgdF0sCiAgICAgICAgICBsYXlvdXQ6IHsKICAgICAgICAgICAgJ3RleHQtZmllbGQnOiBbJ2dldCcsICduYW1lJ10sCiAgICAgICAgICAgICd0ZXh0LWZvbnQnOiBbJ05vdG8gU2FucyBSZWd1bGFyJ10sCiAgICAgICAgICAgICd0ZXh0LXNpemUnOiBbJ2ludGVycG9sYXRlJywgWydsaW5lYXInXSwgWyd6b29tJ10sIG1pbnpvb20sIHNpemVbMF0sIG1pbnpvb20gKyA0LCBzaXplWzFdXSwKICAgICAgICAgICAgJ3RleHQtYWxsb3ctb3ZlcmxhcCc6IGZhbHNlLAogICAgICAgICAgICAndGV4dC1tYXgtd2lkdGgnOiA4LAogICAgICAgICAgICAnaWNvbi1hbGxvdy1vdmVybGFwJzogZmFsc2UsCiAgICAgICAgICB9LAogICAgICAgICAgcGFpbnQ6IHsgJ3RleHQtY29sb3InOiAnIzEwMTAxNCcsICd0ZXh0LWhhbG8tY29sb3InOiAnI2ZmZmZmZicsICd0ZXh0LWhhbG8td2lkdGgnOiAxLjUgfSwKICAgICAgICB9KTsKICAgICAgfQogICAgICBzZXRSZWFkeSh0cnVlKTsKICAgIH0pOwoKICAgIC8vIExhdyAjNzogY29vcmRpbmF0ZS1rZXkgZGVib3VuY2Ug4oCUIG9ubHkgZW1pdCB3aGVuIHRoZSAwLjAwNWRlZyBjZWxsIGNoYW5nZXMuCiAgICBtLm9uKCdtb3ZlZW5kJywgKCkgPT4gewogICAgICBjb25zdCBjID0gbS5nZXRDZW50ZXIoKTsKICAgICAgY29uc3Qga2V5ID0gY29vcmRLZXkoYy5sYXQsIGMubG5nKTsKICAgICAgaWYgKGtleSAhPT0gbGFzdEtleVJlZi5jdXJyZW50KSB7CiAgICAgICAgbGFzdEtleVJlZi5jdXJyZW50ID0ga2V5OwogICAgICAgIG0uZ2V0Q29udGFpbmVyKCkuZGF0YXNldC5uZHNDb29yZEtleSA9IGtleTsKICAgICAgfQogICAgfSk7CiAgICBtLm9uKCd6b29tZW5kJywgKCkgPT4gc2V0VGllcih0aWVyRm9yWm9vbShtLmdldFpvb20oKSkpKTsKCiAgICByZXR1cm4gKCkgPT4gewogICAgICBtLnJlbW92ZSgpOwogICAgICBtYXBSZWYuY3VycmVudCA9IG51bGw7CiAgICB9OwogICAgLy8gY2VudGVyL3pvb20gYXJlIHN0YXRpYyBpbml0aWFsLXZpZXcgcHJvcHM7IG1vdW50LW9uY2UgYnkgZGVzaWduLgogICAgLy8gZXNsaW50LWRpc2FibGUtbmV4dC1saW5lIHJlYWN0LWhvb2tzL2V4aGF1c3RpdmUtZGVwcwogIH0sIFtdKTsKCiAgcmV0dXJuICgKICAgIDxNYXBQcm92aWRlciBtYXA9e21hcH0gcmVhZHk9e3JlYWR5fSB0aWxlV2FybmluZ3M9e3RpbGVXYXJuaW5nc30gdGllcj17dGllcn0+CiAgICAgIDxkaXYKICAgICAgICByZWY9e2NvbnRhaW5lclJlZn0KICAgICAgICBkYXRhLXRlc3RpZD0ibWFwLXZpZXciCiAgICAgICAgZGF0YS1tYXAtc3R5bGU9Im9wZW5mcmVlbWFwLWJyaWdodCIKICAgICAgICBkYXRhLXRpbGUtd2FybmluZ3M9e3RpbGVXYXJuaW5nc30KICAgICAgICBzdHlsZT17eyBwb3NpdGlvbjogJ2Fic29sdXRlJywgaW5zZXQ6IDAsIGJhY2tncm91bmQ6ICcjZjVmNWYyJyB9fQogICAgICAvPgogICAgICB7LyogWm9vbSBjb250cm9scyByZW5kZXIgT1VUU0lERSB0aGUgY2FudmFzIG92ZXJsYXkgKHNpYmxpbmdzIGFmdGVyIHRoZQogICAgICAgICAgY29udGFpbmVyKSB3aXRoIHotaW5kZXggYWJvdmUgdGhlIGNhbnZhcywgc28gY2xpY2tzIGxhbmQuIFNxdWFyZQogICAgICAgICAgZ2VvbWV0cnkgKFIyMCk6IGJvcmRlci1yYWRpdXMgaXMgdmFyKC0tcmFkaXVzKSA9IDBweC4gKi99CiAgICAgIDxkaXYgY2xhc3NOYW1lPSJtYXAtY29udHJvbHMiPgogICAgICAgIDxidXR0b24KICAgICAgICAgIHR5cGU9ImJ1dHRvbiIKICAgICAgICAgIGFyaWEtbGFiZWw9Inpvb20gaW4iCiAgICAgICAgICBvbkNsaWNrPXsoKSA9PiB7CiAgICAgICAgICAgIGNvbnN0IG0gPSBtYXBSZWYuY3VycmVudDsKICAgICAgICAgICAgaWYgKCFtKSByZXR1cm47CiAgICAgICAgICAgIGNvbnN0IHogPSBNYXRoLm1pbigxOCwgbS5nZXRab29tKCkgKyAzKTsKICAgICAgICAgICAgbS5zZXRab29tKHopOwogICAgICAgICAgfX0KICAgICAgICA+CiAgICAgICAgICB6b29tIGluCiAgICAgICAgPC9idXR0b24+CiAgICAgICAgPGJ1dHRvbgogICAgICAgICAgdHlwZT0iYnV0dG9uIgogICAgICAgICAgYXJpYS1sYWJlbD0iem9vbSBvdXQiCiAgICAgICAgICBvbkNsaWNrPXsoKSA9PiB7CiAgICAgICAgICAgIGNvbnN0IG0gPSBtYXBSZWYuY3VycmVudDsKICAgICAgICAgICAgaWYgKCFtKSByZXR1cm47CiAgICAgICAgICAgIGNvbnN0IHogPSBNYXRoLm1heCgxLCBtLmdldFpvb20oKSAtIDMpOwogICAgICAgICAgICBtLnNldFpvb20oeik7CiAgICAgICAgICB9fQogICAgICAgID4KICAgICAgICAgIHpvb20gb3V0CiAgICAgICAgPC9idXR0b24+CiAgICAgIDwvZGl2PgogICAgICB7Y2hpbGRyZW59CiAgICA8L01hcFByb3ZpZGVyPgogICk7Cn0K
+// L5 MAP-SHELL-GAZETTEER — MapLibre GL shell + zoom-graded town gazetteer.
+// Laws honored here:
+//  #1 production basemap only (OpenFreeMap bright, keyless; NEVER demotiles)
+//  #2 fetch-per-window (see lib/map/fetch-window.ts; basemap tiles are cached by maplibre)
+//  #4 tile errors = warnings (counted in state, UI never flips to stuck error)
+//  #7 coordinate-key debounce ~0.005 deg (panning within a cell emits nothing)
+//  R17 determinism: no Math.random / Date.now / new Date in this file.
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import maplibregl from 'maplibre-gl';
+import 'maplibre-gl/dist/maplibre-gl.css';
+import townsData from '../../data/towns/us-towns.json';
+import type { TownsFile } from '../lib/map/gazetteer';
+import { MapProvider } from '../lib/map/map-context';
+import { coordKey, tierForZoom, TIER_RULES, type Tier } from '../lib/map/tiers';
+
+const STYLE_URL = 'https://tiles.openfreemap.org/styles/bright';
+const TOWNS: TownsFile = townsData as TownsFile;
+
+/** Symbol-layer paint/text spec per tier. minzoom gates label visibility. */
+function tierLayers(tier: Tier): { id: string; minzoom: number; maxzoom: number; size: [number, number] } {
+  const rule = TIER_RULES.find((r) => r.tier === tier)!;
+  return {
+    id: `nds-labels-${tier}`,
+    minzoom: rule.minzoom,
+    maxzoom: rule.maxzoom,
+    size: tier === 'town' ? [12, 16] : tier === 'city' ? [13, 17] : tier === 'state' ? [12, 15] : [11, 13],
+  };
+}
+
+export interface MapViewProps {
+  /** initial view — defaults to continental US */
+  center?: [number, number];
+  zoom?: number;
+  children?: ReactNode;
+}
+
+export default function MapView({ center = [-98.5, 39.8], zoom = 3, children }: MapViewProps) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const mapRef = useRef<maplibregl.Map | null>(null);
+  const lastKeyRef = useRef<string>('');
+  const [map, setMap] = useState<maplibregl.Map | null>(null);
+  const [ready, setReady] = useState(false);
+  const [tileWarnings, setTileWarnings] = useState(0);
+  const [tier, setTier] = useState<Tier>('country');
+
+  useEffect(() => {
+    if (!containerRef.current || mapRef.current) return;
+    const m = new maplibregl.Map({
+      container: containerRef.current,
+      style: STYLE_URL,
+      center,
+      zoom,
+      maxZoom: 18,
+    });
+    mapRef.current = m;
+    setMap(m);
+    // Debug/e2e seam (documented): lets tests + L6 inspect layers via
+    // window.ndsMap.queryRenderedFeatures(...).
+    (window as { ndsMap?: maplibregl.Map }).ndsMap = m;
+
+    // Law #4: tile errors are WARNINGS — count them, never flip the UI.
+    let warnCount = 0;
+    m.on('error', (e) => {
+      const src = (e as { sourceType?: string }).sourceType;
+      if (src === 'tile' || src === 'source') {
+        warnCount += 1;
+        m.getContainer().dataset.ndsTileWarnings = String(warnCount);
+        setTileWarnings(warnCount);
+      }
+    });
+
+    m.on('load', () => {
+      // Gazetteer source: baked GeoNames towns, one feature per town.
+      m.addSource('nds-towns', {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: TOWNS.towns.map((t) => ({
+            type: 'Feature',
+            properties: { name: t.name, pop: t.pop, tier: t.tier },
+            geometry: { type: 'Point', coordinates: [t.lon, t.lat] },
+          })),
+        },
+      });
+      for (const t of ['country', 'state', 'city', 'town'] as Tier[]) {
+        const { id, minzoom, maxzoom, size } = tierLayers(t);
+        m.addLayer({
+          id,
+          type: 'symbol',
+          source: 'nds-towns',
+          minzoom,
+          maxzoom,
+          filter: ['==', ['get', 'tier'], t],
+          layout: {
+            'text-field': ['get', 'name'],
+            'text-font': ['Noto Sans Regular'],
+            'text-size': ['interpolate', ['linear'], ['zoom'], minzoom, size[0], minzoom + 4, size[1]],
+            'text-allow-overlap': false,
+            'text-max-width': 8,
+            'icon-allow-overlap': false,
+          },
+          paint: { 'text-color': '#101014', 'text-halo-color': '#ffffff', 'text-halo-width': 1.5 },
+        });
+      }
+      setReady(true);
+    });
+
+    // Law #7: coordinate-key debounce — only emit when the 0.005deg cell changes.
+    m.on('moveend', () => {
+      const c = m.getCenter();
+      const key = coordKey(c.lat, c.lng);
+      if (key !== lastKeyRef.current) {
+        lastKeyRef.current = key;
+        m.getContainer().dataset.ndsCoordKey = key;
+      }
+    });
+    m.on('zoomend', () => setTier(tierForZoom(m.getZoom())));
+
+    return () => {
+      m.remove();
+      mapRef.current = null;
+    };
+    // center/zoom are static initial-view props; mount-once by design.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <MapProvider map={map} ready={ready} tileWarnings={tileWarnings} tier={tier}>
+      <div
+        ref={containerRef}
+        data-testid="map-view"
+        data-map-style="openfreemap-bright"
+        data-tile-warnings={tileWarnings}
+        style={{ position: 'absolute', inset: 0, background: '#f5f5f2' }}
+      />
+      {/* Zoom controls render OUTSIDE the canvas overlay (siblings after the
+          container) with z-index above the canvas, so clicks land. Square
+          geometry (R20): border-radius is var(--radius) = 0px. */}
+      <div className="map-controls">
+        <button
+          type="button"
+          aria-label="zoom in"
+          onClick={() => {
+            const m = mapRef.current;
+            if (!m) return;
+            const z = Math.min(18, m.getZoom() + 3);
+            m.setZoom(z);
+          }}
+        >
+          zoom in
+        </button>
+        <button
+          type="button"
+          aria-label="zoom out"
+          onClick={() => {
+            const m = mapRef.current;
+            if (!m) return;
+            const z = Math.max(1, m.getZoom() - 3);
+            m.setZoom(z);
+          }}
+        >
+          zoom out
+        </button>
+      </div>
+      {children}
+    </MapProvider>
+  );
+}

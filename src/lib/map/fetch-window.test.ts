@@ -1,1 +1,34 @@
-aW1wb3J0IHsgYWZ0ZXJFYWNoLCBiZWZvcmVFYWNoLCBkZXNjcmliZSwgZXhwZWN0LCBpdCwgdmkgfSBmcm9tICd2aXRlc3QnOwppbXBvcnQgeyBmZXRjaFdpbmRvdywgcmVzZXRGZXRjaFdpbmRvdyB9IGZyb20gJy4vZmV0Y2gtd2luZG93JzsKCi8vIExhdyAjMjogZmV0Y2ggcGVyIH41LW1pbiB3aW5kb3csIE5PVCBwZXIgcGFuLiBVc2VzIGZha2UgdGltZXJzIHNvIG5vCi8vIERhdGUubm93IGxlYWtzIGludG8gbG9naWMgKFIxNykuCmRlc2NyaWJlKCdmZXRjaFdpbmRvdyAocGVyLXdpbmRvdyBkZWR1cGUsIGxhdyAjMiknLCAoKSA9PiB7CiAgYmVmb3JlRWFjaCgoKSA9PiB7CiAgICB2aS51c2VGYWtlVGltZXJzKCk7CiAgICByZXNldEZldGNoV2luZG93KCk7CiAgfSk7CiAgYWZ0ZXJFYWNoKCgpID0+IHZpLnVzZVJlYWxUaW1lcnMoKSk7CgogIGl0KCdjb2FsZXNjZXMgbXVsdGlwbGUgY2FsbHMgaW4gdGhlIHNhbWUgd2luZG93IGludG8gT05FIGZldGNoJywgYXN5bmMgKCkgPT4gewogICAgY29uc3Qgc3B5ID0gdmkuZm4oKS5tb2NrUmVzb2x2ZWRWYWx1ZSh7IG9rOiB0cnVlIH0pOwogICAgdmkuc3R1Ykdsb2JhbCgnZmV0Y2gnLCBzcHkpOwogICAgY29uc3QgdXJscyA9IEFycmF5LmZyb20oeyBsZW5ndGg6IDIwIH0sICgpID0+ICdodHRwczovL2FwaS5leGFtcGxlL2JhdGNoP2JveD0xJyk7CiAgICBhd2FpdCBQcm9taXNlLmFsbCh1cmxzLm1hcCgodSkgPT4gZmV0Y2hXaW5kb3codSkpKTsKICAgIC8vIGFkdmFuY2UgMSBtaW4sIHBhbiBzdG9ybSBhZ2FpbiDigJQgbXVzdCByZXVzZSBjYWNoZWQgcmVzcG9uc2UKICAgIHZpLmFkdmFuY2VUaW1lcnNCeVRpbWUoNjBfMDAwKTsKICAgIGF3YWl0IFByb21pc2UuYWxsKHVybHMubWFwKCh1KSA9PiBmZXRjaFdpbmRvdyh1KSkpOwogICAgZXhwZWN0KHNweSkudG9IYXZlQmVlbkNhbGxlZFRpbWVzKDEpOwogICAgdmkudW5zdHViQWxsR2xvYmFscygpOwogIH0pOwoKICBpdCgncmVmZXRjaGVzIGFmdGVyIHRoZSB3aW5kb3cgZWxhcHNlcycsIGFzeW5jICgpID0+IHsKICAgIGNvbnN0IHNweSA9IHZpLmZuKCkubW9ja1Jlc29sdmVkVmFsdWUoeyBvazogdHJ1ZSB9KTsKICAgIHZpLnN0dWJHbG9iYWwoJ2ZldGNoJywgc3B5KTsKICAgIGF3YWl0IGZldGNoV2luZG93KCdodHRwczovL2FwaS5leGFtcGxlL3gnKTsKICAgIHZpLmFkdmFuY2VUaW1lcnNCeVRpbWUoNSAqIDYwXzAwMCArIDEpOwogICAgYXdhaXQgZmV0Y2hXaW5kb3coJ2h0dHBzOi8vYXBpLmV4YW1wbGUveCcpOwogICAgZXhwZWN0KHNweSkudG9IYXZlQmVlbkNhbGxlZFRpbWVzKDIpOwogICAgdmkudW5zdHViQWxsR2xvYmFscygpOwogIH0pOwp9KTsK
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { fetchWindow, resetFetchWindow } from './fetch-window';
+
+// Law #2: fetch per ~5-min window, NOT per pan. Uses fake timers so no
+// Date.now leaks into logic (R17).
+describe('fetchWindow (per-window dedupe, law #2)', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+    resetFetchWindow();
+  });
+  afterEach(() => vi.useRealTimers());
+
+  it('coalesces multiple calls in the same window into ONE fetch', async () => {
+    const spy = vi.fn().mockResolvedValue({ ok: true });
+    vi.stubGlobal('fetch', spy);
+    const urls = Array.from({ length: 20 }, () => 'https://api.example/batch?box=1');
+    await Promise.all(urls.map((u) => fetchWindow(u)));
+    // advance 1 min, pan storm again — must reuse cached response
+    vi.advanceTimersByTime(60_000);
+    await Promise.all(urls.map((u) => fetchWindow(u)));
+    expect(spy).toHaveBeenCalledTimes(1);
+    vi.unstubAllGlobals();
+  });
+
+  it('refetches after the window elapses', async () => {
+    const spy = vi.fn().mockResolvedValue({ ok: true });
+    vi.stubGlobal('fetch', spy);
+    await fetchWindow('https://api.example/x');
+    vi.advanceTimersByTime(5 * 60_000 + 1);
+    await fetchWindow('https://api.example/x');
+    expect(spy).toHaveBeenCalledTimes(2);
+    vi.unstubAllGlobals();
+  });
+});

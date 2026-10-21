@@ -1,1 +1,51 @@
-IyEvdXNyL2Jpbi9lbnYgbm9kZQovKioKICogTDIgaGFybmVzcyBzZXR1cDogaW5zdGFsbHMgQHBsYXl3cmlnaHQvdGVzdCArIHZpdGUgaW50byB0aGUgaXNvbGF0ZWQgLmUyZS8KICogZGVwcyBkaXIgKHJvb3QgcGFja2FnZS5qc29uIGlzIEwxLW93bmVkIOKAlCBiYXNlNjQtZW5jb2RlZCwgbnBtIGNhbm5vdCBwYXJzZQogKiBpdCDigJQgc28gdGhlIGhhcm5lc3MgbmV2ZXIgdG91Y2hlcyBpdCksIHN5bWxpbmtzIG5vZGVfbW9kdWxlcyBmb3IgbW9kdWxlCiAqIHJlc29sdXRpb24sIHRoZW4gaW5zdGFsbHMgdGhlIENocm9taXVtIGJyb3dzZXIuIFJ1biBvbmNlIHBlciBtYWNoaW5lL0NJLgogKgogKiBVc2FnZTogbm9kZSBzY3JpcHRzL2UyZS1zZXR1cC5tanMgWy0td2l0aC1kZXBzXQogKi8KaW1wb3J0IHsgc3Bhd25TeW5jIH0gZnJvbSAnbm9kZTpjaGlsZF9wcm9jZXNzJzsKaW1wb3J0IHsgZXhpc3RzU3luYywgbWtkaXJTeW5jLCBzeW1saW5rU3luYywgcm1TeW5jLCBsc3RhdFN5bmMgfSBmcm9tICdub2RlOmZzJzsKaW1wb3J0IHsgZGlybmFtZSwgam9pbiwgcmVzb2x2ZSB9IGZyb20gJ25vZGU6cGF0aCc7CmltcG9ydCB7IGZpbGVVUkxUb1BhdGggfSBmcm9tICdub2RlOnVybCc7Cgpjb25zdCByZXBvUm9vdCA9IHJlc29sdmUoZGlybmFtZShmaWxlVVJMVG9QYXRoKGltcG9ydC5tZXRhLnVybCkpLCAnLi4nKTsKY29uc3QgZTJlRGlyID0gam9pbihyZXBvUm9vdCwgJy5lMmUnKTsKY29uc3QgbnBtID0gcHJvY2Vzcy5wbGF0Zm9ybSA9PT0gJ3dpbjMyJyA/ICducG0uY21kJyA6ICducG0nOwoKZnVuY3Rpb24gbnBtUnVuKGFyZ3MsIGN3ZCkgewogIGNvbnNvbGUubG9nKGBbZTJlLXNldHVwXSBucG0gJHthcmdzLmpvaW4oJyAnKX1gKTsKICBjb25zdCByZXMgPSBzcGF3blN5bmMobnBtLCBhcmdzLCB7IHN0ZGlvOiAnaW5oZXJpdCcsIGN3ZCB9KTsKICBpZiAocmVzLnN0YXR1cyAhPT0gMCkgewogICAgY29uc29sZS5lcnJvcihgW2UyZS1zZXR1cF0gbnBtICR7YXJncy5qb2luKCcgJyl9IGZhaWxlZCAoJHtyZXMuc3RhdHVzfSlgKTsKICAgIHByb2Nlc3MuZXhpdChyZXMuc3RhdHVzID8/IDEpOwogIH0KfQoKbWtkaXJTeW5jKGUyZURpciwgeyByZWN1cnNpdmU6IHRydWUgfSk7Cm5wbVJ1bihbJ2luc3RhbGwnLCAnLS1uby1hdWRpdCcsICctLW5vLWZ1bmQnXSwgZTJlRGlyKTsKCi8vIFN5bWxpbmsgcmVwby1yb290IG5vZGVfbW9kdWxlcyAtPiAuZTJlL25vZGVfbW9kdWxlcyAobW9kdWxlIHJlc29sdXRpb24pLgpjb25zdCBubSA9IGpvaW4ocmVwb1Jvb3QsICdub2RlX21vZHVsZXMnKTsKdHJ5IHsKICBjb25zdCBzdCA9IGxzdGF0U3luYyhubSk7CiAgaWYgKHN0LmlzU3ltYm9saWNMaW5rKCkgfHwgc3QuaXNEaXJlY3RvcnkoKSkgcm1TeW5jKG5tLCB7IHJlY3Vyc2l2ZTogdHJ1ZSwgZm9yY2U6IHRydWUgfSk7Cn0gY2F0Y2ggewogIC8qIGFic2VudCAqLwp9CnN5bWxpbmtTeW5jKCcuZTJlL25vZGVfbW9kdWxlcycsIG5tKTsKCmNvbnN0IHB3Q2xpID0gam9pbihlMmVEaXIsICdub2RlX21vZHVsZXMnLCAncGxheXdyaWdodC1jb3JlJywgJ2NsaS5qcycpOwppZiAoIWV4aXN0c1N5bmMocHdDbGkpKSB7CiAgY29uc29sZS5lcnJvcignW2UyZS1zZXR1cF0gcGxheXdyaWdodCBDTEkgbWlzc2luZyBhZnRlciBpbnN0YWxsJyk7CiAgcHJvY2Vzcy5leGl0KDEpOwp9CmNvbnN0IGJyb3dzZXJBcmdzID0gWydpbnN0YWxsJywgJ2Nocm9taXVtJ107CmlmIChwcm9jZXNzLmFyZ3YuaW5jbHVkZXMoJy0td2l0aC1kZXBzJykpIGJyb3dzZXJBcmdzLnB1c2goJy0td2l0aC1kZXBzJyk7CmNvbnN0IHJlcyA9IHNwYXduU3luYyhwcm9jZXNzLmV4ZWNQYXRoLCBbcHdDbGksIC4uLmJyb3dzZXJBcmdzXSwgeyBzdGRpbzogJ2luaGVyaXQnLCBjd2Q6IHJlcG9Sb290IH0pOwppZiAocmVzLnN0YXR1cyAhPT0gMCkgcHJvY2Vzcy5leGl0KHJlcy5zdGF0dXMgPz8gMSk7Cgpjb25zb2xlLmxvZygnW2UyZS1zZXR1cF0gZG9uZS4gUnVuOiBub2RlIHNjcmlwdHMvZTJlLXJ1bi5tanMnKTsK
+#!/usr/bin/env node
+/**
+ * L2 harness setup: installs @playwright/test + vite into the isolated .e2e/
+ * deps dir (root package.json is L1-owned — base64-encoded, npm cannot parse
+ * it — so the harness never touches it), symlinks node_modules for module
+ * resolution, then installs the Chromium browser. Run once per machine/CI.
+ *
+ * Usage: node scripts/e2e-setup.mjs [--with-deps]
+ */
+import { spawnSync } from 'node:child_process';
+import { existsSync, mkdirSync, symlinkSync, rmSync, lstatSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const e2eDir = join(repoRoot, '.e2e');
+const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+
+function npmRun(args, cwd) {
+  console.log(`[e2e-setup] npm ${args.join(' ')}`);
+  const res = spawnSync(npm, args, { stdio: 'inherit', cwd });
+  if (res.status !== 0) {
+    console.error(`[e2e-setup] npm ${args.join(' ')} failed (${res.status})`);
+    process.exit(res.status ?? 1);
+  }
+}
+
+mkdirSync(e2eDir, { recursive: true });
+npmRun(['install', '--no-audit', '--no-fund'], e2eDir);
+
+// Symlink repo-root node_modules -> .e2e/node_modules (module resolution).
+const nm = join(repoRoot, 'node_modules');
+try {
+  const st = lstatSync(nm);
+  if (st.isSymbolicLink() || st.isDirectory()) rmSync(nm, { recursive: true, force: true });
+} catch {
+  /* absent */
+}
+symlinkSync('.e2e/node_modules', nm);
+
+const pwCli = join(e2eDir, 'node_modules', 'playwright-core', 'cli.js');
+if (!existsSync(pwCli)) {
+  console.error('[e2e-setup] playwright CLI missing after install');
+  process.exit(1);
+}
+const browserArgs = ['install', 'chromium'];
+if (process.argv.includes('--with-deps')) browserArgs.push('--with-deps');
+const res = spawnSync(process.execPath, [pwCli, ...browserArgs], { stdio: 'inherit', cwd: repoRoot });
+if (res.status !== 0) process.exit(res.status ?? 1);
+
+console.log('[e2e-setup] done. Run: node scripts/e2e-run.mjs');

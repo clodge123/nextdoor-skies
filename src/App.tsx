@@ -1,1 +1,18 @@
-aW1wb3J0IHsgUm91dGUsIFJvdXRlcyB9IGZyb20gJ3JlYWN0LXJvdXRlci1kb20nCmltcG9ydCBIZWFkZXIgZnJvbSAnLi9jb21wb25lbnRzL0hlYWRlcicKaW1wb3J0IEZlZWRQYWdlIGZyb20gJy4vcGFnZXMvRmVlZFBhZ2UnCmltcG9ydCBNYXBQYWdlIGZyb20gJy4vcGFnZXMvTWFwUGFnZScKCmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIEFwcCgpIHsKICByZXR1cm4gKAogICAgPGRpdiBjbGFzc05hbWU9ImFwcC1zaGVsbCI+CiAgICAgIDxIZWFkZXIgLz4KICAgICAgPG1haW4gY2xhc3NOYW1lPSJhcHAtbWFpbiI+CiAgICAgICAgPFJvdXRlcz4KICAgICAgICAgIDxSb3V0ZSBwYXRoPSIvIiBlbGVtZW50PXs8TWFwUGFnZSAvPn0gLz4KICAgICAgICAgIDxSb3V0ZSBwYXRoPSIvZmVlZCIgZWxlbWVudD17PEZlZWRQYWdlIC8+fSAvPgogICAgICAgIDwvUm91dGVzPgogICAgICA8L21haW4+CiAgICA8L2Rpdj4KICApCn0K
+import { Route, Routes } from 'react-router-dom'
+import Header from './components/Header'
+import FeedPage from './pages/FeedPage'
+import MapPage from './pages/MapPage'
+
+export default function App() {
+  return (
+    <div className="app-shell">
+      <Header />
+      <main className="app-main">
+        <Routes>
+          <Route path="/" element={<MapPage />} />
+          <Route path="/feed" element={<FeedPage />} />
+        </Routes>
+      </main>
+    </div>
+  )
+}

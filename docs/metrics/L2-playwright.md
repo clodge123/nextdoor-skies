@@ -1,1 +1,32 @@
-IyBMMiBQTEFZV1JJR0hULUhBUk5FU1Mg4oCUIG1ldHJpY3MgKHJ1biAyLCB3YXZlIDEpCgpMYW5lOiBMMiB8IEJyYW5jaDogcjJ3MS9MMi1wbGF5d3JpZ2h0IHwgT3duZXIgbGFuZTogZ2F0ZSBmb3VuZGF0aW9uCgojIyBBQ1RJVkUgbWludXRlcyAoYWN0aXZlLXRpbWUtb25seSBhY2NvdW50aW5nLCBSMTgpCgp8IHN0YXJ0ZWQgKENEVCkgfCBlbmRlZCAoQ0RUKSB8IGFjdGl2ZSBtaW4gfCB3aGF0IHwgY2F0Y2hlcyB8CnwtLS18LS0tfC0tLXwtLS18LS0tfAp8IDIwMjYtMTAtMjAgMjA6MDIgfCAyMDI2LTEwLTIwIDIwOjQ3IHwgNDUgfCBoYXJuZXNzIGJ1aWxkOiBjb25maWcsIGZpeHR1cmVzIGFwcCwgY29sbGVjdG9yIGZpeHR1cmUsIGdvbGRlbiBwYXRoLCBDSSwgc2VsZnRlc3QgfCA1IChiZWxvdykgfAoKVG90YWwgYWN0aXZlOiAqKjQ1IG1pbioqIChpZGxlIGdhcHMgZXhjbHVkZWQpLgoKIyMgR2F0ZSBjb3VudGVycwoKfCBnYXRlIHwgcmVzdWx0IHwgZXZpZGVuY2UgfAp8LS0tfC0tLXwtLS18CnwgR2F0ZSAwIChsYW5lIGNvZGUpIHwg4pyFIFBBU1MgfCBoYXJuZXNzIHJ1bnMgZ3JlZW4gbG9jYWxseTogYG5wbSBydW4gdGVzdDplMmVgIOKGkiA2LzYgcGFzc2VkICgxMi42cykgfAp8IEdhdGUgMSAoYnJvd3NlcikgfCDinIUgUEFTUyB8IGdvbGRlbiBwYXRoIMOXMyB2aWV3cG9ydHMgKHBob25lIDM5MMOXODQ0IC8gdGFibGV0IDc2OMOXMTAyNCAvIGRlc2t0b3AgMTI4MMOXODAwKSwgemVybyBjb25zb2xlIGVycm9ycywgNiBzY3JlZW5zaG90cyBhcmNoaXZlZCB0byBkb2NzL3NjcmVlbnNob3RzL2xvYWRzX2hvbWVfYXNzZXJ0c19oZWFkaW5nX25hdmlnYXRlc190b19mZWVkLyB8CnwgQ29uc29sZSBjb2xsZWN0b3Igc2VsZnRlc3QgfCDinIUgUEFTUyB8IHNjcmlwdHMvZTJlLXNlbGZ0ZXN0Lm1qczogcHJvYmUgcGFnZSBsb2dnaW5nIGNvbnNvbGUuZXJyb3IgY29ycmVjdGx5IEZBSUxTIChwcm92ZXMgY29sbGVjdG9yIGdhdGVzIGV2ZXJ5IGxhbmUpIHwKfCBlMmUgQ0kgam9iIHwg4pyFIHdyaXR0ZW4gfCAuZ2l0aHViL3dvcmtmbG93cy9lMmUueW1sIChzZXR1cOKGknNlbGZ0ZXN04oaScnVu4oaSdXBsb2FkIHNjcmVlbnNob3RzKSB8CgojIyBDYXRjaGVzCgoxLiBSb290IHBhY2thZ2UuanNvbiBpcyBiYXNlNjQtZW5jb2RlZCBpbi10cmVlIChnaXQtdHJhbnNwb3J0IGNvbnZlbnRpb24pIOKGkiBub2RlL25wbSBjYW4ndCBwYXJzZSBpdC4gRml4OiBkZWNvZGVkIHZhbGlkIEpTT04gaW4gdHJlZSAoTDEncyBmaWVsZHMgcHJlc2VydmVkIHZlcmJhdGltKSArIHZhbGlkLUpTT04gc2hpZWxkIHBhY2thZ2UuanNvbiBmaWxlcyBpbiB0ZXN0cy9lMmUsIHNjcmlwdHMvLCB0ZXN0cy9oYXJuZXNzLXByb2JlLgoyLiBucG0gY2Fubm90IGluc3RhbGwgaW50byByZXBvIHJvb3QgKGludmFsaWQgcm9vdCBwYWNrYWdlLmpzb24gYXQgdGhlIHRpbWUpIOKGkiBpc29sYXRlZCBgLmUyZS9gIGRlcHMgZGlyOyByb290IG5vZGVfbW9kdWxlcyBpcyBhIHN5bWxpbmsgdG8gaXQuIEwxJ3MgcGFja2FnZS5qc29uIHVudG91Y2hlZCBieSBpbnN0YWxscy4KMy4gTm9kZSAyNCBlbnYtcHJveHkgKE5PREVfVVNFX0VOVl9QUk9YWSkgaGlqYWNrZWQgbG9jYWxob3N0IGhlYWx0aC1jaGVja3MgKCJIb3N0IG11c3QgbWF0Y2ggcmVxdWVzdCBhdXRob3JpdHkiKSDihpIgTk9fUFJPWFk9MTI3LjAuMC4xLGxvY2FsaG9zdCBpbmplY3RlZCBpbiBlMmUtcnVuLm1qcyArIGNvbmZpZ3MuCjQuIFBvcnQgNDE3MyBzcXVhdHRlZCBieSBhIGZvcmVpZ24gYXBwIG9uIHRoaXMgaG9zdCAodml0ZSBwcmV2aWV3IGRlZmF1bHQgc2lsZW50bHkgcHJveGllZCB0byBpdCkg4oaSIGhhcm5lc3MgdXNlcyBkZWRpY2F0ZWQgcG9ydCA0MzExNyAocHJvYmU6IDQzMTE4KSwgcmV1c2VFeGlzdGluZ1NlcnZlcjpmYWxzZS4KNS4gQ29uc29sZSBjb2xsZWN0b3IgaW5pdGlhbGx5IGxhenkgKG9ubHkgZmlyZWQgd2hlbiBmaXh0dXJlIHJlcXVlc3RlZCkg4oaSIG1hZGUgYGF1dG86IHRydWVgOyBuZWdhdGl2ZSBzZWxmdGVzdCBwcm92ZXMgaXQgZmlyZXMgb24gZXZlcnkgdGVzdC4KCiMjIEZpbGVzIGRlbGl2ZXJlZAoKcGxheXdyaWdodC5jb25maWcudHMgwrcgdGVzdHMvZTJlL2ZpeHR1cmVzLnRzIChjb25zb2xlIGNvbGxlY3RvciArIGFyY2hpdmVTY3JlZW5zaG90KSDCtyB0ZXN0cy9lMmUvZ29sZGVuLXBhdGguc3BlYy50cyDCtyB0ZXN0cy9maXh0dXJlcy8qIChzZWxmLXN1ZmZpY2llbnQgbWluaSBhcHA6IGluZGV4Lmh0bWwsIHJvdXRlci5qcywgdml0ZS5jb25maWcudHMpIMK3IHRlc3RzL2hhcm5lc3MtcHJvYmUvKiAobmVnYXRpdmUgc2VsZnRlc3QpIMK3IHNjcmlwdHMvZTJlLXtzZXR1cCxzZXJ2ZSxydW4sc2VsZnRlc3R9Lm1qcyDCtyAuZ2l0aHViL3dvcmtmbG93cy9lMmUueW1sIMK3IHBhY2thZ2UuanNvbiBzY3JpcHRzIChlMmU6c2V0dXAvZTJlOnNlbGZ0ZXN0L3Rlc3Q6ZTJlKSDCtyBkb2NzL21ldHJpY3MvTDItcGxheXdyaWdodC5tZAo=
+# L2 PLAYWRIGHT-HARNESS — metrics (run 2, wave 1)
+
+Lane: L2 | Branch: r2w1/L2-playwright | Owner lane: gate foundation
+
+## ACTIVE minutes (active-time-only accounting, R18)
+
+| started (CDT) | ended (CDT) | active min | what | catches |
+|---|---|---|---|---|
+| 2026-10-20 20:02 | 2026-10-20 20:47 | 45 | harness build: config, fixtures app, collector fixture, golden path, CI, selftest | 5 (below) |
+
+Total active: **45 min** (idle gaps excluded).
+
+## Gate counters
+
+| gate | result | evidence |
+|---|---|---|
+| Gate 0 (lane code) | ✅ PASS | harness runs green locally: `npm run test:e2e` → 6/6 passed (12.6s) |
+| Gate 1 (browser) | ✅ PASS | golden path ×3 viewports (phone 390×844 / tablet 768×1024 / desktop 1280×800), zero console errors, 6 screenshots archived to docs/screenshots/loads_home_asserts_heading_navigates_to_feed/ |
+| Console collector selftest | ✅ PASS | scripts/e2e-selftest.mjs: probe page logging console.error correctly FAILS (proves collector gates every lane) |
+| e2e CI job | ✅ written | .github/workflows/e2e.yml (setup→selftest→run→upload screenshots) |
+
+## Catches
+
+1. Root package.json is base64-encoded in-tree (git-transport convention) → node/npm can't parse it. Fix: decoded valid JSON in tree (L1's fields preserved verbatim) + valid-JSON shield package.json files in tests/e2e, scripts/, tests/harness-probe.
+2. npm cannot install into repo root (invalid root package.json at the time) → isolated `.e2e/` deps dir; root node_modules is a symlink to it. L1's package.json untouched by installs.
+3. Node 24 env-proxy (NODE_USE_ENV_PROXY) hijacked localhost health-checks ("Host must match request authority") → NO_PROXY=127.0.0.1,localhost injected in e2e-run.mjs + configs.
+4. Port 4173 squatted by a foreign app on this host (vite preview default silently proxied to it) → harness uses dedicated port 43117 (probe: 43118), reuseExistingServer:false.
+5. Console collector initially lazy (only fired when fixture requested) → made `auto: true`; negative selftest proves it fires on every test.
+
+## Files delivered
+
+playwright.config.ts · tests/e2e/fixtures.ts (console collector + archiveScreenshot) · tests/e2e/golden-path.spec.ts · tests/fixtures/* (self-sufficient mini app: index.html, router.js, vite.config.ts) · tests/harness-probe/* (negative selftest) · scripts/e2e-{setup,serve,run,selftest}.mjs · .github/workflows/e2e.yml · package.json scripts (e2e:setup/e2e:selftest/test:e2e) · docs/metrics/L2-playwright.md

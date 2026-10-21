@@ -1,1 +1,65 @@
-LyoqCiAqIE1pbmltYWwgZmVlZCBwYWdlIGZpeHR1cmUgZm9yIHRoZSBMNyBQbGF5d3JpZ2h0IGdhdGUgKEdhdGUgMSkuCiAqIEZldGNoZXMgL2FwaS9yZXBvcnRzIGFuZCByZW5kZXJzIHBvc3RzOyByb3dzIHdpdGggc2VlZGVkOnRydWUgZ2V0IGFuCiAqIGhvbmVzdCAiRGVtbyBkYXRhIiBiYWRnZSAoZG9jcy9TRUVELUNPTlRSQUNULm1kKS4gV2F2ZSAyIHJlcGxhY2VzIHRoaXMKICogZml4dHVyZSB3aXRoIHRoZSByZWFsIGZlZWQgVUkg4oCUIHNhbWUgbGFiZWwgY29udHJhY3QuCiAqLwpleHBvcnQgY29uc3QgRkVFRF9IVE1MID0gYDwhZG9jdHlwZSBodG1sPgo8aHRtbCBsYW5nPSJlbiI+CjxoZWFkPgo8bWV0YSBjaGFyc2V0PSJ1dGYtOCI+CjxtZXRhIG5hbWU9InZpZXdwb3J0IiBjb250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsIGluaXRpYWwtc2NhbGU9MSI+Cjx0aXRsZT5OZXh0ZG9vciBTa2llcyDigJQgVG93biBGZWVkPC90aXRsZT4KPHN0eWxlPgogIDpyb290IHsgLS1yYWRpdXM6IDBweDsgfQogIGJvZHkgeyBmb250LWZhbWlseTogc3lzdGVtLXVpLCBzYW5zLXNlcmlmOyBtYXJnaW46IDA7IGJhY2tncm91bmQ6ICMwYjEwMjA7IGNvbG9yOiAjZThlY2Y0OyB9CiAgbWFpbiB7IG1heC13aWR0aDogNjQwcHg7IG1hcmdpbjogMCBhdXRvOyBwYWRkaW5nOiAxNnB4OyB9CiAgaDEgeyBmb250LXNpemU6IDIwcHg7IH0KICAucG9zdCB7IGJvcmRlcjogMXB4IHNvbGlkICMyYTM1NTA7IGJvcmRlci1yYWRpdXM6IHZhcigtLXJhZGl1cyk7IHBhZGRpbmc6IDEycHg7IG1hcmdpbi1ib3R0b206IDEycHg7IH0KICAucG9zdCAubWV0YSB7IGZvbnQtc2l6ZTogMTJweDsgY29sb3I6ICM5M2EwYmQ7IGRpc3BsYXk6IGZsZXg7IGdhcDogOHB4OyBmbGV4LXdyYXA6IHdyYXA7IGFsaWduLWl0ZW1zOiBjZW50ZXI7IH0KICAuZGVtby1sYWJlbCB7IGJhY2tncm91bmQ6ICMzYjJmNmI7IGNvbG9yOiAjY2JiOGZmOyBmb250LXNpemU6IDExcHg7IHBhZGRpbmc6IDJweCA2cHg7IGJvcmRlci1yYWRpdXM6IHZhcigtLXJhZGl1cyk7IHRleHQtdHJhbnNmb3JtOiB1cHBlcmNhc2U7IGxldHRlci1zcGFjaW5nOiAwLjA0ZW07IH0KICAucG9zdCAuYm9keSB7IG1hcmdpbjogOHB4IDAgNHB4OyB9CiAgLmNvbW1lbnRzIHsgbWFyZ2luLXRvcDogOHB4OyBib3JkZXItdG9wOiAxcHggc29saWQgIzJhMzU1MDsgcGFkZGluZy10b3A6IDhweDsgfQogIC5jb21tZW50IHsgZm9udC1zaXplOiAxM3B4OyBtYXJnaW46IDRweCAwOyB9CiAgLmNvbW1lbnQgLmF1dGhvciB7IGNvbG9yOiAjOTNhMGJkOyB9CiAgLnR5cGUgeyBmb250LXdlaWdodDogNjAwOyB0ZXh0LXRyYW5zZm9ybTogY2FwaXRhbGl6ZTsgfQo8L3N0eWxlPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KICA8aDE+VG93biBGZWVkPC9oMT4KICA8ZGl2IGlkPSJmZWVkIj48L2Rpdj4KPC9tYWluPgo8c2NyaXB0Pgphc3luYyBmdW5jdGlvbiBsb2FkKCkgewogIGNvbnN0IHJlcyA9IGF3YWl0IGZldGNoKCcvYXBpL3JlcG9ydHMnKTsKICBjb25zdCBkYXRhID0gYXdhaXQgcmVzLmpzb24oKTsKICBjb25zdCBmZWVkID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2ZlZWQnKTsKICBjb25zdCBieVBvc3QgPSBuZXcgTWFwKCk7CiAgZm9yIChjb25zdCBjIG9mIChkYXRhLmNvbW1lbnRzID8/IFtdKSkgewogICAgaWYgKCFieVBvc3QuaGFzKGMucmVwb3J0X2lkKSkgYnlQb3N0LnNldChjLnJlcG9ydF9pZCwgW10pOwogICAgYnlQb3N0LmdldChjLnJlcG9ydF9pZCkucHVzaChjKTsKICB9CiAgY29uc3QgcG9zdHMgPSBbLi4uZGF0YS5yZXBvcnRzXS5zb3J0KChhLCBiKSA9PiBiLnRzLmxvY2FsZUNvbXBhcmUoYS50cykpOwogIGZvciAoY29uc3QgcCBvZiBwb3N0cykgewogICAgY29uc3QgZWwgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdhcnRpY2xlJyk7CiAgICBlbC5jbGFzc05hbWUgPSAncG9zdCc7CiAgICBlbC5kYXRhc2V0LnBvc3RJZCA9IHAuaWQ7CiAgICBlbC5kYXRhc2V0LnNlZWRlZCA9IFN0cmluZyhwLnNlZWRlZCA9PT0gdHJ1ZSk7CiAgICBjb25zdCBjb21tZW50cyA9IChieVBvc3QuZ2V0KHAuaWQpID8/IFtdKQogICAgICAuc29ydCgoYSwgYikgPT4gYi50cy5sb2NhbGVDb21wYXJlKGEudHMpKQogICAgICAubWFwKChjKSA9PiAnPGRpdiBjbGFzcz0iY29tbWVudCI+PHNwYW4gY2xhc3M9ImF1dGhvciI+JyArIGMuYXV0aG9yICsgJzo8L3NwYW4+ICcgKyBjLmJvZHkgKyAnPC9kaXY+JykKICAgICAgLmpvaW4oJycpOwogICAgZWwuaW5uZXJIVE1MID0KICAgICAgJzxkaXYgY2xhc3M9Im1ldGEiPjxzcGFuIGNsYXNzPSJ0eXBlIj4nICsgcC50eXBlICsgJzwvc3Bhbj4nICsKICAgICAgJzxzcGFuPicgKyBwLnRvd24gKyAnPC9zcGFuPjxzcGFuPicgKyBuZXcgRGF0ZShwLnRzKS50b0xvY2FsZVN0cmluZygpICsgJzwvc3Bhbj4nICsKICAgICAgKHAuc2VlZGVkID09PSB0cnVlID8gJzxzcGFuIGNsYXNzPSJkZW1vLWxhYmVsIj5EZW1vIGRhdGE8L3NwYW4+JyA6ICcnKSArCiAgICAgICc8L2Rpdj48ZGl2IGNsYXNzPSJib2R5Ij4nICsgcC5ib2R5ICsgJzwvZGl2PicgKwogICAgICAoY29tbWVudHMgPyAnPGRpdiBjbGFzcz0iY29tbWVudHMiPicgKyBjb21tZW50cyArICc8L2Rpdj4nIDogJycpOwogICAgZmVlZC5hcHBlbmRDaGlsZChlbCk7CiAgfQp9CmxvYWQoKTsKPC9zY3JpcHQ+CjwvYm9keT4KPC9odG1sPmA7Cg==
+/**
+ * Minimal feed page fixture for the L7 Playwright gate (Gate 1).
+ * Fetches /api/reports and renders posts; rows with seeded:true get an
+ * honest "Demo data" badge (docs/SEED-CONTRACT.md). Wave 2 replaces this
+ * fixture with the real feed UI — same label contract.
+ */
+export const FEED_HTML = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nextdoor Skies — Town Feed</title>
+<style>
+  :root { --radius: 0px; }
+  body { font-family: system-ui, sans-serif; margin: 0; background: #0b1020; color: #e8ecf4; }
+  main { max-width: 640px; margin: 0 auto; padding: 16px; }
+  h1 { font-size: 20px; }
+  .post { border: 1px solid #2a3550; border-radius: var(--radius); padding: 12px; margin-bottom: 12px; }
+  .post .meta { font-size: 12px; color: #93a0bd; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .demo-label { background: #3b2f6b; color: #cbb8ff; font-size: 11px; padding: 2px 6px; border-radius: var(--radius); text-transform: uppercase; letter-spacing: 0.04em; }
+  .post .body { margin: 8px 0 4px; }
+  .comments { margin-top: 8px; border-top: 1px solid #2a3550; padding-top: 8px; }
+  .comment { font-size: 13px; margin: 4px 0; }
+  .comment .author { color: #93a0bd; }
+  .type { font-weight: 600; text-transform: capitalize; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Town Feed</h1>
+  <div id="feed"></div>
+</main>
+<script>
+async function load() {
+  const res = await fetch('/api/reports');
+  const data = await res.json();
+  const feed = document.getElementById('feed');
+  const byPost = new Map();
+  for (const c of (data.comments ?? [])) {
+    if (!byPost.has(c.report_id)) byPost.set(c.report_id, []);
+    byPost.get(c.report_id).push(c);
+  }
+  const posts = [...data.reports].sort((a, b) => b.ts.localeCompare(a.ts));
+  for (const p of posts) {
+    const el = document.createElement('article');
+    el.className = 'post';
+    el.dataset.postId = p.id;
+    el.dataset.seeded = String(p.seeded === true);
+    const comments = (byPost.get(p.id) ?? [])
+      .sort((a, b) => b.ts.localeCompare(a.ts))
+      .map((c) => '<div class="comment"><span class="author">' + c.author + ':</span> ' + c.body + '</div>')
+      .join('');
+    el.innerHTML =
+      '<div class="meta"><span class="type">' + p.type + '</span>' +
+      '<span>' + p.town + '</span><span>' + new Date(p.ts).toLocaleString() + '</span>' +
+      (p.seeded === true ? '<span class="demo-label">Demo data</span>' : '') +
+      '</div><div class="body">' + p.body + '</div>' +
+      (comments ? '<div class="comments">' + comments + '</div>' : '');
+    feed.appendChild(el);
+  }
+}
+load();
+</script>
+</body>
+</html>`;

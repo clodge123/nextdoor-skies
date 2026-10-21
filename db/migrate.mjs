@@ -1,1 +1,76 @@
-IyEvdXNyL2Jpbi9lbnYgbm9kZQovLyBkYi9taWdyYXRlLm1qcyDigJQgYXBwbHkgZGIvc2NoZW1hLnNxbCB0byBQT1NUR1JFU19VUkwsIHRoZW4gdmVyaWZ5IHRhYmxlcy4KLy8gTW9kZXM6Ci8vICAgbm9kZSBkYi9taWdyYXRlLm1qcyAgICAgICAgICAtPiBhcHBseSBzY2hlbWEgKGlkZW1wb3RlbnQpLCB2ZXJpZnksIGV4aXQgMC8xCi8vICAgbm9kZSBkYi9taWdyYXRlLm1qcyAtLWNoZWNrICAtPiB2ZXJpZnkgT05MWSAobm8gd3JpdGVzKTsgZXhpdCAwIGlmIGFsbCB0YWJsZXMgZXhpc3QsIDEgb3RoZXJ3aXNlCi8vIFJlcXVpcmVzIFBPU1RHUkVTX1VSTCBpbiBlbnYuIFVzZXMgdGhlIGBwZ2AgZGVwZW5kZW5jeS4KaW1wb3J0IHsgcmVhZEZpbGVTeW5jIH0gZnJvbSAnbm9kZTpmcyc7CmltcG9ydCB7IGZpbGVVUkxUb1BhdGggfSBmcm9tICdub2RlOnVybCc7CmltcG9ydCB7IGRpcm5hbWUsIGpvaW4gfSBmcm9tICdub2RlOnBhdGgnOwoKY29uc3QgRVhQRUNURURfVEFCTEVTID0gWydyZXBvcnRzJywgJ2NvbW1lbnRzJywgJ2ZsYWdzJywgJ3JlYWN0aW9ucycsICdyYXRlX2xpbWl0J107CgpmdW5jdGlvbiBkaWUobXNnKSB7CiAgY29uc29sZS5lcnJvcihgW21pZ3JhdGVdICR7bXNnfWApOwogIHByb2Nlc3MuZXhpdCgxKTsKfQoKY29uc3QgY2hlY2tNb2RlID0gcHJvY2Vzcy5hcmd2LmluY2x1ZGVzKCctLWNoZWNrJyk7CmNvbnN0IHVybCA9IHByb2Nlc3MuZW52LlBPU1RHUkVTX1VSTDsKaWYgKCF1cmwpIGRpZSgnUE9TVEdSRVNfVVJMIGlzIG5vdCBzZXQgKHJlcXVpcmVkIGZvciBtaWdyYXRpb24vdmVyaWZpY2F0aW9uKScpOwoKY29uc3QgaGVyZSA9IGRpcm5hbWUoZmlsZVVSTFRvUGF0aChpbXBvcnQubWV0YS51cmwpKTsKY29uc3Qgc2NoZW1hUGF0aCA9IGpvaW4oaGVyZSwgJ3NjaGVtYS5zcWwnKTsKbGV0IHNjaGVtYVNxbDsKdHJ5IHsKICBzY2hlbWFTcWwgPSByZWFkRmlsZVN5bmMoc2NoZW1hUGF0aCwgJ3V0ZjgnKTsKfSBjYXRjaCAoZXJyKSB7CiAgZGllKGBjYW5ub3QgcmVhZCAke3NjaGVtYVBhdGh9OiAke2Vyci5tZXNzYWdlfWApOwp9Cgpjb25zdCB7IGRlZmF1bHQ6IHBnIH0gPSBhd2FpdCBpbXBvcnQoJ3BnJyk7CmNvbnN0IGNsaWVudCA9IG5ldyBwZy5DbGllbnQoeyBjb25uZWN0aW9uU3RyaW5nOiB1cmwsIHNzbDogeyByZWplY3RVbmF1dGhvcml6ZWQ6IGZhbHNlIH0gfSk7Cgp0cnkgewogIGF3YWl0IGNsaWVudC5jb25uZWN0KCk7Cn0gY2F0Y2ggKGVycikgewogIGRpZShgY2Fubm90IGNvbm5lY3QgdG8gUE9TVEdSRVNfVVJMOiAke2Vyci5tZXNzYWdlfWApOwp9Cgphc3luYyBmdW5jdGlvbiB2ZXJpZnlUYWJsZXMoKSB7CiAgY29uc3QgcmVzID0gYXdhaXQgY2xpZW50LnF1ZXJ5KAogICAgJ3NlbGVjdCB0YWJsZV9uYW1lIGZyb20gaW5mb3JtYXRpb25fc2NoZW1hLnRhYmxlcyB3aGVyZSB0YWJsZV9zY2hlbWEgPSBhbnkoY3VycmVudF9zY2hlbWFzKGZhbHNlKSkgYW5kIHRhYmxlX25hbWUgPSBhbnkoJDE6OnRleHRbXSknLAogICAgW0VYUEVDVEVEX1RBQkxFU10KICApOwogIGNvbnN0IGZvdW5kID0gbmV3IFNldChyZXMucm93cy5tYXAoKHIpID0+IHIudGFibGVfbmFtZSkpOwogIGNvbnN0IG1pc3NpbmcgPSBFWFBFQ1RFRF9UQUJMRVMuZmlsdGVyKCh0KSA9PiAhZm91bmQuaGFzKHQpKTsKICByZXR1cm4gbWlzc2luZzsKfQoKbGV0IGV4aXRDb2RlID0gMDsKdHJ5IHsKICBpZiAoY2hlY2tNb2RlKSB7CiAgICBjb25zdCBtaXNzaW5nID0gYXdhaXQgdmVyaWZ5VGFibGVzKCk7CiAgICBpZiAobWlzc2luZy5sZW5ndGgpIHsKICAgICAgY29uc29sZS5lcnJvcihgW21pZ3JhdGUgLS1jaGVja10gTUlTU0lORyB0YWJsZXM6ICR7bWlzc2luZy5qb2luKCcsICcpfWApOwogICAgICBleGl0Q29kZSA9IDE7CiAgICB9IGVsc2UgewogICAgICBjb25zb2xlLmxvZyhgW21pZ3JhdGUgLS1jaGVja10gT0s6IGFsbCAke0VYUEVDVEVEX1RBQkxFUy5sZW5ndGh9IHRhYmxlcyBwcmVzZW50ICgke0VYUEVDVEVEX1RBQkxFUy5qb2luKCcsICcpfSlgKTsKICAgIH0KICB9IGVsc2UgewogICAgY29uc29sZS5sb2coJ1ttaWdyYXRlXSBhcHBseWluZyBkYi9zY2hlbWEuc3FsIChpZGVtcG90ZW50KS4uLicpOwogICAgYXdhaXQgY2xpZW50LnF1ZXJ5KHNjaGVtYVNxbCk7CiAgICBjb25zdCBtaXNzaW5nID0gYXdhaXQgdmVyaWZ5VGFibGVzKCk7CiAgICBpZiAobWlzc2luZy5sZW5ndGgpIHsKICAgICAgY29uc29sZS5lcnJvcihgW21pZ3JhdGVdIHNjaGVtYSBhcHBsaWVkIGJ1dCB0YWJsZXMgbWlzc2luZzogJHttaXNzaW5nLmpvaW4oJywgJyl9YCk7CiAgICAgIGV4aXRDb2RlID0gMTsKICAgIH0gZWxzZSB7CiAgICAgIGNvbnNvbGUubG9nKGBbbWlncmF0ZV0gT0s6IHNjaGVtYSBhcHBsaWVkLCBhbGwgJHtFWFBFQ1RFRF9UQUJMRVMubGVuZ3RofSB0YWJsZXMgdmVyaWZpZWRgKTsKICAgIH0KICB9Cn0gY2F0Y2ggKGVycikgewogIGRpZShgbWlncmF0aW9uIGZhaWxlZDogJHtlcnIubWVzc2FnZX1gKTsKfSBmaW5hbGx5IHsKICB0cnkgeyBhd2FpdCBjbGllbnQuZW5kKCk7IH0gY2F0Y2ggeyAvKiBpZ25vcmUgKi8gfQp9CnByb2Nlc3MuZXhpdChleGl0Q29kZSk7Cg==
+#!/usr/bin/env node
+// db/migrate.mjs — apply db/schema.sql to POSTGRES_URL, then verify tables.
+// Modes:
+//   node db/migrate.mjs          -> apply schema (idempotent), verify, exit 0/1
+//   node db/migrate.mjs --check  -> verify ONLY (no writes); exit 0 if all tables exist, 1 otherwise
+// Requires POSTGRES_URL in env. Uses the `pg` dependency.
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+
+const EXPECTED_TABLES = ['reports', 'comments', 'flags', 'reactions', 'rate_limit'];
+
+function die(msg) {
+  console.error(`[migrate] ${msg}`);
+  process.exit(1);
+}
+
+const checkMode = process.argv.includes('--check');
+const url = process.env.POSTGRES_URL;
+if (!url) die('POSTGRES_URL is not set (required for migration/verification)');
+
+const here = dirname(fileURLToPath(import.meta.url));
+const schemaPath = join(here, 'schema.sql');
+let schemaSql;
+try {
+  schemaSql = readFileSync(schemaPath, 'utf8');
+} catch (err) {
+  die(`cannot read ${schemaPath}: ${err.message}`);
+}
+
+const { default: pg } = await import('pg');
+const client = new pg.Client({ connectionString: url, ssl: { rejectUnauthorized: false } });
+
+try {
+  await client.connect();
+} catch (err) {
+  die(`cannot connect to POSTGRES_URL: ${err.message}`);
+}
+
+async function verifyTables() {
+  const res = await client.query(
+    'select table_name from information_schema.tables where table_schema = any(current_schemas(false)) and table_name = any($1::text[])',
+    [EXPECTED_TABLES]
+  );
+  const found = new Set(res.rows.map((r) => r.table_name));
+  const missing = EXPECTED_TABLES.filter((t) => !found.has(t));
+  return missing;
+}
+
+let exitCode = 0;
+try {
+  if (checkMode) {
+    const missing = await verifyTables();
+    if (missing.length) {
+      console.error(`[migrate --check] MISSING tables: ${missing.join(', ')}`);
+      exitCode = 1;
+    } else {
+      console.log(`[migrate --check] OK: all ${EXPECTED_TABLES.length} tables present (${EXPECTED_TABLES.join(', ')})`);
+    }
+  } else {
+    console.log('[migrate] applying db/schema.sql (idempotent)...');
+    await client.query(schemaSql);
+    const missing = await verifyTables();
+    if (missing.length) {
+      console.error(`[migrate] schema applied but tables missing: ${missing.join(', ')}`);
+      exitCode = 1;
+    } else {
+      console.log(`[migrate] OK: schema applied, all ${EXPECTED_TABLES.length} tables verified`);
+    }
+  }
+} catch (err) {
+  die(`migration failed: ${err.message}`);
+} finally {
+  try { await client.end(); } catch { /* ignore */ }
+}
+process.exit(exitCode);

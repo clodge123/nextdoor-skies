@@ -1,1 +1,25 @@
-IyEvdXNyL2Jpbi9lbnYgYmFzaAojIEw2IGxhbmUgc2NhbnM6IGRldGVybWluaXNtIChSMTcpICsgcmFkaXVzIChSMjApIG92ZXIgbGFuZS1vd25lZCBzb3VyY2VzLgpzZXQgLWV1byBwaXBlZmFpbApjZCAiJChkaXJuYW1lICIkMCIpLy4uIgpmYWlsPTAKCmVjaG8gIj09IGRldGVybWluaXNtIHNjYW4gKFIxNyk6IE1hdGgucmFuZG9tIC8gRGF0ZS5ub3cgLyBuZXcgRGF0ZSBpbiBzcmMgPT0iCiMgU3RyaXAgbGluZS9ibG9jayBjb21tZW50cyBiZWZvcmUgbWF0Y2hpbmc7IGNvbW1lbnRzIG1heSBuYW1lIHRoZSBsYXcuCmlmIGdyZXAgLXJuRSAnTWF0aFwucmFuZG9tfERhdGVcLm5vd3xuZXcgRGF0ZScgc3JjLyAtLWluY2x1ZGU9JyoudHMnIC0taW5jbHVkZT0nKi50c3gnIFwKICB8IHNlZCAtRSAnc34vLy4qfn4nIHwgZ3JlcCAtdkUgJ14oW146XSs6WzAtOV0rKTpccypcKicgOyB0aGVuCiAgZWNobyAiRkFJTDogbm9uZGV0ZXJtaW5pc3RpYyBjYWxsIGZvdW5kIGluIHNyYy8iCiAgZmFpbD0xCmVsc2UKICBlY2hvICJPSzogemVybyBoaXRzIgpmaQoKZWNobyAiPT0gcmFkaXVzIHNjYW4gKFIyMCk6IGJvcmRlci1yYWRpdXMgbGl0ZXJhbHMgaW4gc3JjID09IgppZiBncmVwIC1ybkUgJ2JvcmRlci1yYWRpdXM6XHMqWzEtOV0nIHNyYy87IHRoZW4KICBlY2hvICJGQUlMOiBub24temVybyBib3JkZXItcmFkaXVzIGZvdW5kIgogIGZhaWw9MQplbHNlCiAgZWNobyAiT0s6IHplcm8gaGl0cyAodmFyKC0tcmFkaXVzKT0wcHggbGF3KSIKZmkKCmV4aXQgJGZhaWwK
+#!/usr/bin/env bash
+# L6 lane scans: determinism (R17) + radius (R20) over lane-owned sources.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+fail=0
+
+echo "== determinism scan (R17): Math.random / Date.now / new Date in src =="
+# Strip line/block comments before matching; comments may name the law.
+if grep -rnE 'Math\.random|Date\.now|new Date' src/ --include='*.ts' --include='*.tsx' \
+  | sed -E 's~//.*~~' | grep -vE '^([^:]+:[0-9]+):\s*\*' ; then
+  echo "FAIL: nondeterministic call found in src/"
+  fail=1
+else
+  echo "OK: zero hits"
+fi
+
+echo "== radius scan (R20): border-radius literals in src =="
+if grep -rnE 'border-radius:\s*[1-9]' src/; then
+  echo "FAIL: non-zero border-radius found"
+  fail=1
+else
+  echo "OK: zero hits (var(--radius)=0px law)"
+fi
+
+exit $fail

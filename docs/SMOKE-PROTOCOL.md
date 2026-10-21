@@ -1,1 +1,73 @@
-IyBHQVRFIDMgUFJPRFVDVElPTiBTTU9LRSBQUk9UT0NPTCAoTDksIHdhdmUgMSBydW4gMikKClBsYXl3cmlnaHQtZHJpdmVuIHNtb2tlIGFnYWluc3QgdGhlIGRlcGxveWVkIGFwcC4gTk9UIGN1cmwuIFRhcmdldCB3YWxsLWNsb2NrOgoqKjwgNSBtaW51dGVzKiogcGVyIGZ1bGwgcnVuICgzIHZpZXdwb3J0cyDDlyA0IGNoZWNrcyDiiYggOTDigJMxNTAgcyBvbiB3YXJtIGNhY2hlKS4KCiMjIEV4YWN0IGNvbW1hbmRzCgpGcm9tIHJlcG8gcm9vdCAobWFpbiB0aXAsIGFmdGVyIGB2ZXJjZWwgZGVwbG95IC0tcHJvZGAgc3VjY2VlZHMpOgoKYGBgYmFzaAojIDEuIEZ1bGwgcHJvZHVjdGlvbiBzbW9rZSAoZGVmYXVsdCBiYXNlIGh0dHBzOi8vbmV4dGRvb3Itc2tpZXMtcnVuMi52ZXJjZWwuYXBwKQpucG0gcnVuIHNtb2tlOnByb2QKCiMgMi4gQWdhaW5zdCBhIHByZXZpZXcgVVJMIChlLmcuIG5leHRkb29yLXNraWVzLWdpdC08YnJhbmNoPi1jbG9kZ2UxMjMudmVyY2VsLmFwcCkKU01PS0VfQkFTRV9VUkw9aHR0cHM6Ly9uZXh0ZG9vci1za2llcy1naXQtcjJ3MS1MOC1pbnRlZ3JhdGlvbi1jbG9kZ2UxMjMudmVyY2VsLmFwcCBcCiAgbnBtIHJ1biBzbW9rZTpwcm9kCgojIDMuIERyeSBydW4gYWdhaW5zdCBsb2NhbCBwcmV2aWV3IChOT1QgcHJvZHVjdGlvbikKbnBtIHJ1biBidWlsZApucG0gcnVuIHByZXZpZXcgLS0gLS1wb3J0IDQzOTkgLS1ob3N0IDEyNy4wLjAuMSAmCm5vZGUgc2NyaXB0cy9zbW9rZS1wcm9kLm1qcyAtLWJhc2UtdXJsIGh0dHA6Ly8xMjcuMC4wLjE6NDM5OSBcCiAgLS1vdXQgZG9jcy9zY3JlZW5zaG90cy9wcm9kLXNtb2tlL2RyeXJ1bgpgYGAKCkV4aXQgY29kZSAwID0gUEFTUywgMSA9IEZBSUwuIE1hY2hpbmUtcmVhZGFibGUgdmVyZGljdDoKYGRvY3Mvc2NyZWVuc2hvdHMvcHJvZC1zbW9rZS9zbW9rZS1yZXN1bHQuanNvbmAgKGBmYWlsdXJlc2AgZmllbGQgbXVzdCBiZSAwKS4KCiMjIFdoYXQgaXQgYXNzZXJ0cyAocGVyIHZpZXdwb3J0OiBwaG9uZSAzOTB4ODQ0LCB0YWJsZXQgNzY4eDEwMjQsIGRlc2t0b3AgMTI4MHg4MDApCgp8ICMgfCBDaGVjayB8IE1lY2hhbmlzbSB8CnwtLS18LS0tLS0tLXwtLS0tLS0tLS0tLXwKfCAxIHwgYC9gIGxvYWRzLCBtYXAgY2FudmFzIHJlbmRlcnMgfCBgZ2V0QnlUZXN0SWQoJ21hcC12aWV3JykgY2FudmFzYCB2aXNpYmxlOyBgbmRzTWFwLmlzU3R5bGVMb2FkZWQoKWAgdHJ1ZTsgZ2x5cGhzIGZyb20gYG9wZW5mcmVlbWFwLm9yZ2AsIG5ldmVyIGBkZW1vdGlsZXMubWFwbGlicmUub3JnYCAobGF3ICMxKSB8CnwgMiB8IFRvd24gbGFiZWxzIGFwcGVhciBhZnRlciB6b29tIHwgYG5kc01hcC5qdW1wVG8oQXVzdGluLCB6b29tIDEyLjUpYCDihpIgYGFyZVRpbGVzTG9hZGVkKClgICYmIGBxdWVyeVJlbmRlcmVkRmVhdHVyZXMobGF5ZXJzOlsnbmRzLWxhYmVscy10b3duJ10pLmxlbmd0aCA+IDBgIHwKfCAzIHwgVGhlbWUgdG9nZ2xlIGZsaXBzIGJnIHwgY2xpY2sgYFtkYXRhLXRlc3RpZD10aGVtZS10b2dnbGVdYCDihpIgYGJvZHlgIGNvbXB1dGVkIGBiYWNrZ3JvdW5kLWNvbG9yYCBjaGFuZ2VzIEFORCBgaHRtbFtkYXRhLXRoZW1lXSDiiIgge2xpZ2h0LGRhcmt9YCB8CnwgNCB8IGAvZmVlZGAgaG9uZXN0IHN0YXRlIHwgaGVhZGluZyAiRmVlZCIgdmlzaWJsZTsgYDxtYWluPmAgdGV4dCBtYXRjaGVzIGAvYXdhaXRpbmcgZmVlZC9pYCAod2F2ZS0xIHBsYWNlaG9sZGVyIOKAlCBubyBmYWJyaWNhdGVkIHBvc3RzKSB8Cnwg4oCUIHwgQ29uc29sZSBlcnJvcnMgfCBjb2xsZWN0b3Igb24gZXZlcnkgcGFnZSBmYWlscyBvbiBBTlkgYXBwLW9yaWdpbiBgY29uc29sZS5lcnJvcmAvYHdhcm5pbmdgL2BwYWdlZXJyb3JgLiBEb2N1bWVudGVkIGV4Y2x1c2lvbnMgKG1pcnJvciBvZiBgdGVzdHMvbWFwLnNwZWMudHNgKTogYEdMIERyaXZlciBNZXNzYWdlYCwgbWFwbGlicmUgc3R5bGUtc3BlYyBgRXhwZWN0ZWQgdmFsdWUgdG8gYmUgb2YgdHlwZSAuLi4gbnVsbGAgbm9pc2UgZnJvbSBwYXJzaW5nIHRoZSBUSElSRC1QQVJUWSBPcGVuRnJlZU1hcCBzdHlsZS4gfAoKU2NyZWVuc2hvdHMgYXJjaGl2ZWQgdG8gYGRvY3Mvc2NyZWVuc2hvdHMvcHJvZC1zbW9rZS88cHJvamVjdD4tPHBhZ2U+LnBuZ2AKKGAtbWFwYCwgYC1tYXAtem9vbWAsIGAtbWFwLXRoZW1lYCwgYC1mZWVkYDsgYC08Y2hlY2s+LUZBSUxFRC5wbmdgIG9uIGZhaWx1cmUpLgpBbGwgcnVucyBtdXN0IGJlIGNvbW1pdHRlZCBpbnRvIHRoZSB0cmVlIChgZ2l0IGFkZCAtZiBkb2NzL3NjcmVlbnNob3RzLy4uLmAg4oCUCnRoZSBkaXIgaXMgZ2l0aWdub3JlZCwgYWRkIHdpdGggYC1mYCBsaWtlIEw2L0w3IGV2aWRlbmNlKS4KCiMjIFBhc3MgY3JpdGVyaWEKCmBzbW9rZS1yZXN1bHQuanNvbmAgaGFzIGAiZmFpbHVyZXMiOiAwYCAqKmFuZCoqIGFsbCAxMiBzY3JlZW5zaG90cyAoMyB2aWV3cG9ydHMgw5cKNCBwYWdlcykgcHJlc2VudCwgbm9uLWVtcHR5LCBhbmQgY29tbWl0dGVkLiBBbnkgY29uc29sZSBlcnJvciwgYW55IG1pc3NpbmcKY2FudmFzLCBhbnkgemVyby1sYWJlbCB6b29tIHJlc3VsdCwgYW55IGAvZmVlZGAgdGV4dCB0aGF0IGlzIG5vdCB0aGUgaG9uZXN0CnBsYWNlaG9sZGVyID0gRkFJTC4KCiMjIEZpeC1sb29wIHJ1bGUgKEdhdGUgMyBsYXcpCgpBbnkgZGVmZWN0IGZvdW5kOiAqKmZpeCDihpIgcmVkZXBsb3kg4oaSIHJlLXNtb2tlKiosIG1heCAqKjMgbG9vcHMqKi4gQWZ0ZXIgbG9vcCAzLAplc2NhbGF0ZSB0byBvd25lciDigJQgZG8gbm90IHNoaXAsIGRvIG5vdCBsb29wIGZ1cnRoZXIuIE9uZSBsb29wID0gb25lIGNvaGVyZW50CmZpeCBjb21taXQgdG8gbWFpbiArIG9uZSBgdmVyY2VsIGRlcGxveSAtLXByb2RgICsgb25lIGZ1bGwgYG5wbSBydW4gc21va2U6cHJvZGAuCgojIyBIb3N0LWVudmlyb25tZW50IG5vdGVzCgotIEJyb3dzZXIgbGF1bmNoZXMgd2l0aCBgYXJnczogWyctLW5vLXByb3h5LXNlcnZlciddYCBhbmQgbm9kZSBzaWRlIGdldHMKICBgTk9fUFJPWFk9JyonYCAoc2V0IGluc2lkZSB0aGUgc2NyaXB0KS4gVGhpcyBob3N0J3MgYXV0aGVudGljYXRpbmcgZWdyZXNzCiAgcHJveHkgNDA3cyBsb29wYmFjayB0cmFmZmljOyBicm93c2VycyBtdXN0IGdvIGRpcmVjdC4gRGlyZWN0IHB1YmxpYyBlZ3Jlc3MKICAodmVyY2VsLmFwcCwgdGlsZXMub3BlbmZyZWVtYXAub3JnKSBpcyBwcm92ZW4gd29ya2luZy4KLSBUaWxlIHJlcXVlc3QgZmFpbHVyZXMgYXJlIHdhcm5pbmdzIChsYXcgIzQpIOKAlCBjb3VudGVkIGJ5IHRoZSBhcHAsIG5ldmVyCiAgZmxpcHMgVUk7IHNtb2tlIGFzc2VydHMgY2FudmFzICsgbGFiZWxzLCBub3QgdGlsZSBIVFRQIGNvZGVzLgotIFIxNyBkZXRlcm1pbmlzbTogc2NyaXB0IGNvbnRhaW5zIG5vIGBNYXRoLnJhbmRvbWAgLyBgRGF0ZS5ub3dgIC8gYG5ldyBEYXRlYC4KCiMjIEtub3duIGRyeS1ydW4gZmluZGluZyAoMjAyNi0xMC0yMCwgcnVuIDIpCgpEcnkgcnVuIGFnYWluc3QgbG9jYWwgcHJldmlldyBwYXNzZXMgY2hlY2sgNCAoZmVlZCwgYWxsIHZpZXdwb3J0cywgemVybyBjb25zb2xlCmVycm9ycykgYW5kIGNvcnJlY3RseSBGQUlMUyBjaGVja3MgMeKAkzM6IG9uIG1haW4gdGlwIGBzcmMvcGFnZXMvTWFwUGFnZS50c3hgIGlzCnN0aWxsIHRoZSAiQXdhaXRpbmcgbWFwIHNoZWxsIiBwbGFjZWhvbGRlciBhbmQgYFRoZW1lVG9nZ2xlYCBpcyBub3QgbW91bnRlZCBpbgp0aGUgc2hlbGwuIFRoZSBraXQgaXMgcHJvdmVuIHdvcmtpbmcgKGl0IGNhdGNoZXMgZXhhY3RseSB0aGUgZGVmZWN0cyBHYXRlIDMKZXhpc3RzIHRvIGNhdGNoKTsgcHJvZHVjdGlvbiBzbW9rZSB3aWxsIFBBU1Mgb25seSBvbmNlIHRoZSBpbnRlZ3JhdGlvbiBsYW5lCm1vdW50cyBNYXBWaWV3ICsgVGhlbWVUb2dnbGUuIFRoaXMgaXMgTk9UIGEgc21va2Uta2l0IGRlZmVjdC4K
+# GATE 3 PRODUCTION SMOKE PROTOCOL (L9, wave 1 run 2)
+
+Playwright-driven smoke against the deployed app. NOT curl. Target wall-clock:
+**< 5 minutes** per full run (3 viewports × 4 checks ≈ 90–150 s on warm cache).
+
+## Exact commands
+
+From repo root (main tip, after `vercel deploy --prod` succeeds):
+
+```bash
+# 1. Full production smoke (default base https://nextdoor-skies-run2.vercel.app)
+npm run smoke:prod
+
+# 2. Against a preview URL (e.g. nextdoor-skies-git-<branch>-clodge123.vercel.app)
+SMOKE_BASE_URL=https://nextdoor-skies-git-r2w1-L8-integration-clodge123.vercel.app \
+  npm run smoke:prod
+
+# 3. Dry run against local preview (NOT production)
+npm run build
+npm run preview -- --port 4399 --host 127.0.0.1 &
+node scripts/smoke-prod.mjs --base-url http://127.0.0.1:4399 \
+  --out docs/screenshots/prod-smoke/dryrun
+```
+
+Exit code 0 = PASS, 1 = FAIL. Machine-readable verdict:
+`docs/screenshots/prod-smoke/smoke-result.json` (`failures` field must be 0).
+
+## What it asserts (per viewport: phone 390x844, tablet 768x1024, desktop 1280x800)
+
+| # | Check | Mechanism |
+|---|-------|-----------|
+| 1 | `/` loads, map canvas renders | `getByTestId('map-view') canvas` visible; `ndsMap.isStyleLoaded()` true; glyphs from `openfreemap.org`, never `demotiles.maplibre.org` (law #1) |
+| 2 | Town labels appear after zoom | `ndsMap.jumpTo(Austin, zoom 12.5)` → `areTilesLoaded()` && `queryRenderedFeatures(layers:['nds-labels-town']).length > 0` |
+| 3 | Theme toggle flips bg | click `[data-testid=theme-toggle]` → `body` computed `background-color` changes AND `html[data-theme] ∈ {light,dark}` |
+| 4 | `/feed` honest state | heading "Feed" visible; `<main>` text matches `/awaiting feed/i` (wave-1 placeholder — no fabricated posts) |
+| — | Console errors | collector on every page fails on ANY app-origin `console.error`/`warning`/`pageerror`. Documented exclusions (mirror of `tests/map.spec.ts`): `GL Driver Message`, maplibre style-spec `Expected value to be of type ... null` noise from parsing the THIRD-PARTY OpenFreeMap style. |
+
+Screenshots archived to `docs/screenshots/prod-smoke/<project>-<page>.png`
+(`-map`, `-map-zoom`, `-map-theme`, `-feed`; `-<check>-FAILED.png` on failure).
+All runs must be committed into the tree (`git add -f docs/screenshots/...` —
+the dir is gitignored, add with `-f` like L6/L7 evidence).
+
+## Pass criteria
+
+`smoke-result.json` has `"failures": 0` **and** all 12 screenshots (3 viewports ×
+4 pages) present, non-empty, and committed. Any console error, any missing
+canvas, any zero-label zoom result, any `/feed` text that is not the honest
+placeholder = FAIL.
+
+## Fix-loop rule (Gate 3 law)
+
+Any defect found: **fix → redeploy → re-smoke**, max **3 loops**. After loop 3,
+escalate to owner — do not ship, do not loop further. One loop = one coherent
+fix commit to main + one `vercel deploy --prod` + one full `npm run smoke:prod`.
+
+## Host-environment notes
+
+- Browser launches with `args: ['--no-proxy-server']` and node side gets
+  `NO_PROXY='*'` (set inside the script). This host's authenticating egress
+  proxy 407s loopback traffic; browsers must go direct. Direct public egress
+  (vercel.app, tiles.openfreemap.org) is proven working.
+- Tile request failures are warnings (law #4) — counted by the app, never
+  flips UI; smoke asserts canvas + labels, not tile HTTP codes.
+- R17 determinism: script contains no `Math.random` / `Date.now` / `new Date`.
+
+## Known dry-run finding (2026-10-20, run 2)
+
+Dry run against local preview passes check 4 (feed, all viewports, zero console
+errors) and correctly FAILS checks 1–3: on main tip `src/pages/MapPage.tsx` is
+still the "Awaiting map shell" placeholder and `ThemeToggle` is not mounted in
+the shell. The kit is proven working (it catches exactly the defects Gate 3
+exists to catch); production smoke will PASS only once the integration lane
+mounts MapView + ThemeToggle. This is NOT a smoke-kit defect.

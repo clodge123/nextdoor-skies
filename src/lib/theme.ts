@@ -1,1 +1,79 @@
-Ly8gTDQgREVTSUdOLVRPS0VOUy1USEVNRSDigJQgdGhlbWUgKyB3ZWF0aGVyIGFjY2VudCBBUEkgKFIxMiwgUjIwKS4KLy8gRGV0ZXJtaW5pc20gbGF3OiBubyBNYXRoLnJhbmRvbSAvIERhdGUubm93IC8gbmV3IERhdGUgYW55d2hlcmUgaW4gdGhpcyBtb2R1bGUuCgpleHBvcnQgdHlwZSBUaGVtZSA9ICdkYXJrJyB8ICdsaWdodCc7CmV4cG9ydCB0eXBlIFdlYXRoZXJBY2NlbnQgPSAncmFpbicgfCAnc3Rvcm0nIHwgJ3Nub3cnIHwgJ2NsZWFyJyB8ICdoZWF0JzsKCi8qKiBXZWF0aGVy4oaSYWNjZW50IG1hcCAoUjEyKS4gU2luZ2xlIHNvdXJjZSBvZiB0cnV0aC4gKi8KZXhwb3J0IGNvbnN0IEFDQ0VOVF9DT0xPUlM6IFJlY29yZDxXZWF0aGVyQWNjZW50LCBzdHJpbmc+ID0gewogIHJhaW46ICcjMzhiZGY4JywKICBzdG9ybTogJyNhODU1ZjcnLAogIHNub3c6ICcjZTBmMmZlJywKICBjbGVhcjogJyMwMGZmOWQnLAogIGhlYXQ6ICcjZjk3MzE2JywKfTsKCmV4cG9ydCBjb25zdCBUSEVNRV9TVE9SQUdFX0tFWSA9ICduZHMtdGhlbWUnOwoKZXhwb3J0IGZ1bmN0aW9uIHN5c3RlbVRoZW1lKCk6IFRoZW1lIHsKICBpZiAodHlwZW9mIHdpbmRvdyAhPT0gJ3VuZGVmaW5lZCcgJiYgdHlwZW9mIHdpbmRvdy5tYXRjaE1lZGlhID09PSAnZnVuY3Rpb24nKSB7CiAgICByZXR1cm4gd2luZG93Lm1hdGNoTWVkaWEoJyhwcmVmZXJzLWNvbG9yLXNjaGVtZTogbGlnaHQpJykubWF0Y2hlcyA/ICdsaWdodCcgOiAnZGFyayc7CiAgfQogIHJldHVybiAnZGFyayc7Cn0KCmV4cG9ydCBmdW5jdGlvbiBnZXRTdG9yZWRUaGVtZSgpOiBUaGVtZSB8IG51bGwgewogIHRyeSB7CiAgICBjb25zdCB2ID0gd2luZG93LmxvY2FsU3RvcmFnZS5nZXRJdGVtKFRIRU1FX1NUT1JBR0VfS0VZKTsKICAgIHJldHVybiB2ID09PSAnbGlnaHQnIHx8IHYgPT09ICdkYXJrJyA/IHYgOiBudWxsOwogIH0gY2F0Y2ggewogICAgcmV0dXJuIG51bGw7CiAgfQp9CgpleHBvcnQgZnVuY3Rpb24gYXBwbHlUaGVtZSh0aGVtZTogVGhlbWUpOiB2b2lkIHsKICBkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQuc2V0QXR0cmlidXRlKCdkYXRhLXRoZW1lJywgdGhlbWUpOwp9CgovKiogQXBwbHkgKyBwZXJzaXN0IHRvIGxvY2FsU3RvcmFnZSgnbmRzLXRoZW1lJykuICovCmV4cG9ydCBmdW5jdGlvbiBzZXRUaGVtZSh0aGVtZTogVGhlbWUpOiB2b2lkIHsKICBhcHBseVRoZW1lKHRoZW1lKTsKICB0cnkgewogICAgd2luZG93LmxvY2FsU3RvcmFnZS5zZXRJdGVtKFRIRU1FX1NUT1JBR0VfS0VZLCB0aGVtZSk7CiAgfSBjYXRjaCB7CiAgICAvLyBzdG9yYWdlIHVuYXZhaWxhYmxlIChwcml2YXRlIG1vZGUpIOKAlCB0aGVtZSBzdGlsbCBhcHBsaWVzIGZvciB0aGUgc2Vzc2lvbi4KICB9Cn0KCmV4cG9ydCBmdW5jdGlvbiBjdXJyZW50VGhlbWUoKTogVGhlbWUgewogIHJldHVybiBkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQuZ2V0QXR0cmlidXRlKCdkYXRhLXRoZW1lJykgPT09ICdsaWdodCcgPyAnbGlnaHQnIDogJ2RhcmsnOwp9CgpleHBvcnQgZnVuY3Rpb24gdG9nZ2xlVGhlbWUoKTogVGhlbWUgewogIGNvbnN0IG5leHQ6IFRoZW1lID0gY3VycmVudFRoZW1lKCkgPT09ICdkYXJrJyA/ICdsaWdodCcgOiAnZGFyayc7CiAgc2V0VGhlbWUobmV4dCk7CiAgcmV0dXJuIG5leHQ7Cn0KCi8qKiBSZXNvbHZlIHRoZW1lOiBzdG9yZWQgY2hvaWNlIHdpbnMsIGVsc2UgcHJlZmVycy1jb2xvci1zY2hlbWUsIGVsc2UgZGFyay4gKi8KZXhwb3J0IGZ1bmN0aW9uIGluaXRUaGVtZSgpOiBUaGVtZSB7CiAgY29uc3QgdGhlbWUgPSBnZXRTdG9yZWRUaGVtZSgpID8/IHN5c3RlbVRoZW1lKCk7CiAgYXBwbHlUaGVtZSh0aGVtZSk7CiAgcmV0dXJuIHRoZW1lOwp9CgovKiogV3JpdGUgLS1jdXJyZW50LWFjY2VudCBvbiA8aHRtbD4gZm9yIHRoZSBnaXZlbiB3ZWF0aGVyIGNvbmRpdGlvbi4gKi8KZXhwb3J0IGZ1bmN0aW9uIHNldEFjY2VudChhY2NlbnQ6IFdlYXRoZXJBY2NlbnQpOiB2b2lkIHsKICBjb25zdCBjb2xvciA9IEFDQ0VOVF9DT0xPUlNbYWNjZW50XTsKICBkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQuc3R5bGUuc2V0UHJvcGVydHkoJy0tY3VycmVudC1hY2NlbnQnLCBjb2xvcik7Cn0KCi8qKiBUZXN0L2Jyb3dzZXIgc2VhbTogd2luZG93Ll9fbmRzU2V0QWNjZW50KCdyYWluJykgcGVyIGxhbmUgYnJpZWYuICovCmV4cG9ydCBmdW5jdGlvbiBpbnN0YWxsVGhlbWVBcGkod2luOiBXaW5kb3cgJiB0eXBlb2YgZ2xvYmFsVGhpcyA9IHdpbmRvdyk6IHZvaWQgewogICh3aW4gYXMgdW5rbm93biBhcyBSZWNvcmQ8c3RyaW5nLCB1bmtub3duPikuX19uZHNTZXRBY2NlbnQgPSBzZXRBY2NlbnQ7Cn0KCi8vIEF1dG8tZXhwb3NlIHRoZSBzZWFtIGluIGFueSBicm93c2VyIGNvbnRleHQgdGhhdCBpbXBvcnRzIHRoaXMgbW9kdWxlLgppZiAodHlwZW9mIHdpbmRvdyAhPT0gJ3VuZGVmaW5lZCcpIHsKICBpbnN0YWxsVGhlbWVBcGkoKTsKfQo=
+// L4 DESIGN-TOKENS-THEME — theme + weather accent API (R12, R20).
+// Determinism law: no Math.random / Date.now / new Date anywhere in this module.
+
+export type Theme = 'dark' | 'light';
+export type WeatherAccent = 'rain' | 'storm' | 'snow' | 'clear' | 'heat';
+
+/** Weather→accent map (R12). Single source of truth. */
+export const ACCENT_COLORS: Record<WeatherAccent, string> = {
+  rain: '#38bdf8',
+  storm: '#a855f7',
+  snow: '#e0f2fe',
+  clear: '#00ff9d',
+  heat: '#f97316',
+};
+
+export const THEME_STORAGE_KEY = 'nds-theme';
+
+export function systemTheme(): Theme {
+  if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  }
+  return 'dark';
+}
+
+export function getStoredTheme(): Theme | null {
+  try {
+    const v = window.localStorage.getItem(THEME_STORAGE_KEY);
+    return v === 'light' || v === 'dark' ? v : null;
+  } catch {
+    return null;
+  }
+}
+
+export function applyTheme(theme: Theme): void {
+  document.documentElement.setAttribute('data-theme', theme);
+}
+
+/** Apply + persist to localStorage('nds-theme'). */
+export function setTheme(theme: Theme): void {
+  applyTheme(theme);
+  try {
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+  } catch {
+    // storage unavailable (private mode) — theme still applies for the session.
+  }
+}
+
+export function currentTheme(): Theme {
+  return document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+}
+
+export function toggleTheme(): Theme {
+  const next: Theme = currentTheme() === 'dark' ? 'light' : 'dark';
+  setTheme(next);
+  return next;
+}
+
+/** Resolve theme: stored choice wins, else prefers-color-scheme, else dark. */
+export function initTheme(): Theme {
+  const theme = getStoredTheme() ?? systemTheme();
+  applyTheme(theme);
+  return theme;
+}
+
+/** Write --current-accent on <html> for the given weather condition. */
+export function setAccent(accent: WeatherAccent): void {
+  const color = ACCENT_COLORS[accent];
+  document.documentElement.style.setProperty('--current-accent', color);
+}
+
+/** Test/browser seam: window.__ndsSetAccent('rain') per lane brief. */
+export function installThemeApi(win: Window & typeof globalThis = window): void {
+  (win as unknown as Record<string, unknown>).__ndsSetAccent = setAccent;
+}
+
+// Auto-expose the seam in any browser context that imports this module.
+if (typeof window !== 'undefined') {
+  installThemeApi();
+}

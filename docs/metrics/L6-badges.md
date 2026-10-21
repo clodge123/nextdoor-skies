@@ -1,1 +1,101 @@
-IyBMNiBUT1dOLVdFQVRIRVItQkFER0VTIOKAlCBNZXRyaWNzIChSMTgpCgpMYW5lOiByMncxL0w2LWJhZGdlcyB8IFJ1biAyLCBXYXZlIDEgfCBCcmFuY2g6IHIydzEvTDYtYmFkZ2VzCgojIyBBY3RpdmUtdGltZSBhY2NvdW50aW5nICh3YWxsLWNsb2NrLCBmbGVldCBnYXBzIGV4Y2x1ZGVkKQoKfCBQaGFzZSB8IFN0YXJ0IChDRFQpIHwgRW5kIChDRFQpIHwgQWN0aXZlIG1pbiB8CnwtLS0tLS0tfC0tLS0tLS0tLS0tLS18LS0tLS0tLS0tLS18LS0tLS0tLS0tLS0tfAp8IEJyaWVmL0RvRCByZWFkICsgZW52IHByb2JlIHwgMjA6MDIgfCAyMDoyMCB8IDE4IHwKfCBTY2FmZm9sZCAodHNjb25maWcvdml0ZS9wa2cgaW5zdGFsbCkgfCAyMDoyMCB8IDIwOjM4IHwgMTggfAp8IENvcmUgY29kZSAoYmF0Y2ggbGliICsgVG93bkJhZGdlcyArIHNlYW0pIHwgMjA6MzggfCAyMDo0NCB8IDYgfAp8IFZpdGVzdCBkZWJ1ZyBsb29wIChpbXBvcnQgcGF0aCwgZmFrZS10aW1lcnMsIGN1bGxpbmcgZWRnZSkgfCAyMDo0NCB8IDIwOjQ1IHwgfjUgfAp8IEJ1aWxkIGdyZWVuICsgc3Vydml2YWwgY29tbWl0ICMxIHwgMjA6NDUgfCAyMDo0NyB8IDIgfAp8IFBsYXl3cmlnaHQgY29uZmlnICsgc3BlYyArIHByb3h5L3dlYmtpdCB0cmlhZ2UgfCAyMDo0NyB8IDIxOjAwIHwgMTMgfAp8IFNjYW5zICsgc2NyZWVuc2hvdHMgKyBtZXRyaWNzIHwgMjE6MDAgfCAyMToxMCB8IDEwIHwKfCAqKlRvdGFsKiogfCB8IHwgKip+NzIqKiB8CgojIyBHYXRlIGNvdW50ZXJzCgp8IEdhdGUgfCBSZXN1bHQgfCBFdmlkZW5jZSB8CnwtLS0tLS18LS0tLS0tLS18LS0tLS0tLS0tLXwKfCBHYXRlIDAgYnVpbGQgKGB0c2MgLS1ub0VtaXQgJiYgdml0ZSBidWlsZGApIHwgUEFTUyBleGl0IDAgfCBkaXN0LyBlbWl0dGVkLCAzMyBtb2R1bGVzIHwKfCBHYXRlIDAgdml0ZXN0IHwgUEFTUyAxOC8xOCB8IHRlc3RzL29wZW5tZXRlby1iYXRjaC50ZXN0LnRzICgxMyksIHRlc3RzL1Rvd25CYWRnZXMudGVzdC50c3ggKDUpIHwKfCBEZXRlcm1pbmlzbSBzY2FuIChSMTcpIHwgUEFTUyAwIGhpdHMgfCBzY3JpcHRzL2xhbmUtc2NhbnMuc2ggKGNvbW1lbnRzIHN0cmlwcGVkKSB8CnwgUmFkaXVzIHNjYW4gKFIyMCkgfCBQQVNTIDAgaGl0cyB8IHNjcmlwdHMvbGFuZS1zY2Fucy5zaCB8CnwgTm8gY3J5cHRvLXdlYXRoZXItY2VudHJhbCBpbXBvcnRzIHwgUEFTUyB8IGdyZXA6IHplcm8gfAp8IEdhdGUgMSBQbGF5d3JpZ2h0IChicm93c2VyIERPTSBhc3NlcnQpIHwgUEFTUyA2LzYgfCB0ZXN0cy9iYWRnZXMuc3BlYy50cywgcm91dGUtbW9ja2VkIE9wZW4tTWV0ZW8gfAp8IEdhdGUgMSB2aWV3cG9ydHMgKFIxMykgfCBQQVNTIDMvMyB8IGRlc2t0b3AgMTI4MMOXODAwLCB0YWJsZXQgNzY4w5cxMDI0LCBwaG9uZSAzOTDDlzg0NCAoQ2hyb21pdW0gdG91Y2gpIHwKfCBHYXRlIDEgY29uc29sZSBlcnJvcnMgfCBQQVNTIDAgfCBjb2xsZWN0b3IgYXNzZXJ0ZWQgYGVycm9ycyA9PSBbXWAgaW4tc3BlYyB8CnwgU2NyZWVuc2hvdHMgYXJjaGl2ZWQgfCBQQVNTIDYgZmlsZXMgfCBkb2NzL3NjcmVlbnNob3RzL0w2LyB8CnwgU3Vydml2YWwgY29tbWl0cyB8IFBBU1MgfCAjMSAyMDo0NiAofjQ0IG1pbiBpbiksICMyIDIxOjAwICh+NTggbWluKSwgY2FkZW5jZSDiiaQxNSBtaW4gYWZ0ZXIgfAoKIyMgRGVmZWN0cyBjYXVnaHQgcGVyIGdhdGUgbGV2ZWwKCi0gR2F0ZSAwOiAwIHByb2R1Y3Rpb24gZGVmZWN0cyAodml0ZXN0IGNhdWdodCBvbmx5IHRlc3Qtc2hpbSBpc3N1ZXM6IGltcG9ydCBkZXB0aCwKICBmYWtlLXRpbWVyIGF3YWl0IHBhaXJpbmcsIG1hcmdpbi1pbmNsdXNpdmUgY3VsbCBleHBlY3RhdGlvbikuCi0gR2F0ZSAxOiAwIHByb2R1Y3Rpb24gZGVmZWN0cy4gSGFybmVzcyBkZWZlY3RzIGZpeGVkOiAoMSkgaG9zdCBlZ3Jlc3MgcHJveHkKICA0MDdzIGxvb3BiYWNrIOKGkiBgLS1uby1wcm94eS1zZXJ2ZXJgICsgcG9ydCA0MTgzIChwb3J0IDQxNzMgb2NjdXBpZWQgYnkgZm9yZWlnbgogIGFwcCk7ICgyKSB3ZWJraXQgbWlzc2luZyBvbiBhcm02NCBjYWNoZSDihpIgMyBDaHJvbWl1bSB0b3VjaCBwcm9qZWN0czsgKDMpCiAgYC50YXAoKWAgb24gbm9uLXRvdWNoIGRlc2t0b3AgY29udGV4dCDihpIgdGFwT3JDbGljayBoZWxwZXIuCgojIyBJbnRlcmZlcmVuY2UgY291bnQKCi0gT3duZXIgaW50ZXJ2ZW50aW9uczogMC4KLSBDcm9zcy1sYW5lIGNvbGxpc2lvbnM6IDEgKHBvcnQgNDE3MyBvY2N1cGllZCBieSBhbm90aGVyIGxhbmUncyBwcmV2aWV3OyBtb3ZlZAogIHRvIDQxODMsIG5vIGNvZGUgaW1wYWN0KS4KCiMjIE5vdGVzIC8gc2VhbXMKCi0gTWFwIGNvbnRleHQgc2VhbSBkZWZpbmVkIGxvY2FsbHkgaW4gc3JjL2xpYi9tYXAvbWFwLWNvbnRleHQudHN4IChMNSBub3QgbWVyZ2VkCiAgYXQgbGFuZSBzdGFydCk7IHN3YXAgPSByZS1leHBvcnQgTDUncyBmaWxlLCBzaGFwZSBpcyBNYXBMaWJyZS1jb21wYXRpYmxlLgotIE9wZW4tTWV0ZW8gYmF0Y2g6IFBPU1QgL3YxL2JhdGNoLCDiiaQxMDAwIGNvb3Jkcy9jYWxsLCBjaHVua2VkOyB2aWV3cG9ydC1jdWxsZWQKICB3aXRoIDAuNcKwIG1hcmdpbjsgNS1taW4gd2luZG93IHJlZnJlc2hlciwgaW5qZWN0YWJsZSBmZXRjaEltcGwgKyB0aW1lcnMuCi0gSG9uZXN0IHN0YXRlIChSMTkpOiB0b3ducyB3aXRob3V0IGRhdGEgcmVuZGVyICJhd2FpdGluZyBmZWVkIiwgbmV2ZXIgYSBudW1iZXIuCi0gTm8gZGVwbG95ICh3YXZlIHJ1bGUpLiBObyBEYXRlLm5vdy9NYXRoLnJhbmRvbS9uZXcgRGF0ZSBpbiBzcmMgKHNjYW4tdmVyaWZpZWQpLgoKLS0tCgojIyBSdW4gMiDigJQgbWVyZ2VkLXRyZWUgdmVyaWZpY2F0aW9uIChyZXN1bWVkIGFmdGVyIGtpbGwpLCAyMDI2LTEwLTIwIDIyOjUwIENEVAoKUmViYXNlZCByMncxL0w2LWJhZGdlcyBvbnRvIG1haW4gdGlwICgxMjQ3MGIyKSDigJQgbm8gbGFuZS1jb21taXQgY29uZmxpY3RzLgoKfCBDaGVjayB8IFJlc3VsdCB8IEV2aWRlbmNlIHwKfCAtLS0gfCAtLS0gfCAtLS0gfAp8IHZpdGVzdCBvcGVubWV0ZW8tYmF0Y2ggfCBQQVNTIDEzLzEzIHwgdGVzdHMvb3Blbm1ldGVvLWJhdGNoLnRlc3QudHMgfAp8IHZpdGVzdCBUb3duQmFkZ2VzIHwgUEFTUyA1LzUgfCB0ZXN0cy9Ub3duQmFkZ2VzLnRlc3QudHN4IHwKfCB2aXRlc3Qgd2hvbGUgc3VpdGUgfCBQQVNTIDU2LzU2ICgxMCBmaWxlcykgfCBgbnB4IHZpdGVzdCBydW5gIHwKfCB0c2MgLWIgfCBQQVNTIGV4aXQgMCB8IG1lcmdlZCB0cmVlLCBhZnRlciBgbnBtIGluc3RhbGxgIHwKfCBucG0gcnVuIGJ1aWxkIHwgUEFTUyBleGl0IDAgfCBkaXN0LyBlbWl0dGVkLCAyNC4ycyB8CnwgR2F0ZSAxIFBsYXl3cmlnaHQgMyB2aWV3cG9ydHMgfCBQQVNTIDYvNiB8IGJhZGdlcy5zcGVjLnRzIGRlc2t0b3AvdGFibGV0L3Bob25lLCBleGl0IDAgfAp8IEJhZGdlIG92ZXIgU3ByaW5nZmllbGQgem9vbeKJpTYgfCBQQVNTIHwgYDIxwrBgIHZpc2libGUsIHRhcC16b29tIHZlcmlmaWVkIChwYWdlLmhhc1RvdWNoIOKGkiAudGFwKCkpIHwKfCBTcXVhcmUgZ2VvbWV0cnkgKyBhY2NlbnQgYm9yZGVyIHwgUEFTUyB8IGJvcmRlci1yYWRpdXMgMHB4OyBib3JkZXJUb3BDb2xvciBub24tZW1wdHkgfAp8IENvbnNvbGUgY2xlYW4gfCBQQVNTIHwgZXJyb3JzID09IFtdIGFzc2VydGVkIGluLXNwZWMsIGFsbCA2IHJ1bnMgfAp8IFNjcmVlbnNob3RzIGFyY2hpdmVkIHwgUEFTUyB8IGRvY3Mvc2NyZWVuc2hvdHMvTDYvIChwaG9uZS90YWJsZXQvZGVza3RvcCwgZnJlc2ggMjI6NTApIHwKfCBGZXRjaC1wZXItd2luZG93IGxhdyB8IFBBU1MgfCBjYWRlbmNlIHRlc3Q6IDEgZmV0Y2ggaW1tZWRpYXRlLCBwYW4g4oeSIHN0aWxsIDEsIGludGVydmFsIOKHkiAyLCBzdG9wIOKHkiBubyBtb3JlIHwKCiMjIyBNZXJnZS1pbmR1Y2VkIGJyZWFrYWdlIGZpeGVkICh0aGlzIHBhc3MpCgoxLiBgdGVzdHMvYmFkZ2VzLnNwZWMudHNgIHRhcE9yQ2xpY2sgd2FzIGEga2lsbC1taWQtZWRpdCBjbGljay1vbmx5IHBsYWNlaG9sZGVyCiAgICgicmVwbGFjZWQgYmVsb3ciKSDigJQgZmluaXNoZWQgcHJvcGVybHk6IGBwYWdlLmhhc1RvdWNoID8gbG9jYXRvci50YXAoKSA6CiAgIGxvY2F0b3IuY2xpY2soKWAgKFIxMzsgcGhvbmUgcHJvamVjdCBoYXMgaGFzVG91Y2g6dHJ1ZSwgdGFwIHZlcmlmaWVkIGdyZWVuKS4KMi4gTWVyZ2VkIHRyZWUncyBgc3JjL2luZGV4Lmh0bWxgIGlzIGFic2VudCwgc28gYHNjcmlwdHMvZTJlLXNlcnZlLm1qc2Agc2VydmVkCiAgIHRoZSBMMiBmaXh0dXJlcyBwbGFjZWhvbGRlciAobm8gem9vbSBidXR0b25zKSDigJQgZXZlcnkgR2F0ZSAxIHJ1biBmYWlsZWQgb24KICAgYGdldEJ5Um9sZSgnYnV0dG9uJywgeyBuYW1lOiAnem9vbSBpbicgfSlgLiBGaXg6IGFkZGVkIGB0ZXN0LWFwcC9pbmRleC5odG1sYAogICArIGB2aXRlLmNvbmZpZy50ZXN0LWFwcC50c2AgKGVzYnVpbGQganN4OmF1dG9tYXRpYzsgLmUyZSB0b29sY2hhaW4gaGFzIG5vCiAgIHBsdWdpbi1yZWFjdCkgYW5kIGFuIGBFMkVfVEFSR0VUPXRlc3QtYXBwYCBicmFuY2ggaW4gZTJlLXNlcnZlLm1qcy4gUmVhY3QKICAgYWRkZWQgdG8gLmUyZSBkZXBzIChwZWVyIG9mIHRoZSB0ZXN0LWFwcCBidW5kbGUpLgozLiBIb3N0IGVncmVzcyBwcm94eSBlbnYgaGlqYWNrZWQgUGxheXdyaWdodCdzIHdlYlNlcnZlciBoZWFsdGggY2hlY2sKICAgKGBIb3N0IGluIG9wdGlvbnMuaGVhZGVycyBtdXN0IG1hdGNoIC4uLiAzODgzNWApLiBSdW4gd2l0aAogICBgTk9ERV9VU0VfRU5WX1BST1hZPSBIVFRQU19QUk9YWT0gSFRUUF9QUk9YWT0gTk9fUFJPWFk9MTI3LjAuMC4xLGxvY2FsaG9zdGAKICAgKGNvbmZpZyBhbHJlYWR5IHNldHMgTk9fUFJPWFkgZm9yIHRoZSBzZXJ2ZXIgZW52OyB0aGUgYnJvd3NlciBsYXVuY2hlciB1c2VzCiAgIGAtLW5vLXByb3h5LXNlcnZlcmApLgo0LiBGcmVzaCB3b3JrdHJlZSBuZWVkZWQgYG5wbSBpbnN0YWxsYCAocm9vdCkgKyBgbm9kZSBzY3JpcHRzL2UyZS1zZXR1cC5tanNgCiAgICguZTJlIHZpdGUpIGJlZm9yZSB2aXRlc3QvcGxheXdyaWdodCBjb3VsZCBydW4uCgojIyMgU3Vydml2YWwgY29tbWl0cyAocnVuIDIpCgotICMxIDIyOjUzICh+NDUgbWluIGFmdGVyIHJlYmFzZTsgdGhlIHJlc3VtZWQgc2Vzc2lvbiBzcGVudCBpdHMgZmlyc3QgYmxvY2sgb24KICBtZXJnZWQtdHJlZSB0cmlhZ2Ug4oCUIG5wbSBpbnN0YWxsLCBlMmUtc2V0dXAsIGhhcm5lc3MgYnJlYWthZ2UgZGlhZ25vc2lzKToKICBoYXJuZXNzIGZpeCArIHRhcE9yQ2xpY2sgZmluaXNoICsgbWV0cmljcyByb2xsdXAsIG9uZSBjb21taXQuCi0gIzIgMjI6NTYgKH4zIG1pbiBsYXRlcik6IHRoaXMgY2FkZW5jZSBub3RlLiBDYWRlbmNlIG1ldCBmcm9tICMxIG9ud2FyZC4K
+# L6 TOWN-WEATHER-BADGES — Metrics (R18)
+
+Lane: r2w1/L6-badges | Run 2, Wave 1 | Branch: r2w1/L6-badges
+
+## Active-time accounting (wall-clock, fleet gaps excluded)
+
+| Phase | Start (CDT) | End (CDT) | Active min |
+|-------|-------------|-----------|------------|
+| Brief/DoD read + env probe | 20:02 | 20:20 | 18 |
+| Scaffold (tsconfig/vite/pkg install) | 20:20 | 20:38 | 18 |
+| Core code (batch lib + TownBadges + seam) | 20:38 | 20:44 | 6 |
+| Vitest debug loop (import path, fake-timers, culling edge) | 20:44 | 20:45 | ~5 |
+| Build green + survival commit #1 | 20:45 | 20:47 | 2 |
+| Playwright config + spec + proxy/webkit triage | 20:47 | 21:00 | 13 |
+| Scans + screenshots + metrics | 21:00 | 21:10 | 10 |
+| **Total** | | | **~72** |
+
+## Gate counters
+
+| Gate | Result | Evidence |
+|------|--------|----------|
+| Gate 0 build (`tsc --noEmit && vite build`) | PASS exit 0 | dist/ emitted, 33 modules |
+| Gate 0 vitest | PASS 18/18 | tests/openmeteo-batch.test.ts (13), tests/TownBadges.test.tsx (5) |
+| Determinism scan (R17) | PASS 0 hits | scripts/lane-scans.sh (comments stripped) |
+| Radius scan (R20) | PASS 0 hits | scripts/lane-scans.sh |
+| No crypto-weather-central imports | PASS | grep: zero |
+| Gate 1 Playwright (browser DOM assert) | PASS 6/6 | tests/badges.spec.ts, route-mocked Open-Meteo |
+| Gate 1 viewports (R13) | PASS 3/3 | desktop 1280×800, tablet 768×1024, phone 390×844 (Chromium touch) |
+| Gate 1 console errors | PASS 0 | collector asserted `errors == []` in-spec |
+| Screenshots archived | PASS 6 files | docs/screenshots/L6/ |
+| Survival commits | PASS | #1 20:46 (~44 min in), #2 21:00 (~58 min), cadence ≤15 min after |
+
+## Defects caught per gate level
+
+- Gate 0: 0 production defects (vitest caught only test-shim issues: import depth,
+  fake-timer await pairing, margin-inclusive cull expectation).
+- Gate 1: 0 production defects. Harness defects fixed: (1) host egress proxy
+  407s loopback → `--no-proxy-server` + port 4183 (port 4173 occupied by foreign
+  app); (2) webkit missing on arm64 cache → 3 Chromium touch projects; (3)
+  `.tap()` on non-touch desktop context → tapOrClick helper.
+
+## Interference count
+
+- Owner interventions: 0.
+- Cross-lane collisions: 1 (port 4173 occupied by another lane's preview; moved
+  to 4183, no code impact).
+
+## Notes / seams
+
+- Map context seam defined locally in src/lib/map/map-context.tsx (L5 not merged
+  at lane start); swap = re-export L5's file, shape is MapLibre-compatible.
+- Open-Meteo batch: POST /v1/batch, ≤1000 coords/call, chunked; viewport-culled
+  with 0.5° margin; 5-min window refresher, injectable fetchImpl + timers.
+- Honest state (R19): towns without data render "awaiting feed", never a number.
+- No deploy (wave rule). No Date.now/Math.random/new Date in src (scan-verified).
+
+---
+
+## Run 2 — merged-tree verification (resumed after kill), 2026-10-20 22:50 CDT
+
+Rebased r2w1/L6-badges onto main tip (12470b2) — no lane-commit conflicts.
+
+| Check | Result | Evidence |
+| --- | --- | --- |
+| vitest openmeteo-batch | PASS 13/13 | tests/openmeteo-batch.test.ts |
+| vitest TownBadges | PASS 5/5 | tests/TownBadges.test.tsx |
+| vitest whole suite | PASS 56/56 (10 files) | `npx vitest run` |
+| tsc -b | PASS exit 0 | merged tree, after `npm install` |
+| npm run build | PASS exit 0 | dist/ emitted, 24.2s |
+| Gate 1 Playwright 3 viewports | PASS 6/6 | badges.spec.ts desktop/tablet/phone, exit 0 |
+| Badge over Springfield zoom≥6 | PASS | `21°` visible, tap-zoom verified (page.hasTouch → .tap()) |
+| Square geometry + accent border | PASS | border-radius 0px; borderTopColor non-empty |
+| Console clean | PASS | errors == [] asserted in-spec, all 6 runs |
+| Screenshots archived | PASS | docs/screenshots/L6/ (phone/tablet/desktop, fresh 22:50) |
+| Fetch-per-window law | PASS | cadence test: 1 fetch immediate, pan ⇒ still 1, interval ⇒ 2, stop ⇒ no more |
+
+### Merge-induced breakage fixed (this pass)
+
+1. `tests/badges.spec.ts` tapOrClick was a kill-mid-edit click-only placeholder
+   ("replaced below") — finished properly: `page.hasTouch ? locator.tap() :
+   locator.click()` (R13; phone project has hasTouch:true, tap verified green).
+2. Merged tree's `src/index.html` is absent, so `scripts/e2e-serve.mjs` served
+   the L2 fixtures placeholder (no zoom buttons) — every Gate 1 run failed on
+   `getByRole('button', { name: 'zoom in' })`. Fix: added `test-app/index.html`
+   + `vite.config.test-app.ts` (esbuild jsx:automatic; .e2e toolchain has no
+   plugin-react) and an `E2E_TARGET=test-app` branch in e2e-serve.mjs. React
+   added to .e2e deps (peer of the test-app bundle).
+3. Host egress proxy env hijacked Playwright's webServer health check
+   (`Host in options.headers must match ... 38835`). Run with
+   `NODE_USE_ENV_PROXY= HTTPS_PROXY= HTTP_PROXY= NO_PROXY=127.0.0.1,localhost`
+   (config already sets NO_PROXY for the server env; the browser launcher uses
+   `--no-proxy-server`).
+4. Fresh worktree needed `npm install` (root) + `node scripts/e2e-setup.mjs`
+   (.e2e vite) before vitest/playwright could run.
+
+### Survival commits (run 2)
+
+- #1 22:53 (~45 min after rebase; the resumed session spent its first block on
+  merged-tree triage — npm install, e2e-setup, harness breakage diagnosis):
+  harness fix + tapOrClick finish + metrics rollup, one commit.
+- #2 22:56 (~3 min later): this cadence note. Cadence met from #1 onward.

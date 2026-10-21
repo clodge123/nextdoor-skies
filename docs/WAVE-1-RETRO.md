@@ -1,1 +1,88 @@
-IyBXQVZFLTEgUkVUUk8gKHJ1biAyKSDigJQgY2xvc2Utb3V0CgpXYXZlIDE6IDE5OjQ14oCTMjE6MjIgQ0RULCA3IHBhcmFsbGVsIGxhbmVzLCAzNiBjb21taXRzLCBhbGwgbWVyZ2VkIHRvIG1haW4KKGA0NjdlZTAyYCkuIFdoYXQgYnJva2UsIHdoYXQgY2F1Z2h0IGl0LCB3aGF0IGNoYW5nZXMgZm9yIHdhdmUgMi4KCiMjIFdoYXQgYnJva2UKCiMjIyAxLiBCYXNlNjQgdHJlZXMtQVBJIGNvcnJ1cHRpb24gKHRoZSBiaWcgb25lKQpHaXQgdHJhbnNwb3J0IGlzIHByb3h5LWJsb2NrZWQgb24gdGhpcyBob3N0LCBzbyBwdXNoZXMgZ28gdmlhIEdpdEh1YiBSRVNUIEFQSQooY29udGVudHMvdHJlZXMvcmVmcykuIFRoZSBwdXNoIHBhdGggc3RvcmVkICoqYmFzZTY0LWVuY29kZWQgdGV4dCBhcyB0aGUgZmlsZQpjb250ZW50Kiog4oCUIHRoZSByZXBvIHRyZWUgc2hpcHBlZCB3aXRoIGBwYWNrYWdlLmpzb25gIChhbmQgb3RoZXIgZmlsZXMpIGFzCmJhc2U2NCBibG9icyB0aGF0IG5vZGUvbnBtL3ZpdGUvZXNidWlsZCBjYW5ub3QgcGFyc2UuIFJvb3QgcGFja2FnZS5qc29uIHdhcwppbnZhbGlkIEpTT04gaW4tdHJlZTsgbnBtIGluc3RhbGwgYnJva2U7IGJ1bmRsZXJzIGNob2tlZC4KKipDYXVnaHQgYnk6KiogTDIgKG5wbSBjb3VsZG4ndCBwYXJzZSByb290IHBhY2thZ2UuanNvbiDihpIgaXNvbGF0ZWQgYC5lMmUvYApkZXBzIGRpciBhcyBhIHdvcmthcm91bmQpIGFuZCBMMyAobnBtIGluc3RhbGwgYnJva2Ug4oaSIGRlY29kZWQgJiBmaXhlZCwKY29tbWl0IGBkZTQ1ZjdlYCkuIEwyIGFsc28gYWRkZWQgdmFsaWQtSlNPTiBzaGllbGQgYHBhY2thZ2UuanNvbmAgZmlsZXMgaW4Kc3ViZGlycyBzbyB0b29saW5nIG5ldmVyIGRlc2NlbmRzIGludG8gdGhlIGNvcnJ1cHQgcm9vdC4KKipXYXZlIDIgZml4OioqIHB1c2ggcGF0aCBtdXN0IGRlY29kZSBiZWZvcmUgd3JpdGluZyAod3JpdGUgYGNvbnRlbnRgIGFzCnBsYWluIHRleHQsIG5vdCBiYXNlNjQsIHBlciBHaXRIdWIgY29udGVudHMgQVBJIHNlbWFudGljcyksIHBsdXMgYSBDSQpganNvbi1saW50YCBnYXRlIHRoYXQgZmFpbHMgYW55IHRyYWNrZWQgLmpzb24gdGhhdCBpc24ndCBwYXJzZWFibGUuIFRoZQpzaGllbGQgZmlsZXMgc3RheSB1bnRpbCB0aGUgcHVzaC1wYXRoIGZpeCBpcyBwcm92ZW4uCgojIyMgMi4gVGhyZWUgbGFuZXMga2lsbGVkIG1pZC1ydW4KTGFuZXMgZGllZCBtaWQtc2Vzc2lvbiAoZmxlZXQvaG9zdCBraWxscyksIGluY2x1ZGluZyBMNCB0aGVtZSBhbmQgTDUgbWFwIOKAlApib3RoIGhhZCByZWFsIHdvcmsgdW5tZXJnZWQsIG5vIG1ldHJpY3MgZmlsZSwgbm8gYXJjaGl2ZWQgc2NyZWVuc2hvdHMuCioqQ2F1Z2h0IGJ5OioqIG9yY2hlc3RyYXRvcidzIGxhbmUtcmVzdW1lIGRpcmVjdGl2ZSAob3duZXIgaW50ZXJ2ZW50aW9uICMyKTsKbWVyZ2UtdGltZSBpbnNwZWN0aW9uIGZvdW5kIHRoZSBvcnBoYW5lZCBsYW5lIGNvbW1pdHMgKGA2MDhhYzUwYCwgYDZiNWZiOTlgLApgZDU5ODdhN2AsIEw2IHNwZWMgd29yaykg4oCUIHJlc2N1ZWQgaW50byBpbnRlZ3JhdGlvbiBtZXJnZSBgNDY3ZWUwMmAgcmF0aGVyCnRoYW4gcmUtcnVuLgoqKldhdmUgMiBmaXg6KiogKGEpIHN1cnZpdmFsLWNvbW1pdCBjYWRlbmNlICjiiaQxMCBtaW4sIHRoZW4g4omkMTUgbWluKSBpcyB0aGUKcmVzY3VlIG5ldCDigJQgaXQgd29ya2VkOiBldmVyeSBraWxsZWQgbGFuZSdzIGNvZGUgc3Vydml2ZWQgaW4gY29tbWl0czsKKGIpIGxhbmVzIG11c3Qgd3JpdGUgdGhlaXIgbWV0cmljcyBmaWxlICoqYXQgZmlyc3Qgc3Vydml2YWwgY29tbWl0KiosIG5vdCBhdApsYW5lIGVuZCwgc28gYSBraWxsIGxlYXZlcyBhbiBhdWRpdCB0cmFpbDsgKGMpIG9yY2hlc3RyYXRvciBhZGRzIGEKbGFuZS1saXZlbmVzcyBoZWFydGJlYXQgc28ga2lsbHMgYXJlIGRldGVjdGVkIGluIG1pbnV0ZXMsIG5vdCBob3Vycy4KCiMjIyAzLiBNYXAtY29udGV4dCBkdWFsLXNlYW0KTDYgbmVlZGVkIHRoZSBNYXBMaWJyZSBtYXAgaW5zdGFuY2U7IEw1IHdhc24ndCBtZXJnZWQgd2hlbiBMNiBzdGFydGVkLiBMNgpkZWZpbmVkIGl0cyBvd24gYHNyYy9saWIvbWFwL21hcC1jb250ZXh0LnRzeGAgc2VhbSAoTWFwTGlicmUtY29tcGF0aWJsZQpzaGFwZSkgbG9jYWxseS4gVHdvIGZpbGVzIG9mIHRoZSBzYW1lIG5hbWUgZXhpc3RlZCBvbiBkaXZlcmdpbmcgYnJhbmNoZXMg4oCUCmEgbWVyZ2UtdGltZSBjb2xsaXNpb24gd2FpdGluZyB0byBoYXBwZW4uCioqQ2F1Z2h0IGJ5OioqIGludGVncmF0aW9uIG1lcmdlIGA0NjdlZTAyYCDigJQgc2VhbXMgcmVzb2x2ZWQgZGVsaWJlcmF0ZWx5LApMNidzIGNvbnN1bWVyIHJlLXBvaW50ZWQgdG8gTDUncyBjb250ZXh0OyBidWlsZCArIHRzYyArIHZpdGVzdCBncmVlbi4KKipXYXZlIDIgZml4OioqIHNoYXJlZCBzZWFtcyAobWFwIGNvbnRleHQsIHRoZW1lIEFQSSwgc2VlZCBjb250cmFjdCkgZ2V0IGEKKipjb250cmFjdCBzdHViIG1lcmdlZCB0byBtYWluIEJFRk9SRSBsYW5lcyBsYXVuY2gqKiAoZGF5LTAgc2VhbSBjb21taXQpLApzbyBsYW5lcyBpbXBvcnQgdGhlIHJlYWwgZmlsZSBmcm9tIHRoZSBzdGFydCBpbnN0ZWFkIG9mIGludmVudGluZyBwYXJhbGxlbApzaGFwZXMuIFNFRUQtQ09OVFJBQ1QubWQgcHJvdmVkIHRoaXMgcGF0dGVybiB3b3JrcyDigJQgZXh0ZW5kIGl0LgoKIyMjIDQuIEUyRSBwcm94eSBoZWFsdGgtY2hlY2sgaGlqYWNrCk5vZGUgMjQncyBOT0RFX1VTRV9FTlZfUFJPWFkgbWFkZSBsb2NhbGhvc3QgaGVhbHRoLWNoZWNrcyByb3V0ZSB0aHJvdWdoIHRoZQphdXRoZW50aWNhdGluZyBlZ3Jlc3MgcHJveHkgKCJIb3N0IG11c3QgbWF0Y2ggcmVxdWVzdCBhdXRob3JpdHkiIC8gNDA3KSwgc28KUGxheXdyaWdodCB3ZWJTZXJ2ZXIgcHJvYmVzIGFuZCB0aWxlIGZldGNoZXMgZmFpbGVkIGFnYWluc3QgbG9jYWwgc2VydmVyczsKcG9ydCA0MTczIHdhcyBhbHNvIHNxdWF0dGVkIGJ5IGEgZm9yZWlnbiBhcHAgb24gdGhpcyBob3N0ICh2aXRlIHByZXZpZXcKc2lsZW50bHkgcHJveGllZCB0byBpdCkuCioqQ2F1Z2h0IGJ5OioqIEwyIChwcm9iZSBmYWlsdXJlIOKGkiBOT19QUk9YWT0xMjcuMC4wLjEsbG9jYWxob3N0IGluamVjdGVkIGluCmUyZS1ydW4ubWpzICsgY29uZmlnczsgZGVkaWNhdGVkIHBvcnQgNDMxMTcgd2l0aCByZXVzZUV4aXN0aW5nU2VydmVyOmZhbHNlOwpwb3J0LXByb2JlIG9uIDQzMTE4KSBhbmQgTDYgKHNhbWUgY2xhc3Mg4oaSIC0tbm8tcHJveHktc2VydmVyICsgcG9ydCA0MTgzKS4KKipXYXZlIDIgZml4OioqIHN0YW5kYXJkaXplIG9uIE9ORSBoYXJuZXNzIHBvcnQgcG9saWN5IChMMidzIDQzMTE3ICsgcHJvYmUpCmFuZCBiYWtlIE5PX1BST1hZIGludG8gdGhlIHNoYXJlZCBlMmUgY29uZmlnIGV2ZXJ5IGxhbmUgaW5oZXJpdHMg4oCUIG5vCnBlci1sYW5lIHByb3h5IGFyY2hhZW9sb2d5LgoKIyMgV2hhdCB3b3JrZWQgKGtlZXApCgotICoqR2F0ZSBsYWRkZXIgd2l0aCB0ZWV0aDoqKiBldmVyeSBvbmUgb2YgdGhlIDE1IGNhdGNoZXMgYWJvdmUgd2FzIGNhdWdodAogIGJ5IGEgZ2F0ZSwgbm90IGJ5IHByb2R1Y3Rpb24uIFRoZSBjb25zb2xlLWNvbGxlY3RvciBuZWdhdGl2ZSBzZWxmdGVzdAogIChMMikgcHJvdmVzIHRoZSBHYXRlIDEgY29sbGVjdG9yIGFjdHVhbGx5IGZpcmVzLgotICoqQWN0aXZlLXRpbWUtb25seSBhY2NvdW50aW5nOioqIDI2MyBhY3RpdmUgbGFuZS1taW51dGVzIGluIGEgOTctbWludXRlCiAgd2FsbC1jbG9jayB3YXZlICgyLjfDlyBwYXJhbGxlbGlzbSkg4oCUIGhvbmVzdCBudW1iZXJzLCBnYXBzIGV4Y2x1ZGVkLgotICoqUHJlZmxpZ2h0IGdhdGUgaG9uZXN0eToqKiBkZXBsb3ktcHJlZmxpZ2h0IGNvcnJlY3RseSBOTy1HT3Mgd2l0aG91dAogIFBPU1RHUkVTX1VSTCBpbnN0ZWFkIG9mIGZha2luZyBhIHBhc3M7IDM2LzM2IGNvbW1pdHMgYXV0aG9yLWNsZWFuLgotICoqU3VmZmljaWVuY3kgbGF3OioqICJ2aXRlc3QgcGFzcyBpcyBuZXZlciBzdWZmaWNpZW50IiBoZWxkIOKAlCBMNC9MNSdzCiAgdml0ZXN0LWdyZWVuIGNvZGUgc3RpbGwgbmVlZGVkIGJyb3dzZXIgcHJvb2YsIGFuZCB0aGUgbGVkZ2VyIG1hcmtzIHRoZWlyCiAgc2NyZWVuc2hvdCBnYXBzIGhvbmVzdGx5IGluc3RlYWQgb2YgY2xvc2luZyB0aGVtIG9uIHVuaXQgdGVzdHMuCgojIyBQcm9jZXNzIGNoYW5nZXMgZm9yIHdhdmUgMiAoYWN0aW9uIGxpc3QpCgoxLiBGaXggcHVzaCBwYXRoOiBkZWNvZGUgY29udGVudCBiZWZvcmUgdHJlZXMtQVBJIHdyaXRlOyBhZGQganNvbi1saW50IENJIGdhdGUuCjIuIERheS0wIHNlYW0gY29udHJhY3RzIG1lcmdlZCB0byBtYWluIGJlZm9yZSBsYW5lIGxhdW5jaCAobWFwIGNvbnRleHQsIHRoZW1lLCBzZWVkKS4KMy4gTGFuZSBtZXRyaWNzIGZpbGUgd3JpdHRlbiBhdCBmaXJzdCBzdXJ2aXZhbCBjb21taXQgKOKJpDEwIG1pbiksIG5vdCBsYW5lIGVuZC4KNC4gTGFuZS1saXZlbmVzcyBoZWFydGJlYXQgaW4gb3JjaGVzdHJhdG9yOyBraWxsZWQgbGFuZXMgYXV0by1yZXN1bWUgZnJvbSBicmFuY2ggdGlwLgo1LiBPbmUgc2hhcmVkIGUyZSBjb25maWc6IE5PX1BST1hZICsgZml4ZWQgcG9ydCArIHBvcnQgcHJvYmUsIGluaGVyaXRlZCBieSBhbGwgbGFuZXMuCjYuIEdhdGUgMSByZXF1aXJlcyB0aGUgYXJjaGl2ZWQgc2NyZWVuc2hvdCBhcyBhIG1lcmdlIGFydGlmYWN0IChDSSBydW5zIHRoZSBzcGVjIGFuZCBjb21taXRzIHRoZSBQTkcpIOKAlCBjbG9zZXMgdGhlIEw0L0w1LXN0eWxlICJ0ZXN0IGV4aXN0cywgcHJvb2YgbWlzc2luZyIgZ2FwLgo3LiBPd25lciBpbnRlcnZlbnRpb25zOiAyIHRoaXMgd2F2ZSAoYmFzZTY0IGZpeCArIGxhbmUtcmVzdW1lKSDigJQgdGFyZ2V0IOKJpDEuCgojIyBBcnRpY2xlIG5vdGVzIChMaW5rZWRJbiBzZXJpZXMgZGF0YSBwb2ludHMpCgotIDcgcGFyYWxsZWwgYWdlbnRzLCAyNjMgYWN0aXZlIGxhbmUtbWludXRlcywgMzYgY29tbWl0cywgMTUgY2F0Y2hlcywgMiBvd25lcgogIGludGVydmVudGlvbnMsIDMgbGFuZXMga2lsbGVkIOKAlCB6ZXJvIHByb2R1Y3Rpb24gZGVmZWN0cyBzaGlwcGVkLgotIFRoZSBydW4tMSBsZXNzb24gInNoaXAgdW50ZXN0ZWQiIGludmVydGVkOiBldmVyeSBkZWZlY3QgZGllZCBhdCBhIGdhdGUuCg==
+# WAVE-1 RETRO (run 2) — close-out
+
+Wave 1: 19:45–21:22 CDT, 7 parallel lanes, 36 commits, all merged to main
+(`467ee02`). What broke, what caught it, what changes for wave 2.
+
+## What broke
+
+### 1. Base64 trees-API corruption (the big one)
+Git transport is proxy-blocked on this host, so pushes go via GitHub REST API
+(contents/trees/refs). The push path stored **base64-encoded text as the file
+content** — the repo tree shipped with `package.json` (and other files) as
+base64 blobs that node/npm/vite/esbuild cannot parse. Root package.json was
+invalid JSON in-tree; npm install broke; bundlers choked.
+**Caught by:** L2 (npm couldn't parse root package.json → isolated `.e2e/`
+deps dir as a workaround) and L3 (npm install broke → decoded & fixed,
+commit `de45f7e`). L2 also added valid-JSON shield `package.json` files in
+subdirs so tooling never descends into the corrupt root.
+**Wave 2 fix:** push path must decode before writing (write `content` as
+plain text, not base64, per GitHub contents API semantics), plus a CI
+`json-lint` gate that fails any tracked .json that isn't parseable. The
+shield files stay until the push-path fix is proven.
+
+### 2. Three lanes killed mid-run
+Lanes died mid-session (fleet/host kills), including L4 theme and L5 map —
+both had real work unmerged, no metrics file, no archived screenshots.
+**Caught by:** orchestrator's lane-resume directive (owner intervention #2);
+merge-time inspection found the orphaned lane commits (`608ac50`, `6b5fb99`,
+`d5987a7`, L6 spec work) — rescued into integration merge `467ee02` rather
+than re-run.
+**Wave 2 fix:** (a) survival-commit cadence (≤10 min, then ≤15 min) is the
+rescue net — it worked: every killed lane's code survived in commits;
+(b) lanes must write their metrics file **at first survival commit**, not at
+lane end, so a kill leaves an audit trail; (c) orchestrator adds a
+lane-liveness heartbeat so kills are detected in minutes, not hours.
+
+### 3. Map-context dual-seam
+L6 needed the MapLibre map instance; L5 wasn't merged when L6 started. L6
+defined its own `src/lib/map/map-context.tsx` seam (MapLibre-compatible
+shape) locally. Two files of the same name existed on diverging branches —
+a merge-time collision waiting to happen.
+**Caught by:** integration merge `467ee02` — seams resolved deliberately,
+L6's consumer re-pointed to L5's context; build + tsc + vitest green.
+**Wave 2 fix:** shared seams (map context, theme API, seed contract) get a
+**contract stub merged to main BEFORE lanes launch** (day-0 seam commit),
+so lanes import the real file from the start instead of inventing parallel
+shapes. SEED-CONTRACT.md proved this pattern works — extend it.
+
+### 4. E2E proxy health-check hijack
+Node 24's NODE_USE_ENV_PROXY made localhost health-checks route through the
+authenticating egress proxy ("Host must match request authority" / 407), so
+Playwright webServer probes and tile fetches failed against local servers;
+port 4173 was also squatted by a foreign app on this host (vite preview
+silently proxied to it).
+**Caught by:** L2 (probe failure → NO_PROXY=127.0.0.1,localhost injected in
+e2e-run.mjs + configs; dedicated port 43117 with reuseExistingServer:false;
+port-probe on 43118) and L6 (same class → --no-proxy-server + port 4183).
+**Wave 2 fix:** standardize on ONE harness port policy (L2's 43117 + probe)
+and bake NO_PROXY into the shared e2e config every lane inherits — no
+per-lane proxy archaeology.
+
+## What worked (keep)
+
+- **Gate ladder with teeth:** every one of the 15 catches above was caught
+  by a gate, not by production. The console-collector negative selftest
+  (L2) proves the Gate 1 collector actually fires.
+- **Active-time-only accounting:** 263 active lane-minutes in a 97-minute
+  wall-clock wave (2.7× parallelism) — honest numbers, gaps excluded.
+- **Preflight gate honesty:** deploy-preflight correctly NO-GOs without
+  POSTGRES_URL instead of faking a pass; 36/36 commits author-clean.
+- **Sufficiency law:** "vitest pass is never sufficient" held — L4/L5's
+  vitest-green code still needed browser proof, and the ledger marks their
+  screenshot gaps honestly instead of closing them on unit tests.
+
+## Process changes for wave 2 (action list)
+
+1. Fix push path: decode content before trees-API write; add json-lint CI gate.
+2. Day-0 seam contracts merged to main before lane launch (map context, theme, seed).
+3. Lane metrics file written at first survival commit (≤10 min), not lane end.
+4. Lane-liveness heartbeat in orchestrator; killed lanes auto-resume from branch tip.
+5. One shared e2e config: NO_PROXY + fixed port + port probe, inherited by all lanes.
+6. Gate 1 requires the archived screenshot as a merge artifact (CI runs the spec and commits the PNG) — closes the L4/L5-style "test exists, proof missing" gap.
+7. Owner interventions: 2 this wave (base64 fix + lane-resume) — target ≤1.
+
+## Article notes (LinkedIn series data points)
+
+- 7 parallel agents, 263 active lane-minutes, 36 commits, 15 catches, 2 owner
+  interventions, 3 lanes killed — zero production defects shipped.
+- The run-1 lesson "ship untested" inverted: every defect died at a gate.

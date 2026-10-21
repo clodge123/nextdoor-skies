@@ -1,1 +1,52 @@
-aW1wb3J0IHsgcmVhZEZpbGVTeW5jIH0gZnJvbSAnbm9kZTpmcyc7CmltcG9ydCB7IHJlc29sdmUgfSBmcm9tICdub2RlOnBhdGgnOwppbXBvcnQgeyBkZXNjcmliZSwgZXhwZWN0LCBpdCB9IGZyb20gJ3ZpdGVzdCc7CmltcG9ydCB7IHRpZXJGb3JQb3B1bGF0aW9uIH0gZnJvbSAnLi4vc3JjL2xpYi9tYXAvdGllcnMnOwppbXBvcnQgdHlwZSB7IFRvd25Qb2ludCB9IGZyb20gJy4uL3NyYy9saWIvbWFwL2dhemV0dGVlcic7CgovLyBKU09OIHNjaGVtYSBnYXRlIGZvciB0aGUgYmFrZWQgZ2F6ZXR0ZWVyIChkYXRhL3Rvd25zL3VzLXRvd25zLmpzb24pLgpjb25zdCByYXcgPSBKU09OLnBhcnNlKAogIHJlYWRGaWxlU3luYyhyZXNvbHZlKHByb2Nlc3MuY3dkKCksICdkYXRhL3Rvd25zL3VzLXRvd25zLmpzb24nKSwgJ3V0ZjgnKSwKKSBhcyB7CiAgc291cmNlOiBzdHJpbmc7CiAgYmFrZWRWZXJzaW9uOiBudW1iZXI7CiAgY291bnQ6IG51bWJlcjsKICB0b3duczogVG93blBvaW50W107Cn07CgpkZXNjcmliZSgndXMtdG93bnMuanNvbiBzY2hlbWEnLCAoKSA9PiB7CiAgaXQoJ2hhcyB0b3AtbGV2ZWwgcHJvdmVuYW5jZSBmaWVsZHMnLCAoKSA9PiB7CiAgICBleHBlY3QodHlwZW9mIHJhdy5zb3VyY2UpLnRvQmUoJ3N0cmluZycpOwogICAgZXhwZWN0KHJhdy5iYWtlZFZlcnNpb24pLnRvQmUoMSk7CiAgICBleHBlY3QocmF3LmNvdW50KS50b0JlKHJhdy50b3ducy5sZW5ndGgpOwogICAgZXhwZWN0KHJhdy5jb3VudCkudG9CZUdyZWF0ZXJUaGFuT3JFcXVhbCgyMDApOwogIH0pOwoKICBpdCgnZXZlcnkgdG93biBtYXRjaGVzIHRoZSByb3cgc2NoZW1hJywgKCkgPT4gewogICAgLy8gQWdncmVnYXRlIHNjYW4gKDIxaysgcm93cyk6IGNvbGxlY3QgdmlvbGF0aW9ucywgYXNzZXJ0IG5vbmUuIFBlci1yb3cKICAgIC8vIGV4cGVjdCgpIGNhbGxzIHdvdWxkIGJsb3cgdGhlIHRpbWVvdXQgb24gdGhpcyBtYW55IHJvd3MuCiAgICBjb25zdCBiYWQgPSByYXcudG93bnMuZmlsdGVyKAogICAgICAodCkgPT4KICAgICAgICB0eXBlb2YgdC5uYW1lICE9PSAnc3RyaW5nJyB8fAogICAgICAgIHQubmFtZS5sZW5ndGggPT09IDAgfHwKICAgICAgICAhKHQubGF0ID49IDE3ICYmIHQubGF0IDw9IDcyKSB8fAogICAgICAgICEodC5sb24gPj0gLTE4MCAmJiB0LmxvbiA8PSAtNjUpIHx8CiAgICAgICAgIU51bWJlci5pc0ludGVnZXIodC5wb3ApIHx8CiAgICAgICAgdC5wb3AgPCA1MDAgfHwKICAgICAgICAhWydjb3VudHJ5JywgJ3N0YXRlJywgJ2NpdHknLCAndG93biddLmluY2x1ZGVzKHQudGllciksCiAgICApOwogICAgZXhwZWN0KGJhZC5zbGljZSgwLCAzKSkudG9FcXVhbChbXSk7CiAgICBleHBlY3QoYmFkLmxlbmd0aCkudG9CZSgwKTsKICB9KTsKCiAgaXQoJ3RpZXIgbWF0Y2hlcyBwb3B1bGF0aW9uIGJhbmQnLCAoKSA9PiB7CiAgICBjb25zdCBiYWQgPSByYXcudG93bnMuZmlsdGVyKCh0KSA9PiB0aWVyRm9yUG9wdWxhdGlvbih0LnBvcCkgIT09IHQudGllcik7CiAgICBleHBlY3QoYmFkLnNsaWNlKDAsIDMpKS50b0VxdWFsKFtdKTsKICAgIGV4cGVjdChiYWQubGVuZ3RoKS50b0JlKDApOwogIH0pOwoKICBpdCgnYWxsIHRvd25zIGFyZSB1bmlxdWUgbG9jYXRpb25zJywgKCkgPT4gewogICAgY29uc3Qga2V5cyA9IHJhdy50b3ducy5tYXAoKHQpID0+IGAke3QubGF0fToke3QubG9ufWApOwogICAgZXhwZWN0KG5ldyBTZXQoa2V5cykuc2l6ZSkudG9CZShrZXlzLmxlbmd0aCk7CiAgfSk7Cn0pOwo=
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { describe, expect, it } from 'vitest';
+import { tierForPopulation } from '../src/lib/map/tiers';
+import type { TownPoint } from '../src/lib/map/gazetteer';
+
+// JSON schema gate for the baked gazetteer (data/towns/us-towns.json).
+const raw = JSON.parse(
+  readFileSync(resolve(process.cwd(), 'data/towns/us-towns.json'), 'utf8'),
+) as {
+  source: string;
+  bakedVersion: number;
+  count: number;
+  towns: TownPoint[];
+};
+
+describe('us-towns.json schema', () => {
+  it('has top-level provenance fields', () => {
+    expect(typeof raw.source).toBe('string');
+    expect(raw.bakedVersion).toBe(1);
+    expect(raw.count).toBe(raw.towns.length);
+    expect(raw.count).toBeGreaterThanOrEqual(200);
+  });
+
+  it('every town matches the row schema', () => {
+    // Aggregate scan (21k+ rows): collect violations, assert none. Per-row
+    // expect() calls would blow the timeout on this many rows.
+    const bad = raw.towns.filter(
+      (t) =>
+        typeof t.name !== 'string' ||
+        t.name.length === 0 ||
+        !(t.lat >= 17 && t.lat <= 72) ||
+        !(t.lon >= -180 && t.lon <= -65) ||
+        !Number.isInteger(t.pop) ||
+        t.pop < 500 ||
+        !['country', 'state', 'city', 'town'].includes(t.tier),
+    );
+    expect(bad.slice(0, 3)).toEqual([]);
+    expect(bad.length).toBe(0);
+  });
+
+  it('tier matches population band', () => {
+    const bad = raw.towns.filter((t) => tierForPopulation(t.pop) !== t.tier);
+    expect(bad.slice(0, 3)).toEqual([]);
+    expect(bad.length).toBe(0);
+  });
+
+  it('all towns are unique locations', () => {
+    const keys = raw.towns.map((t) => `${t.lat}:${t.lon}`);
+    expect(new Set(keys).size).toBe(keys.length);
+  });
+});

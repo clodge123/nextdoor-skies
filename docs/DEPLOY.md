@@ -1,1 +1,77 @@
-IyBERVBMT1kgUnVuYm9vayDigJQgbmV4dGRvb3Itc2tpZXMgKHJ1biAyKQoKRGVwbG95IHBpcGVsaW5lIGZvciB3YXZlLTEgcHJvZHVjdGlvbiBkZXBsb3lzIChSMTYpLiAqKk5vIGRlcGxveSBoYXBwZW5zIHdpdGhvdXQKcHJlZmxpZ2h0IEdPLioqIERlcGxveXMgYXJlIENMSS1kcml2ZW4gKGB2ZXJjZWxgKSwgb3duZXIgbGlua3MgdGhlIEdpdEh1YiBhcHAgbWFudWFsbHkuCgojIyBBdXRob3IgbGF3CgpFdmVyeSBjb21taXQgbXVzdCBiZSBhdXRob3JlZCBieSBgY2xvZGdlMTIzIDxjbG9kZ2UxMjNAdXNlcnMubm9yZXBseS5naXRodWIuY29tPmAKKHZlcmlmaWVkIHdvcmtpbmcgY3JlZGVudGlhbCkuIFNldCBwZXIgcmVwbzoKCmBgYGJhc2gKZ2l0IGNvbmZpZyB1c2VyLm5hbWUgY2xvZGdlMTIzCmdpdCBjb25maWcgdXNlci5lbWFpbCBjbG9kZ2UxMjNAdXNlcnMubm9yZXBseS5naXRodWIuY29tCmBgYAoKVGhlIHByZWZsaWdodCBnYXRlIHJlYWRzIGBnaXQgbG9nIC0tZm9ybWF0PSVhZWAgYW5kIGZhaWxzIG9uIGFueSBvdGhlciBlbWFpbC4KCiMjIFN0ZXAgMSDigJQgUHJlZmxpZ2h0IChnYXRlLCBleGl0IDAgcmVxdWlyZWQpCgpgYGBiYXNoCm5vZGUgc2NyaXB0cy9kZXBsb3ktcHJlZmxpZ2h0Lm1qcyAgICAgICAgICAjIGh1bWFuIG91dHB1dApub2RlIHNjcmlwdHMvZGVwbG95LXByZWZsaWdodC5tanMgLS1qc29uICAgIyBDSSBjb25zdW1wdGlvbgpgYGAKCkZvdXIgY2hlY2tzLCBhbGwgbXVzdCBwYXNzOgoKfCBDaGVjayB8IFJ1bGUgfCBGYWlsdXJlIG1lYW5pbmcgfAp8LS0tfC0tLXwtLS18CnwgYGNvbW1pdC1hdXRob3JgIHwgYWxsIGNvbW1pdCBhdXRob3IgZW1haWxzID0gYGNsb2RnZTEyM0B1c2Vycy5ub3JlcGx5LmdpdGh1Yi5jb21gIHwgZml4IHdpdGggYGdpdCByZWJhc2VgIGF1dGhvciByZXdyaXRlIHwKfCBgZnVuY3Rpb24tY291bnRgIHwgYGFwaS8qKi8qLmpzYCBjb3VudCDiiaQgMTIgfCBIb2JieSBjYXA7IG1lcmdlL3NwbGl0IGZ1bmN0aW9ucyBpbnRvIG5vbi1hcGkgbW9kdWxlcyB8CnwgYGVudi1hdWRpdGAgfCBgUE9TVEdSRVNfVVJMYCBwcmVzZW50IHdoZW4gYHZlcmNlbCBlbnYgbHNgIGlzIGF2YWlsYWJsZSB8IGB2ZXJjZWwgZW52IGFkZCBQT1NUR1JFU19VUkwgcHJvZHVjdGlvbmAgKE5lb24gY3JlZGVudGlhbCkgfAp8IGBtaWdyYXRlLWNoZWNrYCB8IGBub2RlIGRiL21pZ3JhdGUubWpzIC0tY2hlY2tgIGV4aXRzIDAgfCBydW4gYG5vZGUgZGIvbWlncmF0ZS5tanNgIGFnYWluc3QgYFBPU1RHUkVTX1VSTGAgfAoKYHZlcmNlbGAgQ0xJIGFic2VudCAobG9jYWwgZGV2KSDih5IgZW52LWF1ZGl0IGlzIGEgZG9jdW1lbnRlZCBza2lwLCBub3QgYSBwYXNzLWZhaWwuCgojIyBTdGVwIDIg4oCUIE1pZ3JhdGlvbiAoYXV0by1taWdyYXRpb24gaW4gZGVwbG95IGxpZmVjeWNsZSkKClNjaGVtYSBpcyBpZGVtcG90ZW50IChgQ1JFQVRFIFRBQkxFIElGIE5PVCBFWElTVFNgKSwgc28gYXBwbHktYmVmb3JlLWRlcGxveSBpcyBhbHdheXMgc2FmZToKCmBgYGJhc2gKUE9TVEdSRVNfVVJMPXBvc3RncmVzOi8vLi4uIG5vZGUgZGIvbWlncmF0ZS5tanMgICAgICAgICAgIyBhcHBseSArIHZlcmlmeQpQT1NUR1JFU19VUkw9cG9zdGdyZXM6Ly8uLi4gbm9kZSBkYi9taWdyYXRlLm1qcyAtLWNoZWNrICAjIHZlcmlmeSBvbmx5ICh3aGF0IHByZWZsaWdodCBydW5zKQpgYGAKClRhYmxlczogYHJlcG9ydHNgLCBgY29tbWVudHNgIChGS+KGknJlcG9ydHMsIGNhc2NhZGUgZGVsZXRlKSwgYGZsYWdzYCwgYHJlYWN0aW9uc2AKKHVuaXF1ZSBwZXIgYXV0aG9yL3JlcG9ydC9lbW9qaSksIGByYXRlX2xpbWl0YCAodW5pcXVlIHBlciBhdXRob3IvYnVja2V0KS4KTWlncmF0aW9uIGZhaWx1cmUgYWJvcnRzIGRlcGxveSDigJQgbmV2ZXIgZGVwbG95IGNvZGUgdGhhdCBleHBlY3RzIG1pc3NpbmcgdGFibGVzLgoKIyMgU3RlcCAzIOKAlCBEZXBsb3kKCmBgYGJhc2gKdmVyY2VsIGRlcGxveSAtLXByb2QgICAgICAgICMgZnJvbSByZXBvIHJvb3Q7IHJlcXVpcmVzIGB2ZXJjZWwgbGlua2AgZG9uZSBvbmNlCmBgYAoKUmVjb3JkIGJvdGggVVJMczoKLSBwcmV2aWV3OiBgaHR0cHM6Ly9uZXh0ZG9vci1za2llcy1naXQtPGJyYW5jaD4tY2xvZGdlMTIzLnZlcmNlbC5hcHBgIChhdXRvIHBlciBwdXNoKQotIHByb2R1Y3Rpb246IGBodHRwczovL25leHRkb29yLXNraWVzLnZlcmNlbC5hcHBgCgojIyBTdGVwIDQg4oCUIFNtb2tlIChwb3N0LWRlcGxveSwgcmVhbCBicm93c2VyKQoKMS4gYEdFVCAvYXBpL3Byb2JlLmpzYCDihpIgZXhwZWN0IGB7Im9rIjp0cnVlLCJkYiI6IjxkYXRhYmFzZT4ifWAgKGNvbmZpcm1zIFBPU1RHUkVTX1VSTCArIERCIHJlYWNoYWJsZSkuCjIuIEhvbWVwYWdlIGxvYWRzIG1hcCwgemVybyBjb25zb2xlIGVycm9ycy4KMy4gUG9zdCBhIHJlcG9ydCDihpIgYXBwZWFycyBpbiBmZWVkOyBjb21tZW50ICsgcmVhY3Qgcm91bmQtdHJpcC4KNC4gSWYgYW55dGhpbmcgZmFpbHM6IFNNT0tFIEZJWCBMT09QIOKAlCBmaXgg4oaSIHJlZGVwbG95IOKGkiByZS1zbW9rZSAobWF4IDMgbG9vcHMsIHRoZW4gZXNjYWxhdGUgdG8gb3duZXIpLgoKIyMgRW52IHZhciBhdWRpdCBjaGVja2xpc3QKCi0gYFBPU1RHUkVTX1VSTGAg4oCUIE5lb24gcHJvZHVjdGlvbiBjcmVkZW50aWFsLCBlbmNyeXB0ZWQsIHNldCB2aWEgYHZlcmNlbCBlbnYgYWRkYC4KLSBObyBzZWNyZXRzIGNvbW1pdHRlZCAoYC5lbnYqYCBnaXRpZ25vcmVkKS4gTmV2ZXIgcGFzdGUgY29ubmVjdGlvbiBzdHJpbmdzIGludG8gY2hhdC9jb21taXRzLgoKIyMgUm9sbGJhY2sKCmBgYGJhc2gKdmVyY2VsIGxzICYmIHZlcmNlbCByb2xsYmFjayA8ZGVwbG95bWVudC1pZD4KYGBgCgpTY2hlbWEgY2hhbmdlcyBhcmUgYWRkaXRpdmUtb25seSBpbiB3YXZlIDEgKElGIE5PVCBFWElTVFMpLCBzbyBEQiByb2xsYmFjayBpcyBub3QgcmVxdWlyZWQgZm9yIGNvZGUgcm9sbGJhY2suCg==
+# DEPLOY Runbook — nextdoor-skies (run 2)
+
+Deploy pipeline for wave-1 production deploys (R16). **No deploy happens without
+preflight GO.** Deploys are CLI-driven (`vercel`), owner links the GitHub app manually.
+
+## Author law
+
+Every commit must be authored by `clodge123 <clodge123@users.noreply.github.com>`
+(verified working credential). Set per repo:
+
+```bash
+git config user.name clodge123
+git config user.email clodge123@users.noreply.github.com
+```
+
+The preflight gate reads `git log --format=%ae` and fails on any other email.
+
+## Step 1 — Preflight (gate, exit 0 required)
+
+```bash
+node scripts/deploy-preflight.mjs          # human output
+node scripts/deploy-preflight.mjs --json   # CI consumption
+```
+
+Four checks, all must pass:
+
+| Check | Rule | Failure meaning |
+|---|---|---|
+| `commit-author` | all commit author emails = `clodge123@users.noreply.github.com` | fix with `git rebase` author rewrite |
+| `function-count` | `api/**/*.js` count ≤ 12 | Hobby cap; merge/split functions into non-api modules |
+| `env-audit` | `POSTGRES_URL` present when `vercel env ls` is available | `vercel env add POSTGRES_URL production` (Neon credential) |
+| `migrate-check` | `node db/migrate.mjs --check` exits 0 | run `node db/migrate.mjs` against `POSTGRES_URL` |
+
+`vercel` CLI absent (local dev) ⇒ env-audit is a documented skip, not a pass-fail.
+
+## Step 2 — Migration (auto-migration in deploy lifecycle)
+
+Schema is idempotent (`CREATE TABLE IF NOT EXISTS`), so apply-before-deploy is always safe:
+
+```bash
+POSTGRES_URL=postgres://... node db/migrate.mjs          # apply + verify
+POSTGRES_URL=postgres://... node db/migrate.mjs --check  # verify only (what preflight runs)
+```
+
+Tables: `reports`, `comments` (FK→reports, cascade delete), `flags`, `reactions`
+(unique per author/report/emoji), `rate_limit` (unique per author/bucket).
+Migration failure aborts deploy — never deploy code that expects missing tables.
+
+## Step 3 — Deploy
+
+```bash
+vercel deploy --prod        # from repo root; requires `vercel link` done once
+```
+
+Record both URLs:
+- preview: `https://nextdoor-skies-git-<branch>-clodge123.vercel.app` (auto per push)
+- production: `https://nextdoor-skies.vercel.app`
+
+## Step 4 — Smoke (post-deploy, real browser)
+
+1. `GET /api/probe.js` → expect `{"ok":true,"db":"<database>"}` (confirms POSTGRES_URL + DB reachable).
+2. Homepage loads map, zero console errors.
+3. Post a report → appears in feed; comment + react round-trip.
+4. If anything fails: SMOKE FIX LOOP — fix → redeploy → re-smoke (max 3 loops, then escalate to owner).
+
+## Env var audit checklist
+
+- `POSTGRES_URL` — Neon production credential, encrypted, set via `vercel env add`.
+- No secrets committed (`.env*` gitignored). Never paste connection strings into chat/commits.
+
+## Rollback
+
+```bash
+vercel ls && vercel rollback <deployment-id>
+```
+
+Schema changes are additive-only in wave 1 (IF NOT EXISTS), so DB rollback is not required for code rollback.

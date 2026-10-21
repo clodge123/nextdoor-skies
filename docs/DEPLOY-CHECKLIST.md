@@ -1,1 +1,38 @@
-IyBXQVZFLTEgREVQTE9ZIENIRUNLTElTVCAoR2F0ZSAzKSDigJQgbmV4dGRvb3Itc2tpZXMgcnVuIDIKCioqRGVwbG95IGhhcHBlbnMgQUZURVIgTDggZ29lcyBncmVlbi4qKiBUaGlzIGNoZWNrbGlzdCBpcyB0aGUgd2F2ZS0xIGRlcGxveSBnYXRlOwpwcmVwYXJlZCBieSBMMTAgY2xvc2Utb3V0LiBSdW4gZnJvbSBtYWluIHRpcC4gTm8gZGVwbG95IHdpdGhvdXQgZXZlcnkgYm94IGNoZWNrZWQuCgojIyBQcmVmbGlnaHQgdmVyaWZpY2F0aW9uIChkb25lIGF0IGNsb3NlLW91dCwgMjAyNi0xMC0yMCAyMjoxMCBDRFQsIG1haW4gdGlwIGA0NjdlZTAyYCkKCmBub2RlIHNjcmlwdHMvZGVwbG95LXByZWZsaWdodC5tanNgIHZlcmlmaWVkIHJ1bm5pbmcgYW5kIGJlaGF2aW5nIHBlciBkb2NzL0RFUExPWS5tZDoKCnwgQ2hlY2sgfCBSZXN1bHQgfCBOb3RlcyB8CnwtLS18LS0tfC0tLXwKfCBjb21taXQtYXV0aG9yIHwg4pyFIFBBU1MgfCAzNiBjb21taXRzLCBhbGwgYGNsb2RnZTEyM0B1c2Vycy5ub3JlcGx5LmdpdGh1Yi5jb21gIOKAlCBhdXRob3IgY2hlY2sgcGFzc2VzIG9uIG1haW4gfAp8IGZ1bmN0aW9uLWNvdW50IHwg4pyFIFBBU1MgfCBgYXBpLyouanNgIGNvdW50ID0gKioxKiogKHByb2JlLmpzKSDiiaQgMTIgKEhvYmJ5IGNhcCkgfAp8IGVudi1hdWRpdCB8IOKaoO+4jyBza2lwcGVkIHwgdmVyY2VsIENMSSBhYnNlbnQgbG9jYWxseSDigJQgZG9jdW1lbnRlZCBza2lwOyAqKnJlcXVpcmVzIENJIGVudioqIChgdmVyY2VsIGVudiBsc2AgKyBQT1NUR1JFU19VUkwgc2VjcmV0KSB0byBwcm9kdWNlIGEgcmVhbCBQQVNTIHwKfCBtaWdyYXRlLWNoZWNrIHwg4p2MIEZBSUwgKGNvcnJlY3QpIHwgYFBPU1RHUkVTX1VSTCBpcyBub3Qgc2V0YCDihpIgTk8tR08uIENvcnJlY3QgZ2F0ZSBiZWhhdmlvcjsgcmVzb2x2ZXMgb25jZSBDSS9wcm9kIGVudiBwcm92aWRlcyBQT1NUR1JFU19VUkwgfAoKVW5pdCBwcm9vZjogYHRlc3QvcHJlZmxpZ2h0LnRlc3QubWpzYCAxOC8xOCBwYXNzLgoKIyMgRGVwbG95IGdhdGUgY2hlY2tsaXN0CgotIFsgXSAqKkw4IEdSRUVOKiog4oCUIGludGVncmF0aW9uIENJIGdyZWVuIG9uIG1haW4gKHRzYy9lc2xpbnQvYnVpbGQvdml0ZXN0ICsgc2NhbnMgKyBlMmUpLiBUaGlzIGlzIHRoZSBkZXBsb3kgcHJlY29uZGl0aW9uLgotIFsgXSBgbm9kZSBzY3JpcHRzL2RlcGxveS1wcmVmbGlnaHQubWpzYCBleGl0cyAwIGluIENJIGVudiAoYWxsIDQgY2hlY2tzLCBpbmNsLiBlbnYtYXVkaXQgKyBtaWdyYXRlLWNoZWNrIGFnYWluc3QgTmVvbikuCi0gWyBdIE1pZ3JhdGlvbnMgYXBwbGllZDogYFBPU1RHUkVTX1VSTD0uLi4gbm9kZSBkYi9taWdyYXRlLm1qc2AgdGhlbiBgLS1jaGVja2AgZXhpdHMgMCAoNSB0YWJsZXMgaWRlbXBvdGVudDogcmVwb3J0cywgY29tbWVudHMsIGZsYWdzLCByZWFjdGlvbnMsIHJhdGVfbGltaXQpLgotIFsgXSBgdmVyY2VsIGRlcGxveSAtLXByb2RgIGZyb20gcmVwbyByb290IChgdmVyY2VsIGxpbmtgIGRvbmU7IG93bmVyIGxpbmtlZCBHaXRIdWIgYXBwIG1hbnVhbGx5KS4KLSBbIF0gVVJMcyByZWNvcmRlZDogcHJldmlldyBgbmV4dGRvb3Itc2tpZXMtZ2l0LTxicmFuY2g+LWNsb2RnZTEyMy52ZXJjZWwuYXBwYCwgcHJvZCBgbmV4dGRvb3Itc2tpZXMudmVyY2VsLmFwcGAuCi0gWyBdIFByb2R1Y3Rpb24gc21va2Ug4oCUIFBsYXl3cmlnaHQgYWdhaW5zdCBsaXZlIFVSTDogcGFnZXMgMjAwLCByZW5kZXJzLCBjb25zb2xlIGNsZWFuLCBzY3JlZW5zaG90cyBkZXNrdG9wL3RhYmxldC9waG9uZS4KLSBbIF0gSEFORFMtT04gYnJvd3NlciBzZXNzaW9uIChPcGVuQ2xhdyBicm93c2VyIHRvb2wpOiBodW1hbi1zdHlsZSBjbGljay10aHJvdWdoLCBzY3JlZW5zaG90cyArIG5vdGVzLiBNYW5kYXRvcnkuCi0gWyBdIGFwaS9wcm9iZS5qcyByZW1vdmVkIGFmdGVyIHNtb2tlICh3YXZlLTEgcHJlZmxpZ2h0IGV2aWRlbmNlIHNlcnZlZCBpdHMgcHVycG9zZSkuCi0gWyBdIFNtb2tlIGZpeCBsb29wOiBhbnkgZGVmZWN0IOKGkiBmaXgg4oaSIHJlZGVwbG95IOKGkiByZS1zbW9rZTsgbWF4IDMgbG9vcHMsIHRoZW4gZXNjYWxhdGUgdG8gb3duZXIuCi0gWyBdIExlZGdlciBnYXBzIGNsb3NlZCBieSB0aGUgR2F0ZSAyIENJIHJ1bjogYGRvY3Mvc2NyZWVuc2hvdHMvTDUtbWFwL2AgKFIxL1IyIHpvb20tdGllciBzaG90cykgKyB0aGVtZSBzY3JlZW5zaG90IChSMTIpIGFyY2hpdmVkIGludG8gdHJlZS4KCiMjIEtub3duIGVudiBkZXBlbmRlbmN5CgplbnYtYXVkaXQgYW5kIG1pZ3JhdGUtY2hlY2sgY2Fubm90IFBBU1Mgb24gdGhpcyBob3N0IChubyB2ZXJjZWwgQ0xJLCBubwpQT1NUR1JFU19VUkwpLiBUaGV5IHJ1biBmb3IgcmVhbCBpbiBDSSB3aXRoIHRoZSBOZW9uIHNlY3JldC4gQSBsb2NhbCBOTy1HTwp3aXRoIGV4YWN0bHkgdGhlc2UgdHdvIGZhaWx1cmVzIGlzIGV4cGVjdGVkIGFuZCBpcyBOT1QgYSBkZXBsb3kgYmxvY2tlci4KCkZ1bGwgcnVuYm9vazogYGRvY3MvREVQTE9ZLm1kYC4K
+# WAVE-1 DEPLOY CHECKLIST (Gate 3) — nextdoor-skies run 2
+
+**Deploy happens AFTER L8 goes green.** This checklist is the wave-1 deploy gate;
+prepared by L10 close-out. Run from main tip. No deploy without every box checked.
+
+## Preflight verification (done at close-out, 2026-10-20 22:10 CDT, main tip `467ee02`)
+
+`node scripts/deploy-preflight.mjs` verified running and behaving per docs/DEPLOY.md:
+
+| Check | Result | Notes |
+|---|---|---|
+| commit-author | ✅ PASS | 36 commits, all `clodge123@users.noreply.github.com` — author check passes on main |
+| function-count | ✅ PASS | `api/*.js` count = **1** (probe.js) ≤ 12 (Hobby cap) |
+| env-audit | ⚠️ skipped | vercel CLI absent locally — documented skip; **requires CI env** (`vercel env ls` + POSTGRES_URL secret) to produce a real PASS |
+| migrate-check | ❌ FAIL (correct) | `POSTGRES_URL is not set` → NO-GO. Correct gate behavior; resolves once CI/prod env provides POSTGRES_URL |
+
+Unit proof: `test/preflight.test.mjs` 18/18 pass.
+
+## Deploy gate checklist
+
+- [ ] **L8 GREEN** — integration CI green on main (tsc/eslint/build/vitest + scans + e2e). This is the deploy precondition.
+- [ ] `node scripts/deploy-preflight.mjs` exits 0 in CI env (all 4 checks, incl. env-audit + migrate-check against Neon).
+- [ ] Migrations applied: `POSTGRES_URL=... node db/migrate.mjs` then `--check` exits 0 (5 tables idempotent: reports, comments, flags, reactions, rate_limit).
+- [ ] `vercel deploy --prod` from repo root (`vercel link` done; owner linked GitHub app manually).
+- [ ] URLs recorded: preview `nextdoor-skies-git-<branch>-clodge123.vercel.app`, prod `nextdoor-skies.vercel.app`.
+- [ ] Production smoke — Playwright against live URL: pages 200, renders, console clean, screenshots desktop/tablet/phone.
+- [ ] HANDS-ON browser session (OpenClaw browser tool): human-style click-through, screenshots + notes. Mandatory.
+- [ ] api/probe.js removed after smoke (wave-1 preflight evidence served its purpose).
+- [ ] Smoke fix loop: any defect → fix → redeploy → re-smoke; max 3 loops, then escalate to owner.
+- [ ] Ledger gaps closed by the Gate 2 CI run: `docs/screenshots/L5-map/` (R1/R2 zoom-tier shots) + theme screenshot (R12) archived into tree.
+
+## Known env dependency
+
+env-audit and migrate-check cannot PASS on this host (no vercel CLI, no
+POSTGRES_URL). They run for real in CI with the Neon secret. A local NO-GO
+with exactly these two failures is expected and is NOT a deploy blocker.
+
+Full runbook: `docs/DEPLOY.md`.

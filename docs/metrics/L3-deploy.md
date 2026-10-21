@@ -1,1 +1,18 @@
-IyBMMyBERVBMT1ktUElQRUxJTkUgbWV0cmljcyDigJQgd2F2ZSAxLCBydW4gMgoKV2FsbC1jbG9jayBjb3VudHMgQUNUSVZFIFJVTk5JTkcgVElNRSBPTkxZIChmbGVldCBnYXBzIGV4Y2x1ZGVkKS4KCnwgTWV0cmljIHwgVmFsdWUgfAp8LS0tfC0tLXwKfCBBY3RpdmUgdGltZSAobGFuZSkgfCB+MTMgbWluIHwKfCBHYXRlIDAgc3ludGF4IGNoZWNrcyAobm9kZSBpbXBvcnQpIHwgUEFTUyAocHJlZmxpZ2h0ICsgbWlncmF0ZSBtb2R1bGVzIGxvYWQpIHwKfCBHYXRlIDAgdml0ZXN0IHwgUEFTUyDigJQgMTgvMTggdGVzdHMsIDEgZmlsZSB8CnwgUHJlZmxpZ2h0IGNoZWNrcyBpbXBsZW1lbnRlZCB8IDQvNCAoY29tbWl0LWF1dGhvciwgZnVuY3Rpb24tY291bnQg4omkMTIsIGVudi1hdWRpdCwgbWlncmF0ZS1jaGVjaykgfAp8IFByZWZsaWdodCBsaXZlIHJ1biAobG9jYWwsIG5vIHZlcmNlbC9QT1NUR1JFU19VUkwpIHwgMyBQQVNTICsgMSBkb2N1bWVudGVkIEZBSUwgKG5vIERCIGVudikg4oaSIE5PLUdPLCBjb3JyZWN0IGdhdGUgYmVoYXZpb3IgfAp8IENvbW1pdHMgfCAxIChgZWVhNTRjM2AsIGF1dGhvciBsYXcgZW1haWwpIHwKfCBGaWxlcyBhZGRlZCB8IHNjaGVtYS5zcWwsIG1pZ3JhdGUubWpzLCBkZXBsb3ktcHJlZmxpZ2h0Lm1qcywgcHJlZmxpZ2h0LnRlc3QubWpzLCBERVBMT1kubWQsIG1ldHJpY3MgfAp8IERlZmVjdHMgY2F1Z2h0IHwgcGFja2FnZS5qc29uIHdhcyBiYXNlNjQtY29ycnVwdGVkIGluIHNjYWZmb2xkIChucG0gaW5zdGFsbCBicm9rZSkg4oCUIGRlY29kZWQgJiBmaXhlZCB8CnwgQmxvY2tlcnMgfCBkb2NzL2xhbmVzL1dBVkUtMS1MQU5FUy5tZCBhYnNlbnQgZnJvbSB3b3JrdHJlZSAob25seSBCUklFRiArIERPLURPTkUgcHJlc2VudCkg4oCUIGZsYWdnZWQgdG8gb3JjaGVzdHJhdG9yIHwKfCBEZXBsb3kgdG91Y2hlZCB8IE5PIChydWxlcyBob25vcmVkKTsgYXBpL3Byb2JlLmpzIHVudG91Y2hlZCB8CnwgYXBpIGZ1bmN0aW9uIGNvdW50IHwgMSAocHJvYmUuanMpIOKJpCAxMiB8CnwgU2NoZW1hIHRhYmxlcyB8IDUvNSBpZGVtcG90ZW50IENSRUFURSBJRiBOT1QgRVhJU1RTIHwK
+# L3 DEPLOY-PIPELINE metrics — wave 1, run 2
+
+Wall-clock counts ACTIVE RUNNING TIME ONLY (fleet gaps excluded).
+
+| Metric | Value |
+|---|---|
+| Active time (lane) | ~13 min |
+| Gate 0 syntax checks (node import) | PASS (preflight + migrate modules load) |
+| Gate 0 vitest | PASS — 18/18 tests, 1 file |
+| Preflight checks implemented | 4/4 (commit-author, function-count ≤12, env-audit, migrate-check) |
+| Preflight live run (local, no vercel/POSTGRES_URL) | 3 PASS + 1 documented FAIL (no DB env) → NO-GO, correct gate behavior |
+| Commits | 1 (`eea54c3`, author law email) |
+| Files added | schema.sql, migrate.mjs, deploy-preflight.mjs, preflight.test.mjs, DEPLOY.md, metrics |
+| Defects caught | package.json was base64-corrupted in scaffold (npm install broke) — decoded & fixed |
+| Blockers | docs/lanes/WAVE-1-LANES.md absent from worktree (only BRIEF + DO-DONE present) — flagged to orchestrator |
+| Deploy touched | NO (rules honored); api/probe.js untouched |
+| api function count | 1 (probe.js) ≤ 12 |
+| Schema tables | 5/5 idempotent CREATE IF NOT EXISTS |

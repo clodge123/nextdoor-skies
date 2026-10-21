@@ -1,1 +1,36 @@
-aW1wb3J0IHR5cGUgeyBSb3V0ZSB9IGZyb20gJ0BwbGF5d3JpZ2h0L3Rlc3QnOwoKLyoqCiAqIFNoYXJlZCB0aWxlIHJlbGF5IChMNSBwYXR0ZXJuLCBub3cgdXNlZCBieSBnb2xkZW4tcGF0aCB0b28pLgogKgogKiBUaGlzIGhvc3QgZWdyZXNzZXMgdGhyb3VnaCBhbiBhdXRoZW50aWNhdGluZyBIVFRQIHByb3h5IHRoYXQgc3RyaXBzIENPUlMKICogaGVhZGVycywgc28gdGhlIGJyb3dzZXIgY2Fubm90IGZldGNoIE9wZW5GcmVlTWFwIHRpbGVzIGRpcmVjdGx5LiBOb2RlLXNpZGUKICogZmV0Y2ggaG9ub3JzIHRoZSBlbnYgcHJveHkgYW5kIHJlLXNlcnZlcyB0aGUgYnl0ZXMgd2l0aCBDT1JTIGFkZGVkLiBUaWxlCiAqIGZhaWx1cmVzIGFyZSBmdWxmaWxsZWQgYXMgNTAyIOKAlCB0aWxlIGVycm9ycyBhcmUgV0FSTklOR1MgKGxhdyAjNCk6IHRoZSBVSQogKiBtdXN0IG5vdCBmbGlwIHRvIGEgc3R1Y2sgZXJyb3Igc3RhdGUuCiAqLwpleHBvcnQgYXN5bmMgZnVuY3Rpb24gcmVsYXlPZm0ocm91dGU6IFJvdXRlKTogUHJvbWlzZTx2b2lkPiB7CiAgY29uc3QgdXJsID0gcm91dGUucmVxdWVzdCgpLnVybCgpOwogIHRyeSB7CiAgICBjb25zdCByZXMgPSBhd2FpdCBmZXRjaCh1cmwpOwogICAgaWYgKCFyZXMub2spIHRocm93IG5ldyBFcnJvcihgdXBzdHJlYW0gJHtyZXMuc3RhdHVzfWApOwogICAgY29uc3QgYnVmID0gQnVmZmVyLmZyb20oYXdhaXQgcmVzLmFycmF5QnVmZmVyKCkpOwogICAgYXdhaXQgcm91dGUuZnVsZmlsbCh7CiAgICAgIHN0YXR1czogMjAwLAogICAgICBib2R5OiBidWYsCiAgICAgIGhlYWRlcnM6IHsKICAgICAgICAnYWNjZXNzLWNvbnRyb2wtYWxsb3ctb3JpZ2luJzogJyonLAogICAgICAgICdjb250ZW50LXR5cGUnOiByZXMuaGVhZGVycy5nZXQoJ2NvbnRlbnQtdHlwZScpID8/ICdhcHBsaWNhdGlvbi9vY3RldC1zdHJlYW0nLAogICAgICB9LAogICAgfSk7CiAgfSBjYXRjaCAoZSkgewogICAgYXdhaXQgcm91dGUuZnVsZmlsbCh7IHN0YXR1czogNTAyLCBib2R5OiBTdHJpbmcoZSkgfSk7CiAgfQp9CgovKiogQXR0YWNoIHRoZSByZWxheSB0byBhIHBhZ2UgKE9wZW5GcmVlTWFwIHRpbGUgVVJMcyBvbmx5KS4gKi8KZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGF0dGFjaFRpbGVSZWxheShwYWdlOiB7CiAgcm91dGU6IChwYXR0ZXJuOiBzdHJpbmcsIGhhbmRsZXI6IChyb3V0ZTogUm91dGUpID0+IHZvaWQpID0+IFByb21pc2U8dm9pZD47Cn0pOiBQcm9taXNlPHZvaWQ+IHsKICBhd2FpdCBwYWdlLnJvdXRlKCcqKm9wZW5mcmVlbWFwLm9yZy8qKicsIHJlbGF5T2ZtKTsKfQo=
+import type { Route } from '@playwright/test';
+
+/**
+ * Shared tile relay (L5 pattern, now used by golden-path too).
+ *
+ * This host egresses through an authenticating HTTP proxy that strips CORS
+ * headers, so the browser cannot fetch OpenFreeMap tiles directly. Node-side
+ * fetch honors the env proxy and re-serves the bytes with CORS added. Tile
+ * failures are fulfilled as 502 — tile errors are WARNINGS (law #4): the UI
+ * must not flip to a stuck error state.
+ */
+export async function relayOfm(route: Route): Promise<void> {
+  const url = route.request().url();
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`upstream ${res.status}`);
+    const buf = Buffer.from(await res.arrayBuffer());
+    await route.fulfill({
+      status: 200,
+      body: buf,
+      headers: {
+        'access-control-allow-origin': '*',
+        'content-type': res.headers.get('content-type') ?? 'application/octet-stream',
+      },
+    });
+  } catch (e) {
+    await route.fulfill({ status: 502, body: String(e) });
+  }
+}
+
+/** Attach the relay to a page (OpenFreeMap tile URLs only). */
+export async function attachTileRelay(page: {
+  route: (pattern: string, handler: (route: Route) => void) => Promise<void>;
+}): Promise<void> {
+  await page.route('**openfreemap.org/**', relayOfm);
+}

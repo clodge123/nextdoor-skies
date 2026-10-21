@@ -1,1 +1,6 @@
-bm9kZV9tb2R1bGVzCmRpc3QKY292ZXJhZ2UKcGxheXdyaWdodC1yZXBvcnQKcGFja2FnZS1sb2NrLmpzb24KZG9jcy8qKi8qLm1kCg==
+node_modules
+dist
+coverage
+playwright-report
+package-lock.json
+docs/**/*.md

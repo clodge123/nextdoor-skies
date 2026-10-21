@@ -1,1 +1,17 @@
-ewogICJjb21waWxlck9wdGlvbnMiOiB7CiAgICAidGFyZ2V0IjogIkVTMjAyMiIsCiAgICAibGliIjogWyJFUzIwMjIiLCAiRE9NIiwgIkRPTS5JdGVyYWJsZSJdLAogICAgIm1vZHVsZSI6ICJFU05leHQiLAogICAgIm1vZHVsZVJlc29sdXRpb24iOiAiYnVuZGxlciIsCiAgICAianN4IjogInJlYWN0LWpzeCIsCiAgICAidHlwZXMiOiBbIm5vZGUiLCAidml0ZXN0L2dsb2JhbHMiLCAiQHRlc3RpbmctbGlicmFyeS9qZXN0LWRvbSJdLAogICAgInNraXBMaWJDaGVjayI6IHRydWUsCiAgICAic3RyaWN0IjogdHJ1ZSwKICAgICJub0VtaXQiOiB0cnVlLAogICAgImFsbG93SW1wb3J0aW5nVHNFeHRlbnNpb25zIjogdHJ1ZSwKICAgICJ2ZXJiYXRpbU1vZHVsZVN5bnRheCI6IHRydWUsCiAgICAibW9kdWxlRGV0ZWN0aW9uIjogImZvcmNlIgogIH0sCiAgImluY2x1ZGUiOiBbInNyYy90ZXN0IiwgInNyYy8qKi8qLnRlc3QudHMiLCAic3JjLyoqLyoudGVzdC50c3giLCAic3JjL3Rlc3Qvc2V0dXAudHMiXQp9Cg==
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "types": ["node", "vitest/globals", "@testing-library/jest-dom"],
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force"
+  },
+  "include": ["src/test", "src/**/*.test.ts", "src/**/*.test.tsx", "src/test/setup.ts"]
+}

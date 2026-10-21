@@ -1,1 +1,105 @@
-IyEvdXNyL2Jpbi9lbnYgbm9kZQovKioKICogTDIgaGFybmVzcyB3ZWIgc2VydmVyIChMMTIgd2lyaW5nIHVwZGF0ZSk6IGJ1aWxkcyBCT1RIIHRoZSByZWFsIGFwcCAocm9vdAogKiB2aXRlIHByb2plY3QpIGFuZCB0aGUgTDIgZml4dHVyZXMgYXBwLCB0aGVuIHNlcnZlcyB0aGVtIHZpYSBgdml0ZSBwcmV2aWV3YDoKICoKICogICAtIHJlYWwgYXBwICAgIG9uIDxwb3J0PiAgICAgKGRlZmF1bHQgdGFyZ2V0OyBtYXAvYmFkZ2VzIHNwZWNzIGhpdCAnLycpCiAqICAgLSBmaXh0dXJlcyAgICBvbiA8cG9ydD4rMSAgIChnb2xkZW4tcGF0aCBoYXJuZXNzIGNvbnRlbnQgbGl2ZXMgaGVyZSkKICoKICogUmF0aW9uYWxlOiB3YXZlIDEgbGFuZXMgd3JvdGUgc3BlY3MgYWdhaW5zdCB0aGUgZml4dHVyZXMgc3RhbmQtaW4gd2hpbGUgdGhlCiAqIHJlYWwgc2hlbGwgd2FzIGEgcGxhY2Vob2xkZXIuIEwxMiBtb3VudHMgdGhlIHJlYWwgTWFwVmlldywgc28gJy8nIG11c3QgYmUKICogdGhlIHJlYWwgYXBwOyBnb2xkZW4tcGF0aCBrZWVwcyBhc3NlcnRpbmcgZml4dHVyZXMgY29udGVudCBvbiBpdHMgb3duIHBvcnQuCiAqCiAqIEUyRV9UQVJHRVQ9Zml4dHVyZXMga2VlcHMgdGhlIGxlZ2FjeSBmaXh0dXJlcy1vbmx5IG1vZGUgKGFwcCBza2lwcGVkKTsKICogRTJFX1RBUkdFVD10ZXN0LWFwcCBrZWVwcyB0aGUgTDYgdGVzdC1hcHAgYnVuZGxlLiBEZWZhdWx0ID0gZHVhbCBzZXJ2ZS4KICoKICogVXNhZ2U6IG5vZGUgc2NyaXB0cy9lMmUtc2VydmUubWpzIDxwb3J0PgogKi8KaW1wb3J0IHsgc3Bhd24gfSBmcm9tICdub2RlOmNoaWxkX3Byb2Nlc3MnOwppbXBvcnQgeyBleGlzdHNTeW5jIH0gZnJvbSAnbm9kZTpmcyc7CmltcG9ydCB7IGRpcm5hbWUsIGpvaW4sIHJlc29sdmUgfSBmcm9tICdub2RlOnBhdGgnOwppbXBvcnQgeyBmaWxlVVJMVG9QYXRoIH0gZnJvbSAnbm9kZTp1cmwnOwoKY29uc3QgcmVwb1Jvb3QgPSByZXNvbHZlKGRpcm5hbWUoZmlsZVVSTFRvUGF0aChpbXBvcnQubWV0YS51cmwpKSwgJy4uJyk7CmNvbnN0IHBvcnQgPSBOdW1iZXIocHJvY2Vzcy5hcmd2WzJdID8/IDQxNzMpOwppZiAoIU51bWJlci5pc0ludGVnZXIocG9ydCkgfHwgcG9ydCA8PSAwKSB7CiAgY29uc29sZS5lcnJvcignZTJlLXNlcnZlOiBwYXNzIGEgdmFsaWQgcG9ydCBhcyBmaXJzdCBhcmd1bWVudCcpOwogIHByb2Nlc3MuZXhpdCgxKTsKfQoKY29uc3QgbW9kZSA9IHByb2Nlc3MuZW52LkUyRV9UQVJHRVQgPz8gJ2R1YWwnOwoKY29uc3Qgdml0ZUJpbiA9IGpvaW4ocmVwb1Jvb3QsICcuZTJlJywgJ25vZGVfbW9kdWxlcycsICcuYmluJywgJ3ZpdGUnKTsKaWYgKCFleGlzdHNTeW5jKHZpdGVCaW4pKSB7CiAgY29uc29sZS5lcnJvcignZTJlLXNlcnZlOiB2aXRlIG5vdCBmb3VuZCBpbiAuZTJlLiBSdW46IG5vZGUgc2NyaXB0cy9lMmUtc2V0dXAubWpzJyk7CiAgcHJvY2Vzcy5leGl0KDEpOwp9Cgpjb25zdCBjb25maWdzID0gewogIGFwcDogam9pbihyZXBvUm9vdCwgJ3ZpdGUuY29uZmlnLnRzJyksCiAgZml4dHVyZXM6IGpvaW4ocmVwb1Jvb3QsICd0ZXN0cycsICdmaXh0dXJlcycsICd2aXRlLmNvbmZpZy50cycpLAogICd0ZXN0LWFwcCc6IGpvaW4ocmVwb1Jvb3QsICd2aXRlLmNvbmZpZy50ZXN0LWFwcC50cycpLAp9OwoKZnVuY3Rpb24gcnVuKGNtZCwgYXJncykgewogIHJldHVybiBuZXcgUHJvbWlzZSgocmVzb2x2ZVJ1biwgcmVqZWN0UnVuKSA9PiB7CiAgICBjb25zdCBjaGlsZCA9IHNwYXduKGNtZCwgYXJncywgeyBzdGRpbzogJ2luaGVyaXQnLCBjd2Q6IHJlcG9Sb290IH0pOwogICAgY2hpbGQub24oJ2V4aXQnLCAoY29kZSkgPT4KICAgICAgY29kZSA9PT0gMCA/IHJlc29sdmVSdW4oKSA6IHJlamVjdFJ1bihuZXcgRXJyb3IoYCR7Y21kfSAke2FyZ3Muam9pbignICcpfSBleGl0ZWQgJHtjb2RlfWApKSwKICAgICk7CiAgICBjaGlsZC5vbignZXJyb3InLCByZWplY3RSdW4pOwogIH0pOwp9Cgpjb25zdCBzZXJ2ZXJzID0gW107Cgphc3luYyBmdW5jdGlvbiBzZXJ2ZSh0YXJnZXQsIHRhcmdldFBvcnQpIHsKICBjb25zdCBjb25maWcgPSBjb25maWdzW3RhcmdldF07CiAgaWYgKCFjb25maWcpIHsKICAgIGNvbnNvbGUuZXJyb3IoYGUyZS1zZXJ2ZTogdW5rbm93biB0YXJnZXQgJHt0YXJnZXR9YCk7CiAgICBwcm9jZXNzLmV4aXQoMSk7CiAgfQogIGNvbnNvbGUubG9nKGBbZTJlLXNlcnZlXSB0YXJnZXQ9JHt0YXJnZXR9IHBvcnQ9JHt0YXJnZXRQb3J0fSBjb25maWc9JHtjb25maWd9YCk7CiAgdHJ5IHsKICAgIGF3YWl0IHJ1bih2aXRlQmluLCBbJ2J1aWxkJywgJy1jJywgY29uZmlnXSk7CiAgfSBjYXRjaCAoZXJyKSB7CiAgICBjb25zb2xlLmVycm9yKCdbZTJlLXNlcnZlXSBidWlsZCBmYWlsZWQ6JywgZXJyLm1lc3NhZ2UpOwogICAgcHJvY2Vzcy5leGl0KDEpOwogIH0KICBjb25zdCBwcmV2aWV3ID0gc3Bhd24odml0ZUJpbiwgWydwcmV2aWV3JywgJy1jJywgY29uZmlnLCAnLS1wb3J0JywgU3RyaW5nKHRhcmdldFBvcnQpLCAnLS1ob3N0JywgJzEyNy4wLjAuMSddLCB7CiAgICBzdGRpbzogJ2luaGVyaXQnLAogICAgY3dkOiByZXBvUm9vdCwKICB9KTsKICBwcmV2aWV3Lm9uKCdleGl0JywgKGNvZGUpID0+IHByb2Nlc3MuZXhpdChjb2RlID8/IDApKTsKICBzZXJ2ZXJzLnB1c2gocHJldmlldyk7Cn0KCmFzeW5jIGZ1bmN0aW9uIHdhaXRGb3JIdHRwKHVybCwgdGltZW91dE1zID0gNjBfMDAwKSB7CiAgY29uc3QgZGVhZGxpbmUgPSBEYXRlLm5vdygpICsgdGltZW91dE1zOwogIGZvciAoOzspIHsKICAgIHRyeSB7CiAgICAgIGNvbnN0IHJlcyA9IGF3YWl0IGZldGNoKHVybCk7CiAgICAgIGlmIChyZXMub2spIHJldHVybjsKICAgIH0gY2F0Y2ggewogICAgICAvKiBub3QgbGlzdGVuaW5nIHlldCAqLwogICAgfQogICAgaWYgKERhdGUubm93KCkgPiBkZWFkbGluZSkgdGhyb3cgbmV3IEVycm9yKGBlMmUtc2VydmU6ICR7dXJsfSBuZXZlciBhbnN3ZXJlZCAyMDBgKTsKICAgIGF3YWl0IG5ldyBQcm9taXNlKChyKSA9PiBzZXRUaW1lb3V0KHIsIDEwMCkpOwogIH0KfQoKaWYgKG1vZGUgPT09ICdmaXh0dXJlcycpIHsKICBhd2FpdCBzZXJ2ZSgnZml4dHVyZXMnLCBwb3J0KTsKfSBlbHNlIGlmIChtb2RlID09PSAndGVzdC1hcHAnKSB7CiAgYXdhaXQgc2VydmUoJ3Rlc3QtYXBwJywgcG9ydCk7Cn0gZWxzZSB7CiAgLy8gRHVhbCBzZXJ2ZTogcmVhbCBhcHAgb3ducyB0aGUgbWFpbiBwb3J0LCBmaXh0dXJlcyBsaXZlIG9uIHBvcnQrMS4KICAvLyBCdWlsZCBib3RoIGZpcnN0LCB0aGVuIHN0YXJ0IGJvdGggcHJldmlld3Mg4oCUIGdvbGRlbi1wYXRoIHNwZWNzIGhpdAogIC8vIHBvcnQrMSwgc28gaXQgbXVzdCBiZSBsaXN0ZW5pbmcgYmVmb3JlIHRoZSBydW5uZXIgbGF1bmNoZXMgYnJvd3NlcnMuCiAgYXdhaXQgc2VydmUoJ2FwcCcsIHBvcnQpOwogIGF3YWl0IHNlcnZlKCdmaXh0dXJlcycsIHBvcnQgKyAxKTsKICBhd2FpdCB3YWl0Rm9ySHR0cChgaHR0cDovLzEyNy4wLjAuMToke3BvcnQgKyAxfS9gLCAzMF8wMDApOwp9Cgpwcm9jZXNzLm9uKCdTSUdJTlQnLCAoKSA9PiBzZXJ2ZXJzLmZvckVhY2goKHMpID0+IHMua2lsbCgnU0lHSU5UJykpKTsKcHJvY2Vzcy5vbignU0lHVEVSTScsICgpID0+IHNlcnZlcnMuZm9yRWFjaCgocykgPT4gcy5raWxsKCdTSUdURVJNJykpKTsK
+#!/usr/bin/env node
+/**
+ * L2 harness web server (L12 wiring update): builds BOTH the real app (root
+ * vite project) and the L2 fixtures app, then serves them via `vite preview`:
+ *
+ *   - real app    on <port>     (default target; map/badges specs hit '/')
+ *   - fixtures    on <port>+1   (golden-path harness content lives here)
+ *
+ * Rationale: wave 1 lanes wrote specs against the fixtures stand-in while the
+ * real shell was a placeholder. L12 mounts the real MapView, so '/' must be
+ * the real app; golden-path keeps asserting fixtures content on its own port.
+ *
+ * E2E_TARGET=fixtures keeps the legacy fixtures-only mode (app skipped);
+ * E2E_TARGET=test-app keeps the L6 test-app bundle. Default = dual serve.
+ *
+ * Usage: node scripts/e2e-serve.mjs <port>
+ */
+import { spawn } from 'node:child_process';
+import { existsSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const port = Number(process.argv[2] ?? 4173);
+if (!Number.isInteger(port) || port <= 0) {
+  console.error('e2e-serve: pass a valid port as first argument');
+  process.exit(1);
+}
+
+const mode = process.env.E2E_TARGET ?? 'dual';
+
+const viteBin = join(repoRoot, '.e2e', 'node_modules', '.bin', 'vite');
+if (!existsSync(viteBin)) {
+  console.error('e2e-serve: vite not found in .e2e. Run: node scripts/e2e-setup.mjs');
+  process.exit(1);
+}
+
+const configs = {
+  app: join(repoRoot, 'vite.config.ts'),
+  fixtures: join(repoRoot, 'tests', 'fixtures', 'vite.config.ts'),
+  'test-app': join(repoRoot, 'vite.config.test-app.ts'),
+};
+
+function run(cmd, args) {
+  return new Promise((resolveRun, rejectRun) => {
+    const child = spawn(cmd, args, { stdio: 'inherit', cwd: repoRoot });
+    child.on('exit', (code) =>
+      code === 0 ? resolveRun() : rejectRun(new Error(`${cmd} ${args.join(' ')} exited ${code}`)),
+    );
+    child.on('error', rejectRun);
+  });
+}
+
+const servers = [];
+
+async function serve(target, targetPort) {
+  const config = configs[target];
+  if (!config) {
+    console.error(`e2e-serve: unknown target ${target}`);
+    process.exit(1);
+  }
+  console.log(`[e2e-serve] target=${target} port=${targetPort} config=${config}`);
+  try {
+    await run(viteBin, ['build', '-c', config]);
+  } catch (err) {
+    console.error('[e2e-serve] build failed:', err.message);
+    process.exit(1);
+  }
+  const preview = spawn(viteBin, ['preview', '-c', config, '--port', String(targetPort), '--host', '127.0.0.1'], {
+    stdio: 'inherit',
+    cwd: repoRoot,
+  });
+  preview.on('exit', (code) => process.exit(code ?? 0));
+  servers.push(preview);
+}
+
+async function waitForHttp(url, timeoutMs = 60_000) {
+  const deadline = Date.now() + timeoutMs;
+  for (;;) {
+    try {
+      const res = await fetch(url);
+      if (res.ok) return;
+    } catch {
+      /* not listening yet */
+    }
+    if (Date.now() > deadline) throw new Error(`e2e-serve: ${url} never answered 200`);
+    await new Promise((r) => setTimeout(r, 100));
+  }
+}
+
+if (mode === 'fixtures') {
+  await serve('fixtures', port);
+} else if (mode === 'test-app') {
+  await serve('test-app', port);
+} else {
+  // Dual serve: real app owns the main port, fixtures live on port+1.
+  // Build both first, then start both previews — golden-path specs hit
+  // port+1, so it must be listening before the runner launches browsers.
+  await serve('app', port);
+  await serve('fixtures', port + 1);
+  await waitForHttp(`http://127.0.0.1:${port + 1}/`, 30_000);
+}
+
+process.on('SIGINT', () => servers.forEach((s) => s.kill('SIGINT')));
+process.on('SIGTERM', () => servers.forEach((s) => s.kill('SIGTERM')));

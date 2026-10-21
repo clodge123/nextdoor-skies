@@ -1,1 +1,129 @@
-aW1wb3J0IHsgZGVzY3JpYmUsIGV4cGVjdCwgaXQgfSBmcm9tICd2aXRlc3QnOwppbXBvcnQgeyBta2R0ZW1wLCByZWFkRmlsZSwgcm0sIHdyaXRlRmlsZSB9IGZyb20gJ25vZGU6ZnMvcHJvbWlzZXMnOwppbXBvcnQgeyB0bXBkaXIgfSBmcm9tICdub2RlOm9zJzsKaW1wb3J0IHsgam9pbiB9IGZyb20gJ25vZGU6cGF0aCc7CmltcG9ydCB7IGJ1aWxkU2VlZERhdGEsIHNlZWRPbmNlLCBUT1dOUywgVkFMSURfVFlQRVMsIHR5cGUgUmVwb3J0Um93IH0gZnJvbSAnLi4vc2VydmVyL2xpYi9zZWVkLmpzJzsKCmNvbnN0IE5PVyA9IG5ldyBEYXRlKCcyMDI2LTEwLTIwVDE4OjAwOjAwLjAwMFonKTsKY29uc3QgREFZX01TID0gMjQgKiA2MCAqIDYwICogMTAwMDsKCmFzeW5jIGZ1bmN0aW9uIHRtcEZpbGUoKTogUHJvbWlzZTxzdHJpbmc+IHsKICBjb25zdCBkaXIgPSBhd2FpdCBta2R0ZW1wKGpvaW4odG1wZGlyKCksICdzZWVkLScpKTsKICByZXR1cm4gam9pbihkaXIsICdyZXBvcnRzLmpzb24nKTsKfQoKZGVzY3JpYmUoJ2J1aWxkU2VlZERhdGEnLCAoKSA9PiB7CiAgY29uc3QgZGF0YSA9IGJ1aWxkU2VlZERhdGEoTk9XKTsKCiAgaXQoJ3Byb2R1Y2VzIH4zMCBwb3N0cyBhY3Jvc3MgcmVhbCB0b3ducycsICgpID0+IHsKICAgIGV4cGVjdChkYXRhLnJlcG9ydHMubGVuZ3RoKS50b0JlKDMwKTsKICAgIGV4cGVjdChuZXcgU2V0KGRhdGEucmVwb3J0cy5tYXAoKHIpID0+IHIudG93bikpKS50b0VxdWFsKAogICAgICBuZXcgU2V0KFRPV05TLm1hcCgodCkgPT4gYCR7dC5uYW1lfSwgJHt0LnN0YXRlfWApKSwKICAgICk7CiAgfSk7CgogIGl0KCdyb3dzIGFyZSB2YWxpZDogcmVhbCB0b3duIGNvb3JkcywgdmFsaWQgdHlwZXMsIHRzIHdpdGhpbiAyNGgsIHNlZWRlZCBmbGFnJywgKCkgPT4gewogICAgY29uc3QgYnlUb3duID0gbmV3IE1hcChUT1dOUy5tYXAoKHQpID0+IFtgJHt0Lm5hbWV9LCAke3Quc3RhdGV9YCwgdF0pKTsKICAgIGNvbnN0IG5vd01zID0gTk9XLmdldFRpbWUoKTsKICAgIGZvciAoY29uc3QgciBvZiBkYXRhLnJlcG9ydHMpIHsKICAgICAgY29uc3QgdG93biA9IGJ5VG93bi5nZXQoci50b3duKTsKICAgICAgZXhwZWN0KHRvd24sIGB0b3duICR7ci50b3dufSBpcyBhIGtub3duIHJlYWwgVVMgdG93bmApLnRvQmVEZWZpbmVkKCk7CiAgICAgIGV4cGVjdChyLmxhdCkudG9CZUNsb3NlVG8odG93biEubGF0LCA2KTsKICAgICAgZXhwZWN0KHIubG9uKS50b0JlQ2xvc2VUbyh0b3duIS5sb24sIDYpOwogICAgICBleHBlY3QoVkFMSURfVFlQRVMpLnRvQ29udGFpbihyLnR5cGUpOwogICAgICBjb25zdCB0c01zID0gRGF0ZS5wYXJzZShyLnRzKTsKICAgICAgZXhwZWN0KHRzTXMpLnRvQmVHcmVhdGVyVGhhbihub3dNcyAtIERBWV9NUyk7CiAgICAgIGV4cGVjdCh0c01zKS50b0JlTGVzc1RoYW5PckVxdWFsKG5vd01zKTsKICAgICAgZXhwZWN0KHIuc2VlZGVkKS50b0JlKHRydWUpOwogICAgICBleHBlY3Qoci5pZCkudG9NYXRjaCgvXnNlZWQtcG9zdC1cZCskLyk7CiAgICB9CiAgfSk7CgogIGl0KCdjb21tZW50cyBhcmUgb25lLWxldmVsLCAzLTYgcGVyIHBvc3QsIHRzIGJldHdlZW4gcG9zdCB0cyBhbmQgc2VlZCB0aW1lJywgKCkgPT4gewogICAgY29uc3QgcG9zdEJ5SWQgPSBuZXcgTWFwKGRhdGEucmVwb3J0cy5tYXAoKHIpID0+IFtyLmlkLCByXSkpOwogICAgY29uc3QgcGVyUG9zdCA9IG5ldyBNYXA8c3RyaW5nLCBudW1iZXI+KCk7CiAgICBjb25zdCBub3dNcyA9IE5PVy5nZXRUaW1lKCk7CiAgICBmb3IgKGNvbnN0IGMgb2YgZGF0YS5jb21tZW50cykgewogICAgICBleHBlY3QoYy5zZWVkZWQpLnRvQmUodHJ1ZSk7CiAgICAgIGNvbnN0IHBvc3QgPSBwb3N0QnlJZC5nZXQoYy5yZXBvcnRfaWQpOwogICAgICBleHBlY3QocG9zdCwgYGNvbW1lbnQgJHtjLmlkfSBhdHRhY2hlcyB0byBhbiBleGlzdGluZyBwb3N0YCkudG9CZURlZmluZWQoKTsKICAgICAgLy8gb25lLWxldmVsOiBhIGNvbW1lbnQgbXVzdCBuZXZlciByZWZlcmVuY2UgYSBjb21tZW50IGlkCiAgICAgIGV4cGVjdChjLmlkLnN0YXJ0c1dpdGgoJ3NlZWQtY29tbWVudC0nKSkudG9CZSh0cnVlKTsKICAgICAgY29uc3QgY1RzID0gRGF0ZS5wYXJzZShjLnRzKTsKICAgICAgY29uc3QgcFRzID0gRGF0ZS5wYXJzZShwb3N0IS50cyk7CiAgICAgIGV4cGVjdChjVHMpLnRvQmVHcmVhdGVyVGhhbk9yRXF1YWwocFRzKTsKICAgICAgZXhwZWN0KGNUcykudG9CZUxlc3NUaGFuT3JFcXVhbChub3dNcyk7CiAgICAgIHBlclBvc3Quc2V0KGMucmVwb3J0X2lkLCAocGVyUG9zdC5nZXQoYy5yZXBvcnRfaWQpID8/IDApICsgMSk7CiAgICB9CiAgICBleHBlY3QocGVyUG9zdC5zaXplKS50b0JlKGRhdGEucmVwb3J0cy5sZW5ndGgpOwogICAgZm9yIChjb25zdCBuIG9mIHBlclBvc3QudmFsdWVzKCkpIHsKICAgICAgZXhwZWN0KG4pLnRvQmVHcmVhdGVyVGhhbk9yRXF1YWwoMyk7CiAgICAgIGV4cGVjdChuKS50b0JlTGVzc1RoYW5PckVxdWFsKDYpOwogICAgfQogIH0pOwoKICBpdCgndmFyaWVkIHdlYXRoZXIgdHlwZXMgYWNyb3NzIHBvc3RzJywgKCkgPT4gewogICAgY29uc3QgdHlwZXMgPSBuZXcgU2V0KGRhdGEucmVwb3J0cy5tYXAoKHIpID0+IHIudHlwZSkpOwogICAgZXhwZWN0KHR5cGVzLnNpemUpLnRvQmVHcmVhdGVyVGhhbk9yRXF1YWwoNCk7CiAgICBmb3IgKGNvbnN0IHQgb2YgdHlwZXMpIGV4cGVjdChWQUxJRF9UWVBFUykudG9Db250YWluKHQpOwogIH0pOwoKICBpdCgnaXMgZGV0ZXJtaW5pc3RpYzogc2FtZSBzZWVkIHRpbWUgLT4gYnl0ZS1pZGVudGljYWwgb3V0cHV0JywgKCkgPT4gewogICAgZXhwZWN0KEpTT04uc3RyaW5naWZ5KGJ1aWxkU2VlZERhdGEoTk9XKSkpLnRvRXF1YWwoSlNPTi5zdHJpbmdpZnkoZGF0YSkpOwogIH0pOwp9KTsKCmRlc2NyaWJlKCdzZWVkT25jZSB2aWEgUkVQT1JUU19GSUxFIChubyBwcm9kIE5lb24pJywgKCkgPT4gewogIGl0KCdzZWVkcyBvbmNlLCBza2lwcyBvbiByZS1ydW4gKGlkZW1wb3RlbmNlKScsIGFzeW5jICgpID0+IHsKICAgIGNvbnN0IGZpbGUgPSBhd2FpdCB0bXBGaWxlKCk7CiAgICBjb25zdCBmaXJzdCA9IGF3YWl0IHNlZWRPbmNlKHsgcmVwb3J0c0ZpbGU6IGZpbGUsIG5vdzogTk9XIH0pOwogICAgZXhwZWN0KGZpcnN0LnNlZWRlZCkudG9CZSh0cnVlKTsKICAgIGV4cGVjdChmaXJzdC5wb3N0cykudG9CZSgzMCk7CgogICAgY29uc3QgYWZ0ZXJGaXJzdCA9IEpTT04ucGFyc2UoYXdhaXQgcmVhZEZpbGUoZmlsZSwgJ3V0ZjgnKSk7CiAgICBleHBlY3QoYWZ0ZXJGaXJzdC5yZXBvcnRzLmxlbmd0aCkudG9CZSgzMCk7CiAgICBleHBlY3QoYWZ0ZXJGaXJzdC5jb21tZW50cy5sZW5ndGgpLnRvQmUoZmlyc3QuY29tbWVudHMpOwoKICAgIGNvbnN0IHNlY29uZCA9IGF3YWl0IHNlZWRPbmNlKHsgcmVwb3J0c0ZpbGU6IGZpbGUsIG5vdzogTk9XIH0pOwogICAgZXhwZWN0KHNlY29uZC5zZWVkZWQpLnRvQmUoZmFsc2UpOwogICAgZXhwZWN0KHNlY29uZC5yZWFzb24pLnRvTWF0Y2goL25vdCBlbXB0eS8pOwoKICAgIGNvbnN0IGFmdGVyU2Vjb25kID0gSlNPTi5wYXJzZShhd2FpdCByZWFkRmlsZShmaWxlLCAndXRmOCcpKTsKICAgIGV4cGVjdChKU09OLnN0cmluZ2lmeShhZnRlclNlY29uZCkpLnRvRXF1YWwoSlNPTi5zdHJpbmdpZnkoYWZ0ZXJGaXJzdCkpOwoKICAgIGNvbnN0IHRoaXJkID0gYXdhaXQgc2VlZE9uY2UoeyByZXBvcnRzRmlsZTogZmlsZSwgbm93OiBOT1cgfSk7CiAgICBleHBlY3QodGhpcmQuc2VlZGVkKS50b0JlKGZhbHNlKTsKICAgIGV4cGVjdChKU09OLnBhcnNlKGF3YWl0IHJlYWRGaWxlKGZpbGUsICd1dGY4JykpLnJlcG9ydHMubGVuZ3RoKS50b0JlKDMwKTsKCiAgICBhd2FpdCBybShmaWxlLCB7IGZvcmNlOiB0cnVlIH0pOwogIH0pOwoKICBpdCgnZG9lcyBub3Qgc2VlZCB3aGVuIHRoZSBzdG9yZSBhbHJlYWR5IGhhcyByb3dzJywgYXN5bmMgKCkgPT4gewogICAgY29uc3QgZmlsZSA9IGF3YWl0IHRtcEZpbGUoKTsKICAgIGNvbnN0IGV4aXN0aW5nOiBSZXBvcnRSb3dbXSA9IFsKICAgICAgewogICAgICAgIGlkOiAncmVhbC0xJywKICAgICAgICB0b3duOiAnTWFyZmEsIFRYJywKICAgICAgICBsYXQ6IDMwLjMwOTcsCiAgICAgICAgbG9uOiAtMTA0LjAxOTksCiAgICAgICAgdHlwZTogJ2NsZWFyJywKICAgICAgICBib2R5OiAncmVhbCB1c2VyIHBvc3QnLAogICAgICAgIGF1dGhvcjogJ3NvbWVvbmUnLAogICAgICAgIHRzOiBOT1cudG9JU09TdHJpbmcoKSwKICAgICAgICBzZWVkZWQ6IGZhbHNlLAogICAgICB9LAogICAgXTsKICAgIGF3YWl0IHdyaXRlRmlsZShmaWxlLCBKU09OLnN0cmluZ2lmeSh7IHZlcnNpb246IDEsIHJlcG9ydHM6IGV4aXN0aW5nLCBjb21tZW50czogW10gfSksICd1dGY4Jyk7CiAgICBjb25zdCByZXN1bHQgPSBhd2FpdCBzZWVkT25jZSh7IHJlcG9ydHNGaWxlOiBmaWxlLCBub3c6IE5PVyB9KTsKICAgIGV4cGVjdChyZXN1bHQuc2VlZGVkKS50b0JlKGZhbHNlKTsKICAgIGV4cGVjdChyZXN1bHQucG9zdHMpLnRvQmUoMSk7CiAgICBjb25zdCBzdG9yZSA9IEpTT04ucGFyc2UoYXdhaXQgcmVhZEZpbGUoZmlsZSwgJ3V0ZjgnKSk7CiAgICBleHBlY3Qoc3RvcmUucmVwb3J0cy5sZW5ndGgpLnRvQmUoMSk7CiAgICBleHBlY3Qoc3RvcmUucmVwb3J0c1swXS5pZCkudG9CZSgncmVhbC0xJyk7CiAgICBhd2FpdCBybShmaWxlLCB7IGZvcmNlOiB0cnVlIH0pOwogIH0pOwoKICBpdCgndGhyb3dzIHdpdGhvdXQgUE9TVEdSRVNfVVJMIG9yIFJFUE9SVFNfRklMRScsIGFzeW5jICgpID0+IHsKICAgIGF3YWl0IGV4cGVjdChzZWVkT25jZSh7fSkpLnJlamVjdHMudG9UaHJvdygvUE9TVEdSRVNfVVJMfFJFUE9SVFNfRklMRS8pOwogIH0pOwp9KTsK
+import { describe, expect, it } from 'vitest';
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { buildSeedData, seedOnce, TOWNS, VALID_TYPES, type ReportRow } from '../server/lib/seed.js';
+
+const NOW = new Date('2026-10-20T18:00:00.000Z');
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+async function tmpFile(): Promise<string> {
+  const dir = await mkdtemp(join(tmpdir(), 'seed-'));
+  return join(dir, 'reports.json');
+}
+
+describe('buildSeedData', () => {
+  const data = buildSeedData(NOW);
+
+  it('produces ~30 posts across real towns', () => {
+    expect(data.reports.length).toBe(30);
+    expect(new Set(data.reports.map((r) => r.town))).toEqual(
+      new Set(TOWNS.map((t) => `${t.name}, ${t.state}`)),
+    );
+  });
+
+  it('rows are valid: real town coords, valid types, ts within 24h, seeded flag', () => {
+    const byTown = new Map(TOWNS.map((t) => [`${t.name}, ${t.state}`, t]));
+    const nowMs = NOW.getTime();
+    for (const r of data.reports) {
+      const town = byTown.get(r.town);
+      expect(town, `town ${r.town} is a known real US town`).toBeDefined();
+      expect(r.lat).toBeCloseTo(town!.lat, 6);
+      expect(r.lon).toBeCloseTo(town!.lon, 6);
+      expect(VALID_TYPES).toContain(r.type);
+      const tsMs = Date.parse(r.ts);
+      expect(tsMs).toBeGreaterThan(nowMs - DAY_MS);
+      expect(tsMs).toBeLessThanOrEqual(nowMs);
+      expect(r.seeded).toBe(true);
+      expect(r.id).toMatch(/^seed-post-\d+$/);
+    }
+  });
+
+  it('comments are one-level, 3-6 per post, ts between post ts and seed time', () => {
+    const postById = new Map(data.reports.map((r) => [r.id, r]));
+    const perPost = new Map<string, number>();
+    const nowMs = NOW.getTime();
+    for (const c of data.comments) {
+      expect(c.seeded).toBe(true);
+      const post = postById.get(c.report_id);
+      expect(post, `comment ${c.id} attaches to an existing post`).toBeDefined();
+      // one-level: a comment must never reference a comment id
+      expect(c.id.startsWith('seed-comment-')).toBe(true);
+      const cTs = Date.parse(c.ts);
+      const pTs = Date.parse(post!.ts);
+      expect(cTs).toBeGreaterThanOrEqual(pTs);
+      expect(cTs).toBeLessThanOrEqual(nowMs);
+      perPost.set(c.report_id, (perPost.get(c.report_id) ?? 0) + 1);
+    }
+    expect(perPost.size).toBe(data.reports.length);
+    for (const n of perPost.values()) {
+      expect(n).toBeGreaterThanOrEqual(3);
+      expect(n).toBeLessThanOrEqual(6);
+    }
+  });
+
+  it('varied weather types across posts', () => {
+    const types = new Set(data.reports.map((r) => r.type));
+    expect(types.size).toBeGreaterThanOrEqual(4);
+    for (const t of types) expect(VALID_TYPES).toContain(t);
+  });
+
+  it('is deterministic: same seed time -> byte-identical output', () => {
+    expect(JSON.stringify(buildSeedData(NOW))).toEqual(JSON.stringify(data));
+  });
+});
+
+describe('seedOnce via REPORTS_FILE (no prod Neon)', () => {
+  it('seeds once, skips on re-run (idempotence)', async () => {
+    const file = await tmpFile();
+    const first = await seedOnce({ reportsFile: file, now: NOW });
+    expect(first.seeded).toBe(true);
+    expect(first.posts).toBe(30);
+
+    const afterFirst = JSON.parse(await readFile(file, 'utf8'));
+    expect(afterFirst.reports.length).toBe(30);
+    expect(afterFirst.comments.length).toBe(first.comments);
+
+    const second = await seedOnce({ reportsFile: file, now: NOW });
+    expect(second.seeded).toBe(false);
+    expect(second.reason).toMatch(/not empty/);
+
+    const afterSecond = JSON.parse(await readFile(file, 'utf8'));
+    expect(JSON.stringify(afterSecond)).toEqual(JSON.stringify(afterFirst));
+
+    const third = await seedOnce({ reportsFile: file, now: NOW });
+    expect(third.seeded).toBe(false);
+    expect(JSON.parse(await readFile(file, 'utf8')).reports.length).toBe(30);
+
+    await rm(file, { force: true });
+  });
+
+  it('does not seed when the store already has rows', async () => {
+    const file = await tmpFile();
+    const existing: ReportRow[] = [
+      {
+        id: 'real-1',
+        town: 'Marfa, TX',
+        lat: 30.3097,
+        lon: -104.0199,
+        type: 'clear',
+        body: 'real user post',
+        author: 'someone',
+        ts: NOW.toISOString(),
+        seeded: false,
+      },
+    ];
+    await writeFile(file, JSON.stringify({ version: 1, reports: existing, comments: [] }), 'utf8');
+    const result = await seedOnce({ reportsFile: file, now: NOW });
+    expect(result.seeded).toBe(false);
+    expect(result.posts).toBe(1);
+    const store = JSON.parse(await readFile(file, 'utf8'));
+    expect(store.reports.length).toBe(1);
+    expect(store.reports[0].id).toBe('real-1');
+    await rm(file, { force: true });
+  });
+
+  it('throws without POSTGRES_URL or REPORTS_FILE', async () => {
+    await expect(seedOnce({})).rejects.toThrow(/POSTGRES_URL|REPORTS_FILE/);
+  });
+});

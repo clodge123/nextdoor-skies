@@ -1,1 +1,129 @@
-LyoqCiAqIEw2IHRlc3QgYXBwOiBhIGRldGVybWluaXN0aWMgbWFwIHN0dWIgKG5vIE1hcExpYnJlLCBubyBuZXR3b3JrIGluIHBhZ2UpCiAqIHRoYXQgcHJvdmlkZXMgdGhlIG1hcC1jb250ZXh0IHNlYW0sIHRvd24gZGF0YSwgdGhlIHdlYXRoZXIgcmVmcmVzaGVyCiAqICh3aW5kb3cuZmV0Y2ggbW9ja2VkIGJ5IFBsYXl3cmlnaHQgcm91dGUpLCBhbmQgdGhlIFRvd25CYWRnZXMgb3ZlcmxheS4KICoKICogVXNlZCBieSB0ZXN0cy9iYWRnZXMuc3BlYy50cyAoR2F0ZSAxKS4gVGhlIHN0dWIgbWFwIGlzIGRyaXZlbiBieSBidXR0b25zCiAqICh6b29tIGluL291dCkgc28gdGhlIGJyb3dzZXIgdGVzdCBjb250cm9scyB6b29tIGRldGVybWluaXN0aWNhbGx5LgogKi8KaW1wb3J0IHsgdXNlRWZmZWN0LCB1c2VNZW1vLCB1c2VSZWYsIHVzZVN0YXRlIH0gZnJvbSAncmVhY3QnCmltcG9ydCB7IGNyZWF0ZVJvb3QgfSBmcm9tICdyZWFjdC1kb20vY2xpZW50JwppbXBvcnQgJy4uL2luZGV4LmNzcycKaW1wb3J0IHsgTWFwQ29udGV4dCwgdHlwZSBNYXBMaWtlLCB0eXBlIEdlb0JvdW5kcyB9IGZyb20gJy4uL2xpYi9tYXAvbWFwLWNvbnRleHQnCmltcG9ydCB7IFRvd25CYWRnZXMgfSBmcm9tICcuLi9jb21wb25lbnRzL1Rvd25CYWRnZXMnCmltcG9ydCB7CiAgY3JlYXRlV2VhdGhlclJlZnJlc2hlciwKICB0eXBlIEN1cnJlbnRUZW1wLAogIHR5cGUgVG93bkNvb3JkLAp9IGZyb20gJy4uL2xpYi93ZWF0aGVyL29wZW5tZXRlby1iYXRjaCcKCmNvbnN0IFRPV05TOiBUb3duQ29vcmRbXSA9IFsKICB7IGlkOiAnc3ByaW5nZmllbGQnLCBuYW1lOiAnU3ByaW5nZmllbGQnLCBsYXQ6IDM5Ljc4MTcsIGxvbjogLTg5LjY1MDEgfSwKICB7IGlkOiAncml2ZXJzaWRlJywgbmFtZTogJ1JpdmVyc2lkZScsIGxhdDogMzkuNzYxMiwgbG9uOiAtODkuNjkwMSB9LAogIHsgaWQ6ICdmYXJhd2F5JywgbmFtZTogJ0ZhcmF3YXknLCBsYXQ6IDQ0Ljk3NzgsIGxvbjogLTkzLjI2NSB9LApdCgpjb25zdCBDRU5URVI6IFtudW1iZXIsIG51bWJlcl0gPSBbLTg5LjY3LCAzOS43N10KCi8qKiBTdHViIG1hcDogem9vbS1ncmFkZWQgcHJvamVjdGlvbiBhcm91bmQgQ0VOVEVSLCBkZXRlcm1pbmlzdGljLiAqLwpmdW5jdGlvbiBjcmVhdGVTdHViTWFwKCk6IE1hcExpa2UgJiB7IHpvb206IG51bWJlcjsgc2V0Wm9vbTogKHo6IG51bWJlcikgPT4gdm9pZCB9IHsKICBjb25zdCBoYW5kbGVycyA9IG5ldyBNYXA8c3RyaW5nLCBTZXQ8KCkgPT4gdm9pZD4+KCkKICBjb25zdCBzdGF0ZSA9IHsgem9vbTogMyB9CiAgY29uc3Qgc2l6ZSA9ICgpID0+IHsKICAgIGNvbnN0IGVsID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ21hcCcpCiAgICByZXR1cm4geyB3OiBlbD8uY2xpZW50V2lkdGggPz8gODAwLCBoOiBlbD8uY2xpZW50SGVpZ2h0ID8/IDYwMCB9CiAgfQogIGNvbnN0IHByb2plY3QgPSAobG5nbGF0OiBbbnVtYmVyLCBudW1iZXJdKSA9PiB7CiAgICBjb25zdCB7IHcsIGggfSA9IHNpemUoKQogICAgY29uc3Qgc2NhbGUgPSBNYXRoLnBvdygyLCBzdGF0ZS56b29tKSAqIDgKICAgIHJldHVybiB7CiAgICAgIHg6IHcgLyAyICsgKGxuZ2xhdFswXSAtIENFTlRFUlswXSkgKiBzY2FsZSwKICAgICAgeTogaCAvIDIgLSAobG5nbGF0WzFdIC0gQ0VOVEVSWzFdKSAqIHNjYWxlLAogICAgfQogIH0KICBjb25zdCBib3VuZHMgPSAoKTogR2VvQm91bmRzID0+IHsKICAgIGNvbnN0IHsgdywgaCB9ID0gc2l6ZSgpCiAgICBjb25zdCBzY2FsZSA9IE1hdGgucG93KDIsIHN0YXRlLnpvb20pICogOAogICAgY29uc3QgZHggPSB3IC8gMiAvIHNjYWxlCiAgICBjb25zdCBkeSA9IGggLyAyIC8gc2NhbGUKICAgIHJldHVybiB7IHdlc3Q6IENFTlRFUlswXSAtIGR4LCBlYXN0OiBDRU5URVJbMF0gKyBkeCwgc291dGg6IENFTlRFUlsxXSAtIGR5LCBub3J0aDogQ0VOVEVSWzFdICsgZHkgfQogIH0KICBjb25zdCBtYXAgPSB7CiAgICB6b29tOiBzdGF0ZS56b29tLAogICAgcHJvamVjdCwKICAgIGdldFpvb206ICgpID0+IHN0YXRlLnpvb20sCiAgICBnZXRCb3VuZHM6IGJvdW5kcywKICAgIG9uKGV2ZW50OiBzdHJpbmcsIGhhbmRsZXI6ICgpID0+IHZvaWQpIHsKICAgICAgaWYgKCFoYW5kbGVycy5oYXMoZXZlbnQpKSBoYW5kbGVycy5zZXQoZXZlbnQsIG5ldyBTZXQoKSkKICAgICAgaGFuZGxlcnMuZ2V0KGV2ZW50KSEuYWRkKGhhbmRsZXIpCiAgICAgIHJldHVybiAoKSA9PiBoYW5kbGVycy5nZXQoZXZlbnQpPy5kZWxldGUoaGFuZGxlcikKICAgIH0sCiAgICBzZXRab29tKHo6IG51bWJlcikgewogICAgICBzdGF0ZS56b29tID0gegogICAgICBmb3IgKGNvbnN0IGV2IG9mIFsnbW92ZScsICdtb3ZlZW5kJywgJ3pvb20nXSkgewogICAgICAgIGhhbmRsZXJzLmdldChldik/LmZvckVhY2goKGYpID0+IGYoKSkKICAgICAgfQogICAgfSwKICB9CiAgcmV0dXJuIG1hcAp9CgpmdW5jdGlvbiBBcHAoKSB7CiAgY29uc3QgbWFwUmVmID0gdXNlUmVmPFJldHVyblR5cGU8dHlwZW9mIGNyZWF0ZVN0dWJNYXA+IHwgbnVsbD4obnVsbCkKICBpZiAoIW1hcFJlZi5jdXJyZW50KSBtYXBSZWYuY3VycmVudCA9IGNyZWF0ZVN0dWJNYXAoKQogIGNvbnN0IG1hcCA9IG1hcFJlZi5jdXJyZW50CgogIGNvbnN0IFt6b29tLCBzZXRab29tXSA9IHVzZVN0YXRlKG1hcC5nZXRab29tKCkpCiAgY29uc3QgW3RlbXBzLCBzZXRUZW1wc10gPSB1c2VTdGF0ZTxSZWNvcmQ8c3RyaW5nLCBudW1iZXI+Pih7fSkKCiAgY29uc3QgZmV0Y2hJbXBsID0gdXNlTWVtbygKICAgICgpID0+CiAgICAgIChpbnB1dDogc3RyaW5nLCBpbml0OiB7IG1ldGhvZDogc3RyaW5nOyBoZWFkZXJzOiBSZWNvcmQ8c3RyaW5nLCBzdHJpbmc+OyBib2R5OiBzdHJpbmcgfSkgPT4KICAgICAgICB3aW5kb3cuZmV0Y2goaW5wdXQsIGluaXQpLAogICAgW10sCiAgKQoKICB1c2VFZmZlY3QoKCkgPT4gewogICAgY29uc3QgcmVmcmVzaGVyID0gY3JlYXRlV2VhdGhlclJlZnJlc2hlcih7CiAgICAgIGdldFRvd25zOiAoKSA9PiBUT1dOUywKICAgICAgZ2V0Vmlld3BvcnQ6ICgpID0+IG1hcC5nZXRCb3VuZHMoKSwKICAgICAgZmV0Y2hJbXBsLAogICAgICBvblRlbXBzOiAobGlzdDogQ3VycmVudFRlbXBbXSkgPT4KICAgICAgICBzZXRUZW1wcygocHJldikgPT4gewogICAgICAgICAgY29uc3QgbmV4dCA9IHsgLi4ucHJldiB9CiAgICAgICAgICBmb3IgKGNvbnN0IHQgb2YgbGlzdCkgbmV4dFt0LnRvd25JZF0gPSB0LnRlbXBlcmF0dXJlQwogICAgICAgICAgcmV0dXJuIG5leHQKICAgICAgICB9KSwKICAgICAgaW50ZXJ2YWxNczogMzBfMDAwLCAvLyB0ZXN0IGNhZGVuY2U7IHByb2R1Y3Rpb24gZGVmYXVsdCBpcyA1IG1pbgogICAgfSkKICAgIHJlZnJlc2hlci5zdGFydCgpCiAgICByZXR1cm4gKCkgPT4gcmVmcmVzaGVyLnN0b3AoKQogIH0sIFttYXAsIGZldGNoSW1wbF0pCgogIHJldHVybiAoCiAgICA8ZGl2IGNsYXNzTmFtZT0ibWFwLXN0dWIiIGlkPSJtYXAiPgogICAgICA8ZGl2IGNsYXNzTmFtZT0ibWFwLWNvbnRyb2xzIj4KICAgICAgICA8YnV0dG9uIGlkPSJ6b29tLWluIiBvbkNsaWNrPXsoKSA9PiB7IG1hcC5zZXRab29tKDgpOyBzZXRab29tKDgpIH19PgogICAgICAgICAgem9vbSBpbgogICAgICAgIDwvYnV0dG9uPgogICAgICAgIDxidXR0b24gaWQ9Inpvb20tb3V0IiBvbkNsaWNrPXsoKSA9PiB7IG1hcC5zZXRab29tKDMpOyBzZXRab29tKDMpIH19PgogICAgICAgICAgem9vbSBvdXQKICAgICAgICA8L2J1dHRvbj4KICAgICAgPC9kaXY+CiAgICAgIDxkaXYgZGF0YS10ZXN0aWQ9Inpvb20tbGV2ZWwiIHN0eWxlPXt7IGRpc3BsYXk6ICdub25lJyB9fT57em9vbX08L2Rpdj4KICAgICAge1RPV05TLm1hcCgodCkgPT4gewogICAgICAgIGNvbnN0IHAgPSBtYXAucHJvamVjdChbdC5sb24sIHQubGF0XSkKICAgICAgICByZXR1cm4gKAogICAgICAgICAgPHNwYW4ga2V5PXt0LmlkfSBjbGFzc05hbWU9InRvd24tbGFiZWwiIHN0eWxlPXt7IGxlZnQ6IGAke3AueH1weGAsIHRvcDogYCR7cC55fXB4YCB9fT4KICAgICAgICAgICAge3QubmFtZX0KICAgICAgICAgIDwvc3Bhbj4KICAgICAgICApCiAgICAgIH0pfQogICAgICA8TWFwQ29udGV4dC5Qcm92aWRlciB2YWx1ZT17bWFwfT4KICAgICAgICA8VG93bkJhZGdlcyB0b3ducz17VE9XTlN9IHRlbXBzPXt0ZW1wc30gLz4KICAgICAgPC9NYXBDb250ZXh0LlByb3ZpZGVyPgogICAgPC9kaXY+CiAgKQp9CgpjcmVhdGVSb290KGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdyb290JykhKS5yZW5kZXIoPEFwcCAvPikK
+/**
+ * L6 test app: a deterministic map stub (no MapLibre, no network in page)
+ * that provides the map-context seam, town data, the weather refresher
+ * (window.fetch mocked by Playwright route), and the TownBadges overlay.
+ *
+ * Used by tests/badges.spec.ts (Gate 1). The stub map is driven by buttons
+ * (zoom in/out) so the browser test controls zoom deterministically.
+ */
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { createRoot } from 'react-dom/client'
+import '../index.css'
+import { MapContext, type MapLike, type GeoBounds } from '../lib/map/map-context'
+import { TownBadges } from '../components/TownBadges'
+import {
+  createWeatherRefresher,
+  type CurrentTemp,
+  type TownCoord,
+} from '../lib/weather/openmeteo-batch'
+
+const TOWNS: TownCoord[] = [
+  { id: 'springfield', name: 'Springfield', lat: 39.7817, lon: -89.6501 },
+  { id: 'riverside', name: 'Riverside', lat: 39.7612, lon: -89.6901 },
+  { id: 'faraway', name: 'Faraway', lat: 44.9778, lon: -93.265 },
+]
+
+const CENTER: [number, number] = [-89.67, 39.77]
+
+/** Stub map: zoom-graded projection around CENTER, deterministic. */
+function createStubMap(): MapLike & { zoom: number; setZoom: (z: number) => void } {
+  const handlers = new Map<string, Set<() => void>>()
+  const state = { zoom: 3 }
+  const size = () => {
+    const el = document.getElementById('map')
+    return { w: el?.clientWidth ?? 800, h: el?.clientHeight ?? 600 }
+  }
+  const project = (lnglat: [number, number]) => {
+    const { w, h } = size()
+    const scale = Math.pow(2, state.zoom) * 8
+    return {
+      x: w / 2 + (lnglat[0] - CENTER[0]) * scale,
+      y: h / 2 - (lnglat[1] - CENTER[1]) * scale,
+    }
+  }
+  const bounds = (): GeoBounds => {
+    const { w, h } = size()
+    const scale = Math.pow(2, state.zoom) * 8
+    const dx = w / 2 / scale
+    const dy = h / 2 / scale
+    return { west: CENTER[0] - dx, east: CENTER[0] + dx, south: CENTER[1] - dy, north: CENTER[1] + dy }
+  }
+  const map = {
+    zoom: state.zoom,
+    project,
+    getZoom: () => state.zoom,
+    getBounds: bounds,
+    on(event: string, handler: () => void) {
+      if (!handlers.has(event)) handlers.set(event, new Set())
+      handlers.get(event)!.add(handler)
+      return () => handlers.get(event)?.delete(handler)
+    },
+    setZoom(z: number) {
+      state.zoom = z
+      for (const ev of ['move', 'moveend', 'zoom']) {
+        handlers.get(ev)?.forEach((f) => f())
+      }
+    },
+  }
+  return map
+}
+
+function App() {
+  const mapRef = useRef<ReturnType<typeof createStubMap> | null>(null)
+  if (!mapRef.current) mapRef.current = createStubMap()
+  const map = mapRef.current
+
+  const [zoom, setZoom] = useState(map.getZoom())
+  const [temps, setTemps] = useState<Record<string, number>>({})
+
+  const fetchImpl = useMemo(
+    () =>
+      (input: string, init: { method: string; headers: Record<string, string>; body: string }) =>
+        window.fetch(input, init),
+    [],
+  )
+
+  useEffect(() => {
+    const refresher = createWeatherRefresher({
+      getTowns: () => TOWNS,
+      getViewport: () => map.getBounds(),
+      fetchImpl,
+      onTemps: (list: CurrentTemp[]) =>
+        setTemps((prev) => {
+          const next = { ...prev }
+          for (const t of list) next[t.townId] = t.temperatureC
+          return next
+        }),
+      intervalMs: 30_000, // test cadence; production default is 5 min
+    })
+    refresher.start()
+    return () => refresher.stop()
+  }, [map, fetchImpl])
+
+  return (
+    <div className="map-stub" id="map">
+      <div className="map-controls">
+        <button id="zoom-in" onClick={() => { map.setZoom(8); setZoom(8) }}>
+          zoom in
+        </button>
+        <button id="zoom-out" onClick={() => { map.setZoom(3); setZoom(3) }}>
+          zoom out
+        </button>
+      </div>
+      <div data-testid="zoom-level" style={{ display: 'none' }}>{zoom}</div>
+      {TOWNS.map((t) => {
+        const p = map.project([t.lon, t.lat])
+        return (
+          <span key={t.id} className="town-label" style={{ left: `${p.x}px`, top: `${p.y}px` }}>
+            {t.name}
+          </span>
+        )
+      })}
+      <MapContext.Provider value={map}>
+        <TownBadges towns={TOWNS} temps={temps} />
+      </MapContext.Provider>
+    </div>
+  )
+}
+
+createRoot(document.getElementById('root')!).render(<App />)

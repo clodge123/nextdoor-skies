@@ -1,1 +1,346 @@
-LyoqCiAqIEw3IFNFRUQtREVNTy1JTkZSQSDigJQgc2VlZC1vbmNlIGRlbW8gZGF0YSBtZWNoYW5pc20gKFIxNCkuCiAqCiAqIENvbnRyYWN0IChkb2NzL1NFRUQtQ09OVFJBQ1QubWQpOgogKiAtIFNlZWQgcnVucyBPTkxZIHdoZW4gdGhlIHJlcG9ydHMgdGFibGUvZmlsZSBpcyBlbXB0eSAoc2VlZC1vbmNlKS4KICogLSBFdmVyeSBzZWVkZWQgcm93IGNhcnJpZXMgc2VlZGVkOnRydWUgc28gdGhlIFVJIGNhbiBsYWJlbCBpdCAiRGVtbyBkYXRhIi4KICogLSBJTlNFUlQgLi4uIE9OIENPTkZMSUNUIChpZCkgRE8gTk9USElORyDigJQgZGV0ZXJtaW5pc3RpYyBpZHMsIG5vIGR1cGVzLgogKiAtIFdvcmtzIGFnYWluc3QgUG9zdGdyZXMgKFBPU1RHUkVTX1VSTCkgYW5kIGEgUkVQT1JUU19GSUxFIEpTT04gZmFsbGJhY2sKICogICBmb3IgdGVzdHMgKG5vIHByb2QgTmVvbiBpbiB0ZXN0cykuCiAqCiAqIERldGVybWluaXNtIGxhdyAoUjE3KTogdGhpcyBmaWxlIGlzIHNlZWQgU0lNVUxBVElPTiBvbmx5LiBSTkcgaXMgbXVsYmVycnkzMgogKiB3aXRoIGEgZml4ZWQgY29uc3RhbnQgc2VlZDsgdGhlIHdhbGwtY2xvY2sgc2VlZCB0aW1lIGFycml2ZXMgdmlhIHRoZSBgbm93YAogKiBwYXJhbWV0ZXIgKENMSSBwYXNzZXMgbmV3IERhdGUoKSBhdCB0aGUgcHJvY2VzcyBlZGdlLCB3aGljaCBpcyBsZWdhbCDigJQKICogdGhpcyBtb2R1bGUgY29udGFpbnMgbm8gTWF0aC5yYW5kb20gLyBEYXRlLm5vdyAvIG5ldyBEYXRlKCkgY2FsbHMpLgogKi8KCmV4cG9ydCB0eXBlIFdlYXRoZXJUeXBlID0gJ3JhaW4nIHwgJ3N0b3JtJyB8ICdzbm93JyB8ICdjbGVhcicgfCAnaGVhdCc7CgpleHBvcnQgY29uc3QgVkFMSURfVFlQRVM6IHJlYWRvbmx5IFdlYXRoZXJUeXBlW10gPSBbJ3JhaW4nLCAnc3Rvcm0nLCAnc25vdycsICdjbGVhcicsICdoZWF0J107CgpleHBvcnQgaW50ZXJmYWNlIFJlcG9ydFJvdyB7CiAgaWQ6IHN0cmluZzsKICB0b3duOiBzdHJpbmc7CiAgbGF0OiBudW1iZXI7CiAgbG9uOiBudW1iZXI7CiAgdHlwZTogV2VhdGhlclR5cGU7CiAgYm9keTogc3RyaW5nOwogIGF1dGhvcjogc3RyaW5nOwogIC8qKiBJU08gODYwMSB0aW1lc3RhbXAsIGFsd2F5cyB3aXRoaW4gMjRoIGJlZm9yZSB0aGUgc2VlZCBgbm93YC4gKi8KICB0czogc3RyaW5nOwogIHNlZWRlZDogdHJ1ZTsKfQoKZXhwb3J0IGludGVyZmFjZSBDb21tZW50Um93IHsKICBpZDogc3RyaW5nOwogIHJlcG9ydF9pZDogc3RyaW5nOwogIGJvZHk6IHN0cmluZzsKICBhdXRob3I6IHN0cmluZzsKICB0czogc3RyaW5nOwogIHNlZWRlZDogdHJ1ZTsKfQoKZXhwb3J0IGludGVyZmFjZSBTZWVkRGF0YSB7CiAgcmVwb3J0czogUmVwb3J0Um93W107CiAgY29tbWVudHM6IENvbW1lbnRSb3dbXTsKfQoKZXhwb3J0IGludGVyZmFjZSBTZWVkT3B0aW9ucyB7CiAgcG9zdGdyZXNVcmw/OiBzdHJpbmc7CiAgcmVwb3J0c0ZpbGU/OiBzdHJpbmc7CiAgLyoqIFNlZWQgdGltZS4gUmVxdWlyZWQ6IHRoZSBDTEkgcGFzc2VzIGBuZXcgRGF0ZSgpYCBhdCB0aGUgcHJvY2VzcyBlZGdlOyB0aGlzIG1vZHVsZSBuZXZlciByZWFkcyB0aGUgY2xvY2suICovCiAgbm93OiBEYXRlOwp9CgpleHBvcnQgaW50ZXJmYWNlIFNlZWRSZXN1bHQgewogIHNlZWRlZDogYm9vbGVhbjsKICBwb3N0czogbnVtYmVyOwogIGNvbW1lbnRzOiBudW1iZXI7CiAgcmVhc29uPzogc3RyaW5nOwp9CgovKiogRml4ZWQgc2VlZCBmb3IgdGhlIGRlbW8gc2ltdWxhdGlvbi4gTmV2ZXIgY2hhbmdlczsga2VlcHMgb3V0cHV0IHJlcHJvZHVjaWJsZS4gKi8KY29uc3QgU0VFRF9STkdfU0VFRCA9IDB4NWVlZDEyMzQ7CmNvbnN0IERBWV9NUyA9IDI0ICogNjAgKiA2MCAqIDEwMDA7CmNvbnN0IE1JTl9NUyA9IDYwICogMTAwMDsKCi8qKiBtdWxiZXJyeTMyIOKAlCBkZXRlcm1pbmlzdGljIFBSTkcsIGFsbG93ZWQgZm9yIHNlZWQgc2ltIG9ubHkgKFIxNykuICovCmZ1bmN0aW9uIG11bGJlcnJ5MzIoc2VlZDogbnVtYmVyKTogKCkgPT4gbnVtYmVyIHsKICBsZXQgYSA9IHNlZWQgPj4+IDA7CiAgcmV0dXJuIGZ1bmN0aW9uIG5leHQoKTogbnVtYmVyIHsKICAgIGEgfD0gMDsKICAgIGEgPSAoYSArIDB4NmQyYjc5ZjUpIHwgMDsKICAgIGxldCB0ID0gTWF0aC5pbXVsKGEgXiAoYSA+Pj4gMTUpLCAxIHwgYSk7CiAgICB0ID0gKHQgKyBNYXRoLmltdWwodCBeICh0ID4+PiA3KSwgNjEgfCB0KSkgXiB0OwogICAgcmV0dXJuICgodCBeICh0ID4+PiAxNCkpID4+PiAwKSAvIDQyOTQ5NjcyOTY7CiAgfTsKfQoKaW50ZXJmYWNlIFRvd24gewogIG5hbWU6IHN0cmluZzsKICBzdGF0ZTogc3RyaW5nOwogIGxhdDogbnVtYmVyOwogIGxvbjogbnVtYmVyOwogIHpvbmU6IFdlYXRoZXJUeXBlOwp9CgovKiogMzAgcmVhbCBVUyB0b3ducyAoc21hbGwtdG93biBmYWJyaWMgb2YgYSBuZWlnaGJvcmhvb2QgYXBwKSwgcmVhbCBjb29yZHMuICovCmV4cG9ydCBjb25zdCBUT1dOUzogcmVhZG9ubHkgVG93bltdID0gWwogIHsgbmFtZTogJ01hcmZhJywgc3RhdGU6ICdUWCcsIGxhdDogMzAuMzA5NywgbG9uOiAtMTA0LjAxOTksIHpvbmU6ICdoZWF0JyB9LAogIHsgbmFtZTogJ0Jpc2JlZScsIHN0YXRlOiAnQVonLCBsYXQ6IDMxLjQ0NTksIGxvbjogLTEwOS45MjUzLCB6b25lOiAnaGVhdCcgfSwKICB7IG5hbWU6ICdZdW1hJywgc3RhdGU6ICdBWicsIGxhdDogMzIuNjkyNywgbG9uOiAtMTE0LjYyNzcsIHpvbmU6ICdoZWF0JyB9LAogIHsgbmFtZTogJ1BhbG0gU3ByaW5ncycsIHN0YXRlOiAnQ0EnLCBsYXQ6IDMzLjgzMDMsIGxvbjogLTExNi41NDUzLCB6b25lOiAnaGVhdCcgfSwKICB7IG5hbWU6ICdTZWRvbmEnLCBzdGF0ZTogJ0FaJywgbGF0OiAzNC44Njk3LCBsb246IC0xMTEuNzYxLCB6b25lOiAnaGVhdCcgfSwKICB7IG5hbWU6ICdUYWxrZWV0bmEnLCBzdGF0ZTogJ0FLJywgbGF0OiA2Mi4zMjEsIGxvbjogLTE1MC4wOTU2LCB6b25lOiAnc25vdycgfSwKICB7IG5hbWU6ICdEdWx1dGgnLCBzdGF0ZTogJ01OJywgbGF0OiA0Ni43ODYzLCBsb246IC05Mi4xMDA1LCB6b25lOiAnc25vdycgfSwKICB7IG5hbWU6ICdNYXJxdWV0dGUnLCBzdGF0ZTogJ01JJywgbGF0OiA0Ni41MzY0LCBsb246IC04Ny4zODk4LCB6b25lOiAnc25vdycgfSwKICB7IG5hbWU6ICdUcmF2ZXJzZSBDaXR5Jywgc3RhdGU6ICdNSScsIGxhdDogNDQuNzYzMSwgbG9uOiAtODUuNjIwNiwgem9uZTogJ3Nub3cnIH0sCiAgeyBuYW1lOiAnU2FuZHBvaW50Jywgc3RhdGU6ICdJRCcsIGxhdDogNDguMjc3NSwgbG9uOiAtMTE2LjU1NTIsIHpvbmU6ICdzbm93JyB9LAogIHsgbmFtZTogJ0VseScsIHN0YXRlOiAnTU4nLCBsYXQ6IDQ3LjkwMjUsIGxvbjogLTkxLjg2ODYsIHpvbmU6ICdzbm93JyB9LAogIHsgbmFtZTogJ1BvcnQgVG93bnNlbmQnLCBzdGF0ZTogJ1dBJywgbGF0OiA0OC4xMTcsIGxvbjogLTEyMi43NTkyLCB6b25lOiAncmFpbicgfSwKICB7IG5hbWU6ICdBc3RvcmlhJywgc3RhdGU6ICdPUicsIGxhdDogNDYuMTg3OSwgbG9uOiAtMTIzLjgzMTIsIHpvbmU6ICdyYWluJyB9LAogIHsgbmFtZTogJ01vYmlsZScsIHN0YXRlOiAnQUwnLCBsYXQ6IDMwLjY5NTQsIGxvbjogLTg4LjAzOTksIHpvbmU6ICdyYWluJyB9LAogIHsgbmFtZTogJ0FuYWNvcnRlcycsIHN0YXRlOiAnV0EnLCBsYXQ6IDQ4LjUxMSwgbG9uOiAtMTIyLjYxMjcsIHpvbmU6ICdyYWluJyB9LAogIHsgbmFtZTogJ0hvcXVpYW0nLCBzdGF0ZTogJ1dBJywgbGF0OiA0Ni45Nzg2LCBsb246IC0xMjMuODc4NCwgem9uZTogJ3JhaW4nIH0sCiAgeyBuYW1lOiAnU3QuIEF1Z3VzdGluZScsIHN0YXRlOiAnRkwnLCBsYXQ6IDI5Ljg5NDcsIGxvbjogLTgxLjMxNDcsIHpvbmU6ICdyYWluJyB9LAogIHsgbmFtZTogJ0NoYXR0YW5vb2dhJywgc3RhdGU6ICdUTicsIGxhdDogMzUuMDQ1NiwgbG9uOiAtODUuMzA5Nywgem9uZTogJ3N0b3JtJyB9LAogIHsgbmFtZTogJ1R1bHNhJywgc3RhdGU6ICdPSycsIGxhdDogMzYuMTU0LCBsb246IC05NS45OTI4LCB6b25lOiAnc3Rvcm0nIH0sCiAgeyBuYW1lOiAnVG9wZWthJywgc3RhdGU6ICdLUycsIGxhdDogMzkuMDU1OCwgbG9uOiAtOTUuNjc1MSwgem9uZTogJ3N0b3JtJyB9LAogIHsgbmFtZTogJ1dpY2hpdGEgRmFsbHMnLCBzdGF0ZTogJ1RYJywgbGF0OiAzMy45MTM3LCBsb246IC05OC40OTM0LCB6b25lOiAnc3Rvcm0nIH0sCiAgeyBuYW1lOiAnUGVvcmlhJywgc3RhdGU6ICdJTCcsIGxhdDogNDAuNjkzNiwgbG9uOiAtODkuNTg5LCB6b25lOiAnc3Rvcm0nIH0sCiAgeyBuYW1lOiAnRmFyZ28nLCBzdGF0ZTogJ05EJywgbGF0OiA0Ni44NzcyLCBsb246IC05Ni43ODksIHpvbmU6ICdzdG9ybScgfSwKICB7IG5hbWU6ICdGbGFnc3RhZmYnLCBzdGF0ZTogJ0FaJywgbGF0OiAzNS4xOTgzLCBsb246IC0xMTEuNjUxMywgem9uZTogJ2NsZWFyJyB9LAogIHsgbmFtZTogJ1Rhb3MnLCBzdGF0ZTogJ05NJywgbGF0OiAzNi40MDcyLCBsb246IC0xMDUuNTczMSwgem9uZTogJ2NsZWFyJyB9LAogIHsgbmFtZTogJ1NhbnRhIEZlJywgc3RhdGU6ICdOTScsIGxhdDogMzUuNjg3LCBsb246IC0xMDUuOTM3OCwgem9uZTogJ2NsZWFyJyB9LAogIHsgbmFtZTogJ0JvemVtYW4nLCBzdGF0ZTogJ01UJywgbGF0OiA0NS42NzcsIGxvbjogLTExMS4wNDI5LCB6b25lOiAnY2xlYXInIH0sCiAgeyBuYW1lOiAnQm91bGRlcicsIHN0YXRlOiAnQ08nLCBsYXQ6IDQwLjAxNSwgbG9uOiAtMTA1LjI3MDUsIHpvbmU6ICdjbGVhcicgfSwKICB7IG5hbWU6ICdMYXMgQ3J1Y2VzJywgc3RhdGU6ICdOTScsIGxhdDogMzIuMzE5OSwgbG9uOiAtMTA2Ljc2MzcsIHpvbmU6ICdjbGVhcicgfSwKICB7IG5hbWU6ICdDZWRhciBDaXR5Jywgc3RhdGU6ICdVVCcsIGxhdDogMzcuNjc3NSwgbG9uOiAtMTEzLjA2MTksIHpvbmU6ICdjbGVhcicgfSwKXTsKCmNvbnN0IEFVVEhPUlMgPSBbCiAgJ21hcmlzb2xfaycsICdkZXZvbi5wJywgJ29sZGxpbmV5JywgJ21hcGxlc3RvcnknLCAncmFpbm1ha2VyX3JpdGEnLAogICdncml6emxleScsICdwcmFpcmllX3dvbGYnLCAnam8ubm9sYW4nLCAndGFsbHBpbmUnLCAnc3VubnlkYXplJywKICAnaGFyYm9ybGlnaHQnLCAnd3Jlbndvb2QnLCAnY29iYmxlcG90JywgJ2R1c3RkZXZpbCcsICdzaWx2ZXJ0b24nLCAnYmx1ZWpheScsCl07Cgpjb25zdCBQT1NUX1RFTVBMQVRFUzogUmVjb3JkPFdlYXRoZXJUeXBlLCBzdHJpbmdbXT4gPSB7CiAgcmFpbjogWwogICAgJ1JhaW4gYWdhaW4gaGVyZSDigJQgdGhlIGNyZWVrIG9uIHRoZSBlZGdlIG9mIHRvd24gaXMgcmlzaW5nLiBEcml2ZSBzYWZlLicsCiAgICAnUGF2ZW1lbnQgc2xpY2sgb24gTWFpbiBTdCBzaW5jZSB0aGlzIG1vcm5pbmcuIEJyaW5nIGFuIHVtYnJlbGxhLicsCiAgICAnRHJpenpsZSBhbGwgZGF5LiBUaGUgZmFybWVycyBtYXJrZXQgdGVudHMgYXJlIHNvYWtlZCB0aHJvdWdoLicsCiAgICAnRmluYWxseSBzb21lIHJhaW4uIEdhcmRlbnMgaW4ge3Rvd259IGFyZSB0aGFua2luZyB1cy4nLAogIF0sCiAgc3Rvcm06IFsKICAgICdIZWFyIHRodW5kZXIgb3ZlciB0aGUgcmlkZ2UuIEJhc2VtZW50IHN1bXAgaXMgcnVubmluZywganVzdCB0aGUgdXN1YWwuJywKICAgICdTdG9ybSBjZWxsIHBhcmtlZCBvdmVyIHt0b3dufSDigJQgcG93ZXIgZmxpY2tlcmVkIHR3aWNlLiBBbnlvbmUgZWxzZT8nLAogICAgJ1NreSBsb29rcyBtZWFuIHRvIHRoZSB3ZXN0LiBMaWdodG5pbmcgc3RyaWtlcyBjb3VudGVkOiBmb3VyIHNvIGZhci4nLAogICAgJ1dpbmQgZ3VzdHMga25vY2tpbmcgYnJhbmNoZXMgZG93biBvbiBFbG0gQXZlLiBXYXRjaCBmb3IgZmFsbGluZyBsaW1icy4nLAogIF0sCiAgc25vdzogWwogICAgJ0ZpcnN0IGZsYWtlcyBkb3duIGFscmVhZHkuIFBsb3dzIGhhdmUgYmVlbiBxdWlldCBzbyBmYXIuJywKICAgICdTaXggaW5jaGVzIG9uIHRoZSBncm91bmQgYXQgdGhlIGVkZ2Ugb2Yge3Rvd259LiBTa2kgdHJhaWxzIGFyZSBjYWxsaW5nLicsCiAgICAnSWN5IGJyaWRnZXMgb24gdGhlIHdheSBpbiDigJQgZ28gc2xvdyBpZiB5b3UgbXVzdCBkcml2ZS4nLAogICAgJ1Nub3cgZGF5IGNvbmZpcm1lZC4gVGhlIGRpbmVyIGlzIGRvaW5nIGEgc3RldyBzcGVjaWFsLicsCiAgXSwKICBjbGVhcjogWwogICAgJ0JsdWUgc2tpZXMsIG5vIHdpbmQuIEV2ZXJ5b25lIG91dHNpZGUgaW4ge3Rvd259IHRvZGF5LicsCiAgICAnUGVyZmVjdCBjbGVhciBldmVuaW5nIOKAlCBzdW5zZXQgb3ZlciB0aGUgcmlkZ2Ugd2FzIHVucmVhbC4nLAogICAgJ0RyeSBhbmQgYnJpZ2h0LiBXaWxkZmlyZSBzbW9rZSBsZXZlbHMgaGVyZSBhcmUgemVybywgZW5qb3kgaXQuJywKICAgICdDbGVhciBhbmQgY3Jpc3AuIEZhcm1lcnMgbWFya2V0IHBhY2tlZCwgbm8gY29tcGxhaW50cy4nLAogIF0sCiAgaGVhdDogWwogICAgJ1RyaXBsZSBkaWdpdHMgYnkgbm9vbi4gU3ByaW5rbGVycyBydW5uaW5nIG9uIGV2ZXJ5IGxhd24gaW4ge3Rvd259LicsCiAgICAnSGVhdCBhZHZpc29yeSBvdXQuIEZvdW50YWluIGluIHRoZSBzcXVhcmUgaXMgdGhlIHRvd24gbGlmZWxpbmUuJywKICAgICdOaWdodCB0ZW1wcyBiYXJlbHkgZHJvcC4gSWYgeW91IGhhdmUgZWxkZXJzIG5lYXJieSwgY2hlY2sgb24gdGhlbS4nLAogICAgJ0RyeSBoZWF0LCBkcnkgY3JlZWsgYmVkcy4gV2F0ZXIgY29uc2VydmF0aW9uIHJlbWluZGVycyBwb3N0ZWQuJywKICBdLAp9OwoKY29uc3QgQ09NTUVOVF9URU1QTEFURVMgPSBbCiAgJ1NhbWUgaGVyZSwgdGhhbmtzIGZvciB0aGUgaGVhZHMgdXAhJywKICAnV2F0Y2hpbmcgaXQgZnJvbSBteSBwb3JjaCByaWdodCBub3cuJywKICAnU3RheSBzYWZlIG91dCB0aGVyZSwgZXZlcnlvbmUuJywKICAnQ2FuIGNvbmZpcm0sIHNhdyBpdCBmcm9tIHRoZSBoaWdod2F5LicsCiAgJ0FwcHJlY2lhdGUgdGhlIHVwZGF0ZSwgbmVpZ2hib3IuJywKICAnTXkga2lkIGFza2VkIG1lIHRvIHdhcm4gZXZlcnlvbmUuIFNvLCB3YXJuaW5nIGlzc3VlZC4nLAogICdUaGlzIGlzIHdoeSBJIG1vdmVkIHRvIHt0b3dufS4gQ29tbXVuaXR5LicsCiAgJ0dsYWQgc29tZW9uZSBwb3N0ZWQuIFRob3VnaHQgSSBpbWFnaW5lZCBpdC4nLAogICdTZW5kaW5nIHdhcm0gc291cCB5b3VyIHdheS4nLAogICdVcGRhdGUgd2hlbiBpdCBwYXNzZXM/IEZvbGxvd2luZyBhbG9uZy4nLAogICdIYSEgVGhlIHt0b3dufSB3ZWF0aGVyIG1vb2QsIGFzIGFsd2F5cy4nLAogICdOb3RlZC4gS2VlcGluZyB0aGUgZmxhc2hsaWdodCBieSB0aGUgZG9vciB0b25pZ2h0LicsCl07CgovKiogQnVpbGQgdGhlIGZ1bGwgZGV0ZXJtaW5pc3RpYyBkZW1vIGRhdGFzZXQgZm9yIGEgZ2l2ZW4gc2VlZCB0aW1lLiAqLwpleHBvcnQgZnVuY3Rpb24gYnVpbGRTZWVkRGF0YShub3c6IERhdGUpOiBTZWVkRGF0YSB7CiAgY29uc3Qgcm5nID0gbXVsYmVycnkzMihTRUVEX1JOR19TRUVEKTsKICBjb25zdCByZXBvcnRzOiBSZXBvcnRSb3dbXSA9IFtdOwogIGNvbnN0IGNvbW1lbnRzOiBDb21tZW50Um93W10gPSBbXTsKICBjb25zdCBub3dNcyA9IG5vdy5nZXRUaW1lKCk7CgogIFRPV05TLmZvckVhY2goKHRvd24sIGkpID0+IHsKICAgIGNvbnN0IGxhYmVsID0gYCR7dG93bi5uYW1lfSwgJHt0b3duLnN0YXRlfWA7CiAgICAvLyA3NSUgem9uZS1hcHByb3ByaWF0ZSB0eXBlLCAyNSUgYW55IHR5cGUgKHZhcmlldHkgYWNyb3NzIHRoZSBtYXApLgogICAgY29uc3QgdHlwZTogV2VhdGhlclR5cGUgPQogICAgICBybmcoKSA8IDAuNzUgPyB0b3duLnpvbmUgOiBWQUxJRF9UWVBFU1tNYXRoLmZsb29yKHJuZygpICogVkFMSURfVFlQRVMubGVuZ3RoKV0hOwogICAgY29uc3QgdGVtcGxhdGVzID0gUE9TVF9URU1QTEFURVNbdHlwZV0hOwogICAgY29uc3QgYm9keSA9IHRlbXBsYXRlc1tNYXRoLmZsb29yKHJuZygpICogdGVtcGxhdGVzLmxlbmd0aCldIS5yZXBsYWNlQWxsKCd7dG93bn0nLCB0b3duLm5hbWUpOwogICAgY29uc3QgYXV0aG9yID0gQVVUSE9SU1tNYXRoLmZsb29yKHJuZygpICogQVVUSE9SUy5sZW5ndGgpXSE7CiAgICBjb25zdCBhZ2VNcyA9IE1hdGguZmxvb3Iocm5nKCkgKiBEQVlfTVMgLyBNSU5fTVMpICogTUlOX01TOyAvLyAwLi4yNGgsIG1pbnV0ZS1yb3VuZGVkCiAgICBjb25zdCB0cyA9IG5ldyBEYXRlKG5vd01zIC0gYWdlTXMpLnRvSVNPU3RyaW5nKCk7CgogICAgcmVwb3J0cy5wdXNoKHsKICAgICAgaWQ6IGBzZWVkLXBvc3QtJHtpfWAsCiAgICAgIHRvd246IGxhYmVsLAogICAgICBsYXQ6IHRvd24ubGF0LAogICAgICBsb246IHRvd24ubG9uLAogICAgICB0eXBlLAogICAgICBib2R5LAogICAgICBhdXRob3IsCiAgICAgIHRzLAogICAgICBzZWVkZWQ6IHRydWUsCiAgICB9KTsKCiAgICAvLyAzLTYgb25lLWxldmVsIGNvbW1lbnRzIHBlciBwb3N0LCBhbGwgdHMgYmV0d2VlbiBwb3N0IHRzIGFuZCBzZWVkIHRpbWUuCiAgICBjb25zdCBuID0gMyArIE1hdGguZmxvb3Iocm5nKCkgKiA0KTsKICAgIGZvciAobGV0IGogPSAwOyBqIDwgbjsgaisrKSB7CiAgICAgIGNvbnN0IGNBZ2VNcyA9IE1hdGguZmxvb3Iocm5nKCkgKiBhZ2VNcyAvIE1JTl9NUykgKiBNSU5fTVM7CiAgICAgIGNvbnN0IGNCb2R5ID0gQ09NTUVOVF9URU1QTEFURVNbTWF0aC5mbG9vcihybmcoKSAqIENPTU1FTlRfVEVNUExBVEVTLmxlbmd0aCldIS5yZXBsYWNlQWxsKAogICAgICAgICd7dG93bn0nLAogICAgICAgIHRvd24ubmFtZSwKICAgICAgKTsKICAgICAgY29tbWVudHMucHVzaCh7CiAgICAgICAgaWQ6IGBzZWVkLWNvbW1lbnQtJHtpfS0ke2p9YCwKICAgICAgICByZXBvcnRfaWQ6IGBzZWVkLXBvc3QtJHtpfWAsCiAgICAgICAgYm9keTogY0JvZHksCiAgICAgICAgYXV0aG9yOiBBVVRIT1JTW01hdGguZmxvb3Iocm5nKCkgKiBBVVRIT1JTLmxlbmd0aCldISwKICAgICAgICB0czogbmV3IERhdGUobm93TXMgLSBjQWdlTXMpLnRvSVNPU3RyaW5nKCksCiAgICAgICAgc2VlZGVkOiB0cnVlLAogICAgICB9KTsKICAgIH0KICB9KTsKCiAgcmV0dXJuIHsgcmVwb3J0cywgY29tbWVudHMgfTsKfQoKLyoqIFNjaGVtYSBmb3IgcmVwb3J0cyArIGNvbW1lbnRzIChhbHNvIHNoaXBwZWQgYXMgc2VydmVyL21pZ3JhdGlvbnMvMDAxX3JlcG9ydHMuc3FsKS4gKi8KZXhwb3J0IGNvbnN0IE1JR1JBVElPTl9TUUwgPSBgCkNSRUFURSBUQUJMRSBJRiBOT1QgRVhJU1RTIHJlcG9ydHMgKAogIGlkIFRFWFQgUFJJTUFSWSBLRVksCiAgdG93biBURVhUIE5PVCBOVUxMLAogIGxhdCBET1VCTEUgUFJFQ0lTSU9OIE5PVCBOVUxMLAogIGxvbiBET1VCTEUgUFJFQ0lTSU9OIE5PVCBOVUxMLAogIHR5cGUgVEVYVCBOT1QgTlVMTCBDSEVDSyAodHlwZSBJTiAoJ3JhaW4nLCdzdG9ybScsJ3Nub3cnLCdjbGVhcicsJ2hlYXQnKSksCiAgYm9keSBURVhUIE5PVCBOVUxMLAogIGF1dGhvciBURVhUIE5PVCBOVUxMLAogIHRzIFRJTUVTVEFNUFRaIE5PVCBOVUxMLAogIHNlZWRlZCBCT09MRUFOIE5PVCBOVUxMIERFRkFVTFQgRkFMU0UKKTsKQ1JFQVRFIFRBQkxFIElGIE5PVCBFWElTVFMgY29tbWVudHMgKAogIGlkIFRFWFQgUFJJTUFSWSBLRVksCiAgcmVwb3J0X2lkIFRFWFQgTk9UIE5VTEwgUkVGRVJFTkNFUyByZXBvcnRzKGlkKSBPTiBERUxFVEUgQ0FTQ0FERSwKICBib2R5IFRFWFQgTk9UIE5VTEwsCiAgYXV0aG9yIFRFWFQgTk9UIE5VTEwsCiAgdHMgVElNRVNUQU1QVFogTk9UIE5VTEwsCiAgc2VlZGVkIEJPT0xFQU4gTk9UIE5VTEwgREVGQVVMVCBGQUxTRQopOwpDUkVBVEUgSU5ERVggSUYgTk9UIEVYSVNUUyByZXBvcnRzX3RzX2lkeCBPTiByZXBvcnRzICh0cyBERVNDKTsKQ1JFQVRFIElOREVYIElGIE5PVCBFWElTVFMgY29tbWVudHNfcmVwb3J0X2lkeCBPTiBjb21tZW50cyAocmVwb3J0X2lkLCB0cyk7CmA7CgppbnRlcmZhY2UgRmlsZVNoYXBlIHsKICB2ZXJzaW9uOiAxOwogIHJlcG9ydHM6IFJlcG9ydFJvd1tdOwogIGNvbW1lbnRzOiBDb21tZW50Um93W107Cn0KCmFzeW5jIGZ1bmN0aW9uIHNlZWRGaWxlKG9wdHM6IFNlZWRPcHRpb25zLCBub3c6IERhdGUpOiBQcm9taXNlPFNlZWRSZXN1bHQ+IHsKICBjb25zdCB7IHJlYWRGaWxlLCB3cml0ZUZpbGUsIG1rZGlyIH0gPSBhd2FpdCBpbXBvcnQoJ25vZGU6ZnMvcHJvbWlzZXMnKTsKICBjb25zdCB7IGRpcm5hbWUsIHJlc29sdmUgfSA9IGF3YWl0IGltcG9ydCgnbm9kZTpwYXRoJyk7CiAgY29uc3QgcGF0aCA9IHJlc29sdmUob3B0cy5yZXBvcnRzRmlsZSEpOwoKICBsZXQgc3RvcmU6IEZpbGVTaGFwZSA9IHsgdmVyc2lvbjogMSwgcmVwb3J0czogW10sIGNvbW1lbnRzOiBbXSB9OwogIHRyeSB7CiAgICBzdG9yZSA9IEpTT04ucGFyc2UoYXdhaXQgcmVhZEZpbGUocGF0aCwgJ3V0ZjgnKSkgYXMgRmlsZVNoYXBlOwogIH0gY2F0Y2ggKGVycikgewogICAgY29uc3QgY29kZSA9IChlcnIgYXMgTm9kZUpTLkVycm5vRXhjZXB0aW9uKS5jb2RlOwogICAgaWYgKGNvZGUgIT09ICdFTk9FTlQnKSB0aHJvdyBlcnI7CiAgfQoKICBpZiAoc3RvcmUucmVwb3J0cy5sZW5ndGggPiAwKSB7CiAgICByZXR1cm4gewogICAgICBzZWVkZWQ6IGZhbHNlLAogICAgICBwb3N0czogc3RvcmUucmVwb3J0cy5sZW5ndGgsCiAgICAgIGNvbW1lbnRzOiBzdG9yZS5jb21tZW50cy5sZW5ndGgsCiAgICAgIHJlYXNvbjogJ3JlcG9ydHMgZmlsZSBub3QgZW1wdHkg4oCUIHNlZWQtb25jZSwgc2tpcHBpbmcnLAogICAgfTsKICB9CgogIGNvbnN0IGRhdGEgPSBidWlsZFNlZWREYXRhKG5vdyk7CiAgYXdhaXQgbWtkaXIoZGlybmFtZShwYXRoKSwgeyByZWN1cnNpdmU6IHRydWUgfSk7CiAgYXdhaXQgd3JpdGVGaWxlKHBhdGgsIEpTT04uc3RyaW5naWZ5KHsgLi4uc3RvcmUsIC4uLmRhdGEgfSwgbnVsbCwgMiksICd1dGY4Jyk7CiAgcmV0dXJuIHsgc2VlZGVkOiB0cnVlLCBwb3N0czogZGF0YS5yZXBvcnRzLmxlbmd0aCwgY29tbWVudHM6IGRhdGEuY29tbWVudHMubGVuZ3RoIH07Cn0KCmFzeW5jIGZ1bmN0aW9uIHNlZWRQb3N0Z3Jlcyh1cmw6IHN0cmluZywgbm93OiBEYXRlKTogUHJvbWlzZTxTZWVkUmVzdWx0PiB7CiAgY29uc3QgeyBkZWZhdWx0OiBwZyB9ID0gYXdhaXQgaW1wb3J0KCdwZycpOwogIGNvbnN0IGNsaWVudCA9IG5ldyBwZy5DbGllbnQoeyBjb25uZWN0aW9uU3RyaW5nOiB1cmwsIHNzbDogeyByZWplY3RVbmF1dGhvcml6ZWQ6IGZhbHNlIH0gfSk7CiAgYXdhaXQgY2xpZW50LmNvbm5lY3QoKTsKICB0cnkgewogICAgYXdhaXQgY2xpZW50LnF1ZXJ5KE1JR1JBVElPTl9TUUwpOwogICAgY29uc3QgeyByb3dzIH0gPSBhd2FpdCBjbGllbnQucXVlcnk8eyBuOiBzdHJpbmcgfT4oJ1NFTEVDVCBjb3VudCgqKTo6aW50IEFTIG4gRlJPTSByZXBvcnRzJyk7CiAgICBjb25zdCBleGlzdGluZyA9IE51bWJlcihyb3dzWzBdPy5uID8/IDApOwogICAgaWYgKGV4aXN0aW5nID4gMCkgewogICAgICByZXR1cm4gewogICAgICAgIHNlZWRlZDogZmFsc2UsCiAgICAgICAgcG9zdHM6IGV4aXN0aW5nLAogICAgICAgIGNvbW1lbnRzOiAwLAogICAgICAgIHJlYXNvbjogJ3JlcG9ydHMgdGFibGUgbm90IGVtcHR5IOKAlCBzZWVkLW9uY2UsIHNraXBwaW5nJywKICAgICAgfTsKICAgIH0KCiAgICBjb25zdCBkYXRhID0gYnVpbGRTZWVkRGF0YShub3cpOwogICAgY29uc3QgcG9zdFZhbHVlcyA9IGRhdGEucmVwb3J0cwogICAgICAubWFwKAogICAgICAgIChyKSA9PgogICAgICAgICAgYCgke0pTT04uc3RyaW5naWZ5KHIuaWQpfSwgJHtKU09OLnN0cmluZ2lmeShyLnRvd24pfSwgJHtyLmxhdH0sICR7ci5sb259LCBgICsKICAgICAgICAgIGAke0pTT04uc3RyaW5naWZ5KHIudHlwZSl9LCAke0pTT04uc3RyaW5naWZ5KHIuYm9keSl9LCAke0pTT04uc3RyaW5naWZ5KHIuYXV0aG9yKX0sIGAgKwogICAgICAgICAgYENBU1QoJHtKU09OLnN0cmluZ2lmeShyLnRzKX0gQVMgdGltZXN0YW1wdHopLCBUUlVFKWAsCiAgICAgICkKICAgICAgLmpvaW4oJyxcbicpOwogICAgYXdhaXQgY2xpZW50LnF1ZXJ5KAogICAgICBgSU5TRVJUIElOVE8gcmVwb3J0cyAoaWQsIHRvd24sIGxhdCwgbG9uLCB0eXBlLCBib2R5LCBhdXRob3IsIHRzLCBzZWVkZWQpCiAgICAgICBWQUxVRVMgJHtwb3N0VmFsdWVzfQogICAgICAgT04gQ09ORkxJQ1QgKGlkKSBETyBOT1RISU5HYCwKICAgICk7CgogICAgY29uc3QgY29tbWVudFZhbHVlcyA9IGRhdGEuY29tbWVudHMKICAgICAgLm1hcCgKICAgICAgICAoYykgPT4KICAgICAgICAgIGAoJHtKU09OLnN0cmluZ2lmeShjLmlkKX0sICR7SlNPTi5zdHJpbmdpZnkoYy5yZXBvcnRfaWQpfSwgJHtKU09OLnN0cmluZ2lmeShjLmJvZHkpfSwgYCArCiAgICAgICAgICBgJHtKU09OLnN0cmluZ2lmeShjLmF1dGhvcil9LCBDQVNUKCR7SlNPTi5zdHJpbmdpZnkoYy50cyl9IEFTIHRpbWVzdGFtcHR6KSwgVFJVRSlgLAogICAgICApCiAgICAgIC5qb2luKCcsXG4nKTsKICAgIGF3YWl0IGNsaWVudC5xdWVyeSgKICAgICAgYElOU0VSVCBJTlRPIGNvbW1lbnRzIChpZCwgcmVwb3J0X2lkLCBib2R5LCBhdXRob3IsIHRzLCBzZWVkZWQpCiAgICAgICBWQUxVRVMgJHtjb21tZW50VmFsdWVzfQogICAgICAgT04gQ09ORkxJQ1QgKGlkKSBETyBOT1RISU5HYCwKICAgICk7CgogICAgcmV0dXJuIHsgc2VlZGVkOiB0cnVlLCBwb3N0czogZGF0YS5yZXBvcnRzLmxlbmd0aCwgY29tbWVudHM6IGRhdGEuY29tbWVudHMubGVuZ3RoIH07CiAgfSBmaW5hbGx5IHsKICAgIGF3YWl0IGNsaWVudC5lbmQoKTsKICB9Cn0KCi8qKgogKiBTZWVkLW9uY2UgZW50cnkgcG9pbnQuIFBvc3RncmVzIHdpbnMgd2hlbiBib3RoIG9wdGlvbnMgYXJlIHNldC4KICogUmV0dXJucyBzZWVkZWQ6ZmFsc2UgKHdpdGggcmVhc29uKSB3aGVuIHRoZSBzdG9yZSBhbHJlYWR5IGhhcyByZXBvcnRzLgogKi8KZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHNlZWRPbmNlKG9wdHM6IFNlZWRPcHRpb25zKTogUHJvbWlzZTxTZWVkUmVzdWx0PiB7CiAgY29uc3Qgbm93ID0gb3B0cy5ub3c7CiAgaWYgKG9wdHMucG9zdGdyZXNVcmwpIHJldHVybiBzZWVkUG9zdGdyZXMob3B0cy5wb3N0Z3Jlc1VybCwgbm93KTsKICBpZiAob3B0cy5yZXBvcnRzRmlsZSkgcmV0dXJuIHNlZWRGaWxlKG9wdHMsIG5vdyk7CiAgdGhyb3cgbmV3IEVycm9yKCdzZWVkT25jZTogc2V0IFBPU1RHUkVTX1VSTCBvciBSRVBPUlRTX0ZJTEUnKTsKfQo=
+/**
+ * L7 SEED-DEMO-INFRA — seed-once demo data mechanism (R14).
+ *
+ * Contract (docs/SEED-CONTRACT.md):
+ * - Seed runs ONLY when the reports table/file is empty (seed-once).
+ * - Every seeded row carries seeded:true so the UI can label it "Demo data".
+ * - INSERT ... ON CONFLICT (id) DO NOTHING — deterministic ids, no dupes.
+ * - Works against Postgres (POSTGRES_URL) and a REPORTS_FILE JSON fallback
+ *   for tests (no prod Neon in tests).
+ *
+ * Determinism law (R17): this file is seed SIMULATION only. RNG is mulberry32
+ * with a fixed constant seed; the wall-clock seed time arrives via the `now`
+ * parameter (CLI passes new Date() at the process edge, which is legal —
+ * this module contains no Math.random / Date.now / new Date() calls).
+ */
+
+export type WeatherType = 'rain' | 'storm' | 'snow' | 'clear' | 'heat';
+
+export const VALID_TYPES: readonly WeatherType[] = ['rain', 'storm', 'snow', 'clear', 'heat'];
+
+export interface ReportRow {
+  id: string;
+  town: string;
+  lat: number;
+  lon: number;
+  type: WeatherType;
+  body: string;
+  author: string;
+  /** ISO 8601 timestamp, always within 24h before the seed `now`. */
+  ts: string;
+  seeded: true;
+}
+
+export interface CommentRow {
+  id: string;
+  report_id: string;
+  body: string;
+  author: string;
+  ts: string;
+  seeded: true;
+}
+
+export interface SeedData {
+  reports: ReportRow[];
+  comments: CommentRow[];
+}
+
+export interface SeedOptions {
+  postgresUrl?: string;
+  reportsFile?: string;
+  /** Seed time. Required: the CLI passes `new Date()` at the process edge; this module never reads the clock. */
+  now: Date;
+}
+
+export interface SeedResult {
+  seeded: boolean;
+  posts: number;
+  comments: number;
+  reason?: string;
+}
+
+/** Fixed seed for the demo simulation. Never changes; keeps output reproducible. */
+const SEED_RNG_SEED = 0x5eed1234;
+const DAY_MS = 24 * 60 * 60 * 1000;
+const MIN_MS = 60 * 1000;
+
+/** mulberry32 — deterministic PRNG, allowed for seed sim only (R17). */
+function mulberry32(seed: number): () => number {
+  let a = seed >>> 0;
+  return function next(): number {
+    a |= 0;
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+interface Town {
+  name: string;
+  state: string;
+  lat: number;
+  lon: number;
+  zone: WeatherType;
+}
+
+/** 30 real US towns (small-town fabric of a neighborhood app), real coords. */
+export const TOWNS: readonly Town[] = [
+  { name: 'Marfa', state: 'TX', lat: 30.3097, lon: -104.0199, zone: 'heat' },
+  { name: 'Bisbee', state: 'AZ', lat: 31.4459, lon: -109.9253, zone: 'heat' },
+  { name: 'Yuma', state: 'AZ', lat: 32.6927, lon: -114.6277, zone: 'heat' },
+  { name: 'Palm Springs', state: 'CA', lat: 33.8303, lon: -116.5453, zone: 'heat' },
+  { name: 'Sedona', state: 'AZ', lat: 34.8697, lon: -111.761, zone: 'heat' },
+  { name: 'Talkeetna', state: 'AK', lat: 62.321, lon: -150.0956, zone: 'snow' },
+  { name: 'Duluth', state: 'MN', lat: 46.7863, lon: -92.1005, zone: 'snow' },
+  { name: 'Marquette', state: 'MI', lat: 46.5364, lon: -87.3898, zone: 'snow' },
+  { name: 'Traverse City', state: 'MI', lat: 44.7631, lon: -85.6206, zone: 'snow' },
+  { name: 'Sandpoint', state: 'ID', lat: 48.2775, lon: -116.5552, zone: 'snow' },
+  { name: 'Ely', state: 'MN', lat: 47.9025, lon: -91.8686, zone: 'snow' },
+  { name: 'Port Townsend', state: 'WA', lat: 48.117, lon: -122.7592, zone: 'rain' },
+  { name: 'Astoria', state: 'OR', lat: 46.1879, lon: -123.8312, zone: 'rain' },
+  { name: 'Mobile', state: 'AL', lat: 30.6954, lon: -88.0399, zone: 'rain' },
+  { name: 'Anacortes', state: 'WA', lat: 48.511, lon: -122.6127, zone: 'rain' },
+  { name: 'Hoquiam', state: 'WA', lat: 46.9786, lon: -123.8784, zone: 'rain' },
+  { name: 'St. Augustine', state: 'FL', lat: 29.8947, lon: -81.3147, zone: 'rain' },
+  { name: 'Chattanooga', state: 'TN', lat: 35.0456, lon: -85.3097, zone: 'storm' },
+  { name: 'Tulsa', state: 'OK', lat: 36.154, lon: -95.9928, zone: 'storm' },
+  { name: 'Topeka', state: 'KS', lat: 39.0558, lon: -95.6751, zone: 'storm' },
+  { name: 'Wichita Falls', state: 'TX', lat: 33.9137, lon: -98.4934, zone: 'storm' },
+  { name: 'Peoria', state: 'IL', lat: 40.6936, lon: -89.589, zone: 'storm' },
+  { name: 'Fargo', state: 'ND', lat: 46.8772, lon: -96.789, zone: 'storm' },
+  { name: 'Flagstaff', state: 'AZ', lat: 35.1983, lon: -111.6513, zone: 'clear' },
+  { name: 'Taos', state: 'NM', lat: 36.4072, lon: -105.5731, zone: 'clear' },
+  { name: 'Santa Fe', state: 'NM', lat: 35.687, lon: -105.9378, zone: 'clear' },
+  { name: 'Bozeman', state: 'MT', lat: 45.677, lon: -111.0429, zone: 'clear' },
+  { name: 'Boulder', state: 'CO', lat: 40.015, lon: -105.2705, zone: 'clear' },
+  { name: 'Las Cruces', state: 'NM', lat: 32.3199, lon: -106.7637, zone: 'clear' },
+  { name: 'Cedar City', state: 'UT', lat: 37.6775, lon: -113.0619, zone: 'clear' },
+];
+
+const AUTHORS = [
+  'marisol_k', 'devon.p', 'oldliney', 'maplestory', 'rainmaker_rita',
+  'grizzley', 'prairie_wolf', 'jo.nolan', 'tallpine', 'sunnydaze',
+  'harborlight', 'wrenwood', 'cobblepot', 'dustdevil', 'silverton', 'bluejay',
+];
+
+const POST_TEMPLATES: Record<WeatherType, string[]> = {
+  rain: [
+    'Rain again here — the creek on the edge of town is rising. Drive safe.',
+    'Pavement slick on Main St since this morning. Bring an umbrella.',
+    'Drizzle all day. The farmers market tents are soaked through.',
+    'Finally some rain. Gardens in {town} are thanking us.',
+  ],
+  storm: [
+    'Hear thunder over the ridge. Basement sump is running, just the usual.',
+    'Storm cell parked over {town} — power flickered twice. Anyone else?',
+    'Sky looks mean to the west. Lightning strikes counted: four so far.',
+    'Wind gusts knocking branches down on Elm Ave. Watch for falling limbs.',
+  ],
+  snow: [
+    'First flakes down already. Plows have been quiet so far.',
+    'Six inches on the ground at the edge of {town}. Ski trails are calling.',
+    'Icy bridges on the way in — go slow if you must drive.',
+    'Snow day confirmed. The diner is doing a stew special.',
+  ],
+  clear: [
+    'Blue skies, no wind. Everyone outside in {town} today.',
+    'Perfect clear evening — sunset over the ridge was unreal.',
+    'Dry and bright. Wildfire smoke levels here are zero, enjoy it.',
+    'Clear and crisp. Farmers market packed, no complaints.',
+  ],
+  heat: [
+    'Triple digits by noon. Sprinklers running on every lawn in {town}.',
+    'Heat advisory out. Fountain in the square is the town lifeline.',
+    'Night temps barely drop. If you have elders nearby, check on them.',
+    'Dry heat, dry creek beds. Water conservation reminders posted.',
+  ],
+};
+
+const COMMENT_TEMPLATES = [
+  'Same here, thanks for the heads up!',
+  'Watching it from my porch right now.',
+  'Stay safe out there, everyone.',
+  'Can confirm, saw it from the highway.',
+  'Appreciate the update, neighbor.',
+  'My kid asked me to warn everyone. So, warning issued.',
+  'This is why I moved to {town}. Community.',
+  'Glad someone posted. Thought I imagined it.',
+  'Sending warm soup your way.',
+  'Update when it passes? Following along.',
+  'Ha! The {town} weather mood, as always.',
+  'Noted. Keeping the flashlight by the door tonight.',
+];
+
+/** Build the full deterministic demo dataset for a given seed time. */
+export function buildSeedData(now: Date): SeedData {
+  const rng = mulberry32(SEED_RNG_SEED);
+  const reports: ReportRow[] = [];
+  const comments: CommentRow[] = [];
+  const nowMs = now.getTime();
+
+  TOWNS.forEach((town, i) => {
+    const label = `${town.name}, ${town.state}`;
+    // 75% zone-appropriate type, 25% any type (variety across the map).
+    const type: WeatherType =
+      rng() < 0.75 ? town.zone : VALID_TYPES[Math.floor(rng() * VALID_TYPES.length)]!;
+    const templates = POST_TEMPLATES[type]!;
+    const body = templates[Math.floor(rng() * templates.length)]!.replaceAll('{town}', town.name);
+    const author = AUTHORS[Math.floor(rng() * AUTHORS.length)]!;
+    const ageMs = Math.floor(rng() * DAY_MS / MIN_MS) * MIN_MS; // 0..24h, minute-rounded
+    const ts = new Date(nowMs - ageMs).toISOString();
+
+    reports.push({
+      id: `seed-post-${i}`,
+      town: label,
+      lat: town.lat,
+      lon: town.lon,
+      type,
+      body,
+      author,
+      ts,
+      seeded: true,
+    });
+
+    // 3-6 one-level comments per post, all ts between post ts and seed time.
+    const n = 3 + Math.floor(rng() * 4);
+    for (let j = 0; j < n; j++) {
+      const cAgeMs = Math.floor(rng() * ageMs / MIN_MS) * MIN_MS;
+      const cBody = COMMENT_TEMPLATES[Math.floor(rng() * COMMENT_TEMPLATES.length)]!.replaceAll(
+        '{town}',
+        town.name,
+      );
+      comments.push({
+        id: `seed-comment-${i}-${j}`,
+        report_id: `seed-post-${i}`,
+        body: cBody,
+        author: AUTHORS[Math.floor(rng() * AUTHORS.length)]!,
+        ts: new Date(nowMs - cAgeMs).toISOString(),
+        seeded: true,
+      });
+    }
+  });
+
+  return { reports, comments };
+}
+
+/** Schema for reports + comments (also shipped as server/migrations/001_reports.sql). */
+export const MIGRATION_SQL = `
+CREATE TABLE IF NOT EXISTS reports (
+  id TEXT PRIMARY KEY,
+  town TEXT NOT NULL,
+  lat DOUBLE PRECISION NOT NULL,
+  lon DOUBLE PRECISION NOT NULL,
+  type TEXT NOT NULL CHECK (type IN ('rain','storm','snow','clear','heat')),
+  body TEXT NOT NULL,
+  author TEXT NOT NULL,
+  ts TIMESTAMPTZ NOT NULL,
+  seeded BOOLEAN NOT NULL DEFAULT FALSE
+);
+CREATE TABLE IF NOT EXISTS comments (
+  id TEXT PRIMARY KEY,
+  report_id TEXT NOT NULL REFERENCES reports(id) ON DELETE CASCADE,
+  body TEXT NOT NULL,
+  author TEXT NOT NULL,
+  ts TIMESTAMPTZ NOT NULL,
+  seeded BOOLEAN NOT NULL DEFAULT FALSE
+);
+CREATE INDEX IF NOT EXISTS reports_ts_idx ON reports (ts DESC);
+CREATE INDEX IF NOT EXISTS comments_report_idx ON comments (report_id, ts);
+`;
+
+interface FileShape {
+  version: 1;
+  reports: ReportRow[];
+  comments: CommentRow[];
+}
+
+async function seedFile(opts: SeedOptions, now: Date): Promise<SeedResult> {
+  const { readFile, writeFile, mkdir } = await import('node:fs/promises');
+  const { dirname, resolve } = await import('node:path');
+  const path = resolve(opts.reportsFile!);
+
+  let store: FileShape = { version: 1, reports: [], comments: [] };
+  try {
+    store = JSON.parse(await readFile(path, 'utf8')) as FileShape;
+  } catch (err) {
+    const code = (err as NodeJS.ErrnoException).code;
+    if (code !== 'ENOENT') throw err;
+  }
+
+  if (store.reports.length > 0) {
+    return {
+      seeded: false,
+      posts: store.reports.length,
+      comments: store.comments.length,
+      reason: 'reports file not empty — seed-once, skipping',
+    };
+  }
+
+  const data = buildSeedData(now);
+  await mkdir(dirname(path), { recursive: true });
+  await writeFile(path, JSON.stringify({ ...store, ...data }, null, 2), 'utf8');
+  return { seeded: true, posts: data.reports.length, comments: data.comments.length };
+}
+
+async function seedPostgres(url: string, now: Date): Promise<SeedResult> {
+  const { default: pg } = await import('pg');
+  const client = new pg.Client({ connectionString: url, ssl: { rejectUnauthorized: false } });
+  await client.connect();
+  try {
+    await client.query(MIGRATION_SQL);
+    const { rows } = await client.query<{ n: string }>('SELECT count(*)::int AS n FROM reports');
+    const existing = Number(rows[0]?.n ?? 0);
+    if (existing > 0) {
+      return {
+        seeded: false,
+        posts: existing,
+        comments: 0,
+        reason: 'reports table not empty — seed-once, skipping',
+      };
+    }
+
+    const data = buildSeedData(now);
+    const postValues = data.reports
+      .map(
+        (r) =>
+          `(${JSON.stringify(r.id)}, ${JSON.stringify(r.town)}, ${r.lat}, ${r.lon}, ` +
+          `${JSON.stringify(r.type)}, ${JSON.stringify(r.body)}, ${JSON.stringify(r.author)}, ` +
+          `CAST(${JSON.stringify(r.ts)} AS timestamptz), TRUE)`,
+      )
+      .join(',\n');
+    await client.query(
+      `INSERT INTO reports (id, town, lat, lon, type, body, author, ts, seeded)
+       VALUES ${postValues}
+       ON CONFLICT (id) DO NOTHING`,
+    );
+
+    const commentValues = data.comments
+      .map(
+        (c) =>
+          `(${JSON.stringify(c.id)}, ${JSON.stringify(c.report_id)}, ${JSON.stringify(c.body)}, ` +
+          `${JSON.stringify(c.author)}, CAST(${JSON.stringify(c.ts)} AS timestamptz), TRUE)`,
+      )
+      .join(',\n');
+    await client.query(
+      `INSERT INTO comments (id, report_id, body, author, ts, seeded)
+       VALUES ${commentValues}
+       ON CONFLICT (id) DO NOTHING`,
+    );
+
+    return { seeded: true, posts: data.reports.length, comments: data.comments.length };
+  } finally {
+    await client.end();
+  }
+}
+
+/**
+ * Seed-once entry point. Postgres wins when both options are set.
+ * Returns seeded:false (with reason) when the store already has reports.
+ */
+export async function seedOnce(opts: SeedOptions): Promise<SeedResult> {
+  const now = opts.now;
+  if (opts.postgresUrl) return seedPostgres(opts.postgresUrl, now);
+  if (opts.reportsFile) return seedFile(opts, now);
+  throw new Error('seedOnce: set POSTGRES_URL or REPORTS_FILE');
+}

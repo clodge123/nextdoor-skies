@@ -1,1 +1,27 @@
-aW1wb3J0IGpzIGZyb20gJ0Blc2xpbnQvanMnCmltcG9ydCBnbG9iYWxzIGZyb20gJ2dsb2JhbHMnCmltcG9ydCByZWFjdEhvb2tzIGZyb20gJ2VzbGludC1wbHVnaW4tcmVhY3QtaG9va3MnCmltcG9ydCByZWFjdFJlZnJlc2ggZnJvbSAnZXNsaW50LXBsdWdpbi1yZWFjdC1yZWZyZXNoJwppbXBvcnQgdHNlc2xpbnQgZnJvbSAndHlwZXNjcmlwdC1lc2xpbnQnCmltcG9ydCBwcmV0dGllciBmcm9tICdlc2xpbnQtY29uZmlnLXByZXR0aWVyJwoKZXhwb3J0IGRlZmF1bHQgdHNlc2xpbnQuY29uZmlnKAogIHsgaWdub3JlczogWydkaXN0JywgJ2NvdmVyYWdlJywgJ3BsYXl3cmlnaHQtcmVwb3J0JywgJ25vZGVfbW9kdWxlcyddIH0sCiAgewogICAgZXh0ZW5kczogW2pzLmNvbmZpZ3MucmVjb21tZW5kZWQsIC4uLnRzZXNsaW50LmNvbmZpZ3MucmVjb21tZW5kZWRdLAogICAgZmlsZXM6IFsnKiovKi57dHMsdHN4fSddLAogICAgbGFuZ3VhZ2VPcHRpb25zOiB7CiAgICAgIGVjbWFWZXJzaW9uOiAyMDIyLAogICAgICBnbG9iYWxzOiBnbG9iYWxzLmJyb3dzZXIsCiAgICB9LAogICAgcGx1Z2luczogewogICAgICAncmVhY3QtaG9va3MnOiByZWFjdEhvb2tzLAogICAgICAncmVhY3QtcmVmcmVzaCc6IHJlYWN0UmVmcmVzaCwKICAgIH0sCiAgICBydWxlczogewogICAgICAuLi5yZWFjdEhvb2tzLmNvbmZpZ3MucmVjb21tZW5kZWQucnVsZXMsCiAgICAgICdyZWFjdC1yZWZyZXNoL29ubHktZXhwb3J0LWNvbXBvbmVudHMnOiBbJ3dhcm4nLCB7IGFsbG93Q29uc3RhbnRFeHBvcnQ6IHRydWUgfV0sCiAgICB9LAogIH0sCiAgcHJldHRpZXIsCikK
+import js from '@eslint/js'
+import globals from 'globals'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import tseslint from 'typescript-eslint'
+import prettier from 'eslint-config-prettier'
+
+export default tseslint.config(
+  { ignores: ['dist', 'coverage', 'playwright-report', 'node_modules'] },
+  {
+    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    files: ['**/*.{ts,tsx}'],
+    languageOptions: {
+      ecmaVersion: 2022,
+      globals: globals.browser,
+    },
+    plugins: {
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+    },
+    rules: {
+      ...reactHooks.configs.recommended.rules,
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    },
+  },
+  prettier,
+)

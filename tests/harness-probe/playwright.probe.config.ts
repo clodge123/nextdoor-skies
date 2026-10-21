@@ -1,1 +1,21 @@
-aW1wb3J0IHsgZGVmaW5lQ29uZmlnIH0gZnJvbSAnQHBsYXl3cmlnaHQvdGVzdCc7CmltcG9ydCB7IGRpcm5hbWUsIGpvaW4sIHJlc29sdmUgfSBmcm9tICdub2RlOnBhdGgnOwppbXBvcnQgeyBmaWxlVVJMVG9QYXRoIH0gZnJvbSAnbm9kZTp1cmwnOwoKY29uc3QgcmVwb1Jvb3QgPSByZXNvbHZlKGRpcm5hbWUoZmlsZVVSTFRvUGF0aChpbXBvcnQubWV0YS51cmwpKSwgJy4uJywgJy4uJyk7CgovKiogTWluaSBjb25maWcgZm9yIHRoZSBoYXJuZXNzIHNlbGZ0ZXN0IHByb2JlIChjb25zb2xlLWNvbGxlY3RvciBuZWdhdGl2ZSB0ZXN0KS4gKi8KZXhwb3J0IGRlZmF1bHQgZGVmaW5lQ29uZmlnKHsKICB0ZXN0RGlyOiBpbXBvcnQubWV0YS5kaXJuYW1lLAogIHRpbWVvdXQ6IDIwXzAwMCwKICByZXBvcnRlcjogW1snbGlzdCddXSwKICB1c2U6IHsgYmFzZVVSTDogJ2h0dHA6Ly8xMjcuMC4wLjE6NDMxMTgnIH0sCiAgcHJvamVjdHM6IFt7IG5hbWU6ICdkZXNrdG9wJywgdXNlOiB7IHZpZXdwb3J0OiB7IHdpZHRoOiAxMjgwLCBoZWlnaHQ6IDgwMCB9IH0gfV0sCiAgd2ViU2VydmVyOiB7CiAgICBjb21tYW5kOiBgbm9kZSAke2pvaW4ocmVwb1Jvb3QsICdzY3JpcHRzJywgJ2UyZS1zZXJ2ZS5tanMnKX0gNDMxMThgLAogICAgdXJsOiAnaHR0cDovLzEyNy4wLjAuMTo0MzExOCcsCiAgICByZXVzZUV4aXN0aW5nU2VydmVyOiBmYWxzZSwKICAgIHRpbWVvdXQ6IDEyMF8wMDAsCiAgICBlbnY6IHsgTk9fUFJPWFk6ICcxMjcuMC4wLjEsbG9jYWxob3N0Jywgbm9fcHJveHk6ICcxMjcuMC4wLjEsbG9jYWxob3N0JyB9LAogIH0sCn0pOwo=
+import { defineConfig } from '@playwright/test';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
+
+/** Mini config for the harness selftest probe (console-collector negative test). */
+export default defineConfig({
+  testDir: import.meta.dirname,
+  timeout: 20_000,
+  reporter: [['list']],
+  use: { baseURL: 'http://127.0.0.1:43118' },
+  projects: [{ name: 'desktop', use: { viewport: { width: 1280, height: 800 } } }],
+  webServer: {
+    command: `node ${join(repoRoot, 'scripts', 'e2e-serve.mjs')} 43118`,
+    url: 'http://127.0.0.1:43118',
+    reuseExistingServer: false,
+    timeout: 120_000,
+    env: { NO_PROXY: '127.0.0.1,localhost', no_proxy: '127.0.0.1,localhost' },
+  },
+});

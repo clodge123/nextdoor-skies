@@ -1,1 +1,131 @@
-LyogbmV4dGRvb3Itc2tpZXMgcnVuIDIg4oCUIGRlc2lnbiB0b2tlbnMgKEw0KSArIGJhZGdlL21hcCBzdHlsZXMgKEw2KS4KICAgU3F1YXJlIGdlb21ldHJ5IGxhdyAoUjIwKTogLS1yYWRpdXMgaXMgMHB4OyBib3JkZXItcmFkaXVzIG1heSBPTkxZIGV2ZXIgYmUKICAgdmFyKC0tcmFkaXVzKS4gKi8KCjpyb290IHsKICAtLWJnOiAjMGEwYTBmOwogIC0tc3VyZmFjZTogIzE2MTYxZjsKICAtLXRleHQ6ICNmNWY1ZjI7CiAgLS1ib3JkZXI6ICMyYjJiMzg7CiAgLS13YXJuOiAjZjk3MzE2OwogIC0tYWNjZW50OiAjMDBmZjlkOwogIC0tY3VycmVudC1hY2NlbnQ6IHZhcigtLWFjY2VudCk7CiAgLS1yYWRpdXM6IDBweDsKfQoKaHRtbFtkYXRhLXRoZW1lPSJsaWdodCJdIHsKICAtLWJnOiAjZjVmNWYyOwogIC0tc3VyZmFjZTogI2ZmZmZmZjsKICAtLXRleHQ6ICMxNjE2MWY7CiAgLS1ib3JkZXI6ICNkOWQ5ZDI7CiAgLS13YXJuOiAjYzI0MTBjOwp9CgoqLAoqOjpiZWZvcmUsCio6OmFmdGVyIHsKICBib3gtc2l6aW5nOiBib3JkZXItYm94OwogIGJvcmRlci1yYWRpdXM6IHZhcigtLXJhZGl1cyk7Cn0KCmh0bWwsCmJvZHkgewogIG1hcmdpbjogMDsKICBwYWRkaW5nOiAwOwp9Cgpib2R5IHsKICBiYWNrZ3JvdW5kOiB2YXIoLS1iZyk7CiAgY29sb3I6IHZhcigtLXRleHQpOwogIGZvbnQtZmFtaWx5OiB1aS1zYW5zLXNlcmlmLCBzeXN0ZW0tdWksIHNhbnMtc2VyaWY7CiAgdHJhbnNpdGlvbjogYmFja2dyb3VuZC1jb2xvciAxMjBtcyBsaW5lYXIsIGNvbG9yIDEyMG1zIGxpbmVhcjsKfQoKLnRoZW1lLXRvZ2dsZSB7CiAgZGlzcGxheTogaW5saW5lLWZsZXg7CiAgYWxpZ24taXRlbXM6IGNlbnRlcjsKICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjsKICB3aWR0aDogNDBweDsKICBoZWlnaHQ6IDQwcHg7CiAgcGFkZGluZzogMDsKICBiYWNrZ3JvdW5kOiB2YXIoLS1zdXJmYWNlKTsKICBjb2xvcjogdmFyKC0tY3VycmVudC1hY2NlbnQpOwogIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWJvcmRlcik7CiAgYm9yZGVyLXJhZGl1czogdmFyKC0tcmFkaXVzKTsKICBjdXJzb3I6IHBvaW50ZXI7Cn0KCi50aGVtZS10b2dnbGU6aG92ZXIgewogIGJvcmRlci1jb2xvcjogdmFyKC0tY3VycmVudC1hY2NlbnQpOwp9CgoudGhlbWUtdG9nZ2xlIHN2ZyB7CiAgd2lkdGg6IDIwcHg7CiAgaGVpZ2h0OiAyMHB4OwogIGRpc3BsYXk6IGJsb2NrOwp9CgovKiBMNiBUT1dOLVdFQVRIRVItQkFER0VTIOKAlCBvdmVybGF5ICsgbWFwIHN0dWIgKHNxdWFyZSBnZW9tZXRyeSwgUjIwKS4gKi8KLnRvd24tYmFkZ2VzIHsKICBwb3NpdGlvbjogYWJzb2x1dGU7CiAgaW5zZXQ6IDA7CiAgb3ZlcmZsb3c6IGhpZGRlbjsKICBwb2ludGVyLWV2ZW50czogbm9uZTsKfQoKLnRvd24tYmFkZ2UgewogIHBvc2l0aW9uOiBhYnNvbHV0ZTsKICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLCAtMTAwJSk7CiAgcGFkZGluZzogMnB4IDZweDsKICBiYWNrZ3JvdW5kOiAjMTAxMDE0OwogIGNvbG9yOiAjZjVmNWY1OwogIGZvbnQ6IDYwMCAxMnB4LzEuMiB1aS1tb25vc3BhY2UsIG1vbm9zcGFjZTsKICBib3JkZXI6IDJweCBzb2xpZCB2YXIoLS1jdXJyZW50LWFjY2VudCk7CiAgYm9yZGVyLXJhZGl1czogdmFyKC0tcmFkaXVzKTsgLyogUjIwIHNxdWFyZSBnZW9tZXRyeSBsYXcgKi8KfQoKLnRvd24tYmFkZ2UtdGVtcCB7CiAgZGlzcGxheTogaW5saW5lLWJsb2NrOwp9CgoubWFwLXN0dWIgewogIHBvc2l0aW9uOiByZWxhdGl2ZTsKICB3aWR0aDogMTAwJTsKICBoZWlnaHQ6IDEwMHZoOwogIGJhY2tncm91bmQ6ICMxNjE2MWQ7CiAgb3ZlcmZsb3c6IGhpZGRlbjsKfQoKLm1hcC1zdHViIC50b3duLWxhYmVsIHsKICBwb3NpdGlvbjogYWJzb2x1dGU7CiAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoLTUwJSwgMCk7CiAgY29sb3I6ICNjZmQyZGE7CiAgZm9udDogNTAwIDEycHgvMS4yIHN5c3RlbS11aSwgc2Fucy1zZXJpZjsKfQoKLyogTDEyIGFwcCB3aXJpbmc6IE1hcFZpZXcgaXMgcG9zaXRpb246YWJzb2x1dGUgaW5zZXQ6MCwgc28gdGhlIHBhZ2Ugc2VjdGlvbgogICBtdXN0IGJlIHBvc2l0aW9uZWQgYW5kIHNpemVkLiBIZWFkZXIgaXMgfjYwcHg7IG1hcCBmaWxscyB0aGUgcmVzdC4gKi8KLm1hcC1wYWdlIHsKICBwb3NpdGlvbjogcmVsYXRpdmU7CiAgaGVpZ2h0OiBjYWxjKDEwMHZoIC0gNjBweCk7CiAgbWluLWhlaWdodDogNDgwcHg7Cn0KCi5tYXAtY29udHJvbHMgewogIHBvc2l0aW9uOiBhYnNvbHV0ZTsKICB0b3A6IDhweDsKICBsZWZ0OiA4cHg7CiAgei1pbmRleDogMjsKICBkaXNwbGF5OiBmbGV4OwogIGdhcDogOHB4OwogIHBvaW50ZXItZXZlbnRzOiBhdXRvOwp9CgoubWFwLWNvbnRyb2xzIGJ1dHRvbiB7CiAgYm9yZGVyLXJhZGl1czogdmFyKC0tcmFkaXVzKTsKICBib3JkZXI6IDJweCBzb2xpZCB2YXIoLS1jdXJyZW50LWFjY2VudCk7CiAgYmFja2dyb3VuZDogIzEwMTAxNDsKICBjb2xvcjogI2Y1ZjVmNTsKICBwYWRkaW5nOiA0cHggMTBweDsKICBmb250OiA2MDAgMTNweC8xIHN5c3RlbS11aSwgc2Fucy1zZXJpZjsKfQo=
+/* nextdoor-skies run 2 — design tokens (L4) + badge/map styles (L6).
+   Square geometry law (R20): --radius is 0px; border-radius may ONLY ever be
+   var(--radius). */
+
+:root {
+  --bg: #0a0a0f;
+  --surface: #16161f;
+  --text: #f5f5f2;
+  --border: #2b2b38;
+  --warn: #f97316;
+  --accent: #00ff9d;
+  --current-accent: var(--accent);
+  --radius: 0px;
+}
+
+html[data-theme="light"] {
+  --bg: #f5f5f2;
+  --surface: #ffffff;
+  --text: #16161f;
+  --border: #d9d9d2;
+  --warn: #c2410c;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  border-radius: var(--radius);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  transition: background-color 120ms linear, color 120ms linear;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: var(--surface);
+  color: var(--current-accent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border-color: var(--current-accent);
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+/* L6 TOWN-WEATHER-BADGES — overlay + map stub (square geometry, R20). */
+.town-badges {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.town-badge {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  padding: 2px 6px;
+  background: #101014;
+  color: #f5f5f5;
+  font: 600 12px/1.2 ui-monospace, monospace;
+  border: 2px solid var(--current-accent);
+  border-radius: var(--radius); /* R20 square geometry law */
+}
+
+.town-badge-temp {
+  display: inline-block;
+}
+
+.map-stub {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #16161d;
+  overflow: hidden;
+}
+
+.map-stub .town-label {
+  position: absolute;
+  transform: translate(-50%, 0);
+  color: #cfd2da;
+  font: 500 12px/1.2 system-ui, sans-serif;
+}
+
+/* L12 app wiring: MapView is position:absolute inset:0, so the page section
+   must be positioned and sized. Header is ~60px; map fills the rest. */
+.map-page {
+  position: relative;
+  height: calc(100vh - 60px);
+  min-height: 480px;
+}
+
+.map-controls {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+  display: flex;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.map-controls button {
+  border-radius: var(--radius);
+  border: 2px solid var(--current-accent);
+  background: #101014;
+  color: #f5f5f5;
+  padding: 4px 10px;
+  font: 600 13px/1 system-ui, sans-serif;
+}

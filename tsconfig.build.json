@@ -1,1 +1,19 @@
-ewogICJjb21waWxlck9wdGlvbnMiOiB7CiAgICAidGFyZ2V0IjogIkVTMjAyMiIsCiAgICAibW9kdWxlIjogIk5vZGVOZXh0IiwKICAgICJtb2R1bGVSZXNvbHV0aW9uIjogIk5vZGVOZXh0IiwKICAgICJsaWIiOiBbIkVTMjAyMiJdLAogICAgInN0cmljdCI6IHRydWUsCiAgICAibm9FbWl0IjogZmFsc2UsCiAgICAiZGVjbGFyYXRpb24iOiB0cnVlLAogICAgIm91dERpciI6ICJkaXN0IiwKICAgICJyb290RGlyIjogIi4iLAogICAgImVzTW9kdWxlSW50ZXJvcCI6IHRydWUsCiAgICAic2tpcExpYkNoZWNrIjogdHJ1ZSwKICAgICJmb3JjZUNvbnNpc3RlbnRDYXNpbmdJbkZpbGVOYW1lcyI6IHRydWUsCiAgICAidHlwZXMiOiBbIm5vZGUiXQogIH0sCiAgImluY2x1ZGUiOiBbInNlcnZlci8qKi8qLnRzIiwgInNjcmlwdHMvKiovKi5tanMiXSwKICAiZXhjbHVkZSI6IFsibm9kZV9tb2R1bGVzIiwgImRpc3QiLCAidGVzdHMiXQp9Cg==
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022"],
+    "strict": true,
+    "noEmit": false,
+    "declaration": true,
+    "outDir": "dist",
+    "rootDir": ".",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node"]
+  },
+  "include": ["server/**/*.ts", "scripts/**/*.mjs"],
+  "exclude": ["node_modules", "dist", "tests"]
+}

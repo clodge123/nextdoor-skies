@@ -1,1 +1,33 @@
-bmFtZTogQ0kKCm9uOgogIHB1c2g6CiAgICBicmFuY2hlczogW21haW5dCiAgcHVsbF9yZXF1ZXN0OgogIHdvcmtmbG93X2Rpc3BhdGNoOgoKam9iczoKICBnYXRlMDoKICAgIG5hbWU6IEdhdGUgMCAodHNjIC8gZXNsaW50IC8gYnVpbGQgLyB2aXRlc3QgLyBzdGF0aWMgc2NhbnMpCiAgICBydW5zLW9uOiB1YnVudHUtbGF0ZXN0CiAgICBzdGVwczoKICAgICAgLSB1c2VzOiBhY3Rpb25zL2NoZWNrb3V0QHY0CiAgICAgIC0gdXNlczogYWN0aW9ucy9zZXR1cC1ub2RlQHY0CiAgICAgICAgd2l0aDoKICAgICAgICAgIG5vZGUtdmVyc2lvbjogMjIKICAgICAgICAgIGNhY2hlOiBucG0KICAgICAgLSBydW46IG5wbSBjaQogICAgICAtIG5hbWU6IFR5cGVjaGVjayAodHNjIC1iKQogICAgICAgIHJ1bjogbnB4IHRzYyAtYgogICAgICAtIG5hbWU6IEVTTGludAogICAgICAgIHJ1bjogbnBtIHJ1biBsaW50CiAgICAgIC0gbmFtZTogUHJvZHVjdGlvbiBidWlsZAogICAgICAgIHJ1bjogbnBtIHJ1biBidWlsZAogICAgICAtIG5hbWU6IFZpdGVzdCAodW5pdCArIGNvbXBvbmVudCwganNkb20pCiAgICAgICAgcnVuOiBucG0gdGVzdAogICAgICAtIG5hbWU6IERldGVybWluaXNtIHNjYW4gKFIxNykKICAgICAgICBydW46IG5wbSBydW4gY2hlY2s6ZGV0ZXJtaW5pc20KICAgICAgLSBuYW1lOiBSYWRpdXMgc2NhbiAoUjIwKQogICAgICAgIHJ1bjogbnBtIHJ1biBjaGVjazpyYWRpdXMKICAgICAgLSBuYW1lOiBObyBjcnlwdG8td2VhdGhlci1jZW50cmFsIGltcG9ydHMgc2NhbgogICAgICAgIHJ1bjogbnBtIHJ1biBjaGVjazpuby1jd2MK
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  gate0:
+    name: Gate 0 (tsc / eslint / build / vitest / static scans)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Typecheck (tsc -b)
+        run: npx tsc -b
+      - name: ESLint
+        run: npm run lint
+      - name: Production build
+        run: npm run build
+      - name: Vitest (unit + component, jsdom)
+        run: npm test
+      - name: Determinism scan (R17)
+        run: npm run check:determinism
+      - name: Radius scan (R20)
+        run: npm run check:radius
+      - name: No crypto-weather-central imports scan
+        run: npm run check:no-cwc

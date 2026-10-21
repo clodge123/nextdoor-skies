@@ -1,1 +1,36 @@
-Ly8gTDIgaGFybmVzcyBmaXh0dXJlcyByb3V0ZXIg4oCUIGRldGVybWluaXN0aWMsIG5vIE1hdGgucmFuZG9tIC8gRGF0ZS5ub3cgLyBuZXcgRGF0ZS4KLy8gTWluaW1hbCBzdGFuZC1pbiBmb3IgTDEncyBhcHAgc2hlbGw6IHJvdXRlcyAiLyIgKG1hcCBob21lKSBhbmQgIi9mZWVkIi4KCmNvbnN0IHJvdXRlcyA9IHsKICAnLyc6ICgpID0+IGAKICAgIDxoMT5OZXh0RG9vciBTa2llczwvaDE+CiAgICA8cD5Ib21lIG1hcCBwbGFjZWhvbGRlciAoaGFybmVzcyBmaXh0dXJlIOKAlCBMMSBzaGVsbCByZXBsYWNlcyB0aGlzKS48L3A+CiAgICA8ZGl2IGNsYXNzPSJjYXJkIiBpZD0ibWFwLXBsYWNlaG9sZGVyIj5NYXAgc3VyZmFjZTwvZGl2PgogIGAsCiAgJy9mZWVkJzogKCkgPT4gYAogICAgPGgxPkZlZWQ8L2gxPgogICAgPHA+RmVlZCBwbGFjZWhvbGRlciAoaGFybmVzcyBmaXh0dXJlIOKAlCBMMSBzaGVsbCByZXBsYWNlcyB0aGlzKS48L3A+CiAgICA8ZGl2IGNsYXNzPSJjYXJkIj5EZW1vIGRhdGEgwrcgc2VlZGVkIHBvc3Q8L2Rpdj4KICBgLAp9OwoKZnVuY3Rpb24gcmVuZGVyKCkgewogIGNvbnN0IHBhdGggPSB3aW5kb3cubG9jYXRpb24ucGF0aG5hbWUucmVwbGFjZSgvXC8kLywgJycpIHx8ICcvJzsKICBjb25zdCB2aWV3ID0gcm91dGVzW3BhdGhdID8/IHJvdXRlc1snLyddOwogIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCd2aWV3JykuaW5uZXJIVE1MID0gdmlldygpOwogIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJ25hdiBhJykuZm9yRWFjaCgoYSkgPT4gewogICAgaWYgKGEuZ2V0QXR0cmlidXRlKCdocmVmJykgPT09IHBhdGgpIGEuc2V0QXR0cmlidXRlKCdhcmlhLWN1cnJlbnQnLCAncGFnZScpOwogICAgZWxzZSBhLnJlbW92ZUF0dHJpYnV0ZSgnYXJpYS1jdXJyZW50Jyk7CiAgfSk7Cn0KCmRvY3VtZW50LmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgKGV2ZW50KSA9PiB7CiAgY29uc3QgbGluayA9IGV2ZW50LnRhcmdldC5jbG9zZXN0KCdhW2RhdGEtcm91dGVdJyk7CiAgaWYgKCFsaW5rKSByZXR1cm47CiAgZXZlbnQucHJldmVudERlZmF1bHQoKTsKICB3aW5kb3cuaGlzdG9yeS5wdXNoU3RhdGUoe30sICcnLCBsaW5rLmdldEF0dHJpYnV0ZSgnaHJlZicpKTsKICByZW5kZXIoKTsKfSk7Cgp3aW5kb3cuYWRkRXZlbnRMaXN0ZW5lcigncG9wc3RhdGUnLCByZW5kZXIpOwpyZW5kZXIoKTsK
+// L2 harness fixtures router — deterministic, no Math.random / Date.now / new Date.
+// Minimal stand-in for L1's app shell: routes "/" (map home) and "/feed".
+
+const routes = {
+  '/': () => `
+    <h1>NextDoor Skies</h1>
+    <p>Home map placeholder (harness fixture — L1 shell replaces this).</p>
+    <div class="card" id="map-placeholder">Map surface</div>
+  `,
+  '/feed': () => `
+    <h1>Feed</h1>
+    <p>Feed placeholder (harness fixture — L1 shell replaces this).</p>
+    <div class="card">Demo data · seeded post</div>
+  `,
+};
+
+function render() {
+  const path = window.location.pathname.replace(/\/$/, '') || '/';
+  const view = routes[path] ?? routes['/'];
+  document.getElementById('view').innerHTML = view();
+  document.querySelectorAll('nav a').forEach((a) => {
+    if (a.getAttribute('href') === path) a.setAttribute('aria-current', 'page');
+    else a.removeAttribute('aria-current');
+  });
+}
+
+document.addEventListener('click', (event) => {
+  const link = event.target.closest('a[data-route]');
+  if (!link) return;
+  event.preventDefault();
+  window.history.pushState({}, '', link.getAttribute('href'));
+  render();
+});
+
+window.addEventListener('popstate', render);
+render();

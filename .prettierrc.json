@@ -1,1 +1,13 @@
-ewogICJzZW1pIjogZmFsc2UsCiAgInNpbmdsZVF1b3RlIjogdHJ1ZSwKICAidHJhaWxpbmdDb21tYSI6ICJhbGwiLAogICJwcmludFdpZHRoIjogMTAwLAogICJwbHVnaW5zIjogW10sCiAgIm92ZXJyaWRlcyI6IFsKICAgIHsKICAgICAgImZpbGVzIjogWyIqLm1kIl0sCiAgICAgICJvcHRpb25zIjogeyAicHJvc2VXcmFwIjogInByZXNlcnZlIiB9CiAgICB9CiAgXQp9Cg==
+{
+  "semi": false,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 100,
+  "plugins": [],
+  "overrides": [
+    {
+      "files": ["*.md"],
+      "options": { "proseWrap": "preserve" }
+    }
+  ]
+}

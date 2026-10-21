@@ -1,1 +1,54 @@
-ewogICJuYW1lIjogIm5leHRkb29yLXNraWVzLXJ1bjIiLAogICJwcml2YXRlIjogdHJ1ZSwKICAidmVyc2lvbiI6ICIwLjAuMCIsCiAgInR5cGUiOiAibW9kdWxlIiwKICAiZW5naW5lcyI6IHsKICAgICJub2RlIjogIjIyLngiCiAgfSwKICAic2NyaXB0cyI6IHsKICAgICJkZXYiOiAidml0ZSIsCiAgICAiYnVpbGQiOiAidHNjIC1iICYmIHZpdGUgYnVpbGQiLAogICAgInByZXZpZXciOiAidml0ZSBwcmV2aWV3IiwKICAgICJsaW50IjogImVzbGludCAuIiwKICAgICJmb3JtYXQiOiAicHJldHRpZXIgLS1jaGVjayAuIiwKICAgICJmb3JtYXQ6Zml4IjogInByZXR0aWVyIC0td3JpdGUgLiIsCiAgICAidHlwZWNoZWNrIjogInRzYyAtYiIsCiAgICAidGVzdCI6ICJ2aXRlc3QgcnVuIiwKICAgICJ0ZXN0OndhdGNoIjogInZpdGVzdCIsCiAgICAiY2hlY2s6ZGV0ZXJtaW5pc20iOiAibm9kZSBzY3JpcHRzL2NoZWNrLWRldGVybWluaXNtLm1qcyIsCiAgICAiY2hlY2s6cmFkaXVzIjogIm5vZGUgc2NyaXB0cy9jaGVjay1yYWRpdXMubWpzIiwKICAgICJjaGVjazpuby1jd2MiOiAibm9kZSBzY3JpcHRzL2NoZWNrLW5vLWN3Yy5tanMiLAogICAgImNoZWNrOmFsbCI6ICJucG0gcnVuIGNoZWNrOmRldGVybWluaXNtICYmIG5wbSBydW4gY2hlY2s6cmFkaXVzICYmIG5wbSBydW4gY2hlY2s6bm8tY3djIiwKICAgICJzbW9rZTpwcm9kIjogIm5vZGUgc2NyaXB0cy9zbW9rZS1wcm9kLm1qcyIKICB9LAogICJkZXBlbmRlbmNpZXMiOiB7CiAgICAicGciOiAiXjguMTMuMSIsCiAgICAicmVhY3QiOiAiXjE5LjEuMCIsCiAgICAicmVhY3QtZG9tIjogIl4xOS4xLjAiLAogICAgInJlYWN0LXJvdXRlci1kb20iOiAiXjcuNi4wIiwKICAgICJtYXBsaWJyZS1nbCI6ICJeNS45LjAiCiAgfSwKICAiZGV2RGVwZW5kZW5jaWVzIjogewogICAgIkBlc2xpbnQvanMiOiAiXjkuMzAuMCIsCiAgICAiQHRlc3RpbmctbGlicmFyeS9qZXN0LWRvbSI6ICJeNi42LjMiLAogICAgIkB0ZXN0aW5nLWxpYnJhcnkvcmVhY3QiOiAiXjE2LjMuMCIsCiAgICAiQHR5cGVzL25vZGUiOiAiXjIyLjIwLjUiLAogICAgIkB0eXBlcy9yZWFjdCI6ICJeMTkuMS4wIiwKICAgICJAdHlwZXMvcmVhY3QtZG9tIjogIl4xOS4xLjAiLAogICAgIkB2aXRlanMvcGx1Z2luLXJlYWN0IjogIl40LjYuMCIsCiAgICAiZXNsaW50IjogIl45LjMwLjAiLAogICAgImVzbGludC1jb25maWctcHJldHRpZXIiOiAiXjEwLjEuNSIsCiAgICAiZXNsaW50LXBsdWdpbi1yZWFjdC1ob29rcyI6ICJeNS4yLjAiLAogICAgImVzbGludC1wbHVnaW4tcmVhY3QtcmVmcmVzaCI6ICJeMC40LjIwIiwKICAgICJnbG9iYWxzIjogIl4xNi4yLjAiLAogICAgImpzZG9tIjogIl4yNi4xLjAiLAogICAgInByZXR0aWVyIjogIl4zLjUuMyIsCiAgICAidHlwZXNjcmlwdCI6ICJeNS44LjMiLAogICAgInR5cGVzY3JpcHQtZXNsaW50IjogIl44LjM1LjAiLAogICAgInZpdGUiOiAiXjcuMC4wIiwKICAgICJ2aXRlc3QiOiAiXjMuMi4wIiwKICAgICJAcGxheXdyaWdodC90ZXN0IjogIl4xLjUyLjAiLAogICAgImVzYnVpbGQiOiAiXjAuMjUuMCIKICB9Cn0=
+{
+  "name": "nextdoor-skies-run2",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "typecheck": "tsc -b",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check:determinism": "node scripts/check-determinism.mjs",
+    "check:radius": "node scripts/check-radius.mjs",
+    "check:no-cwc": "node scripts/check-no-cwc.mjs",
+    "check:all": "npm run check:determinism && npm run check:radius && npm run check:no-cwc",
+    "smoke:prod": "node scripts/smoke-prod.mjs"
+  },
+  "dependencies": {
+    "pg": "^8.13.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.0",
+    "maplibre-gl": "^5.9.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.30.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@types/node": "^22.20.5",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^4.6.0",
+    "eslint": "^9.30.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.2.0",
+    "jsdom": "^26.1.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.35.0",
+    "vite": "^7.0.0",
+    "vitest": "^3.2.0",
+    "@playwright/test": "^1.52.0",
+    "esbuild": "^0.25.0"
+  }
+}

@@ -1,1 +1,37 @@
-aW1wb3J0IHsgdXNlRWZmZWN0LCB1c2VTdGF0ZSB9IGZyb20gJ3JlYWN0JzsKaW1wb3J0IHsgaW5pdFRoZW1lLCB0b2dnbGVUaGVtZSwgdHlwZSBUaGVtZSB9IGZyb20gJy4uL2xpYi90aGVtZSc7CgovKiogU3F1YXJlIHN1bi9tb29uIHRoZW1lIHRvZ2dsZSAoUjIwOiB6ZXJvIGJvcmRlci1yYWRpdXMsIHZhcigtLXJhZGl1cykgb25seSkuICovCmV4cG9ydCBmdW5jdGlvbiBUaGVtZVRvZ2dsZSgpIHsKICBjb25zdCBbdGhlbWUsIHNldFRoZW1lU3RhdGVdID0gdXNlU3RhdGU8VGhlbWU+KCdkYXJrJyk7CgogIHVzZUVmZmVjdCgoKSA9PiB7CiAgICBzZXRUaGVtZVN0YXRlKGluaXRUaGVtZSgpKTsKICB9LCBbXSk7CgogIGNvbnN0IG9uQ2xpY2sgPSAoKSA9PiB7CiAgICBzZXRUaGVtZVN0YXRlKHRvZ2dsZVRoZW1lKCkpOwogIH07CgogIHJldHVybiAoCiAgICA8YnV0dG9uCiAgICAgIHR5cGU9ImJ1dHRvbiIKICAgICAgY2xhc3NOYW1lPSJ0aGVtZS10b2dnbGUiCiAgICAgIG9uQ2xpY2s9e29uQ2xpY2t9CiAgICAgIGFyaWEtbGFiZWw9e2BTd2l0Y2ggdG8gJHt0aGVtZSA9PT0gJ2RhcmsnID8gJ2xpZ2h0JyA6ICdkYXJrJ30gdGhlbWVgfQogICAgICBkYXRhLXRlc3RpZD0idGhlbWUtdG9nZ2xlIgogICAgICBkYXRhLXRoZW1lPXt0aGVtZX0KICAgID4KICAgICAge3RoZW1lID09PSAnZGFyaycgPyAoCiAgICAgICAgPHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2VXaWR0aD0iMiIgYXJpYS1oaWRkZW49InRydWUiPgogICAgICAgICAgPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iNSIgLz4KICAgICAgICAgIDxwYXRoIGQ9Ik0xMiAxdjNNMTIgMjB2M000LjIgNC4ybDIuMSAyLjFNMTcuNyAxNy43bDIuMSAyLjFNMSAxMmgzTTIwIDEyaDNNNC4yIDE5LjhsMi4xLTIuMU0xNy43IDYuM2wyLjEtMi4xIiAvPgogICAgICAgIDwvc3ZnPgogICAgICApIDogKAogICAgICAgIDxzdmcgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlV2lkdGg9IjIiIGFyaWEtaGlkZGVuPSJ0cnVlIj4KICAgICAgICAgIDxwYXRoIGQ9Ik0yMSAxMi44QTkgOSAwIDEgMSAxMS4yIDNhNyA3IDAgMCAwIDkuOCA5Ljh6IiAvPgogICAgICAgIDwvc3ZnPgogICAgICApfQogICAgPC9idXR0b24+CiAgKTsKfQo=
+import { useEffect, useState } from 'react';
+import { initTheme, toggleTheme, type Theme } from '../lib/theme';
+
+/** Square sun/moon theme toggle (R20: zero border-radius, var(--radius) only). */
+export function ThemeToggle() {
+  const [theme, setThemeState] = useState<Theme>('dark');
+
+  useEffect(() => {
+    setThemeState(initTheme());
+  }, []);
+
+  const onClick = () => {
+    setThemeState(toggleTheme());
+  };
+
+  return (
+    <button
+      type="button"
+      className="theme-toggle"
+      onClick={onClick}
+      aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+      data-testid="theme-toggle"
+      data-theme={theme}
+    >
+      {theme === 'dark' ? (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="5" />
+          <path d="M12 1v3M12 20v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M1 12h3M20 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" />
+        </svg>
+      ) : (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+        </svg>
+      )}
+    </button>
+  );
+}

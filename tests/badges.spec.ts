@@ -1,1 +1,149 @@
-aW1wb3J0IHsgdGVzdCwgZXhwZWN0LCB0eXBlIFBhZ2UsIHR5cGUgUm91dGUgfSBmcm9tICdAcGxheXdyaWdodC90ZXN0JwppbXBvcnQgKiBhcyBwYXRoIGZyb20gJ25vZGU6cGF0aCcKaW1wb3J0IHsgbWtkaXJTeW5jIH0gZnJvbSAnbm9kZTpmcycKCi8qKgogKiBMNiBHYXRlIDEgYnJvd3NlciB0ZXN0IOKAlCBMMTIgcmV0YXJnZXQ6IGRyaXZlcyB0aGUgUkVBTCBhcHAgKHJvb3Qgdml0ZQogKiBwcm9qZWN0IHNlcnZlZCBieSBzY3JpcHRzL2UyZS1zZXJ2ZS5tanMgYXQgJy8nKSwgbm8gRTJFX1RBUkdFVD10ZXN0LWFwcAogKiBuZWVkZWQuIFRoZSByZWFsIE1hcFZpZXcgbW91bnRzIE1hcFBhZ2Ugd2l0aCB6b29tIGJ1dHRvbnMgKyB0aGUgTDYKICogVG93bkJhZGdlcyBvdmVybGF5IGZlZCBieSBjcmVhdGVXZWF0aGVyUmVmcmVzaGVyICh2aWV3cG9ydC1maWx0ZXJlZCB0b3ducykuCiAqCiAqIE9wZW4tTWV0ZW8gaXMgc3R1YmJlZCB2aWEgcm91dGUgbW9jayAobm8gcmVhbCBuZXR3b3JrKS4gUnVucyBpbiBhbGwgdGhyZWUKICogdmlld3BvcnRzIChSMTMpOyBtb2JpbGUgZXhlcmNpc2VzIHRhcC4KICoKICogQ29uc29sZSBleGNsdXNpb25zIChkb2N1bWVudGVkIGhvbmVzdGx5LCBzYW1lIGZhbWlseSBhcyBtYXAuc3BlYy50cyk6CiAqIC0gR0wgRHJpdmVyIE1lc3NhZ2U6IGhlYWRsZXNzIHN3aWZ0c2hhZGVyL0FOR0xFIHBlcmYgY2hhdHRlci4KICogLSAiRXhwZWN0ZWQgdmFsdWUgdG8gYmUgb2YgdHlwZSAuLi4gbnVsbCI6IG1hcGxpYnJlIHN0eWxlLXNwZWMgdmFsaWRhdGlvbgogKiAgIGNoYXR0ZXIgd2hpbGUgcGFyc2luZyBUSElSRC1QQVJUWSBPcGVuRnJlZU1hcCBzdHlsZSBleHByZXNzaW9ucywgbmV2ZXIKICogICBhcHAtb3JpZ2luLiBBcHAtb3JpZ2luIGNvbnNvbGUgb3V0cHV0IG11c3QgYmUgZW1wdHkuCiAqIFRpbGUvc3R5bGUgcmVxdWVzdHMgdG8gdGlsZXMub3BlbmZyZWVtYXAub3JnIGFyZSByZWxheWVkIG5vZGUtc2lkZSAoaG9zdAogKiBlZ3Jlc3MgcHJveHkgc3RyaXBzIENPUlMgb3RoZXJ3aXNlKSBleGFjdGx5IGxpa2UgbWFwLnNwZWMudHMuCiAqLwoKY29uc3QgU0hPVF9ESVIgPSBwYXRoLmpvaW4ocHJvY2Vzcy5jd2QoKSwgJ2RvY3MnLCAnc2NyZWVuc2hvdHMnLCAnTDYnKQpjb25zdCBCQVRDSF9VUkwgPSAnaHR0cHM6Ly9hcGkub3Blbi1tZXRlby5jb20vdjEvYmF0Y2gnCgpjb25zdCBJR05PUkVEID0gL0dMIERyaXZlciBNZXNzYWdlfEV4cGVjdGVkIHZhbHVlIHRvIGJlIG9mIHR5cGUgLipudWxsLwoKZnVuY3Rpb24gYXR0YWNoQ29uc29sZUNvbGxlY3RvcihwYWdlOiBQYWdlKTogc3RyaW5nW10gewogIGNvbnN0IGVycm9yczogc3RyaW5nW10gPSBbXQogIHBhZ2Uub24oJ2NvbnNvbGUnLCAobXNnKSA9PiB7CiAgICBjb25zdCB0ID0gbXNnLnRleHQoKQogICAgaWYgKElHTk9SRUQudGVzdCh0KSkgcmV0dXJuCiAgICBpZiAobXNnLnR5cGUoKSA9PT0gJ2Vycm9yJykgZXJyb3JzLnB1c2godCkKICB9KQogIHBhZ2Uub24oJ3BhZ2VlcnJvcicsIChlcnIpID0+IHsKICAgIGNvbnN0IHQgPSBTdHJpbmcoZXJyKQogICAgaWYgKCFJR05PUkVELnRlc3QodCkpIGVycm9ycy5wdXNoKHQpCiAgfSkKICByZXR1cm4gZXJyb3JzCn0KCmFzeW5jIGZ1bmN0aW9uIHJlbGF5T2ZtKHJvdXRlOiBSb3V0ZSkgewogIGNvbnN0IHVybCA9IHJvdXRlLnJlcXVlc3QoKS51cmwoKQogIC8vIEwxMjogcmV0cnkgdHJhbnNpZW50IGVncmVzcy1wcm94eSA1MDJzIChmaXhlZCBiYWNrb2ZmLCBubyByYW5kb21uZXNzKSwKICAvLyBzYW1lIGFzIG1hcC5zcGVjLnRzLCBzbyBnbHlwaC90aWxlIHdhcm5pbmdzIG5ldmVyIHJlYWNoIHRoZSBjb25zb2xlIGdhdGUuCiAgbGV0IGxhc3RFcnI6IHVua25vd24KICBmb3IgKGxldCBhdHRlbXB0ID0gMDsgYXR0ZW1wdCA8IDQ7IGF0dGVtcHQrKykgewogICAgdHJ5IHsKICAgICAgY29uc3QgcmVzID0gYXdhaXQgZmV0Y2godXJsKQogICAgICBpZiAoIXJlcy5vaykgdGhyb3cgbmV3IEVycm9yKGB1cHN0cmVhbSAke3Jlcy5zdGF0dXN9YCkKICAgICAgY29uc3QgYnVmID0gQnVmZmVyLmZyb20oYXdhaXQgcmVzLmFycmF5QnVmZmVyKCkpCiAgICAgIGF3YWl0IHJvdXRlLmZ1bGZpbGwoewogICAgICAgIHN0YXR1czogMjAwLAogICAgICAgIGJvZHk6IGJ1ZiwKICAgICAgICBoZWFkZXJzOiB7CiAgICAgICAgICAnYWNjZXNzLWNvbnRyb2wtYWxsb3ctb3JpZ2luJzogJyonLAogICAgICAgICAgJ2NvbnRlbnQtdHlwZSc6IHJlcy5oZWFkZXJzLmdldCgnY29udGVudC10eXBlJykgPz8gJ2FwcGxpY2F0aW9uL29jdGV0LXN0cmVhbScsCiAgICAgICAgfSwKICAgICAgfSkKICAgICAgcmV0dXJuCiAgICB9IGNhdGNoIChlKSB7CiAgICAgIGxhc3RFcnIgPSBlCiAgICAgIGF3YWl0IG5ldyBQcm9taXNlKChyKSA9PiBzZXRUaW1lb3V0KHIsIDI1MCAqIChhdHRlbXB0ICsgMSkpKQogICAgfQogIH0KICAvLyBUaWxlIGVycm9ycyBzdGF5IHdhcm5pbmdzIChsYXcgIzQpOiA1MDIgdGhlIHJvdXRlLCBVSSBtdXN0IG5vdCBmbGlwLgogIGF3YWl0IHJvdXRlLmZ1bGZpbGwoeyBzdGF0dXM6IDUwMiwgYm9keTogU3RyaW5nKGxhc3RFcnIpIH0pCn0KCmZ1bmN0aW9uIHN0dWJPcGVuTWV0ZW8ocGFnZTogUGFnZSk6IFByb21pc2U8dm9pZD4gewogIHJldHVybiBwYWdlLnJvdXRlKEJBVENIX1VSTCwgYXN5bmMgKHJvdXRlKSA9PiB7CiAgICBjb25zdCBib2R5ID0gcm91dGUucmVxdWVzdCgpLnBvc3REYXRhSlNPTigpIGFzIHsKICAgICAgYmF0Y2g6IEFycmF5PHsgbGF0aXR1ZGU6IG51bWJlcjsgbG9uZ2l0dWRlOiBudW1iZXIgfT4KICAgIH0KICAgIGNvbnN0IHRlbXBzID0gWzIxLjQsIC0zLjIsIDguNywgMTUuMSwgMC41LCAzMC45LCAtMTIuNCwgNDIuMF0KICAgIGNvbnN0IHJlc3BvbnNlID0gewogICAgICBiYXRjaDogYm9keS5iYXRjaC5tYXAoKF8sIGkpID0+ICh7CiAgICAgICAgY3VycmVudDogeyB0ZW1wZXJhdHVyZV8ybTogdGVtcHNbaSAlIHRlbXBzLmxlbmd0aF0gfSwKICAgICAgfSkpLAogICAgfQogICAgYXdhaXQgcm91dGUuZnVsZmlsbCh7IHN0YXR1czogMjAwLCBjb250ZW50VHlwZTogJ2FwcGxpY2F0aW9uL2pzb24nLCBib2R5OiBKU09OLnN0cmluZ2lmeShyZXNwb25zZSkgfSkKICB9KQp9CgovKiogVGFwIG9uIHRvdWNoIGNvbnRleHRzLCBjbGljayBlbHNld2hlcmUgKFIxMzogdG91Y2ggdmVyaWZpZWQgb24gbW9iaWxlKS4gKi8KYXN5bmMgZnVuY3Rpb24gdGFwT3JDbGljayhwYWdlOiBQYWdlLCBsb2NhdG9yOiBSZXR1cm5UeXBlPFBhZ2VbJ2xvY2F0b3InXT4pOiBQcm9taXNlPHZvaWQ+IHsKICBpZiAocGFnZS5oYXNUb3VjaCkgYXdhaXQgbG9jYXRvci50YXAoKQogIGVsc2UgYXdhaXQgbG9jYXRvci5jbGljaygpCn0KCmFzeW5jIGZ1bmN0aW9uIHNldHVwKHBhZ2U6IFBhZ2UpOiBQcm9taXNlPHN0cmluZ1tdPiB7CiAgbWtkaXJTeW5jKFNIT1RfRElSLCB7IHJlY3Vyc2l2ZTogdHJ1ZSB9KQogIGNvbnN0IGVycm9ycyA9IGF0dGFjaENvbnNvbGVDb2xsZWN0b3IocGFnZSkKICBhd2FpdCBwYWdlLnJvdXRlKCcqKnRpbGVzLm9wZW5mcmVlbWFwLm9yZy8qKicsIHJlbGF5T2ZtKQogIGF3YWl0IHN0dWJPcGVuTWV0ZW8ocGFnZSkKICBhd2FpdCBwYWdlLmdvdG8oJy8nLCB7IHdhaXRVbnRpbDogJ2RvbWNvbnRlbnRsb2FkZWQnIH0pCiAgLy8gUmVhbCBtYXAgbW91bnRlZCAoY2FudmFzIGV4aXN0cywgc3R5bGUgbG9hZGVkKS4KICBhd2FpdCBleHBlY3QocGFnZS5nZXRCeVRlc3RJZCgnbWFwLXZpZXcnKS5sb2NhdG9yKCdjYW52YXMnKSkudG9CZVZpc2libGUoeyB0aW1lb3V0OiAzMF8wMDAgfSkKICBhd2FpdCBwYWdlLndhaXRGb3JGdW5jdGlvbigKICAgICgpID0+ICh3aW5kb3cgYXMgeyBuZHNNYXA/OiB7IGlzU3R5bGVMb2FkZWQ/OiAoKSA9PiBib29sZWFuIH0gfSkubmRzTWFwPy5pc1N0eWxlTG9hZGVkPy4oKSA9PT0gdHJ1ZSwKICAgIG51bGwsCiAgICB7IHRpbWVvdXQ6IDQ1XzAwMCB9LAogICkKICByZXR1cm4gZXJyb3JzCn0KCnRlc3QoJ2JhZGdlIHNob3dzIHRlbXAgbnVtYmVyIG92ZXIgYSB0b3duIHdoZW4gem9vbWVkJywgYXN5bmMgKHsgcGFnZSB9LCB0ZXN0SW5mbykgPT4gewogIGNvbnN0IGVycm9ycyA9IGF3YWl0IHNldHVwKHBhZ2UpCgogIC8vIFpvb21lZCBvdXQgKGluaXRpYWwgem9vbSAzLCBiZWxvdyBUT1dOX0JBREdFX01JTl9aT09NPTYpOiBubyBiYWRnZXMuCiAgYXdhaXQgZXhwZWN0KHBhZ2UuZ2V0QnlUZXN0SWQoJ3Rvd24tYmFkZ2VzJykpLnRvSGF2ZUNvdW50KDApCgogIC8vIE9ORSBjbGljayBvZiAnem9vbSBpbicgKDMgLT4gNikgY3Jvc3NlcyB0aGUgYmFkZ2Ugem9vbSBncmFkZS4KICBhd2FpdCB0YXBPckNsaWNrKHBhZ2UsIHBhZ2UuZ2V0QnlSb2xlKCdidXR0b24nLCB7IG5hbWU6ICd6b29tIGluJyB9KSkKCiAgLy8gQXQgbGVhc3Qgb25lIGJhZGdlIHZpc2libGUsIGNhcnJ5aW5nIGEgcmVhbCDCsCBudW1iZXIgKHN0dWJiZWQgdGVtcHMpLgogIGNvbnN0IGJhZGdlID0gcGFnZS5sb2NhdG9yKCcudG93bi1iYWRnZScpLmZpcnN0KCkKICBhd2FpdCBleHBlY3QoYmFkZ2UpLnRvQmVWaXNpYmxlKHsgdGltZW91dDogMTBfMDAwIH0pCiAgYXdhaXQgZXhwZWN0KGJhZGdlLmxvY2F0b3IoJy50b3duLWJhZGdlLXRlbXAnKSkudG9Db250YWluVGV4dCgvLT9cZCvCsC8sIHsgdGltZW91dDogMTBfMDAwIH0pCgogIC8vIFNxdWFyZSBnZW9tZXRyeSAoUjIwKTogemVybyBib3JkZXItcmFkaXVzLgogIGF3YWl0IGV4cGVjdChiYWRnZSkudG9IYXZlQ1NTKCdib3JkZXItcmFkaXVzJywgJzBweCcpCgogIC8vIFpvb20gYmFjayBvdXQgKDYgLT4gMyk6IHpvb20tZ3JhZGVkIHZpc2liaWxpdHkgaGlkZXMgYmFkZ2VzLgogIGF3YWl0IHRhcE9yQ2xpY2socGFnZSwgcGFnZS5nZXRCeVJvbGUoJ2J1dHRvbicsIHsgbmFtZTogJ3pvb20gb3V0JyB9KSkKICBhd2FpdCBleHBlY3QocGFnZS5nZXRCeVRlc3RJZCgndG93bi1iYWRnZXMnKSkudG9IYXZlQ291bnQoMCkKCiAgLy8gR2F0ZSAxOiBhcmNoaXZlIHNjcmVlbnNob3QgaW50byBkb2NzL3NjcmVlbnNob3RzL0w2Ly4KICBhd2FpdCB0YXBPckNsaWNrKHBhZ2UsIHBhZ2UuZ2V0QnlSb2xlKCdidXR0b24nLCB7IG5hbWU6ICd6b29tIGluJyB9KSkKICBhd2FpdCBleHBlY3QocGFnZS5sb2NhdG9yKCcudG93bi1iYWRnZScpLmZpcnN0KCkpLnRvQmVWaXNpYmxlKHsgdGltZW91dDogMTBfMDAwIH0pCiAgYXdhaXQgcGFnZS5zY3JlZW5zaG90KHsKICAgIHBhdGg6IHBhdGguam9pbihTSE9UX0RJUiwgYGJhZGdlcy0ke3Rlc3RJbmZvLnByb2plY3QubmFtZX0ucG5nYCksCiAgICBmdWxsUGFnZTogZmFsc2UsCiAgfSkKCiAgZXhwZWN0KGVycm9ycykudG9FcXVhbChbXSkKfSkKCnRlc3QoJ21vYmlsZSB2aWV3cG9ydDogYmFkZ2UgcmVuZGVycyB0ZW1wIGFmdGVyIHRhcC16b29tJywgYXN5bmMgKHsgcGFnZSB9LCB0ZXN0SW5mbykgPT4gewogIGNvbnN0IGVycm9ycyA9IGF3YWl0IHNldHVwKHBhZ2UpCiAgYXdhaXQgdGFwT3JDbGljayhwYWdlLCBwYWdlLmdldEJ5Um9sZSgnYnV0dG9uJywgeyBuYW1lOiAnem9vbSBpbicgfSkpCiAgY29uc3QgYmFkZ2UgPSBwYWdlLmxvY2F0b3IoJy50b3duLWJhZGdlJykuZmlyc3QoKQogIGF3YWl0IGV4cGVjdChiYWRnZSkudG9CZVZpc2libGUoeyB0aW1lb3V0OiAxMF8wMDAgfSkKICBhd2FpdCBleHBlY3QoYmFkZ2UubG9jYXRvcignLnRvd24tYmFkZ2UtdGVtcCcpKS50b0NvbnRhaW5UZXh0KC8tP1xkK8KwLywgeyB0aW1lb3V0OiAxMF8wMDAgfSkKICBhd2FpdCBwYWdlLnNjcmVlbnNob3QoewogICAgcGF0aDogcGF0aC5qb2luKFNIT1RfRElSLCBgYmFkZ2VzLW1vYmlsZS10YXAtJHt0ZXN0SW5mby5wcm9qZWN0Lm5hbWV9LnBuZ2ApLAogIH0pCiAgZXhwZWN0KGVycm9ycykudG9FcXVhbChbXSkKfSkK
+import { test, expect, type Page, type Route } from '@playwright/test'
+import * as path from 'node:path'
+import { mkdirSync } from 'node:fs'
+
+/**
+ * L6 Gate 1 browser test — L12 retarget: drives the REAL app (root vite
+ * project served by scripts/e2e-serve.mjs at '/'), no E2E_TARGET=test-app
+ * needed. The real MapView mounts MapPage with zoom buttons + the L6
+ * TownBadges overlay fed by createWeatherRefresher (viewport-filtered towns).
+ *
+ * Open-Meteo is stubbed via route mock (no real network). Runs in all three
+ * viewports (R13); mobile exercises tap.
+ *
+ * Console exclusions (documented honestly, same family as map.spec.ts):
+ * - GL Driver Message: headless swiftshader/ANGLE perf chatter.
+ * - "Expected value to be of type ... null": maplibre style-spec validation
+ *   chatter while parsing THIRD-PARTY OpenFreeMap style expressions, never
+ *   app-origin. App-origin console output must be empty.
+ * Tile/style requests to tiles.openfreemap.org are relayed node-side (host
+ * egress proxy strips CORS otherwise) exactly like map.spec.ts.
+ */
+
+const SHOT_DIR = path.join(process.cwd(), 'docs', 'screenshots', 'L6')
+const BATCH_URL = 'https://api.open-meteo.com/v1/batch'
+
+const IGNORED = /GL Driver Message|Expected value to be of type .*null/
+
+function attachConsoleCollector(page: Page): string[] {
+  const errors: string[] = []
+  page.on('console', (msg) => {
+    const t = msg.text()
+    if (IGNORED.test(t)) return
+    if (msg.type() === 'error') errors.push(t)
+  })
+  page.on('pageerror', (err) => {
+    const t = String(err)
+    if (!IGNORED.test(t)) errors.push(t)
+  })
+  return errors
+}
+
+async function relayOfm(route: Route) {
+  const url = route.request().url()
+  // L12: retry transient egress-proxy 502s (fixed backoff, no randomness),
+  // same as map.spec.ts, so glyph/tile warnings never reach the console gate.
+  let lastErr: unknown
+  for (let attempt = 0; attempt < 4; attempt++) {
+    try {
+      const res = await fetch(url)
+      if (!res.ok) throw new Error(`upstream ${res.status}`)
+      const buf = Buffer.from(await res.arrayBuffer())
+      await route.fulfill({
+        status: 200,
+        body: buf,
+        headers: {
+          'access-control-allow-origin': '*',
+          'content-type': res.headers.get('content-type') ?? 'application/octet-stream',
+        },
+      })
+      return
+    } catch (e) {
+      lastErr = e
+      await new Promise((r) => setTimeout(r, 250 * (attempt + 1)))
+    }
+  }
+  // Tile errors stay warnings (law #4): 502 the route, UI must not flip.
+  await route.fulfill({ status: 502, body: String(lastErr) })
+}
+
+function stubOpenMeteo(page: Page): Promise<void> {
+  return page.route(BATCH_URL, async (route) => {
+    const body = route.request().postDataJSON() as {
+      batch: Array<{ latitude: number; longitude: number }>
+    }
+    const temps = [21.4, -3.2, 8.7, 15.1, 0.5, 30.9, -12.4, 42.0]
+    const response = {
+      batch: body.batch.map((_, i) => ({
+        current: { temperature_2m: temps[i % temps.length] },
+      })),
+    }
+    await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(response) })
+  })
+}
+
+/** Tap on touch contexts, click elsewhere (R13: touch verified on mobile). */
+async function tapOrClick(page: Page, locator: ReturnType<Page['locator']>): Promise<void> {
+  if (page.hasTouch) await locator.tap()
+  else await locator.click()
+}
+
+async function setup(page: Page): Promise<string[]> {
+  mkdirSync(SHOT_DIR, { recursive: true })
+  const errors = attachConsoleCollector(page)
+  await page.route('**tiles.openfreemap.org/**', relayOfm)
+  await stubOpenMeteo(page)
+  await page.goto('/', { waitUntil: 'domcontentloaded' })
+  // Real map mounted (canvas exists, style loaded).
+  await expect(page.getByTestId('map-view').locator('canvas')).toBeVisible({ timeout: 30_000 })
+  await page.waitForFunction(
+    () => (window as { ndsMap?: { isStyleLoaded?: () => boolean } }).ndsMap?.isStyleLoaded?.() === true,
+    null,
+    { timeout: 45_000 },
+  )
+  return errors
+}
+
+test('badge shows temp number over a town when zoomed', async ({ page }, testInfo) => {
+  const errors = await setup(page)
+
+  // Zoomed out (initial zoom 3, below TOWN_BADGE_MIN_ZOOM=6): no badges.
+  await expect(page.getByTestId('town-badges')).toHaveCount(0)
+
+  // ONE click of 'zoom in' (3 -> 6) crosses the badge zoom grade.
+  await tapOrClick(page, page.getByRole('button', { name: 'zoom in' }))
+
+  // At least one badge visible, carrying a real ° number (stubbed temps).
+  const badge = page.locator('.town-badge').first()
+  await expect(badge).toBeVisible({ timeout: 10_000 })
+  await expect(badge.locator('.town-badge-temp')).toContainText(/-?\d+°/, { timeout: 10_000 })
+
+  // Square geometry (R20): zero border-radius.
+  await expect(badge).toHaveCSS('border-radius', '0px')
+
+  // Zoom back out (6 -> 3): zoom-graded visibility hides badges.
+  await tapOrClick(page, page.getByRole('button', { name: 'zoom out' }))
+  await expect(page.getByTestId('town-badges')).toHaveCount(0)
+
+  // Gate 1: archive screenshot into docs/screenshots/L6/.
+  await tapOrClick(page, page.getByRole('button', { name: 'zoom in' }))
+  await expect(page.locator('.town-badge').first()).toBeVisible({ timeout: 10_000 })
+  await page.screenshot({
+    path: path.join(SHOT_DIR, `badges-${testInfo.project.name}.png`),
+    fullPage: false,
+  })
+
+  expect(errors).toEqual([])
+})
+
+test('mobile viewport: badge renders temp after tap-zoom', async ({ page }, testInfo) => {
+  const errors = await setup(page)
+  await tapOrClick(page, page.getByRole('button', { name: 'zoom in' }))
+  const badge = page.locator('.town-badge').first()
+  await expect(badge).toBeVisible({ timeout: 10_000 })
+  await expect(badge.locator('.town-badge-temp')).toContainText(/-?\d+°/, { timeout: 10_000 })
+  await page.screenshot({
+    path: path.join(SHOT_DIR, `badges-mobile-tap-${testInfo.project.name}.png`),
+  })
+  expect(errors).toEqual([])
+})

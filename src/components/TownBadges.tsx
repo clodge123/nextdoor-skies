@@ -1,1 +1,63 @@
-aW1wb3J0IHsgdXNlRWZmZWN0LCB1c2VTdGF0ZSB9IGZyb20gJ3JlYWN0JwppbXBvcnQgeyB1c2VNYXAgfSBmcm9tICcuLi9saWIvbWFwL21hcC1jb250ZXh0JwppbXBvcnQgdHlwZSB7IFRvd25Db29yZCB9IGZyb20gJy4uL2xpYi93ZWF0aGVyL29wZW5tZXRlby1iYXRjaCcKCi8qKgogKiBMNiBUT1dOLVdFQVRIRVItQkFER0VTIOKAlCBIVE1MIG92ZXJsYXkgYmFkZ2VzIHBvc2l0aW9uZWQgdmlhIG1hcC5wcm9qZWN0KCkuCiAqCiAqIC0gVGVtcCBOVU1CRVIgb3ZlciB0b3duIGxhYmVscyAoUjMpLCBzcXVhcmUgZ2VvbWV0cnksIHplcm8gYm9yZGVyLXJhZGl1cwogKiAgIChSMjApLCBib3JkZXIgdXNlcyB2YXIoLS1jdXJyZW50LWFjY2VudCkgKEw0IHRoZW1lIHNlYW0sIFIxMikuCiAqIC0gWm9vbS1ncmFkZWQgdmlzaWJpbGl0eTogYmFkZ2VzIHJlbmRlciBvbmx5IGF0L2Fib3ZlIFRPV05fQkFER0VfTUlOX1pPT00uCiAqIC0gRGV0ZXJtaW5pc20gKFIxNyk6IG5vIERhdGUubm93IC8gTWF0aC5yYW5kb20gLyBuZXcgRGF0ZSBpbiByZW5kZXIgbG9naWMuCiAqICAgUG9zaXRpb25pbmcgcmVjb21wdXRlcyBwdXJlbHkgZnJvbSBtYXAgc3RhdGUgKyByZW5kZXIgdGljay4KICovCgpleHBvcnQgY29uc3QgVE9XTl9CQURHRV9NSU5fWk9PTSA9IDYKCmV4cG9ydCBpbnRlcmZhY2UgVG93bkJhZGdlc1Byb3BzIHsKICB0b3duczogcmVhZG9ubHkgVG93bkNvb3JkW10KICAvKiogdG93bklkIC0+IENlbHNpdXMsIGxhc3QtZGF0YS13aW5zIGZyb20gdGhlIHdlYXRoZXIgcmVmcmVzaGVyLiAqLwogIHRlbXBzOiBSZWFkb25seTxSZWNvcmQ8c3RyaW5nLCBudW1iZXI+PgogIG1pblpvb20/OiBudW1iZXIKfQoKZXhwb3J0IGZ1bmN0aW9uIFRvd25CYWRnZXMoeyB0b3ducywgdGVtcHMsIG1pblpvb20gPSBUT1dOX0JBREdFX01JTl9aT09NIH06IFRvd25CYWRnZXNQcm9wcykgewogIGNvbnN0IG1hcCA9IHVzZU1hcCgpCiAgY29uc3QgW3RpY2ssIHNldFRpY2tdID0gdXNlU3RhdGUoMCkKCiAgdXNlRWZmZWN0KCgpID0+IHsKICAgIGNvbnN0IGJ1bXAgPSAoKSA9PiBzZXRUaWNrKCh0KSA9PiB0ICsgMSkKICAgIGNvbnN0IHVuc3VicyA9IFsnbW92ZScsICdtb3ZlZW5kJywgJ3pvb20nLCAncmVzaXplJ10KICAgICAgLm1hcCgoZXYpID0+IG1hcC5vbj8uKGV2LCBidW1wKSkKICAgICAgLmZpbHRlcigoZik6IGYgaXMgKCkgPT4gdm9pZCA9PiB0eXBlb2YgZiA9PT0gJ2Z1bmN0aW9uJykKICAgIHJldHVybiAoKSA9PiB1bnN1YnMuZm9yRWFjaCgob2ZmKSA9PiBvZmYoKSkKICB9LCBbbWFwXSkKCiAgLy8gYHRpY2tgIGludGVudGlvbmFsbHkgZHJpdmVzIHJlLXJlbmRlciBvbmx5OyBwb3NpdGlvbnMgY29tZSBmcm9tIG1hcCBzdGF0ZS4KICB2b2lkIHRpY2sKCiAgY29uc3Qgem9vbSA9IG1hcC5nZXRab29tKCkKICBpZiAoem9vbSA8IG1pblpvb20pIHJldHVybiBudWxsCgogIHJldHVybiAoCiAgICA8ZGl2IGNsYXNzTmFtZT0idG93bi1iYWRnZXMiIGRhdGEtdGVzdGlkPSJ0b3duLWJhZGdlcyIgYXJpYS1oaWRkZW49InRydWUiPgogICAgICB7dG93bnMubWFwKCh0b3duKSA9PiB7CiAgICAgICAgY29uc3QgcCA9IG1hcC5wcm9qZWN0KFt0b3duLmxvbiwgdG93bi5sYXRdKQogICAgICAgIGNvbnN0IHRlbXAgPSB0ZW1wc1t0b3duLmlkXQogICAgICAgIGNvbnN0IGhhc1RlbXAgPSB0eXBlb2YgdGVtcCA9PT0gJ251bWJlcicgJiYgTnVtYmVyLmlzRmluaXRlKHRlbXApCiAgICAgICAgcmV0dXJuICgKICAgICAgICAgIDxkaXYKICAgICAgICAgICAga2V5PXt0b3duLmlkfQogICAgICAgICAgICBkYXRhLXRlc3RpZD17YHRvd24tYmFkZ2UtJHt0b3duLmlkfWB9CiAgICAgICAgICAgIGNsYXNzTmFtZT0idG93bi1iYWRnZSIKICAgICAgICAgICAgc3R5bGU9e3sgbGVmdDogYCR7cC54fXB4YCwgdG9wOiBgJHtwLnl9cHhgIH19CiAgICAgICAgICA+CiAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0idG93bi1iYWRnZS10ZW1wIj4KICAgICAgICAgICAgICB7aGFzVGVtcCA/IGAke01hdGgucm91bmQodGVtcCl9wrBgIDogJ2F3YWl0aW5nIGZlZWQnfQogICAgICAgICAgICA8L3NwYW4+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICApCiAgICAgIH0pfQogICAgPC9kaXY+CiAgKQp9Cg==
+import { useEffect, useState } from 'react'
+import { useMap } from '../lib/map/map-context'
+import type { TownCoord } from '../lib/weather/openmeteo-batch'
+
+/**
+ * L6 TOWN-WEATHER-BADGES — HTML overlay badges positioned via map.project().
+ *
+ * - Temp NUMBER over town labels (R3), square geometry, zero border-radius
+ *   (R20), border uses var(--current-accent) (L4 theme seam, R12).
+ * - Zoom-graded visibility: badges render only at/above TOWN_BADGE_MIN_ZOOM.
+ * - Determinism (R17): no Date.now / Math.random / new Date in render logic.
+ *   Positioning recomputes purely from map state + render tick.
+ */
+
+export const TOWN_BADGE_MIN_ZOOM = 6
+
+export interface TownBadgesProps {
+  towns: readonly TownCoord[]
+  /** townId -> Celsius, last-data-wins from the weather refresher. */
+  temps: Readonly<Record<string, number>>
+  minZoom?: number
+}
+
+export function TownBadges({ towns, temps, minZoom = TOWN_BADGE_MIN_ZOOM }: TownBadgesProps) {
+  const map = useMap()
+  const [tick, setTick] = useState(0)
+
+  useEffect(() => {
+    const bump = () => setTick((t) => t + 1)
+    const unsubs = ['move', 'moveend', 'zoom', 'resize']
+      .map((ev) => map.on?.(ev, bump))
+      .filter((f): f is () => void => typeof f === 'function')
+    return () => unsubs.forEach((off) => off())
+  }, [map])
+
+  // `tick` intentionally drives re-render only; positions come from map state.
+  void tick
+
+  const zoom = map.getZoom()
+  if (zoom < minZoom) return null
+
+  return (
+    <div className="town-badges" data-testid="town-badges" aria-hidden="true">
+      {towns.map((town) => {
+        const p = map.project([town.lon, town.lat])
+        const temp = temps[town.id]
+        const hasTemp = typeof temp === 'number' && Number.isFinite(temp)
+        return (
+          <div
+            key={town.id}
+            data-testid={`town-badge-${town.id}`}
+            className="town-badge"
+            style={{ left: `${p.x}px`, top: `${p.y}px` }}
+          >
+            <span className="town-badge-temp">
+              {hasTemp ? `${Math.round(temp)}°` : 'awaiting feed'}
+            </span>
+          </div>
+        )
+      })}
+    </div>
+  )
+}

@@ -1,1 +1,27 @@
-IyBMNyBTRUVELURFTU8tSU5GUkEg4oCUIG1ldHJpY3MgKHJ1biAyLCB3YXZlIDEpCgpBY3RpdmUgcnVubmluZyB0aW1lIG9ubHkgKGZsZWV0IGdhcHMgZXhjbHVkZWQpLiBMYW5lIHN0YXJ0ZWQgfjIwOjAyIENEVC4KCnwgUm93IHwgVmFsdWUgfCBOb3RlcyB8CnwtLS0tLXwtLS0tLS0tfC0tLS0tLS18CnwgQWN0aXZlIHdhbGwtY2xvY2sgfCB+MzUgbWluIHwgbnBtIGluc3RhbGwgfjEgbWluLCBidWlsZCt0ZXN0cyBpdGVyYXRpb25zIH4xNSBtaW4sIGRvY3MvY29tbWl0IH4xNSBtaW4gfAp8IENvbW1pdHMgfCAxIChhYzRjNTE4KSB8IHN1cnZpdmFsIGNvbW1pdCBhdCB+MjYgbWluICg8IDEwIG1pbiBjYXA6IGZpcnN0IGNvZGUgY29tbWl0dGVkIGluLXNlc3Npb247IGFtZW5kIGZpeGVkIHRyYWNrZWQgdG1wL3Rlc3QtcmVzdWx0cykgfAp8IEdhdGUgMDogdHNjL2J1aWxkIGV4aXQgMCB8IFBBU1MgfCBgbnBtIHJ1biBidWlsZGAgKHRzYyAtcCB0c2NvbmZpZy5idWlsZC5qc29uKSB8CnwgR2F0ZSAwOiB2aXRlc3QgZ3JlZW4gfCBQQVNTIHwgOC84IHRlc3RzLCAxIGZpbGUg4oCUIHNlZWQtb25jZSBpZGVtcG90ZW5jZSAoUkVQT1JUU19GSUxFKSwgcm93IHZhbGlkaXR5IChjb29yZHMvdHlwZXMvdHMpLCBjb21tZW50cyAxLWxldmVsLCBkZXRlcm1pbmlzbSBieXRlLWlkZW50aWNhbCB8CnwgR2F0ZSAwOiBkZXRlcm1pbmlzbSBzY2FuIHwgUEFTUyB8IHplcm8gTWF0aC5yYW5kb20gLyBEYXRlLm5vdygpIC8gbmV3IERhdGUoKSBjbG9jayByZWFkcyBpbiBzZXJ2ZXIvOyBtdWxiZXJyeTMyIGZpeGVkLXNlZWQgc2ltIG9ubHk7IENMSSBgbmV3IERhdGUoKWAgaXMgcHJvY2Vzcy1lZGdlIHNlZWQgdGltZSAoZG9jdW1lbnRlZCBTRUVELUNPTlRSQUNUKSB8CnwgR2F0ZSAwOiBubyBjcnlwdG8td2VhdGhlci1jZW50cmFsIGltcG9ydHMgfCBQQVNTIHwgemVybyBjcm9zcy1yZXBvIGltcG9ydHMgfAp8IEdhdGUgMTogUGxheXdyaWdodCB8IFBBU1MgMy8zIHwgdGVzdHMvc2VlZC5zcGVjLnRzIGRlc2t0b3AgMTI4MMOXODAwLCB0YWJsZXQgNzY4w5cxMDI0LCBwaG9uZSAzOTDDlzg0NDsgYXNzZXJ0cyAzMCBwb3N0cywgMzAgIkRlbW8gZGF0YSIgbGFiZWxzLCBzZWVkZWQ9dHJ1ZSBtYXJrZXJzLCB0b3duIHRleHQsIHdlYXRoZXIgdHlwZXMsIG9uZS1sZXZlbCBjb21tZW50cywgemVybyBjb25zb2xlIGVycm9ycyB8CnwgU2NyZWVuc2hvdCBhcmNoaXZlZCB8IGRvY3Mvc2NyZWVuc2hvdHMvTDcvZmVlZC1zZWVkZWQtZGVza3RvcC5wbmcgfCBkZXNrdG9wIHByb2plY3QgfAp8IFNlZWQgb3V0cHV0IHwgMzAgcG9zdHMgLyAxMjYgY29tbWVudHMgfCAzMCByZWFsIFVTIHRvd25zLCA1IHdlYXRoZXIgdHlwZXMsIHRzIHdpdGhpbiAyNGggb2Ygc2VlZCB0aW1lLCBhbGwgc2VlZGVkOnRydWUgfAp8IERlZmVjdHMgY2F1Z2h0IHwgMSB8IFBsYXl3cmlnaHQgZmV0Y2ggZmFpbGVkIG9uIGFib3V0OmJsYW5rIChyZWxhdGl2ZSAvYXBpL3JlcG9ydHMpIOKGkiBmaXh0dXJlIHNlcnZlcyBwYWdlK0FQSSBmcm9tIHJvdXRlZCBvcmlnaW4gfAp8IEludGVydmVudGlvbnMgfCAwIHwgfAp8IEZpbGVzIGFkZGVkIHwgc2VydmVyL2xpYi9zZWVkLnRzLCBzZXJ2ZXIvbWlncmF0aW9ucy8wMDFfcmVwb3J0cy5zcWwsIHNjcmlwdHMvc2VlZC5tanMsIGRvY3MvU0VFRC1DT05UUkFDVC5tZCwgdGVzdHMvc2VlZC50ZXN0LnRzLCB0ZXN0cy9zZWVkLnNwZWMudHMsIHRlc3RzL2ZpeHR1cmVzL2ZlZWQtcGFnZS50cywgcGxheXdyaWdodC5jb25maWcudHMsIHZpdGVzdC5jb25maWcudHMsIHRzY29uZmlneywuYnVpbGR9Lmpzb24gfCBwYWNrYWdlLmpzb24gZXh0ZW5kZWQgKGRldkRlcHMgKyBzY3JpcHRzKSB8CgojIyBLbm93biBsaW1pdHMgLyBoYW5kb2ZmcwoKLSBQb3N0Z3JlcyBwYXRoIChzZWVkUG9zdGdyZXMpIGlzIGNvZGUtY29tcGxldGUgKyBtaWdyYXRpb24gU1FMIHNoaXBwZWQsIGJ1dAogIG5vdCBleGVyY2lzZWQgYWdhaW5zdCBsaXZlIE5lb24gaW4gdGhpcyBsYW5lIChubyBwcm9kIERCIGluIHRlc3RzLCBwZXIgYnJpZWYpLgogIFdhdmUgMyBkZXBsb3kgc21va2UgZXhlcmNpc2VzIGl0IChHYXRlIDMgbWlncmF0aW9ucyBjaGVjaykuCi0gRmVlZCBmaXh0dXJlIGlzIGEgbGFiZWxlZCBzdGFuZC1pbiBmb3IgdGhlIHdhdmUtMiBmZWVkIFVJOyB0aGUgc2VlZGVkOnRydWUg4oaSCiAgIkRlbW8gZGF0YSIgYmFkZ2UgY29udHJhY3QgaXMgdGhlIGhhbmRvZmYgKFNFRUQtQ09OVFJBQ1QubWQgwqczKS4KLSBhcGkvcHJvYmUuanMgdW50b3VjaGVkIChydWxlKS4gTm8gZGVwbG95IChydWxlKS4K
+# L7 SEED-DEMO-INFRA — metrics (run 2, wave 1)
+
+Active running time only (fleet gaps excluded). Lane started ~20:02 CDT.
+
+| Row | Value | Notes |
+|-----|-------|-------|
+| Active wall-clock | ~35 min | npm install ~1 min, build+tests iterations ~15 min, docs/commit ~15 min |
+| Commits | 1 (ac4c518) | survival commit at ~26 min (< 10 min cap: first code committed in-session; amend fixed tracked tmp/test-results) |
+| Gate 0: tsc/build exit 0 | PASS | `npm run build` (tsc -p tsconfig.build.json) |
+| Gate 0: vitest green | PASS | 8/8 tests, 1 file — seed-once idempotence (REPORTS_FILE), row validity (coords/types/ts), comments 1-level, determinism byte-identical |
+| Gate 0: determinism scan | PASS | zero Math.random / Date.now() / new Date() clock reads in server/; mulberry32 fixed-seed sim only; CLI `new Date()` is process-edge seed time (documented SEED-CONTRACT) |
+| Gate 0: no crypto-weather-central imports | PASS | zero cross-repo imports |
+| Gate 1: Playwright | PASS 3/3 | tests/seed.spec.ts desktop 1280×800, tablet 768×1024, phone 390×844; asserts 30 posts, 30 "Demo data" labels, seeded=true markers, town text, weather types, one-level comments, zero console errors |
+| Screenshot archived | docs/screenshots/L7/feed-seeded-desktop.png | desktop project |
+| Seed output | 30 posts / 126 comments | 30 real US towns, 5 weather types, ts within 24h of seed time, all seeded:true |
+| Defects caught | 1 | Playwright fetch failed on about:blank (relative /api/reports) → fixture serves page+API from routed origin |
+| Interventions | 0 | |
+| Files added | server/lib/seed.ts, server/migrations/001_reports.sql, scripts/seed.mjs, docs/SEED-CONTRACT.md, tests/seed.test.ts, tests/seed.spec.ts, tests/fixtures/feed-page.ts, playwright.config.ts, vitest.config.ts, tsconfig{,.build}.json | package.json extended (devDeps + scripts) |
+
+## Known limits / handoffs
+
+- Postgres path (seedPostgres) is code-complete + migration SQL shipped, but
+  not exercised against live Neon in this lane (no prod DB in tests, per brief).
+  Wave 3 deploy smoke exercises it (Gate 3 migrations check).
+- Feed fixture is a labeled stand-in for the wave-2 feed UI; the seeded:true →
+  "Demo data" badge contract is the handoff (SEED-CONTRACT.md §3).
+- api/probe.js untouched (rule). No deploy (rule).

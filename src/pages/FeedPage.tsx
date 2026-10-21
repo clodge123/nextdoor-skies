@@ -1,1 +1,9 @@
-ZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gRmVlZFBhZ2UoKSB7CiAgcmV0dXJuICgKICAgIDxzZWN0aW9uIGFyaWEtbGFiZWxsZWRieT0iZmVlZC1oZWFkaW5nIj4KICAgICAgPGgxIGlkPSJmZWVkLWhlYWRpbmciPkZlZWQ8L2gxPgogICAgICB7LyogV2F2ZSAyIChSNC9SNSkgYnVpbGRzIHRoZSBwZXItdG93biBmZWVkLiBIb25lc3QgcGxhY2Vob2xkZXIsIG5vIGZha2UgcG9zdHMuICovfQogICAgICA8cD5Bd2FpdGluZyBmZWVkIOKAlCB3YXZlIDIuPC9wPgogICAgPC9zZWN0aW9uPgogICkKfQo=
+export default function FeedPage() {
+  return (
+    <section aria-labelledby="feed-heading">
+      <h1 id="feed-heading">Feed</h1>
+      {/* Wave 2 (R4/R5) builds the per-town feed. Honest placeholder, no fake posts. */}
+      <p>Awaiting feed — wave 2.</p>
+    </section>
+  )
+}

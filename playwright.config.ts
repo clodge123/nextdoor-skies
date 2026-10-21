@@ -1,1 +1,95 @@
-aW1wb3J0IHsgZGVmaW5lQ29uZmlnLCBkZXZpY2VzIH0gZnJvbSAnQHBsYXl3cmlnaHQvdGVzdCc7CgovKioKICogV2F2ZSAxIG1lcmdlZCBQbGF5d3JpZ2h0IGhhcm5lc3MgKEwyIGZvdW5kYXRpb24gKyBMNC9MNi9MNyBsYW5lIHNwZWNzKS4KICoKICogVGhyZWUgdmlld3BvcnQgcHJvamVjdHMgKFIxMyk6IHBob25lIDM5MHg4NDQsIHRhYmxldCA3Njh4MTAyNCwgZGVza3RvcAogKiAxMjgweDgwMC4gd2ViU2VydmVyIGF1dG8tc3RhcnRzIHNjcmlwdHMvZTJlLXNlcnZlLm1qcywgd2hpY2ggYnVpbGRzIHRoZQogKiByZWFsIGFwcCAocm9vdCB2aXRlIHByb2plY3QpIGFuZCBzZXJ2ZXMgaXQgdmlhIGB2aXRlIHByZXZpZXdgIG9uIHRoZQogKiByZXF1ZXN0ZWQgcG9ydC4gU2VsZi1jb250YWluZWQgc3BlY3MgKHRoZW1lL2JhZGdlcy9zZWVkKSBidW5kbGUgdGhlaXIgb3duCiAqIHBhZ2UgY29udGVudCBhbmQgbmVlZCBubyBzZXJ2ZXIgcm91dGVzLgogKgogKiAtLW5vLXByb3h5LXNlcnZlcjogdGhpcyBob3N0IHJvdXRlcyB0aHJvdWdoIGFuIGVncmVzcyBwcm94eSB0aGF0IDQwN3MKICogbG9jYWwgbG9vcGJhY2sgdHJhZmZpYzsgYnJvd3NlcnMgbXVzdCB0YWxrIGRpcmVjdC4KICoKICogRXZlcnl0aGluZyBpcyBkZXRlcm1pbmlzdGljOiBubyBNYXRoLnJhbmRvbSAvIERhdGUubm93IC8gbmV3IERhdGUuCiAqLwoKY29uc3QgUE9SVCA9IE51bWJlcihwcm9jZXNzLmVudi5FMkVfUE9SVCA/PyA0MzExNyk7CmNvbnN0IEJBU0VfVVJMID0gYGh0dHA6Ly8xMjcuMC4wLjE6JHtQT1JUfWA7CgovLyBUaGlzIGhvc3QgZWdyZXNzZXMgdGhyb3VnaCBhbiBhdXRoZW50aWNhdGluZyBIVFRQIHByb3h5IChOT0RFX1VTRV9FTlZfUFJPWFk9MSwKLy8gSFRUUChTKV9QUk9YWSBzZXQpLiBOb2RlIDI0J3MgZmV0Y2gg4oCUIHVzZWQgYnkgUGxheXdyaWdodCdzIHdlYlNlcnZlcgovLyBoZWFsdGgtY2hlY2sg4oCUIGhvbm9ycyB0aG9zZSBlbnYgcHJveGllcywgc28gYSBsb29wYmFjayBHRVQgLyBnZXRzIGludGVyY2VwdGVkCi8vIGFuZCBkaWVzIHdpdGggIkhvc3QgaW4gb3B0aW9ucy5oZWFkZXJzIG11c3QgbWF0Y2ggdGhlIHJlcXVlc3QgYXV0aG9yaXR5Ii4KLy8gS2VlcCBldmVyeSBsb29wYmFjayBhZGRyZXNzIG9mZiB0aGUgcHJveHkgZm9yIHRoaXMgd2hvbGUgcHJvY2VzcyAodGhlIHJ1bm5lcgovLyBwZXJmb3JtcyB0aGUgaGVhbHRoLWNoZWNrLCBub3QgdGhlIHdlYlNlcnZlciBjaGlsZCkuCmNvbnN0IExPT1BCQUNLX05PX1BST1hZID0gJzEyNy4wLjAuMSxsb2NhbGhvc3QsOjoxJzsKZnVuY3Rpb24gbWVyZ2VOb1Byb3h5KGV4aXN0aW5nOiBzdHJpbmcgfCB1bmRlZmluZWQpOiBzdHJpbmcgewogIGNvbnN0IHBhcnRzID0gKGV4aXN0aW5nID8/ICcnKS5zcGxpdCgnLCcpLm1hcCgocCkgPT4gcC50cmltKCkpLmZpbHRlcihCb29sZWFuKTsKICBmb3IgKGNvbnN0IGhvc3Qgb2YgTE9PUEJBQ0tfTk9fUFJPWFkuc3BsaXQoJywnKSkgaWYgKCFwYXJ0cy5pbmNsdWRlcyhob3N0KSkgcGFydHMucHVzaChob3N0KTsKICByZXR1cm4gcGFydHMuam9pbignLCcpOwp9CmZvciAoY29uc3Qga2V5IG9mIFsnTk9fUFJPWFknLCAnbm9fcHJveHknXSkgewogIHByb2Nlc3MuZW52W2tleV0gPSBtZXJnZU5vUHJveHkocHJvY2Vzcy5lbnZba2V5XSk7Cn0KCmV4cG9ydCBkZWZhdWx0IGRlZmluZUNvbmZpZyh7CiAgdGVzdERpcjogJy4vdGVzdHMnLAogIHRlc3RNYXRjaDogJyoqLyouc3BlYy50cycsCiAgLy8gTDIgc2VsZnRlc3QgcHJvYmUgcnVucyBpbiBpdHMgb3duIHByb2Nlc3MgKHNjcmlwdHMvZTJlLXNlbGZ0ZXN0Lm1qcykgYW5kCiAgLy8gaXMgREVTSUdORUQgdG8gZmFpbCAocHJvdmVzIHRoZSBjb25zb2xlIGNvbGxlY3RvciBnYXRlcykg4oCUIG5ldmVyIGluIHRoZQogIC8vIG1haW4gc3VpdGUuCiAgdGVzdElnbm9yZTogJyoqL2hhcm5lc3MtcHJvYmUvKionLAogIGZ1bGx5UGFyYWxsZWw6IHRydWUsCiAgZm9yYmlkT25seTogISFwcm9jZXNzLmVudi5DSSwKICByZXRyaWVzOiBwcm9jZXNzLmVudi5DSSA/IDEgOiAwLAogIHdvcmtlcnM6IHByb2Nlc3MuZW52LkNJID8gMiA6IHVuZGVmaW5lZCwKICByZXBvcnRlcjogcHJvY2Vzcy5lbnYuQ0kKICAgID8gW1snbGlzdCddLCBbJ2h0bWwnLCB7IG9wZW46ICduZXZlcicsIG91dHB1dEZvbGRlcjogJ3BsYXl3cmlnaHQtcmVwb3J0JyB9XV0KICAgIDogW1snbGlzdCddXSwKICB0aW1lb3V0OiAzMF8wMDAsCiAgZXhwZWN0OiB7IHRpbWVvdXQ6IDVfMDAwIH0sCiAgdXNlOiB7CiAgICBiYXNlVVJMOiBCQVNFX1VSTCwKICAgIHRyYWNlOiAncmV0YWluLW9uLWZhaWx1cmUnLAogICAgdmlkZW86ICdyZXRhaW4tb24tZmFpbHVyZScsCiAgICBzY3JlZW5zaG90OiAnb25seS1vbi1mYWlsdXJlJywKICAgIGFjdGlvblRpbWVvdXQ6IDEwXzAwMCwKICAgIGxhdW5jaE9wdGlvbnM6IHsgYXJnczogWyctLW5vLXByb3h5LXNlcnZlciddIH0sCiAgfSwKICBwcm9qZWN0czogWwogICAgewogICAgICBuYW1lOiAncGhvbmUnLAogICAgICB1c2U6IHsKICAgICAgICAuLi5kZXZpY2VzWydEZXNrdG9wIENocm9tZSddLAogICAgICAgIHZpZXdwb3J0OiB7IHdpZHRoOiAzOTAsIGhlaWdodDogODQ0IH0sCiAgICAgICAgaGFzVG91Y2g6IHRydWUsCiAgICAgICAgaXNNb2JpbGU6IHRydWUsCiAgICAgICAgLy8gTDEyOiBpc01vYmlsZSBkZWZhdWx0cyBkcHI9Miwgd2hpY2ggZG91YmxlcyBldmVyeSB0aWxlIHJlcXVlc3QuCiAgICAgICAgLy8gVGhlIG1hcCBzcGVjIHJlbGF5cyB0aWxlcyBub2RlLXNpZGUgdGhyb3VnaCB0aGUgaG9zdCBwcm94eSwgc28KICAgICAgICAvLyBkcHIgMiBzdGFydmVzIHRoZSBzZXR0bGUgd2luZG93LiBkcHIgMSBrZWVwcyB2aWV3cG9ydCArIHRvdWNoCiAgICAgICAgLy8gc2VtYW50aWNzIGFuZCBtYWtlcyB0aWxlIHNldHRsaW5nIGRldGVybWluaXN0aWMgb24gdGhpcyBob3N0LgogICAgICAgIGRldmljZVNjYWxlRmFjdG9yOiAxLAogICAgICB9LAogICAgfSwKICAgIHsKICAgICAgbmFtZTogJ3RhYmxldCcsCiAgICAgIHVzZTogeyAuLi5kZXZpY2VzWydEZXNrdG9wIENocm9tZSddLCB2aWV3cG9ydDogeyB3aWR0aDogNzY4LCBoZWlnaHQ6IDEwMjQgfSB9LAogICAgfSwKICAgIHsKICAgICAgbmFtZTogJ2Rlc2t0b3AnLAogICAgICB1c2U6IHsgLi4uZGV2aWNlc1snRGVza3RvcCBDaHJvbWUnXSwgdmlld3BvcnQ6IHsgd2lkdGg6IDEyODAsIGhlaWdodDogODAwIH0gfSwKICAgIH0sCiAgXSwKICB3ZWJTZXJ2ZXI6IHsKICAgIGNvbW1hbmQ6IGBub2RlIHNjcmlwdHMvZTJlLXNlcnZlLm1qcyAke1BPUlR9YCwKICAgIHVybDogQkFTRV9VUkwsCiAgICAvLyBOb2RlIDI0IGhvbm9ycyBlbnYgcHJveGllczsga2VlcCB0aGUgbG9jYWxob3N0IGhlYWx0aC1jaGVjayBvZmYgdGhlIGVncmVzcyBwcm94eS4KICAgIGVudjogeyBOT19QUk9YWTogJzEyNy4wLjAuMSxsb2NhbGhvc3QnLCBub19wcm94eTogJzEyNy4wLjAuMSxsb2NhbGhvc3QnIH0sCiAgICByZXVzZUV4aXN0aW5nU2VydmVyOiBmYWxzZSwKICAgIHRpbWVvdXQ6IDEyMF8wMDAsCiAgICBzdGRvdXQ6ICdwaXBlJywKICAgIHN0ZGVycjogJ3BpcGUnLAogIH0sCn0pOwo=
+import { defineConfig, devices } from '@playwright/test';
+
+/**
+ * Wave 1 merged Playwright harness (L2 foundation + L4/L6/L7 lane specs).
+ *
+ * Three viewport projects (R13): phone 390x844, tablet 768x1024, desktop
+ * 1280x800. webServer auto-starts scripts/e2e-serve.mjs, which builds the
+ * real app (root vite project) and serves it via `vite preview` on the
+ * requested port. Self-contained specs (theme/badges/seed) bundle their own
+ * page content and need no server routes.
+ *
+ * --no-proxy-server: this host routes through an egress proxy that 407s
+ * local loopback traffic; browsers must talk direct.
+ *
+ * Everything is deterministic: no Math.random / Date.now / new Date.
+ */
+
+const PORT = Number(process.env.E2E_PORT ?? 43117);
+const BASE_URL = `http://127.0.0.1:${PORT}`;
+
+// This host egresses through an authenticating HTTP proxy (NODE_USE_ENV_PROXY=1,
+// HTTP(S)_PROXY set). Node 24's fetch — used by Playwright's webServer
+// health-check — honors those env proxies, so a loopback GET / gets intercepted
+// and dies with "Host in options.headers must match the request authority".
+// Keep every loopback address off the proxy for this whole process (the runner
+// performs the health-check, not the webServer child).
+const LOOPBACK_NO_PROXY = '127.0.0.1,localhost,::1';
+function mergeNoProxy(existing: string | undefined): string {
+  const parts = (existing ?? '').split(',').map((p) => p.trim()).filter(Boolean);
+  for (const host of LOOPBACK_NO_PROXY.split(',')) if (!parts.includes(host)) parts.push(host);
+  return parts.join(',');
+}
+for (const key of ['NO_PROXY', 'no_proxy']) {
+  process.env[key] = mergeNoProxy(process.env[key]);
+}
+
+export default defineConfig({
+  testDir: './tests',
+  testMatch: '**/*.spec.ts',
+  // L2 selftest probe runs in its own process (scripts/e2e-selftest.mjs) and
+  // is DESIGNED to fail (proves the console collector gates) — never in the
+  // main suite.
+  testIgnore: '**/harness-probe/**',
+  fullyParallel: true,
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 1 : 0,
+  workers: process.env.CI ? 2 : undefined,
+  reporter: process.env.CI
+    ? [['list'], ['html', { open: 'never', outputFolder: 'playwright-report' }]]
+    : [['list']],
+  timeout: 30_000,
+  expect: { timeout: 5_000 },
+  use: {
+    baseURL: BASE_URL,
+    trace: 'retain-on-failure',
+    video: 'retain-on-failure',
+    screenshot: 'only-on-failure',
+    actionTimeout: 10_000,
+    launchOptions: { args: ['--no-proxy-server'] },
+  },
+  projects: [
+    {
+      name: 'phone',
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: { width: 390, height: 844 },
+        hasTouch: true,
+        isMobile: true,
+        // L12: isMobile defaults dpr=2, which doubles every tile request.
+        // The map spec relays tiles node-side through the host proxy, so
+        // dpr 2 starves the settle window. dpr 1 keeps viewport + touch
+        // semantics and makes tile settling deterministic on this host.
+        deviceScaleFactor: 1,
+      },
+    },
+    {
+      name: 'tablet',
+      use: { ...devices['Desktop Chrome'], viewport: { width: 768, height: 1024 } },
+    },
+    {
+      name: 'desktop',
+      use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 800 } },
+    },
+  ],
+  webServer: {
+    command: `node scripts/e2e-serve.mjs ${PORT}`,
+    url: BASE_URL,
+    // Node 24 honors env proxies; keep the localhost health-check off the egress proxy.
+    env: { NO_PROXY: '127.0.0.1,localhost', no_proxy: '127.0.0.1,localhost' },
+    reuseExistingServer: false,
+    timeout: 120_000,
+    stdout: 'pipe',
+    stderr: 'pipe',
+  },
+});

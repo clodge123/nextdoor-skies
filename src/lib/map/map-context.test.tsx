@@ -1,1 +1,28 @@
-aW1wb3J0IHsgcmVuZGVyLCBzY3JlZW4gfSBmcm9tICdAdGVzdGluZy1saWJyYXJ5L3JlYWN0JzsKaW1wb3J0IHsgZGVzY3JpYmUsIGV4cGVjdCwgaXQgfSBmcm9tICd2aXRlc3QnOwppbXBvcnQgeyBNYXBQcm92aWRlciwgdXNlTWFwQ29udGV4dCB9IGZyb20gJy4vbWFwLWNvbnRleHQnOwoKZnVuY3Rpb24gUHJvYmUoKSB7CiAgY29uc3QgY3R4ID0gdXNlTWFwQ29udGV4dCgpOwogIHJldHVybiAoCiAgICA8ZGl2PgogICAgICA8c3BhbiBkYXRhLXRlc3RpZD0icmVhZHkiPntTdHJpbmcoY3R4LnJlYWR5KX08L3NwYW4+CiAgICAgIDxzcGFuIGRhdGEtdGVzdGlkPSJ3YXJuIj57Y3R4LnRpbGVXYXJuaW5nc308L3NwYW4+CiAgICAgIDxzcGFuIGRhdGEtdGVzdGlkPSJ0aWVyIj57Y3R4LnRpZXJ9PC9zcGFuPgogICAgPC9kaXY+CiAgKTsKfQoKZGVzY3JpYmUoJ21hcC1jb250ZXh0IHNlYW0gKEw1IC0+IEw2KScsICgpID0+IHsKICBpdCgnZXhwb3NlcyBtYXAgaW5zdGFuY2UgKyBjb3VudGVycyB0aHJvdWdoIGNvbnRleHQnLCAoKSA9PiB7CiAgICBjb25zdCBmYWtlTWFwID0geyBpZDogJ21hcGxpYnJlLWZha2UnIH0gYXMgbmV2ZXI7CiAgICByZW5kZXIoCiAgICAgIDxNYXBQcm92aWRlciBtYXA9e2Zha2VNYXB9IHJlYWR5IHRpbGVXYXJuaW5ncz17M30gdGllcj0iY2l0eSI+CiAgICAgICAgPFByb2JlIC8+CiAgICAgIDwvTWFwUHJvdmlkZXI+LAogICAgKTsKICAgIGV4cGVjdChzY3JlZW4uZ2V0QnlUZXN0SWQoJ3JlYWR5JykudGV4dENvbnRlbnQpLnRvQmUoJ3RydWUnKTsKICAgIGV4cGVjdChzY3JlZW4uZ2V0QnlUZXN0SWQoJ3dhcm4nKS50ZXh0Q29udGVudCkudG9CZSgnMycpOwogICAgZXhwZWN0KHNjcmVlbi5nZXRCeVRlc3RJZCgndGllcicpLnRleHRDb250ZW50KS50b0JlKCdjaXR5Jyk7CiAgfSk7Cn0pOwo=
+import { render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
+import { MapProvider, useMapContext } from './map-context';
+
+function Probe() {
+  const ctx = useMapContext();
+  return (
+    <div>
+      <span data-testid="ready">{String(ctx.ready)}</span>
+      <span data-testid="warn">{ctx.tileWarnings}</span>
+      <span data-testid="tier">{ctx.tier}</span>
+    </div>
+  );
+}
+
+describe('map-context seam (L5 -> L6)', () => {
+  it('exposes map instance + counters through context', () => {
+    const fakeMap = { id: 'maplibre-fake' } as never;
+    render(
+      <MapProvider map={fakeMap} ready tileWarnings={3} tier="city">
+        <Probe />
+      </MapProvider>,
+    );
+    expect(screen.getByTestId('ready').textContent).toBe('true');
+    expect(screen.getByTestId('warn').textContent).toBe('3');
+    expect(screen.getByTestId('tier').textContent).toBe('city');
+  });
+});

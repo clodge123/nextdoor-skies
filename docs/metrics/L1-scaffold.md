@@ -1,1 +1,44 @@
-IyBMMSBTQ0FGRk9MRCDigJQgbWV0cmljcyAocnVuIDIsIHdhdmUgMSkKClQwID0gMjAyNi0xMC0yMCAxOTo0NSBDRFQuIEFjdGl2ZSBtaW51dGVzIG9ubHkgKHdhbGwtY2xvY2sgZ2FwcyBleGNsdWRlZCkuCgp8IExhbmUgfCBTdGFydCAoQ0RUKSB8IEVuZCAoQ0RUKSB8IEFjdGl2ZSBtaW4gfCBHYXRlMCB8IENhdGNoZXMgfAp8LS0tLS0tfC0tLS0tLS0tLS0tLS18LS0tLS0tLS0tLS18LS0tLS0tLS0tLS0tfC0tLS0tLS18LS0tLS0tLS0tfAp8IEwxICAgfCAyMDI2LTEwLTIwIDE5OjQ1IHwgMjAyNi0xMC0yMCAyMDoyNSB8IDM4IHwgUEFTUyAodHNjL2VzbGludC9idWlsZC92aXRlc3QgKyAzIHNjYW5zKSB8IDMgfAoKIyMgR2F0ZSAwIHJlc3VsdHMgKDIwMjYtMTAtMjAgMjA6MjQgQ0RUKQoKLSB0c2MgLWI6IGV4aXQgMAotIGVzbGludCAuOiBleGl0IDAKLSB2aXRlIGJ1aWxkOiBleGl0IDAgKDI2MSBrQiBidW5kbGUpCi0gdml0ZXN0IHJ1bjogMy8zIHRlc3RzIHBhc3MgKEFwcCBzaGVsbCBjb21wb25lbnQgdGVzdCwganNkb20pCi0gZGV0ZXJtaW5pc20gc2NhbiAoUjE3KTogT0sg4oCUIDUgc291cmNlIGZpbGVzLCB6ZXJvIE1hdGgucmFuZG9tL0RhdGUubm93L25ldyBEYXRlCi0gcmFkaXVzIHNjYW4gKFIyMCk6IE9LIOKAlCA3IGZpbGVzLCB6ZXJvIHJhdyBib3JkZXItcmFkaXVzICh2YXIoLS1yYWRpdXMpIG9ubHkpCi0gbm8tQ1dDIGltcG9ydCBzY2FuOiBPSyDigJQgMTUgZmlsZXMgc2Nhbm5lZAotIHByZXR0aWVyIC0tY2hlY2s6IGNsZWFuCgojIyBDYXRjaGVzCgoxLiBgZG9jcy9sYW5lcy9XQVZFLTEtTEFORVMubWRgIG5vdCBwcmVzZW50IGluIHRoZSB3b3JrdHJlZSB0cmVlIOKAlCByZWNvdmVyZWQgZnJvbQogICBjb21taXQgYDJhZDgwZWFgIChvbiBgbWFpbmAsIG5vdCBtZXJnZWQgaW50byBsYW5lIGJyYW5jaCkuIExhbmUgYnJpZWYgcmVhZCBmcm9tIHRoZXJlLgoyLiBgdHNjIC1iYCBmYWlsZWQgVFMyNjg4ICJDYW5ub3QgZmluZCB0eXBlIGRlZmluaXRpb24gZmlsZSBmb3IgJ25vZGUnIiDigJQgZml4ZWQgYnkKICAgYWRkaW5nIGBAdHlwZXMvbm9kZWAgZGV2RGVwZW5kZW5jeS4KMy4gVGVzdCBmaWxlIGltcG9ydGVkIGAuLi9BcHBgIChvdXRzaWRlIHNyYyBpbmNsdWRlIHBhdGgpIOKAlCBmaXhlZCB0byBgLi9BcHBgLgo0LiBDV0Mgc2Nhbm5lciBmbGFnZ2VkIGl0cyBvd24gc291cmNlICh0aGUgcGF0dGVybiBzdHJpbmcgaXQgZm9yYmlkcykg4oCUIHNjYW5uZXIKICAgbm93IHNraXBzIGl0c2VsZi4KNS4gYHRzY29uZmlnLioudHNidWlsZGluZm9gIGFydGlmYWN0cyBnb3QgY29tbWl0dGVkIGluIHN1cnZpdmFsIGNvbW1pdCDigJQgYWRkZWQgdG8KICAgYC5naXRpZ25vcmVgIGFuZCB1bnRyYWNrZWQuCgojIyBOb3RlcwoKLSBXb3JrdHJlZTogfi8ub3BlbmNsYXcvd29ya3RyZWVzL3IyL3cxLUwxLCBicmFuY2ggYHIydzEvTDEtc2NhZmZvbGRgLgotIE5vIGdpdCByZW1vdGUgY29uZmlndXJlZCBvbiB0aGUgc2hhcmVkIHJlcG87IHB1c2ggcGF0aCA9IG9yY2hlc3RyYXRvciAobGFuZSBkb2MKICBzYXlzIEdpdEh1YiBBUEkgY29udGVudHMvdHJlZXMvcmVmczsgZ2l0IHRyYW5zcG9ydCBwcm94eS1ibG9ja2VkKS4KLSBPd25lcnNoaXAgcmVzcGVjdGVkOiBzcmMvaW5kZXguY3NzICsgc3JjL2xpYi90aGVtZS50cyB1bnRvdWNoZWQgKEw0KTsgTWFwVmlldyB1bnRvdWNoZWQgKEw1KTsKICBubyBQbGF5d3JpZ2h0IGNvbmZpZyAoTDIpLiBtYWluLnRzeCBjYXJyaWVzIGEgZG9jdW1lbnRlZCBzZWFtIGNvbW1lbnQgZm9yIEw0J3MKICBgaW1wb3J0ICcuL2luZGV4LmNzcydgLgotIEZpbGVzIGFkZGVkOiBpbmRleC5odG1sLCBzcmMve21haW4sQXBwLEFwcC50ZXN0fS50c3gsIHNyYy9jb21wb25lbnRzL0hlYWRlci50c3gsCiAgc3JjL3BhZ2VzL3tNYXBQYWdlLEZlZWRQYWdlfS50c3gsIHNyYy90ZXN0L3NldHVwLnRzLCB0c2NvbmZpZ3ssLmFwcCwubm9kZSwudGVzdH0uanNvbiwKICB2aXRlLmNvbmZpZy50cywgdml0ZXN0LmNvbmZpZy50cywgZXNsaW50LmNvbmZpZy5qcywgLnByZXR0aWVycmMuanNvbiwKICAucHJldHRpZXJpZ25vcmUsIHNjcmlwdHMvY2hlY2ste2RldGVybWluaXNtLHJhZGl1cyxuby1jd2N9Lm1qcywKICAuZ2l0aHViL3dvcmtmbG93cy9jaS55bWwsIGRvY3MvbWV0cmljcy9MMS1zY2FmZm9sZC5tZC4K
+# L1 SCAFFOLD — metrics (run 2, wave 1)
+
+T0 = 2026-10-20 19:45 CDT. Active minutes only (wall-clock gaps excluded).
+
+| Lane | Start (CDT) | End (CDT) | Active min | Gate0 | Catches |
+|------|-------------|-----------|------------|-------|---------|
+| L1   | 2026-10-20 19:45 | 2026-10-20 20:25 | 38 | PASS (tsc/eslint/build/vitest + 3 scans) | 3 |
+
+## Gate 0 results (2026-10-20 20:24 CDT)
+
+- tsc -b: exit 0
+- eslint .: exit 0
+- vite build: exit 0 (261 kB bundle)
+- vitest run: 3/3 tests pass (App shell component test, jsdom)
+- determinism scan (R17): OK — 5 source files, zero Math.random/Date.now/new Date
+- radius scan (R20): OK — 7 files, zero raw border-radius (var(--radius) only)
+- no-CWC import scan: OK — 15 files scanned
+- prettier --check: clean
+
+## Catches
+
+1. `docs/lanes/WAVE-1-LANES.md` not present in the worktree tree — recovered from
+   commit `2ad80ea` (on `main`, not merged into lane branch). Lane brief read from there.
+2. `tsc -b` failed TS2688 "Cannot find type definition file for 'node'" — fixed by
+   adding `@types/node` devDependency.
+3. Test file imported `../App` (outside src include path) — fixed to `./App`.
+4. CWC scanner flagged its own source (the pattern string it forbids) — scanner
+   now skips itself.
+5. `tsconfig.*.tsbuildinfo` artifacts got committed in survival commit — added to
+   `.gitignore` and untracked.
+
+## Notes
+
+- Worktree: ~/.openclaw/worktrees/r2/w1-L1, branch `r2w1/L1-scaffold`.
+- No git remote configured on the shared repo; push path = orchestrator (lane doc
+  says GitHub API contents/trees/refs; git transport proxy-blocked).
+- Ownership respected: src/index.css + src/lib/theme.ts untouched (L4); MapView untouched (L5);
+  no Playwright config (L2). main.tsx carries a documented seam comment for L4's
+  `import './index.css'`.
+- Files added: index.html, src/{main,App,App.test}.tsx, src/components/Header.tsx,
+  src/pages/{MapPage,FeedPage}.tsx, src/test/setup.ts, tsconfig{,.app,.node,.test}.json,
+  vite.config.ts, vitest.config.ts, eslint.config.js, .prettierrc.json,
+  .prettierignore, scripts/check-{determinism,radius,no-cwc}.mjs,
+  .github/workflows/ci.yml, docs/metrics/L1-scaffold.md.

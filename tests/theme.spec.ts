@@ -1,1 +1,140 @@
-Ly8gTDQgR2F0ZSAxIGJyb3dzZXIgdGVzdCAoUjEyL1IyMCkuIFNlbGYtY29udGFpbmVkOiBidW5kbGVzIHRoZSByZWFsCi8vIHNyYy9saWIvdGhlbWUudHMgKyBzcmMvY29tcG9uZW50cy9UaGVtZVRvZ2dsZS50c3ggdmlhIHRoZSBlc2J1aWxkIENMSSBhbmQKLy8gc2VydmVzIHRoZW0gaW4gYSByZWFsIENocm9taXVtIHBhZ2Ug4oCUIG5vIGRlcGVuZGVuY3kgb24gTDEvTDIgaGFybmVzc2VzLgovLyBBc3NlcnRzOiB3aW5kb3cuX19uZHNTZXRBY2NlbnQoJ3JhaW4nKSAtPiAtLWN1cnJlbnQtYWNjZW50IHJnYig1NiwxODksMjQ4KTsKLy8gdGhlbWUgdG9nZ2xlIGZsaXBzIHBhZ2UgYmFja2dyb3VuZDsgemVybyBjb25zb2xlIGVycm9ycy4KaW1wb3J0IHsgZXhwZWN0LCB0ZXN0IH0gZnJvbSAnQHBsYXl3cmlnaHQvdGVzdCc7CmltcG9ydCB7IG1rZGlyU3luYyB9IGZyb20gJ25vZGU6ZnMnOwppbXBvcnQgeyBqb2luIH0gZnJvbSAnbm9kZTpwYXRoJzsKCmNvbnN0IFNIT1RfRElSID0gam9pbihwcm9jZXNzLmN3ZCgpLCAnZG9jcycsICdzY3JlZW5zaG90cycsICdMNC10aGVtZScpOwppbXBvcnQgeyBleGVjRmlsZVN5bmMgfSBmcm9tICdub2RlOmNoaWxkX3Byb2Nlc3MnOwppbXBvcnQgeyBjcFN5bmMsIGV4aXN0c1N5bmMsIG1rZHRlbXBTeW5jLCByZWFkRmlsZVN5bmMsIHdyaXRlRmlsZVN5bmMgfSBmcm9tICdub2RlOmZzJzsKaW1wb3J0IG9zIGZyb20gJ25vZGU6b3MnOwppbXBvcnQgcGF0aCBmcm9tICdub2RlOnBhdGgnOwoKLy8gTGFuZS1yb290IGRpc2NvdmVyeSAoQ0pTL0VTTSBzYWZlKTogZXhwbGljaXQgZW52IG92ZXJyaWRlLCB0aGVuIHdhbGsgdXAKLy8gZnJvbSBfX2Rpcm5hbWUvY3dkIHRvIHRoZSBkaXIgY29udGFpbmluZyBzcmMvaW5kZXguY3NzLgpjb25zdCBIRVJFID0gdHlwZW9mIF9fZGlybmFtZSA9PT0gJ3N0cmluZycgPyBfX2Rpcm5hbWUgOiBwcm9jZXNzLmN3ZCgpOwpsZXQgUk9PVCA9IHByb2Nlc3MuZW52Lk5EU19MQU5FX1JPT1QgPz8gSEVSRTsKaWYgKCFleGlzdHNTeW5jKHBhdGguam9pbihST09ULCAnc3JjJywgJ2luZGV4LmNzcycpKSkgewogIFJPT1QgPSBIRVJFOwogIHdoaWxlICghZXhpc3RzU3luYyhwYXRoLmpvaW4oUk9PVCwgJ3NyYycsICdpbmRleC5jc3MnKSkgJiYgUk9PVCAhPT0gcGF0aC5wYXJzZShST09UKS5yb290KSB7CiAgICBST09UID0gcGF0aC5kaXJuYW1lKFJPT1QpOwogIH0KfQoKY29uc3QgY3NzID0gcmVhZEZpbGVTeW5jKHBhdGguam9pbihST09ULCAnc3JjL2luZGV4LmNzcycpLCAndXRmOCcpOwoKLy8gRmluZCB0aGUgaGFybmVzcyBub2RlX21vZHVsZXMgKGNvbnRhaW5zIGVzYnVpbGQgKyByZWFjdCkgYnkgd2Fsa2luZyB1cC4KbGV0IGdhdGVEaXIgPSBIRVJFOwp3aGlsZSAoIWV4aXN0c1N5bmMocGF0aC5qb2luKGdhdGVEaXIsICdub2RlX21vZHVsZXMnLCAnZXNidWlsZCcsICdiaW4nLCAnZXNidWlsZCcpKSAmJiBnYXRlRGlyICE9PSBwYXRoLnBhcnNlKGdhdGVEaXIpLnJvb3QpIHsKICBnYXRlRGlyID0gcGF0aC5kaXJuYW1lKGdhdGVEaXIpOwp9CmNvbnN0IGVzYnVpbGRCaW4gPSBwYXRoLmpvaW4oZ2F0ZURpciwgJ25vZGVfbW9kdWxlcycsICdlc2J1aWxkJywgJ2JpbicsICdlc2J1aWxkJyk7Ci8vIEVudHJ5IGxpdmVzIHVuZGVyIGdhdGVEaXIgc28gZXNidWlsZCByZXNvbHZlcyByZWFjdC9yZWFjdC1kb20gZnJvbSBpdHMgbm9kZV9tb2R1bGVzLgpjb25zdCB0bXAgPSBta2R0ZW1wU3luYyhwYXRoLmpvaW4oZ2F0ZURpciwgJy5sNC10bXAtJykpOwovLyBNaXJyb3Igc3JjIGludG8gdGhlIGhhcm5lc3Mgc28gZXNidWlsZCB3YWxrcyBhIHZhbGlkIHBhY2thZ2UuanNvbiAodGhlIHJlcG8KLy8gcm9vdCBwYWNrYWdlLmpzb24gaXMgaW50ZW50aW9uYWxseSBiYXNlNjQtZW5jb2RlZCBhbmQgdW5wYXJzZWFibGUgYnkgYnVuZGxlcnMpLgpjcFN5bmMocGF0aC5qb2luKFJPT1QsICdzcmMnKSwgcGF0aC5qb2luKHRtcCwgJ3NyYycpLCB7IHJlY3Vyc2l2ZTogdHJ1ZSB9KTsKd3JpdGVGaWxlU3luYyhwYXRoLmpvaW4odG1wLCAncGFja2FnZS5qc29uJyksICd7Im5hbWUiOiJuZHMtbDQtcHJvYmUiLCJwcml2YXRlIjp0cnVlfScpOwpjb25zdCBlbnRyeSA9IHBhdGguam9pbih0bXAsICdlbnRyeS50c3gnKTsKd3JpdGVGaWxlU3luYygKICBlbnRyeSwKICBgaW1wb3J0IHsgY3JlYXRlUm9vdCB9IGZyb20gJ3JlYWN0LWRvbS9jbGllbnQnOwppbXBvcnQgeyBUaGVtZVRvZ2dsZSB9IGZyb20gJy4vc3JjL2NvbXBvbmVudHMvVGhlbWVUb2dnbGUnOwppbXBvcnQgeyBpbml0VGhlbWUgfSBmcm9tICcuL3NyYy9saWIvdGhlbWUnOwppbml0VGhlbWUoKTsKY3JlYXRlUm9vdChkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgncm9vdCcpISkucmVuZGVyKDxUaGVtZVRvZ2dsZSAvPik7CmAsCik7CmV4ZWNGaWxlU3luYyhlc2J1aWxkQmluLCBbCiAgZW50cnksCiAgJy0tYnVuZGxlJywKICAnLS1mb3JtYXQ9aWlmZScsCiAgJy0tcGxhdGZvcm09YnJvd3NlcicsCiAgJy0tanN4PWF1dG9tYXRpYycsCiAgJy0tZGVmaW5lOnByb2Nlc3MuZW52Lk5PREVfRU5WPSJkZXZlbG9wbWVudCInLAogICctLWxvYWRlcjouY3NzPWVtcHR5JywKICAnLS1vdXRmaWxlPScgKyBwYXRoLmpvaW4odG1wLCAnYnVuZGxlLmpzJyksCl0pOwpjb25zdCBidW5kbGUgPSByZWFkRmlsZVN5bmMocGF0aC5qb2luKHRtcCwgJ2J1bmRsZS5qcycpLCAndXRmOCcpOwoKY29uc3QgaHRtbCA9IGA8IWRvY3R5cGUgaHRtbD4KPGh0bWwgbGFuZz0iZW4iPgo8aGVhZD48bWV0YSBjaGFyc2V0PSJ1dGYtOCI+PHRpdGxlPm5leHRkb29yLXNraWVzIHRoZW1lIHByb2JlPC90aXRsZT48c3R5bGU+JHtjc3N9PC9zdHlsZT48L2hlYWQ+Cjxib2R5PjxkaXYgaWQ9InJvb3QiPjwvZGl2PjxzY3JpcHQ+JHtidW5kbGV9PC9zY3JpcHQ+PC9ib2R5Pgo8L2h0bWw+YDsKCnRlc3QuZGVzY3JpYmUoJ3dlYXRoZXIgYWNjZW50ICsgdGhlbWUgdG9nZ2xlIChMNCknLCAoKSA9PiB7CiAgdGVzdC5iZWZvcmVFYWNoKGFzeW5jICh7IHBhZ2UgfSkgPT4gewogICAgY29uc3QgY29uc29sZUVycm9yczogc3RyaW5nW10gPSBbXTsKICAgIHBhZ2Uub24oJ2NvbnNvbGUnLCAobXNnKSA9PiB7CiAgICAgIGlmIChtc2cudHlwZSgpID09PSAnZXJyb3InKSBjb25zb2xlRXJyb3JzLnB1c2gobXNnLnRleHQoKSk7CiAgICB9KTsKICAgIHBhZ2Uub24oJ3BhZ2VlcnJvcicsIChlcnIpID0+IGNvbnNvbGVFcnJvcnMucHVzaChTdHJpbmcoZXJyKSkpOwogICAgLy8gRGV0ZXJtaW5pc3RpYyBzdGFydGluZyBwb2ludDogZGFyayBwcmVmZXJzLWNvbG9yLXNjaGVtZSAoaW5pdFRoZW1lIGRlZmF1bHQpLgogICAgYXdhaXQgcGFnZS5lbXVsYXRlTWVkaWEoeyBjb2xvclNjaGVtZTogJ2RhcmsnIH0pOwogICAgLy8gU2VydmUgZnJvbSBhIHJlYWwgb3JpZ2luIHNvIGxvY2FsU3RvcmFnZSB3b3JrcyAoc2V0Q29udGVudCBpcyBvcGFxdWUgb3JpZ2luKS4KICAgIGF3YWl0IHBhZ2Uucm91dGUoJ2h0dHA6Ly9sb2NhbGhvc3Q6ODEyMy8qKicsIChyb3V0ZSkgPT4gcm91dGUuZnVsZmlsbCh7IGJvZHk6IGh0bWwsIGNvbnRlbnRUeXBlOiAndGV4dC9odG1sJyB9KSk7CiAgICBhd2FpdCBwYWdlLmdvdG8oJ2h0dHA6Ly9sb2NhbGhvc3Q6ODEyMy90aGVtZScsIHsgd2FpdFVudGlsOiAnbG9hZCcgfSk7CiAgICBleHBlY3QoY29uc29sZUVycm9ycykudG9FcXVhbChbXSk7CiAgfSk7CgogIHRlc3QoJ3dpbmRvdy5fX25kc1NldEFjY2VudCgicmFpbiIpIHNldHMgLS1jdXJyZW50LWFjY2VudCB0byByZ2IoNTYsMTg5LDI0OCknLCBhc3luYyAoeyBwYWdlIH0sIHRlc3RJbmZvKSA9PiB7CiAgICBhd2FpdCBwYWdlLndhaXRGb3JGdW5jdGlvbigoKSA9PiB0eXBlb2YgKHdpbmRvdyBhcyB1bmtub3duIGFzIFJlY29yZDxzdHJpbmcsIHVua25vd24+KS5fX25kc1NldEFjY2VudCA9PT0gJ2Z1bmN0aW9uJyk7CgogICAgY29uc3QgcmdiID0gYXdhaXQgcGFnZS5ldmFsdWF0ZSgoKSA9PiB7CiAgICAgICh3aW5kb3cgYXMgdW5rbm93biBhcyB7IF9fbmRzU2V0QWNjZW50OiAodzogc3RyaW5nKSA9PiB2b2lkIH0pLl9fbmRzU2V0QWNjZW50KCdyYWluJyk7CiAgICAgIGNvbnN0IHByb2JlID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnc3BhbicpOwogICAgICBwcm9iZS5zdHlsZS5jb2xvciA9ICd2YXIoLS1jdXJyZW50LWFjY2VudCknOwogICAgICBkb2N1bWVudC5ib2R5LmFwcGVuZENoaWxkKHByb2JlKTsKICAgICAgcmV0dXJuIGdldENvbXB1dGVkU3R5bGUocHJvYmUpLmNvbG9yOwogICAgfSk7CiAgICBleHBlY3QocmdiKS50b0JlKCdyZ2IoNTYsIDE4OSwgMjQ4KScpOwoKICAgIC8vIHRoZSB0b2dnbGUgaXRzZWxmIGluaGVyaXRzIHRoZSBhY2NlbnQgKGl0IGlzIHZpc2libGUsIG5vdCBqdXN0IGEgdmFyKQogICAgY29uc3QgdG9nZ2xlQ29sb3IgPSBhd2FpdCBwYWdlCiAgICAgIC5sb2NhdG9yKCdbZGF0YS10ZXN0aWQ9InRoZW1lLXRvZ2dsZSJdJykKICAgICAgLmV2YWx1YXRlKChlbDogRWxlbWVudCkgPT4gZ2V0Q29tcHV0ZWRTdHlsZShlbCkuY29sb3IpOwogICAgZXhwZWN0KHRvZ2dsZUNvbG9yKS50b0JlKCdyZ2IoNTYsIDE4OSwgMjQ4KScpOwogIH0pOwoKICB0ZXN0KCdhY2NlbnQgbWFwcGluZyBjb3ZlcnMgYWxsIGZpdmUgd2VhdGhlciBjb25kaXRpb25zJywgYXN5bmMgKHsgcGFnZSB9LCB0ZXN0SW5mbykgPT4gewogICAgY29uc3QgbWFwOiBSZWNvcmQ8c3RyaW5nLCBzdHJpbmc+ID0gewogICAgICByYWluOiAncmdiKDU2LCAxODksIDI0OCknLAogICAgICBzdG9ybTogJ3JnYigxNjgsIDg1LCAyNDcpJywKICAgICAgc25vdzogJ3JnYigyMjQsIDI0MiwgMjU0KScsCiAgICAgIGNsZWFyOiAncmdiKDAsIDI1NSwgMTU3KScsCiAgICAgIGhlYXQ6ICdyZ2IoMjQ5LCAxMTUsIDIyKScsCiAgICB9OwogICAgZm9yIChjb25zdCBbd2VhdGhlciwgcmdiXSBvZiBPYmplY3QuZW50cmllcyhtYXApKSB7CiAgICAgIGNvbnN0IGdvdCA9IGF3YWl0IHBhZ2UuZXZhbHVhdGUoKHc6IHN0cmluZykgPT4gewogICAgICAgICh3aW5kb3cgYXMgdW5rbm93biBhcyB7IF9fbmRzU2V0QWNjZW50OiAodzogc3RyaW5nKSA9PiB2b2lkIH0pLl9fbmRzU2V0QWNjZW50KHcpOwogICAgICAgIGNvbnN0IHByb2JlID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnc3BhbicpOwogICAgICAgIHByb2JlLnN0eWxlLmNvbG9yID0gJ3ZhcigtLWN1cnJlbnQtYWNjZW50KSc7CiAgICAgICAgZG9jdW1lbnQuYm9keS5hcHBlbmRDaGlsZChwcm9iZSk7CiAgICAgICAgY29uc3QgdmFsdWUgPSBnZXRDb21wdXRlZFN0eWxlKHByb2JlKS5jb2xvcjsKICAgICAgICBwcm9iZS5yZW1vdmUoKTsKICAgICAgICByZXR1cm4gdmFsdWU7CiAgICAgIH0sIHdlYXRoZXIpOwogICAgICBleHBlY3QoZ290LCB3ZWF0aGVyKS50b0JlKHJnYik7CiAgICB9CiAgICBta2RpclN5bmMoU0hPVF9ESVIsIHsgcmVjdXJzaXZlOiB0cnVlIH0pOwogICAgYXdhaXQgcGFnZS5zY3JlZW5zaG90KHsgcGF0aDogam9pbihTSE9UX0RJUiwgYGFjY2VudC0ke3Rlc3RJbmZvLnByb2plY3QubmFtZX0ucG5nYCkgfSk7CiAgfSk7CgogIHRlc3QoJ3RvZ2dsZSBmbGlwcyBwYWdlIGJhY2tncm91bmQgZGFyayAtPiBsaWdodCBhbmQgcGVyc2lzdHMnLCBhc3luYyAoeyBwYWdlIH0pID0+IHsKICAgIGNvbnN0IGRhcmsgPSBhd2FpdCBwYWdlLmV2YWx1YXRlKCgpID0+IGdldENvbXB1dGVkU3R5bGUoZG9jdW1lbnQuYm9keSkuYmFja2dyb3VuZENvbG9yKTsKICAgIGV4cGVjdChkYXJrKS50b0JlKCdyZ2IoMTAsIDEwLCAxNSknKTsKCiAgICBhd2FpdCBwYWdlLmxvY2F0b3IoJ1tkYXRhLXRlc3RpZD0idGhlbWUtdG9nZ2xlIl0nKS5jbGljaygpOwoKICAgIC8vIGJvZHkgaGFzIGEgMTIwbXMgYmcgdHJhbnNpdGlvbjsgd2FpdCBmb3IgdGhlIGZpbmFsIGxpZ2h0IHZhbHVlLgogICAgYXdhaXQgcGFnZS53YWl0Rm9yRnVuY3Rpb24oKCkgPT4gZ2V0Q29tcHV0ZWRTdHlsZShkb2N1bWVudC5ib2R5KS5iYWNrZ3JvdW5kQ29sb3IgPT09ICdyZ2IoMjQ1LCAyNDUsIDI0MiknKTsKICAgIGNvbnN0IGxpZ2h0ID0gYXdhaXQgcGFnZS5ldmFsdWF0ZSgoKSA9PiBnZXRDb21wdXRlZFN0eWxlKGRvY3VtZW50LmJvZHkpLmJhY2tncm91bmRDb2xvcik7CiAgICBleHBlY3QobGlnaHQpLnRvQmUoJ3JnYigyNDUsIDI0NSwgMjQyKScpOwogICAgZXhwZWN0KGF3YWl0IHBhZ2UuZXZhbHVhdGUoKCkgPT4gbG9jYWxTdG9yYWdlLmdldEl0ZW0oJ25kcy10aGVtZScpKSkudG9CZSgnbGlnaHQnKTsKICAgIGV4cGVjdChhd2FpdCBwYWdlLmV2YWx1YXRlKCgpID0+IGRvY3VtZW50LmRvY3VtZW50RWxlbWVudC5nZXRBdHRyaWJ1dGUoJ2RhdGEtdGhlbWUnKSkpLnRvQmUoJ2xpZ2h0Jyk7CiAgfSk7Cn0pOwo=
+// L4 Gate 1 browser test (R12/R20). Self-contained: bundles the real
+// src/lib/theme.ts + src/components/ThemeToggle.tsx via the esbuild CLI and
+// serves them in a real Chromium page — no dependency on L1/L2 harnesses.
+// Asserts: window.__ndsSetAccent('rain') -> --current-accent rgb(56,189,248);
+// theme toggle flips page background; zero console errors.
+import { expect, test } from '@playwright/test';
+import { mkdirSync } from 'node:fs';
+import { join } from 'node:path';
+
+const SHOT_DIR = join(process.cwd(), 'docs', 'screenshots', 'L4-theme');
+import { execFileSync } from 'node:child_process';
+import { cpSync, existsSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+
+// Lane-root discovery (CJS/ESM safe): explicit env override, then walk up
+// from __dirname/cwd to the dir containing src/index.css.
+const HERE = typeof __dirname === 'string' ? __dirname : process.cwd();
+let ROOT = process.env.NDS_LANE_ROOT ?? HERE;
+if (!existsSync(path.join(ROOT, 'src', 'index.css'))) {
+  ROOT = HERE;
+  while (!existsSync(path.join(ROOT, 'src', 'index.css')) && ROOT !== path.parse(ROOT).root) {
+    ROOT = path.dirname(ROOT);
+  }
+}
+
+const css = readFileSync(path.join(ROOT, 'src/index.css'), 'utf8');
+
+// Find the harness node_modules (contains esbuild + react) by walking up.
+let gateDir = HERE;
+while (!existsSync(path.join(gateDir, 'node_modules', 'esbuild', 'bin', 'esbuild')) && gateDir !== path.parse(gateDir).root) {
+  gateDir = path.dirname(gateDir);
+}
+const esbuildBin = path.join(gateDir, 'node_modules', 'esbuild', 'bin', 'esbuild');
+// Entry lives under gateDir so esbuild resolves react/react-dom from its node_modules.
+const tmp = mkdtempSync(path.join(gateDir, '.l4-tmp-'));
+// Mirror src into the harness so esbuild walks a valid package.json (the repo
+// root package.json is intentionally base64-encoded and unparseable by bundlers).
+cpSync(path.join(ROOT, 'src'), path.join(tmp, 'src'), { recursive: true });
+writeFileSync(path.join(tmp, 'package.json'), '{"name":"nds-l4-probe","private":true}');
+const entry = path.join(tmp, 'entry.tsx');
+writeFileSync(
+  entry,
+  `import { createRoot } from 'react-dom/client';
+import { ThemeToggle } from './src/components/ThemeToggle';
+import { initTheme } from './src/lib/theme';
+initTheme();
+createRoot(document.getElementById('root')!).render(<ThemeToggle />);
+`,
+);
+execFileSync(esbuildBin, [
+  entry,
+  '--bundle',
+  '--format=iife',
+  '--platform=browser',
+  '--jsx=automatic',
+  '--define:process.env.NODE_ENV="development"',
+  '--loader:.css=empty',
+  '--outfile=' + path.join(tmp, 'bundle.js'),
+]);
+const bundle = readFileSync(path.join(tmp, 'bundle.js'), 'utf8');
+
+const html = `<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>nextdoor-skies theme probe</title><style>${css}</style></head>
+<body><div id="root"></div><script>${bundle}</script></body>
+</html>`;
+
+test.describe('weather accent + theme toggle (L4)', () => {
+  test.beforeEach(async ({ page }) => {
+    const consoleErrors: string[] = [];
+    page.on('console', (msg) => {
+      if (msg.type() === 'error') consoleErrors.push(msg.text());
+    });
+    page.on('pageerror', (err) => consoleErrors.push(String(err)));
+    // Deterministic starting point: dark prefers-color-scheme (initTheme default).
+    await page.emulateMedia({ colorScheme: 'dark' });
+    // Serve from a real origin so localStorage works (setContent is opaque origin).
+    await page.route('http://localhost:8123/**', (route) => route.fulfill({ body: html, contentType: 'text/html' }));
+    await page.goto('http://localhost:8123/theme', { waitUntil: 'load' });
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test('window.__ndsSetAccent("rain") sets --current-accent to rgb(56,189,248)', async ({ page }, testInfo) => {
+    await page.waitForFunction(() => typeof (window as unknown as Record<string, unknown>).__ndsSetAccent === 'function');
+
+    const rgb = await page.evaluate(() => {
+      (window as unknown as { __ndsSetAccent: (w: string) => void }).__ndsSetAccent('rain');
+      const probe = document.createElement('span');
+      probe.style.color = 'var(--current-accent)';
+      document.body.appendChild(probe);
+      return getComputedStyle(probe).color;
+    });
+    expect(rgb).toBe('rgb(56, 189, 248)');
+
+    // the toggle itself inherits the accent (it is visible, not just a var)
+    const toggleColor = await page
+      .locator('[data-testid="theme-toggle"]')
+      .evaluate((el: Element) => getComputedStyle(el).color);
+    expect(toggleColor).toBe('rgb(56, 189, 248)');
+  });
+
+  test('accent mapping covers all five weather conditions', async ({ page }, testInfo) => {
+    const map: Record<string, string> = {
+      rain: 'rgb(56, 189, 248)',
+      storm: 'rgb(168, 85, 247)',
+      snow: 'rgb(224, 242, 254)',
+      clear: 'rgb(0, 255, 157)',
+      heat: 'rgb(249, 115, 22)',
+    };
+    for (const [weather, rgb] of Object.entries(map)) {
+      const got = await page.evaluate((w: string) => {
+        (window as unknown as { __ndsSetAccent: (w: string) => void }).__ndsSetAccent(w);
+        const probe = document.createElement('span');
+        probe.style.color = 'var(--current-accent)';
+        document.body.appendChild(probe);
+        const value = getComputedStyle(probe).color;
+        probe.remove();
+        return value;
+      }, weather);
+      expect(got, weather).toBe(rgb);
+    }
+    mkdirSync(SHOT_DIR, { recursive: true });
+    await page.screenshot({ path: join(SHOT_DIR, `accent-${testInfo.project.name}.png`) });
+  });
+
+  test('toggle flips page background dark -> light and persists', async ({ page }) => {
+    const dark = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+    expect(dark).toBe('rgb(10, 10, 15)');
+
+    await page.locator('[data-testid="theme-toggle"]').click();
+
+    // body has a 120ms bg transition; wait for the final light value.
+    await page.waitForFunction(() => getComputedStyle(document.body).backgroundColor === 'rgb(245, 245, 242)');
+    const light = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+    expect(light).toBe('rgb(245, 245, 242)');
+    expect(await page.evaluate(() => localStorage.getItem('nds-theme'))).toBe('light');
+    expect(await page.evaluate(() => document.documentElement.getAttribute('data-theme'))).toBe('light');
+  });
+});

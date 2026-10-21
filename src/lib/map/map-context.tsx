@@ -1,1 +1,94 @@
-Ly8gTUFQIENPTlRFWFQg4oCUIG1lcmdlZCBzZWFtIChMNSBvd25lciArIEw2IGNvbnN1bWVyKS4KLy8gVHdvIGNvbnRleHRzLCBvbmUgcHJvdmlkZXI6Ci8vICAtIE1hcFN0YXRlQ29udGV4dDogcmljaCBhcHAgc3RhdGUgKG1hcCBpbnN0YW5jZSwgcmVhZHksIHRpbGVXYXJuaW5ncywgdGllcikg4oCUIEw1LgovLyAgLSBNYXBDb250ZXh0OiBzdHJ1Y3R1cmFsIE1hcExpa2UgY29udHJhY3QgY29uc3VtZWQgYnkgVG93bkJhZGdlcyAoTDYgc2VhbSkuCi8vIG1hcGxpYnJlZ2wuTWFwIHNhdGlzZmllcyBNYXBMaWtlIChwcm9qZWN0L2dldFpvb20vZ2V0Qm91bmRzL29uKSwgc28gdGhlCi8vIHByb3ZpZGVyIGhhbmRzIHRoZSBsaXZlIG1hcCB0byBib3RoLgoKaW1wb3J0IHsgY3JlYXRlQ29udGV4dCwgdXNlQ29udGV4dCwgdXNlTWVtbywgdHlwZSBSZWFjdE5vZGUgfSBmcm9tICdyZWFjdCc7CmltcG9ydCB0eXBlIG1hcGxpYnJlZ2wgZnJvbSAnbWFwbGlicmUtZ2wnOwppbXBvcnQgdHlwZSB7IFRpZXIgfSBmcm9tICcuL3RpZXJzJzsKCi8qIC0tLS0tLS0tLS0tLS0tLS0gTDU6IGFwcCBzdGF0ZSAtLS0tLS0tLS0tLS0tLS0tICovCgpleHBvcnQgaW50ZXJmYWNlIE1hcENvbnRleHRWYWx1ZSB7CiAgLyoqIGxpdmUgbWFwbGlicmUgaW5zdGFuY2UgKG51bGwgdW50aWwgbW91bnRlZCkgKi8KICBtYXA6IG1hcGxpYnJlZ2wuTWFwIHwgbnVsbDsKICAvKiogdHJ1ZSBvbmNlIHRoZSBzdHlsZSBpcyBsb2FkZWQgYW5kIGxheWVycyBhcmUgYWRkZWQgKi8KICByZWFkeTogYm9vbGVhbjsKICAvKiogY291bnQgb2YgdGlsZSBlcnJvcnMgc2VlbiDigJQgd2FybmluZ3Mgb25seSwgbmV2ZXIgZmxpcHMgdGhlIFVJIChsYXcgIzQpICovCiAgdGlsZVdhcm5pbmdzOiBudW1iZXI7CiAgLyoqIGN1cnJlbnQgem9vbSB0aWVyIGJhbmQgKi8KICB0aWVyOiBUaWVyOwp9Cgpjb25zdCBNYXBTdGF0ZUNvbnRleHQgPSBjcmVhdGVDb250ZXh0PE1hcENvbnRleHRWYWx1ZT4oewogIG1hcDogbnVsbCwKICByZWFkeTogZmFsc2UsCiAgdGlsZVdhcm5pbmdzOiAwLAogIHRpZXI6ICdjb3VudHJ5JywKfSk7CgovKiAtLS0tLS0tLS0tLS0tLS0tIEw2OiBzdHJ1Y3R1cmFsIG1hcCBzZWFtIC0tLS0tLS0tLS0tLS0tLS0gKi8KCmV4cG9ydCBpbnRlcmZhY2UgUHJvamVjdGVkUG9pbnQgewogIHg6IG51bWJlcjsKICB5OiBudW1iZXI7Cn0KCi8qKiBHZW9ncmFwaGljIGJvdW5kcyBpbiBkZWdyZWVzLiAqLwpleHBvcnQgaW50ZXJmYWNlIEdlb0JvdW5kcyB7CiAgd2VzdDogbnVtYmVyOwogIHNvdXRoOiBudW1iZXI7CiAgZWFzdDogbnVtYmVyOwogIG5vcnRoOiBudW1iZXI7Cn0KCi8qKiBNaW5pbWFsIHN0cnVjdHVyYWwgbWFwIGNvbnRyYWN0IHRoZSBiYWRnZXMgbmVlZC4gTWFwTGlicmUncyBNYXAgc2F0aXNmaWVzIGl0LiAqLwpleHBvcnQgaW50ZXJmYWNlIE1hcExpa2UgewogIC8qKiBsbmcvbGF0IC0+IHNjcmVlbiBwaXhlbCBwb3NpdGlvbiByZWxhdGl2ZSB0byB0aGUgbWFwIGNvbnRhaW5lci4gKi8KICBwcm9qZWN0KGxuZ2xhdDogW251bWJlciwgbnVtYmVyXSk6IFByb2plY3RlZFBvaW50OwogIGdldFpvb20oKTogbnVtYmVyOwogIGdldEJvdW5kcygpOiBHZW9Cb3VuZHM7CiAgLyoqIFN1YnNjcmliZSB0byBtYXAgZXZlbnRzOyByZXR1cm5zIHRoZSB1bnN1YnNjcmliZSBmbiAoTWFwTGlicmUgc2hhcGUpLiAqLwogIG9uPyhldmVudDogc3RyaW5nLCBoYW5kbGVyOiAoKSA9PiB2b2lkKTogKCkgPT4gdm9pZDsKfQoKZXhwb3J0IGNvbnN0IE1hcENvbnRleHQgPSBjcmVhdGVDb250ZXh0PE1hcExpa2UgfCBudWxsPihudWxsKTsKTWFwQ29udGV4dC5kaXNwbGF5TmFtZSA9ICdNYXBDb250ZXh0JzsKCi8qIC0tLS0tLS0tLS0tLS0tLS0gUHJvdmlkZXIgKGJvdGggY29udGV4dHMpIC0tLS0tLS0tLS0tLS0tLS0gKi8KCmV4cG9ydCBmdW5jdGlvbiBNYXBQcm92aWRlcih7CiAgbWFwLAogIHJlYWR5LAogIHRpbGVXYXJuaW5ncywKICB0aWVyLAogIGNoaWxkcmVuLAp9OiBNYXBDb250ZXh0VmFsdWUgJiB7IGNoaWxkcmVuOiBSZWFjdE5vZGUgfSkgewogIGNvbnN0IHZhbHVlID0gdXNlTWVtbygKICAgICgpID0+ICh7IG1hcCwgcmVhZHksIHRpbGVXYXJuaW5ncywgdGllciB9KSwKICAgIFttYXAsIHJlYWR5LCB0aWxlV2FybmluZ3MsIHRpZXJdLAogICk7CiAgcmV0dXJuICgKICAgIDxNYXBTdGF0ZUNvbnRleHQuUHJvdmlkZXIgdmFsdWU9e3ZhbHVlfT4KICAgICAgPE1hcENvbnRleHQuUHJvdmlkZXIgdmFsdWU9e21hcCBhcyBNYXBMaWtlIHwgbnVsbH0+e2NoaWxkcmVufTwvTWFwQ29udGV4dC5Qcm92aWRlcj4KICAgIDwvTWFwU3RhdGVDb250ZXh0LlByb3ZpZGVyPgogICk7Cn0KCi8qKiBSaWNoIGFwcC1zdGF0ZSBob29rIChsYXllcnMsIHdhcm5pbmdzLCB0aWVyKS4gKi8KZXhwb3J0IGZ1bmN0aW9uIHVzZU1hcENvbnRleHQoKTogTWFwQ29udGV4dFZhbHVlIHsKICByZXR1cm4gdXNlQ29udGV4dChNYXBTdGF0ZUNvbnRleHQpOwp9CgovKiogVGhyb3dzIHdpdGggYSBjbGVhciBzZWFtIG1lc3NhZ2Ugd2hlbiBubyBtYXAgaW5zdGFuY2UgaXMgcHJvdmlkZWQuICovCmV4cG9ydCBmdW5jdGlvbiB1c2VNYXAoKTogTWFwTGlrZSB7CiAgY29uc3QgbWFwID0gdXNlQ29udGV4dChNYXBDb250ZXh0KTsKICBpZiAoIW1hcCkgewogICAgdGhyb3cgbmV3IEVycm9yKCd1c2VNYXAoKTogbm8gbWFwIGluc3RhbmNlIGluIGNvbnRleHQuIFByb3ZpZGUgTWFwQ29udGV4dCAoTDUgbWFwLWNvbnRleHQgc2VhbSkuJyk7CiAgfQogIHJldHVybiBtYXA7Cn0KCmV4cG9ydCB7IE1hcFN0YXRlQ29udGV4dCB9Owo=
+// MAP CONTEXT — merged seam (L5 owner + L6 consumer).
+// Two contexts, one provider:
+//  - MapStateContext: rich app state (map instance, ready, tileWarnings, tier) — L5.
+//  - MapContext: structural MapLike contract consumed by TownBadges (L6 seam).
+// maplibregl.Map satisfies MapLike (project/getZoom/getBounds/on), so the
+// provider hands the live map to both.
+
+import { createContext, useContext, useMemo, type ReactNode } from 'react';
+import type maplibregl from 'maplibre-gl';
+import type { Tier } from './tiers';
+
+/* ---------------- L5: app state ---------------- */
+
+export interface MapContextValue {
+  /** live maplibre instance (null until mounted) */
+  map: maplibregl.Map | null;
+  /** true once the style is loaded and layers are added */
+  ready: boolean;
+  /** count of tile errors seen — warnings only, never flips the UI (law #4) */
+  tileWarnings: number;
+  /** current zoom tier band */
+  tier: Tier;
+}
+
+const MapStateContext = createContext<MapContextValue>({
+  map: null,
+  ready: false,
+  tileWarnings: 0,
+  tier: 'country',
+});
+
+/* ---------------- L6: structural map seam ---------------- */
+
+export interface ProjectedPoint {
+  x: number;
+  y: number;
+}
+
+/** Geographic bounds in degrees. */
+export interface GeoBounds {
+  west: number;
+  south: number;
+  east: number;
+  north: number;
+}
+
+/** Minimal structural map contract the badges need. MapLibre's Map satisfies it. */
+export interface MapLike {
+  /** lng/lat -> screen pixel position relative to the map container. */
+  project(lnglat: [number, number]): ProjectedPoint;
+  getZoom(): number;
+  getBounds(): GeoBounds;
+  /** Subscribe to map events; returns the unsubscribe fn (MapLibre shape). */
+  on?(event: string, handler: () => void): () => void;
+}
+
+export const MapContext = createContext<MapLike | null>(null);
+MapContext.displayName = 'MapContext';
+
+/* ---------------- Provider (both contexts) ---------------- */
+
+export function MapProvider({
+  map,
+  ready,
+  tileWarnings,
+  tier,
+  children,
+}: MapContextValue & { children: ReactNode }) {
+  const value = useMemo(
+    () => ({ map, ready, tileWarnings, tier }),
+    [map, ready, tileWarnings, tier],
+  );
+  return (
+    <MapStateContext.Provider value={value}>
+      <MapContext.Provider value={map as MapLike | null}>{children}</MapContext.Provider>
+    </MapStateContext.Provider>
+  );
+}
+
+/** Rich app-state hook (layers, warnings, tier). */
+export function useMapContext(): MapContextValue {
+  return useContext(MapStateContext);
+}
+
+/** Throws with a clear seam message when no map instance is provided. */
+export function useMap(): MapLike {
+  const map = useContext(MapContext);
+  if (!map) {
+    throw new Error('useMap(): no map instance in context. Provide MapContext (L5 map-context seam).');
+  }
+  return map;
+}
+
+export { MapStateContext };

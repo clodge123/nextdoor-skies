@@ -1,1 +1,57 @@
-Ly8gTDUgTUFQLVNIRUxMLUdBWkVUVEVFUiDigJQgem9vbS10aWVyIGNvbnRyb2wgKGNvdW50cnkgLT4gc3RhdGUgLT4gY2l0eSAtPiB0b3duKS4KLy8gUHVyZSwgZGV0ZXJtaW5pc3RpYyBsb2dpYy4gTm8gTWF0aC5yYW5kb20gLyBEYXRlLm5vdyAvIG5ldyBEYXRlIChSMTcgbGF3KS4KCmV4cG9ydCB0eXBlIFRpZXIgPSAnY291bnRyeScgfCAnc3RhdGUnIHwgJ2NpdHknIHwgJ3Rvd24nOwoKZXhwb3J0IGludGVyZmFjZSBUaWVyUnVsZSB7CiAgLyoqIG1pbmltdW0gcG9wdWxhdGlvbiB0aGF0IHBsYWNlcyBhIHRvd24gaW4gdGhpcyB0aWVyICovCiAgbWluUG9wOiBudW1iZXI7CiAgLyoqIGJhc2VtYXAgem9vbSBhdCB3aGljaCB0aGlzIHRpZXIncyBsYWJlbHMgYmVjb21lIHZpc2libGUgKi8KICBtaW56b29tOiBudW1iZXI7CiAgLyoqIHVwcGVyIGJvdW5kIG9mIHRoZSB6b29tIGJhbmQgdGhpcyB0aWVyIG93bnMgKGV4Y2x1c2l2ZSkgKi8KICBtYXh6b29tOiBudW1iZXI7Cn0KCi8qKiBPcmRlcmVkIGhpZ2hlc3QtcG9wdWxhdGlvbi1maXJzdC4gRmlyc3QgbWF0Y2ggd2lucy4gKi8KZXhwb3J0IGNvbnN0IFRJRVJfUlVMRVM6IFJlYWRvbmx5QXJyYXk8VGllclJ1bGUgJiB7IHRpZXI6IFRpZXIgfT4gPSBbCiAgeyB0aWVyOiAnY291bnRyeScsIG1pblBvcDogMV8wMDBfMDAwLCBtaW56b29tOiAxLCBtYXh6b29tOiA0IH0sCiAgeyB0aWVyOiAnc3RhdGUnLCBtaW5Qb3A6IDEwMF8wMDAsIG1pbnpvb206IDQsIG1heHpvb206IDcgfSwKICB7IHRpZXI6ICdjaXR5JywgbWluUG9wOiAxMF8wMDAsIG1pbnpvb206IDcsIG1heHpvb206IDEwIH0sCiAgeyB0aWVyOiAndG93bicsIG1pblBvcDogNTAwLCBtaW56b29tOiAxMCwgbWF4em9vbTogMjQgfSwKXTsKCmV4cG9ydCBjb25zdCBUSUVSUzogcmVhZG9ubHkgVGllcltdID0gWydjb3VudHJ5JywgJ3N0YXRlJywgJ2NpdHknLCAndG93biddOwoKLyoqIFRpZXIgZm9yIGEgcG9wdWxhdGlvbi4gUG9wdWxhdGlvbnMgYmVsb3cgNTAwIGhhdmUgbm8gdGllciAoZmlsdGVyZWQgb3V0KS4gKi8KZXhwb3J0IGZ1bmN0aW9uIHRpZXJGb3JQb3B1bGF0aW9uKHBvcDogbnVtYmVyKTogVGllciB8IG51bGwgewogIGZvciAoY29uc3QgcnVsZSBvZiBUSUVSX1JVTEVTKSB7CiAgICBpZiAocG9wID49IHJ1bGUubWluUG9wKSByZXR1cm4gcnVsZS50aWVyOwogIH0KICByZXR1cm4gbnVsbDsKfQoKLyoqIFdoaWNoIHRpZXIgYmFuZCBhIGdpdmVuIG1hcCB6b29tIGN1cnJlbnRseSBiZWxvbmdzIHRvIChjb3VudHJ5LT50b3duIGFzIHpvb20gcmlzZXMpLiAqLwpleHBvcnQgZnVuY3Rpb24gdGllckZvclpvb20oem9vbTogbnVtYmVyKTogVGllciB7CiAgaWYgKHpvb20gPCA0KSByZXR1cm4gJ2NvdW50cnknOwogIGlmICh6b29tIDwgNykgcmV0dXJuICdzdGF0ZSc7CiAgaWYgKHpvb20gPCAxMCkgcmV0dXJuICdjaXR5JzsKICByZXR1cm4gJ3Rvd24nOwp9CgovKiogbWluem9vbSBmb3IgYSB0aWVyICh1c2VkIHRvIGJ1aWxkIHN5bWJvbCBsYXllcnMpLiAqLwpleHBvcnQgZnVuY3Rpb24gbWluem9vbUZvclRpZXIodGllcjogVGllcik6IG51bWJlciB7CiAgY29uc3QgcnVsZSA9IFRJRVJfUlVMRVMuZmluZCgocikgPT4gci50aWVyID09PSB0aWVyKTsKICBpZiAoIXJ1bGUpIHRocm93IG5ldyBFcnJvcihgdW5rbm93biB0aWVyOiAke3RpZXJ9YCk7CiAgcmV0dXJuIHJ1bGUubWluem9vbTsKfQoKLyoqCiAqIENvb3JkaW5hdGUta2V5IGRlYm91bmNlICh+MC4wMDUgZGVnKS4gUGFubmluZyB3aXRoaW4gYSBxdWFudGl6ZWQgY2VsbAogKiBwcm9kdWNlcyB0aGUgc2FtZSBrZXksIHNvIHN1YnNjcmliZXJzIGNhbm5vdCBzdG9ybSBvbiBldmVyeSBwYW4gZnJhbWUuCiAqLwpleHBvcnQgY29uc3QgQ09PUkRfS0VZX1NURVAgPSAwLjAwNTsKCmV4cG9ydCBmdW5jdGlvbiBjb29yZEtleShsYXQ6IG51bWJlciwgbG9uOiBudW1iZXIsIHN0ZXA6IG51bWJlciA9IENPT1JEX0tFWV9TVEVQKTogc3RyaW5nIHsKICBjb25zdCBxID0gKHY6IG51bWJlcik6IHN0cmluZyA9PiBNYXRoLnJvdW5kKHYgLyBzdGVwKS50b1N0cmluZygpOwogIHJldHVybiBgJHtxKGxhdCl9OiR7cShsb24pfWA7Cn0K
+// L5 MAP-SHELL-GAZETTEER — zoom-tier control (country -> state -> city -> town).
+// Pure, deterministic logic. No Math.random / Date.now / new Date (R17 law).
+
+export type Tier = 'country' | 'state' | 'city' | 'town';
+
+export interface TierRule {
+  /** minimum population that places a town in this tier */
+  minPop: number;
+  /** basemap zoom at which this tier's labels become visible */
+  minzoom: number;
+  /** upper bound of the zoom band this tier owns (exclusive) */
+  maxzoom: number;
+}
+
+/** Ordered highest-population-first. First match wins. */
+export const TIER_RULES: ReadonlyArray<TierRule & { tier: Tier }> = [
+  { tier: 'country', minPop: 1_000_000, minzoom: 1, maxzoom: 4 },
+  { tier: 'state', minPop: 100_000, minzoom: 4, maxzoom: 7 },
+  { tier: 'city', minPop: 10_000, minzoom: 7, maxzoom: 10 },
+  { tier: 'town', minPop: 500, minzoom: 10, maxzoom: 24 },
+];
+
+export const TIERS: readonly Tier[] = ['country', 'state', 'city', 'town'];
+
+/** Tier for a population. Populations below 500 have no tier (filtered out). */
+export function tierForPopulation(pop: number): Tier | null {
+  for (const rule of TIER_RULES) {
+    if (pop >= rule.minPop) return rule.tier;
+  }
+  return null;
+}
+
+/** Which tier band a given map zoom currently belongs to (country->town as zoom rises). */
+export function tierForZoom(zoom: number): Tier {
+  if (zoom < 4) return 'country';
+  if (zoom < 7) return 'state';
+  if (zoom < 10) return 'city';
+  return 'town';
+}
+
+/** minzoom for a tier (used to build symbol layers). */
+export function minzoomForTier(tier: Tier): number {
+  const rule = TIER_RULES.find((r) => r.tier === tier);
+  if (!rule) throw new Error(`unknown tier: ${tier}`);
+  return rule.minzoom;
+}
+
+/**
+ * Coordinate-key debounce (~0.005 deg). Panning within a quantized cell
+ * produces the same key, so subscribers cannot storm on every pan frame.
+ */
+export const COORD_KEY_STEP = 0.005;
+
+export function coordKey(lat: number, lon: number, step: number = COORD_KEY_STEP): string {
+  const q = (v: number): string => Math.round(v / step).toString();
+  return `${q(lat)}:${q(lon)}`;
+}

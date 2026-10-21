@@ -1,1 +1,57 @@
-aW1wb3J0IHsgZGVzY3JpYmUsIGV4cGVjdCwgaXQgfSBmcm9tICd2aXRlc3QnOwppbXBvcnQgewogIGNvb3JkS2V5LAogIG1pbnpvb21Gb3JUaWVyLAogIHRpZXJGb3JQb3B1bGF0aW9uLAogIHRpZXJGb3Jab29tLAogIFRJRVJfUlVMRVMsCn0gZnJvbSAnLi90aWVycyc7CgpkZXNjcmliZSgndGllckZvclBvcHVsYXRpb24gKGNvdW50cnktPnN0YXRlLT5jaXR5LT50b3duKScsICgpID0+IHsKICBpdCgnbWFwcyBwb3B1bGF0aW9uIGJhbmRzIHRvIHRpZXJzJywgKCkgPT4gewogICAgZXhwZWN0KHRpZXJGb3JQb3B1bGF0aW9uKDVfMDAwXzAwMCkpLnRvQmUoJ2NvdW50cnknKTsKICAgIGV4cGVjdCh0aWVyRm9yUG9wdWxhdGlvbigxXzAwMF8wMDApKS50b0JlKCdjb3VudHJ5Jyk7CiAgICBleHBlY3QodGllckZvclBvcHVsYXRpb24oOTk5Xzk5OSkpLnRvQmUoJ3N0YXRlJyk7CiAgICBleHBlY3QodGllckZvclBvcHVsYXRpb24oMTAwXzAwMCkpLnRvQmUoJ3N0YXRlJyk7CiAgICBleHBlY3QodGllckZvclBvcHVsYXRpb24oOTlfOTk5KSkudG9CZSgnY2l0eScpOwogICAgZXhwZWN0KHRpZXJGb3JQb3B1bGF0aW9uKDEwXzAwMCkpLnRvQmUoJ2NpdHknKTsKICAgIGV4cGVjdCh0aWVyRm9yUG9wdWxhdGlvbig5Xzk5OSkpLnRvQmUoJ3Rvd24nKTsKICAgIGV4cGVjdCh0aWVyRm9yUG9wdWxhdGlvbig1MDApKS50b0JlKCd0b3duJyk7CiAgfSk7CiAgaXQoJ2Ryb3BzIHBvcHVsYXRpb25zIGJlbG93IDUwMCcsICgpID0+IHsKICAgIGV4cGVjdCh0aWVyRm9yUG9wdWxhdGlvbig0OTkpKS50b0JlTnVsbCgpOwogICAgZXhwZWN0KHRpZXJGb3JQb3B1bGF0aW9uKDApKS50b0JlTnVsbCgpOwogIH0pOwp9KTsKCmRlc2NyaWJlKCd0aWVyRm9yWm9vbSAoem9vbS1iYW5kIC0+IHRpZXIpJywgKCkgPT4gewogIGl0KCdtYXBzIHpvb20gYmFuZHMgbW9ub3RvbmljYWxseScsICgpID0+IHsKICAgIGV4cGVjdCh0aWVyRm9yWm9vbSgxKSkudG9CZSgnY291bnRyeScpOwogICAgZXhwZWN0KHRpZXJGb3Jab29tKDMuOSkpLnRvQmUoJ2NvdW50cnknKTsKICAgIGV4cGVjdCh0aWVyRm9yWm9vbSg0KSkudG9CZSgnc3RhdGUnKTsKICAgIGV4cGVjdCh0aWVyRm9yWm9vbSg2LjkpKS50b0JlKCdzdGF0ZScpOwogICAgZXhwZWN0KHRpZXJGb3Jab29tKDcpKS50b0JlKCdjaXR5Jyk7CiAgICBleHBlY3QodGllckZvclpvb20oOS45KSkudG9CZSgnY2l0eScpOwogICAgZXhwZWN0KHRpZXJGb3Jab29tKDEwKSkudG9CZSgndG93bicpOwogICAgZXhwZWN0KHRpZXJGb3Jab29tKDE4KSkudG9CZSgndG93bicpOwogIH0pOwp9KTsKCmRlc2NyaWJlKCd0aWVyIHJ1bGVzIGludmFyaWFudHMnLCAoKSA9PiB7CiAgaXQoJ21pbnpvb20gaW5jcmVhc2VzIHdpdGggdGllciByYW5rIGFuZCBjb3ZlcnMgdGhlIGZ1bGwgem9vbSByYW5nZScsICgpID0+IHsKICAgIGNvbnN0IHpvb21zID0gVElFUl9SVUxFUy5tYXAoKHIpID0+IG1pbnpvb21Gb3JUaWVyKHIudGllcikpOwogICAgZm9yIChsZXQgaSA9IDE7IGkgPCB6b29tcy5sZW5ndGg7IGkrKykgZXhwZWN0KHpvb21zW2ldKS50b0JlR3JlYXRlclRoYW4oem9vbXNbaSAtIDFdKTsKICAgIGV4cGVjdChtaW56b29tRm9yVGllcigndG93bicpKS50b0JlKDEwKTsKICAgIGV4cGVjdChUSUVSX1JVTEVTW1RJRVJfUlVMRVMubGVuZ3RoIC0gMV0ubWF4em9vbSkudG9CZUdyZWF0ZXJUaGFuT3JFcXVhbCgxOCk7CiAgfSk7Cn0pOwoKZGVzY3JpYmUoJ2Nvb3JkS2V5IGRlYm91bmNlICh+MC4wMDUgZGVnLCBsYXcgIzcpJywgKCkgPT4gewogIGl0KCdxdWFudGl6ZXMgdG8gdGhlIHNhbWUga2V5IHdpdGhpbiBvbmUgY2VsbCcsICgpID0+IHsKICAgIGNvbnN0IGsxID0gY29vcmRLZXkoMzkuOCwgLTk4LjUpOwogICAgZXhwZWN0KGNvb3JkS2V5KDM5LjgwMDEsIC05OC41MDAxKSkudG9CZShrMSk7IC8vIHRpbnkgcGFuIC0+IHNhbWUga2V5CiAgfSk7CiAgaXQoJ2NoYW5nZXMga2V5IGJleW9uZCBvbmUgY2VsbCcsICgpID0+IHsKICAgIGV4cGVjdChjb29yZEtleSgzOS44LCAtOTguNSkpLm5vdC50b0JlKGNvb3JkS2V5KDM5LjgyLCAtOTguNSkpOwogIH0pOwp9KTsK
+import { describe, expect, it } from 'vitest';
+import {
+  coordKey,
+  minzoomForTier,
+  tierForPopulation,
+  tierForZoom,
+  TIER_RULES,
+} from './tiers';
+
+describe('tierForPopulation (country->state->city->town)', () => {
+  it('maps population bands to tiers', () => {
+    expect(tierForPopulation(5_000_000)).toBe('country');
+    expect(tierForPopulation(1_000_000)).toBe('country');
+    expect(tierForPopulation(999_999)).toBe('state');
+    expect(tierForPopulation(100_000)).toBe('state');
+    expect(tierForPopulation(99_999)).toBe('city');
+    expect(tierForPopulation(10_000)).toBe('city');
+    expect(tierForPopulation(9_999)).toBe('town');
+    expect(tierForPopulation(500)).toBe('town');
+  });
+  it('drops populations below 500', () => {
+    expect(tierForPopulation(499)).toBeNull();
+    expect(tierForPopulation(0)).toBeNull();
+  });
+});
+
+describe('tierForZoom (zoom-band -> tier)', () => {
+  it('maps zoom bands monotonically', () => {
+    expect(tierForZoom(1)).toBe('country');
+    expect(tierForZoom(3.9)).toBe('country');
+    expect(tierForZoom(4)).toBe('state');
+    expect(tierForZoom(6.9)).toBe('state');
+    expect(tierForZoom(7)).toBe('city');
+    expect(tierForZoom(9.9)).toBe('city');
+    expect(tierForZoom(10)).toBe('town');
+    expect(tierForZoom(18)).toBe('town');
+  });
+});
+
+describe('tier rules invariants', () => {
+  it('minzoom increases with tier rank and covers the full zoom range', () => {
+    const zooms = TIER_RULES.map((r) => minzoomForTier(r.tier));
+    for (let i = 1; i < zooms.length; i++) expect(zooms[i]).toBeGreaterThan(zooms[i - 1]);
+    expect(minzoomForTier('town')).toBe(10);
+    expect(TIER_RULES[TIER_RULES.length - 1].maxzoom).toBeGreaterThanOrEqual(18);
+  });
+});
+
+describe('coordKey debounce (~0.005 deg, law #7)', () => {
+  it('quantizes to the same key within one cell', () => {
+    const k1 = coordKey(39.8, -98.5);
+    expect(coordKey(39.8001, -98.5001)).toBe(k1); // tiny pan -> same key
+  });
+  it('changes key beyond one cell', () => {
+    expect(coordKey(39.8, -98.5)).not.toBe(coordKey(39.82, -98.5));
+  });
+});

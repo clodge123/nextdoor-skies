@@ -1,1 +1,46 @@
-IyEvdXNyL2Jpbi9lbnYgbm9kZQovKioKICogTDcgc2VlZCBDTEkgcnVubmVyLgogKgogKiBVc2FnZToKICogICBub2RlIHNjcmlwdHMvc2VlZC5tanMgICAgICAgICAgICAgICAgICAgICAgIyB1c2VzIFBPU1RHUkVTX1VSTCwgdGhlbiBSRVBPUlRTX0ZJTEUgZnJvbSBlbnYKICogICBSRVBPUlRTX0ZJTEU9Li90bXAvcmVwb3J0cy5qc29uIG5vZGUgc2NyaXB0cy9zZWVkLm1qcwogKiAgIFBPU1RHUkVTX1VSTD1wb3N0Z3JlczovLy4uLiBub2RlIHNjcmlwdHMvc2VlZC5tanMKICoKICogU2VlZC1vbmNlOiBleGl0cyAwIGFuZCByZXBvcnRzICJhbHJlYWR5IHNlZWRlZCIgd2hlbiBkYXRhIGV4aXN0cy4KICovCmltcG9ydCB7IHJlc29sdmUsIGRpcm5hbWUgfSBmcm9tICdub2RlOnBhdGgnOwppbXBvcnQgeyBmaWxlVVJMVG9QYXRoIH0gZnJvbSAnbm9kZTp1cmwnOwppbXBvcnQgeyBhY2Nlc3MgfSBmcm9tICdub2RlOmZzL3Byb21pc2VzJzsKCmNvbnN0IGhlcmUgPSBkaXJuYW1lKGZpbGVVUkxUb1BhdGgoaW1wb3J0Lm1ldGEudXJsKSk7CmNvbnN0IGRpc3RFbnRyeSA9IHJlc29sdmUoaGVyZSwgJy4uL2Rpc3Qvc2VydmVyL2xpYi9zZWVkLmpzJyk7CmNvbnN0IHNyY0VudHJ5ID0gcmVzb2x2ZShoZXJlLCAnLi4vc2VydmVyL2xpYi9zZWVkLnRzJyk7Cgphc3luYyBmdW5jdGlvbiBsb2FkU2VlZCgpIHsKICB0cnkgewogICAgYXdhaXQgYWNjZXNzKGRpc3RFbnRyeSk7CiAgICByZXR1cm4gYXdhaXQgaW1wb3J0KGRpc3RFbnRyeSk7CiAgfSBjYXRjaCB7CiAgICBjb25zb2xlLmVycm9yKCdkaXN0L3NlcnZlci9saWIvc2VlZC5qcyBub3QgZm91bmQg4oCUIHJ1biBgbnBtIHJ1biBidWlsZGAgZmlyc3QuJyk7CiAgICBwcm9jZXNzLmV4aXQoMSk7CiAgfQp9Cgpjb25zdCB7IHNlZWRPbmNlIH0gPSBhd2FpdCBsb2FkU2VlZCgpOwoKY29uc3Qgb3B0cyA9IHsgbm93OiBuZXcgRGF0ZSgpIH07CmlmIChwcm9jZXNzLmVudi5QT1NUR1JFU19VUkwpIG9wdHMucG9zdGdyZXNVcmwgPSBwcm9jZXNzLmVudi5QT1NUR1JFU19VUkw7CmlmIChwcm9jZXNzLmVudi5SRVBPUlRTX0ZJTEUpIG9wdHMucmVwb3J0c0ZpbGUgPSBwcm9jZXNzLmVudi5SRVBPUlRTX0ZJTEU7Cgp0cnkgewogIGNvbnN0IHJlc3VsdCA9IGF3YWl0IHNlZWRPbmNlKG9wdHMpOwogIGlmIChyZXN1bHQuc2VlZGVkKSB7CiAgICBjb25zb2xlLmxvZyhgc2VlZGVkOiAke3Jlc3VsdC5wb3N0c30gZGVtbyBwb3N0cywgJHtyZXN1bHQuY29tbWVudHN9IGRlbW8gY29tbWVudHNgKTsKICB9IGVsc2UgewogICAgY29uc29sZS5sb2coYG5vdCBzZWVkZWQgKCR7cmVzdWx0LnJlYXNvbn07ICR7cmVzdWx0LnBvc3RzfSBleGlzdGluZyBwb3N0cylgKTsKICB9Cn0gY2F0Y2ggKGVycikgewogIGNvbnNvbGUuZXJyb3IoJ3NlZWQgZmFpbGVkOicsIGVyciBpbnN0YW5jZW9mIEVycm9yID8gZXJyLm1lc3NhZ2UgOiBlcnIpOwogIHByb2Nlc3MuZXhpdCgxKTsKfQo=
+#!/usr/bin/env node
+/**
+ * L7 seed CLI runner.
+ *
+ * Usage:
+ *   node scripts/seed.mjs                      # uses POSTGRES_URL, then REPORTS_FILE from env
+ *   REPORTS_FILE=./tmp/reports.json node scripts/seed.mjs
+ *   POSTGRES_URL=postgres://... node scripts/seed.mjs
+ *
+ * Seed-once: exits 0 and reports "already seeded" when data exists.
+ */
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { access } from 'node:fs/promises';
+
+const here = dirname(fileURLToPath(import.meta.url));
+const distEntry = resolve(here, '../dist/server/lib/seed.js');
+const srcEntry = resolve(here, '../server/lib/seed.ts');
+
+async function loadSeed() {
+  try {
+    await access(distEntry);
+    return await import(distEntry);
+  } catch {
+    console.error('dist/server/lib/seed.js not found — run `npm run build` first.');
+    process.exit(1);
+  }
+}
+
+const { seedOnce } = await loadSeed();
+
+const opts = { now: new Date() };
+if (process.env.POSTGRES_URL) opts.postgresUrl = process.env.POSTGRES_URL;
+if (process.env.REPORTS_FILE) opts.reportsFile = process.env.REPORTS_FILE;
+
+try {
+  const result = await seedOnce(opts);
+  if (result.seeded) {
+    console.log(`seeded: ${result.posts} demo posts, ${result.comments} demo comments`);
+  } else {
+    console.log(`not seeded (${result.reason}; ${result.posts} existing posts)`);
+  }
+} catch (err) {
+  console.error('seed failed:', err instanceof Error ? err.message : err);
+  process.exit(1);
+}

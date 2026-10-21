@@ -1,1 +1,93 @@
-IyBMMTIg4oCUIEFQUC1XSVJJTkcgSU5URUdSQVRJT04gKHdhdmUgMSwgcnVuIDIpCgpMYW5lOiBmaW5pc2ggdGhlIEw1K0w2IGludGVncmF0aW9uIHRhaWwgbGVmdCBvcGVuIGJ5IHRoZSBraWxsZWQgbGFuZXMuCkJyYW5jaDogYHIydzEvTDEyLWFwcC13aXJpbmdgIChmcm9tIG1haW4gQCBjYjg1MjE0KS4gV29ya3RyZWU6CmB+Ly5vcGVuY2xhdy93b3JrdHJlZXMvcjIvdzEtTDEyYC4KCiMjIEFjdGl2ZSBtaW51dGVzCgp+NDUgbWluIHdhbGwgKDAwOjM5IOKGkiAwMToyNSBDRFQpLCBtb3N0IG9mIGl0IHByb2R1Y3RpdmU6IHNldHVwIH44IG1pbiwKY29kZSB+MjAgbWluLCBQbGF5d3JpZ2h0IHRyaWFnZSBsb29wcyB+MTUgbWluLgoKIyMgV2hhdCBsYW5kZWQKCjEuICoqTWFwUGFnZS50c3gqKiDigJQgbW91bnRzIGA8TWFwVmlldyBjZW50ZXI9e1stOTguNSwgMzkuOF19IHpvb209ezN9PmAgYXMgdGhlCiAgIHBhZ2UgYm9keSAoaDEgIk1hcCIga2VwdDsgQXBwLnRlc3QudHN4IGhlYWRpbmdzIGdyZWVuKS4gSW5zaWRlIE1hcFZpZXcncwogICBjaGlsZHJlbjogYSBgTWFwQmFkZ2VzYCBjb21wb25lbnQgbW91bnRpbmcgYDxUb3duQmFkZ2VzPmAgKEw2KSBmZWQgYnkKICAgYHRvd25zSW5CYm94KFRPV05TLnRvd25zLCBtYXAuZ2V0Qm91bmRzKCkpYCAoTDUgZ2F6ZXR0ZWVyKSBhbmQgdGVtcHMgZnJvbQogICBgY3JlYXRlV2VhdGhlclJlZnJlc2hlcmAgKDUtbWluIHdpbmRvdyBjYWRlbmNlLCBpbmplY3RhYmxlIGBmZXRjaEltcGxgLAogICBsYXN0LWRhdGEtd2lucykuIFJlZnJlc2hlciBsYXcgaG9ub3JlZDogZmV0Y2ggcGVyIHdpbmRvdywgTkVWRVIgcGVyIHBhbjsKICAgdG93bnMgYXJlIG9ubHkgc3VwcGxpZWQgYXQvYWJvdmUgYFRPV05fQkFER0VfTUlOX1pPT01gIChub3RoaW5nIHRvIGZldGNoCiAgIHdoaWxlIGJhZGdlcyBhcmUgaW52aXNpYmxlKTsgY3Jvc3NpbmcgdGhlIHpvb20gdGhyZXNob2xkIHVwd2FyZCByZXN0YXJ0cwogICB0aGUgd2luZG93IHNvIHRoZSBmaXJzdCBmZXRjaCBpcyBpbW1lZGlhdGUuIGB0b3duSWQgPSBzbHVnaWZ5KG5hbWUpICsKICAgcm91bmRlZCBsYXQvbG9uICgyZHApYCDigJQgcHVyZSwgZGV0ZXJtaW5pc3RpYyAoUjE3OyBjaGVjay1kZXRlcm1pbmlzbSBjbGVhbikuCjIuICoqTWFwVmlldy50c3gqKiDigJQgdHdvIHNxdWFyZSBidXR0b25zIGB6b29tIGluYCAvIGB6b29tIG91dGAgKGFyaWEtbGFiZWxzCiAgIGV4YWN0bHkgdGhvc2Ugc3RyaW5ncywgYC5tYXAtY29udHJvbHNgIHdyYXBwZXIsIGBib3JkZXItcmFkaXVzOgogICB2YXIoLS1yYWRpdXMpYCA9IDBweCB2aWEgdGhlIGdsb2JhbCB0b2tlbikgY2FsbGluZyBgbWFwLnNldFpvb20oem9vbcKxMylgCiAgIGNsYW1wZWQgWzEsMThdLiBSZW5kZXJlZCBhcyBzaWJsaW5ncyBBRlRFUiB0aGUgY2FudmFzIGNvbnRhaW5lciB3aXRoCiAgIGB6LWluZGV4OiAyOyBwb2ludGVyLWV2ZW50czogYXV0b2Agc28gY2xpY2tzIGxhbmQgYWJvdmUgdGhlIGNhbnZhcy4KMy4gKipiYWRnZXMuc3BlYy50cyoqIOKAlCByZXRhcmdldGVkIHRvIHRoZSBSRUFMIGFwcCAoZGVmYXVsdCB0YXJnZXQsIG5vCiAgIGBFMkVfVEFSR0VUPXRlc3QtYXBwYCkuIE9wZW4tTWV0ZW8gcm91dGUgc3R1YiBrZXB0LiBBc3NlcnRzOiAwIGJhZGdlcyBhdAogICB6b29tIDM7IE9ORSBgem9vbSBpbmAgY2xpY2sgKDPihpI2IOKJpSBUT1dOX0JBREdFX01JTl9aT09NKSDih5Ig4omlMSBgLnRvd24tYmFkZ2VgCiAgIHZpc2libGUgY29udGFpbmluZyBhIMKwIG51bWJlcjsgYGJvcmRlci1yYWRpdXM6IDBweGA7IGNvbnNvbGUgZXJyb3JzID09IFtdLgogICBNb2JpbGUgdGFwIHZhcmlhbnQga2VwdCAoYHBhZ2UuaGFzVG91Y2ggPyB0YXAgOiBjbGlja2ApLiBTY3JlZW5zaG90cwogICBhcmNoaXZlZCB0byBgZG9jcy9zY3JlZW5zaG90cy9MNi9iYWRnZXMtPHByb2plY3Q+LnBuZ2AuIFRlc3QtYXBwIGZhbGxiYWNrCiAgIGV4cGVjdGF0aW9uIHJlbW92ZWQgKHRlc3QtYXBwIGZpbGVzIGtlcHQsIGhhcm1sZXNzKS4KNC4gKiptYXAuc3BlYy50cyoqIOKAlCBwYXNzZXMgdW5jaGFuZ2VkIGV4Y2VwdCBvbmUgaG9uZXN0IGFkZGl0aW9uOiB0aGUgcmVhbCBhcHAKICAgbm93IGZpcmVzIE9wZW4tTWV0ZW8gYmF0Y2ggUE9TVHMgb24gem9vbS1pbnRvLXRvd24tdGllciAodGhlIHJlZnJlc2hlciksCiAgIHNvIHRoZSBzcGVjIHN0dWJzIGBhcGkub3Blbi1tZXRlby5jb20vdjEvYmF0Y2hgIChkZXRlcm1pbmlzdGljIHRlbXBzKSB0bwogICBrZWVwIGl0cyBjb25zb2xlLWNsZWFuIGdhdGUgaG9uZXN0LiBObyBjb25zb2xlLWV4Y2x1c2lvbiB3aWRlbmluZyB3YXMKICAgbmVlZGVkIGJleW9uZCB0aGUgcHJlLWV4aXN0aW5nIEdMLWRyaXZlciAvIHN0eWxlLXZhbGlkYXRpb24gZXhjbHVzaW9ucy4KICAgUGhvbmUgcHJvamVjdDogdGhlIG9sZCBBdXN0aW4gY2VudGVyIHB1dCB0aGUgb25seSBpbi12aWV3IHRvd24gbGFiZWwKICAgKEFuZGVyc29uIE1pbGwpIGV4YWN0bHkgb24gdGhlIHBob25lIHZpZXdwb3J0J3MgdG9wIGVkZ2UsIHdoZXJlIG1hcGxpYnJlCiAgIGNvbGxpc2lvbi1jdWxscyBpdCDigJQgcGhvbmUgc2F3IGxhYmVscz0wIGZvcmV2ZXIgKHRoZSAzMHMgdGltZW91dCB3YXMgYQogICBzeW1wdG9tLCBub3Qgc2xvd25lc3MpLiBSZXRhcmdldGVkIHRoZSBqdW1wVG8gdG8gTWFub3IsIFRYIChhIHJlYWwgYmFrZWQKICAgdG93bi10aWVyIGZlYXR1cmUpIHNvIHRoZSBhc3NlcnRpb24gaXMgdmlld3BvcnQtaW5kZXBlbmRlbnQ7IGtlcHQgYQogICBtb2Rlc3QgNjBzIHNldHRsZSBidWRnZXQgZm9yIHRoZSBub2RlLXNpZGUgdGlsZSByZWxheS4gQXNzZXJ0aW9ucwogICB1bmNoYW5nZWQuCjUuICoqZTJlLXNlcnZlLm1qcyoqIOKAlCBkdWFsLXNlcnZlczogYnVpbGRzIHRoZSBSRUFMIGFwcCAocm9vdCB2aXRlIGNvbmZpZykgb24KICAgdGhlIG1haW4gcG9ydCBhbmQgdGhlIEwyIGZpeHR1cmVzIGFwcCBvbiBwb3J0KzEsIHdhaXRzIGZvciBib3RoIHRvIGFuc3dlci4KICAgUmF0aW9uYWxlOiB3YXZlIDEgc3BlY3Mgc3BsaXQgYmV0d2VlbiBoYXJuZXNzIGNvbnRlbnQgKGdvbGRlbi1wYXRoKSBhbmQKICAgdGhlIHJlYWwgYXBwIChtYXAvYmFkZ2VzKTsgd2l0aCBNYXBQYWdlIHdpcmVkLCBgL2AgbXVzdCBiZSB0aGUgcmVhbCBhcHAuCiAgIGBnb2xkZW4tcGF0aC5zcGVjLnRzYCByZXRhcmdldGVkIHRvIHRoZSBmaXh0dXJlcyBwb3J0IChpdHMgY29udGVudCBsaXZlcwogICB0aGVyZSkuIExlZ2FjeSBgRTJFX1RBUkdFVD1maXh0dXJlc3x0ZXN0LWFwcGAgbW9kZXMgcHJlc2VydmVkLgo2LiAqKkFwcC50ZXN0LnRzeCoqIOKAlCBtb2NrcyBgbWFwbGlicmUtZ2xgIChqc2RvbSBoYXMgbm8gV2ViR0wpIHNpbmNlIE1hcFBhZ2UKICAgbm93IG1vdW50cyBNYXBWaWV3OyBhc3NlcnRzIG1hcC12aWV3ICsgYm90aCB6b29tIGJ1dHRvbnMgcmVuZGVyLgoKIyMgR2F0ZSByZXN1bHRzCgp8IEdhdGUgfCBSZXN1bHQgfAp8LS0tLS0tfC0tLS0tLS0tfAp8IGB0c2MgLWJgIHwgUEFTUyAoZXhpdCAwKSB8CnwgYG5wbSBydW4gYnVpbGRgIHwgUEFTUyAoZXhpdCAwOyA1NiBtb2R1bGVzLCBjaHVuay1zaXplIHdhcm5pbmcgcHJlLWV4aXN0aW5nKSB8CnwgYG5weCB2aXRlc3QgcnVuYCB8ICoqNTYvNTYqKiBncmVlbiAoMTAgZmlsZXMpIHwKfCBgbnB4IHBsYXl3cmlnaHQgdGVzdGAgKGZ1bGwsIDMgcHJvamVjdHMpIHwgKioyNy8yNyoqIGdyZWVuOiBnb2xkZW4tcGF0aCA2LCB0aGVtZSA2LCBzZWVkIDYsIG1hcCAzLCBiYWRnZXMgNiAoZmluYWwgcnVuIDAxOjM4IENEVCwgUFcgcmM9MCkgfAp8IGNoZWNrOmRldGVybWluaXNtIHwgTWFwUGFnZS90b3duSWQgY2xlYW47IG9ubHkgcHJlLWV4aXN0aW5nIGNvbW1lbnQtbGl0ZXJhbCBzZWxmLWZsYWdzIHJlbWFpbiAoc2FtZSBwYXR0ZXJuIGFzIG9wZW5tZXRlby1iYXRjaC50cykgfAp8IGNoZWNrOnJhZGl1cyB8IE9LICgyMyBmaWxlcywgc3F1YXJlIGdlb21ldHJ5IGVuZm9yY2VkKSB8CgpQbGF5d3JpZ2h0IHJ1biBlbnY6IGBOT0RFX1VTRV9FTlZfUFJPWFk9IE5PX1BST1hZPScxMjcuMC4wLjEsbG9jYWxob3N0J2AKKGVncmVzcyBwcm94eSB3b3VsZCBvdGhlcndpc2UgNDA3IGxvb3BiYWNrIGhlYWx0aC1jaGVja3MpLgoKIyMgQ29tbWl0cwoKLSBgYzc4MWFlZGAg4oCUIHN1cnZpdmFsIGNvbW1pdCAofjEwIG1pbiBtYXJrKTogYWxsIHdpcmluZyArIHNwZWMgcmV0YXJnZXRzLgotIGA2MzVjMjRkYCDigJQgbWFwLnNwZWMgTWFub3IgY2VudGVyICsgcmVsYXkgcmV0cnkgKyBzZXR0bGUgYnVkZ2V0ICsgbWV0cmljcy4KLSB0aGlyZCBjb21taXQ6IE1hcFBhZ2UgY29tbWVudCBkZS1saXRlcmFsIChzY2FubmVyIHNlbGYtZmxhZykgKyBmaW5hbCBydW4gbG9nLgoKIyMgQ2F0Y2hlcwoKMS4gKipGcmVzaCB3b3JrdHJlZSBucG0gaW5zdGFsbCBzaWxlbnRseSBza2lwcGVkIGRldkRlcGVuZGVuY2llcyoqIChvbmx5IDE5CiAgIHBhY2thZ2VzOyB0c2Mvdml0ZXN0IGFic2VudCkuIGBucG0gaW5zdGFsbCAtLWluY2x1ZGU9ZGV2YCBmaXhlZCBpdC4KMi4gKiplMmUtc2VydmUgZGVmYXVsdGVkIHRvIGZpeHR1cmVzKiogKGBzcmMvaW5kZXguaHRtbGAgYWJzZW50IOKGkiBhcHBUYXJnZXQKICAgZmFsc2UpLCBzbyBgL2Agc2VydmVkIHRoZSBoYXJuZXNzIHBsYWNlaG9sZGVyIOKAlCB0aGUgZXhhY3Qgcm9vdCBjYXVzZSBvZgogICB0aGUgOSBmYWlsdXJlcy4gRml4ZWQgd2l0aCB0aGUgZHVhbC1zZXJ2ZSBzcGxpdCBhYm92ZS4KMy4gKipSZWFsLWFwcCB6b29tIGZpcmVzIE9wZW4tTWV0ZW8gUE9TVHMqKiDigJQgbWFwLnNwZWMncyBjb25zb2xlLWNsZWFuIGdhdGUKICAgY2F1Z2h0IHRoZSB1bi1zdHViYmVkIGJhdGNoIGNhbGwgKENPUlMpIGFmdGVyIHdpcmluZzsgYWRkZWQgdGhlIHN0dWIuCjQuICoqUGhvbmUgbWFwLnNwZWMgdGltZWQgb3V0IG9uIGxhYmVscz0wKiog4oCUIHJvb3QgY2F1c2Ugd2FzIE5PVCBzbG93bmVzczoKICAgY2VudGVyZWQgb24gQXVzdGluLCB0aGUgb25seSB0b3duLXRpZXIgbGFiZWwgaW4gdmlldyAoQW5kZXJzb24gTWlsbCwKICAgcG9wIDg3NDQpIHNhdCBwaXhlbC1leGFjdCBvbiB0aGUgMzkwcHggdmlld3BvcnQncyB0b3AgZWRnZSBhbmQgZ290CiAgIGNvbGxpc2lvbi1jdWxsZWQuIERpYWdub3NlZCB3aXRoIGEgc3RhbmRhbG9uZSBwcm9iZSAoYXJlVGlsZXNMb2FkZWQ9dHJ1ZQogICBhdCA2cywgbGFiZWxzPTAgZm9yZXZlcikuIEZpeDogY2VudGVyIHRoZSB6b29tIG9uIE1hbm9yICh0b3duLXRpZXIpLAogICBkZXRlcm1pbmlzdGljIGluIGFsbCB2aWV3cG9ydHMuCjUuICoqRml4dHVyZXMgcHJldmlldyByYWNlKio6IHBvcnQrMSBwcmV2aWV3IHN0YXJ0ZWQgYWZ0ZXIgdGhlIGFwcCBwcmV2aWV3LAogICBzbyBnb2xkZW4tcGF0aCBjb3VsZCBoaXQgaXQgYmVmb3JlIGxpc3RlbmluZzsgYWRkZWQgYSByZWFkaW5lc3Mgd2FpdC4K
+# L12 — APP-WIRING INTEGRATION (wave 1, run 2)
+
+Lane: finish the L5+L6 integration tail left open by the killed lanes.
+Branch: `r2w1/L12-app-wiring` (from main @ cb85214). Worktree:
+`~/.openclaw/worktrees/r2/w1-L12`.
+
+## Active minutes
+
+~45 min wall (00:39 → 01:25 CDT), most of it productive: setup ~8 min,
+code ~20 min, Playwright triage loops ~15 min.
+
+## What landed
+
+1. **MapPage.tsx** — mounts `<MapView center={[-98.5, 39.8]} zoom={3}>` as the
+   page body (h1 "Map" kept; App.test.tsx headings green). Inside MapView's
+   children: a `MapBadges` component mounting `<TownBadges>` (L6) fed by
+   `townsInBbox(TOWNS.towns, map.getBounds())` (L5 gazetteer) and temps from
+   `createWeatherRefresher` (5-min window cadence, injectable `fetchImpl`,
+   last-data-wins). Refresher law honored: fetch per window, NEVER per pan;
+   towns are only supplied at/above `TOWN_BADGE_MIN_ZOOM` (nothing to fetch
+   while badges are invisible); crossing the zoom threshold upward restarts
+   the window so the first fetch is immediate. `townId = slugify(name) +
+   rounded lat/lon (2dp)` — pure, deterministic (R17; check-determinism clean).
+2. **MapView.tsx** — two square buttons `zoom in` / `zoom out` (aria-labels
+   exactly those strings, `.map-controls` wrapper, `border-radius:
+   var(--radius)` = 0px via the global token) calling `map.setZoom(zoom±3)`
+   clamped [1,18]. Rendered as siblings AFTER the canvas container with
+   `z-index: 2; pointer-events: auto` so clicks land above the canvas.
+3. **badges.spec.ts** — retargeted to the REAL app (default target, no
+   `E2E_TARGET=test-app`). Open-Meteo route stub kept. Asserts: 0 badges at
+   zoom 3; ONE `zoom in` click (3→6 ≥ TOWN_BADGE_MIN_ZOOM) ⇒ ≥1 `.town-badge`
+   visible containing a ° number; `border-radius: 0px`; console errors == [].
+   Mobile tap variant kept (`page.hasTouch ? tap : click`). Screenshots
+   archived to `docs/screenshots/L6/badges-<project>.png`. Test-app fallback
+   expectation removed (test-app files kept, harmless).
+4. **map.spec.ts** — passes unchanged except one honest addition: the real app
+   now fires Open-Meteo batch POSTs on zoom-into-town-tier (the refresher),
+   so the spec stubs `api.open-meteo.com/v1/batch` (deterministic temps) to
+   keep its console-clean gate honest. No console-exclusion widening was
+   needed beyond the pre-existing GL-driver / style-validation exclusions.
+   Phone project: the old Austin center put the only in-view town label
+   (Anderson Mill) exactly on the phone viewport's top edge, where maplibre
+   collision-culls it — phone saw labels=0 forever (the 30s timeout was a
+   symptom, not slowness). Retargeted the jumpTo to Manor, TX (a real baked
+   town-tier feature) so the assertion is viewport-independent; kept a
+   modest 60s settle budget for the node-side tile relay. Assertions
+   unchanged.
+5. **e2e-serve.mjs** — dual-serves: builds the REAL app (root vite config) on
+   the main port and the L2 fixtures app on port+1, waits for both to answer.
+   Rationale: wave 1 specs split between harness content (golden-path) and
+   the real app (map/badges); with MapPage wired, `/` must be the real app.
+   `golden-path.spec.ts` retargeted to the fixtures port (its content lives
+   there). Legacy `E2E_TARGET=fixtures|test-app` modes preserved.
+6. **App.test.tsx** — mocks `maplibre-gl` (jsdom has no WebGL) since MapPage
+   now mounts MapView; asserts map-view + both zoom buttons render.
+
+## Gate results
+
+| Gate | Result |
+|------|--------|
+| `tsc -b` | PASS (exit 0) |
+| `npm run build` | PASS (exit 0; 56 modules, chunk-size warning pre-existing) |
+| `npx vitest run` | **56/56** green (10 files) |
+| `npx playwright test` (full, 3 projects) | **27/27** green: golden-path 6, theme 6, seed 6, map 3, badges 6 (final run 01:38 CDT, PW rc=0) |
+| check:determinism | MapPage/townId clean; only pre-existing comment-literal self-flags remain (same pattern as openmeteo-batch.ts) |
+| check:radius | OK (23 files, square geometry enforced) |
+
+Playwright run env: `NODE_USE_ENV_PROXY= NO_PROXY='127.0.0.1,localhost'`
+(egress proxy would otherwise 407 loopback health-checks).
+
+## Commits
+
+- `c781aed` — survival commit (~10 min mark): all wiring + spec retargets.
+- `635c24d` — map.spec Manor center + relay retry + settle budget + metrics.
+- third commit: MapPage comment de-literal (scanner self-flag) + final run log.
+
+## Catches
+
+1. **Fresh worktree npm install silently skipped devDependencies** (only 19
+   packages; tsc/vitest absent). `npm install --include=dev` fixed it.
+2. **e2e-serve defaulted to fixtures** (`src/index.html` absent → appTarget
+   false), so `/` served the harness placeholder — the exact root cause of
+   the 9 failures. Fixed with the dual-serve split above.
+3. **Real-app zoom fires Open-Meteo POSTs** — map.spec's console-clean gate
+   caught the un-stubbed batch call (CORS) after wiring; added the stub.
+4. **Phone map.spec timed out on labels=0** — root cause was NOT slowness:
+   centered on Austin, the only town-tier label in view (Anderson Mill,
+   pop 8744) sat pixel-exact on the 390px viewport's top edge and got
+   collision-culled. Diagnosed with a standalone probe (areTilesLoaded=true
+   at 6s, labels=0 forever). Fix: center the zoom on Manor (town-tier),
+   deterministic in all viewports.
+5. **Fixtures preview race**: port+1 preview started after the app preview,
+   so golden-path could hit it before listening; added a readiness wait.

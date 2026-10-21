@@ -1,1 +1,65 @@
-Ly8gQHZpdGVzdC1lbnZpcm9ubWVudCBqc2RvbQppbXBvcnQgeyBkZXNjcmliZSwgZXhwZWN0LCBpdCB9IGZyb20gJ3ZpdGVzdCcKaW1wb3J0IHsgcmVuZGVyLCBzY3JlZW4gfSBmcm9tICdAdGVzdGluZy1saWJyYXJ5L3JlYWN0JwppbXBvcnQgeyBNYXBDb250ZXh0LCB0eXBlIE1hcExpa2UgfSBmcm9tICcuLi9zcmMvbGliL21hcC9tYXAtY29udGV4dCcKaW1wb3J0IHsgVG93bkJhZGdlcyB9IGZyb20gJy4uL3NyYy9jb21wb25lbnRzL1Rvd25CYWRnZXMnCmltcG9ydCB0eXBlIHsgVG93bkNvb3JkIH0gZnJvbSAnLi4vc3JjL2xpYi93ZWF0aGVyL29wZW5tZXRlby1iYXRjaCcKCmNvbnN0IHRvd25zOiBUb3duQ29vcmRbXSA9IFsKICB7IGlkOiAnc3ByaW5nZmllbGQnLCBuYW1lOiAnU3ByaW5nZmllbGQnLCBsYXQ6IDM5Ljc4MTcsIGxvbjogLTg5LjY1MDEgfSwKICB7IGlkOiAnZmFyYXdheScsIG5hbWU6ICdGYXJhd2F5JywgbGF0OiA0NC45Nzc4LCBsb246IC05My4yNjUgfSwKXQoKZnVuY3Rpb24gc3R1Yk1hcCh6b29tOiBudW1iZXIpOiBNYXBMaWtlIHsKICByZXR1cm4gewogICAgcHJvamVjdDogKFtsb24sIGxhdF0pID0+ICh7IHg6IGxvbiAqIC0xMCwgeTogbGF0ICogMTAgfSksCiAgICBnZXRab29tOiAoKSA9PiB6b29tLAogICAgZ2V0Qm91bmRzOiAoKSA9PiAoeyB3ZXN0OiAtOTAsIGVhc3Q6IC04OSwgc291dGg6IDM5LCBub3J0aDogNDAgfSksCiAgfQp9CgpkZXNjcmliZSgnVG93bkJhZGdlcycsICgpID0+IHsKICBpdCgncmVuZGVycyByb3VuZGVkIHRlbXAgbnVtYmVycyBvdmVyIHRvd25zIHdoZW4gem9vbWVkIGluJywgKCkgPT4gewogICAgcmVuZGVyKAogICAgICA8TWFwQ29udGV4dC5Qcm92aWRlciB2YWx1ZT17c3R1Yk1hcCg4KX0+CiAgICAgICAgPFRvd25CYWRnZXMgdG93bnM9e3Rvd25zfSB0ZW1wcz17eyBzcHJpbmdmaWVsZDogMjEuNiwgZmFyYXdheTogNCB9fSAvPgogICAgICA8L01hcENvbnRleHQuUHJvdmlkZXI+LAogICAgKQogICAgY29uc3QgYmFkZ2UgPSBzY3JlZW4uZ2V0QnlUZXN0SWQoJ3Rvd24tYmFkZ2Utc3ByaW5nZmllbGQnKQogICAgZXhwZWN0KGJhZGdlLnRleHRDb250ZW50KS50b0JlKCcyMsKwJykKICAgIGV4cGVjdChzY3JlZW4uZ2V0QnlUZXN0SWQoJ3Rvd24tYmFkZ2UtZmFyYXdheScpLnRleHRDb250ZW50KS50b0JlKCc0wrAnKQogIH0pCgogIGl0KCdzaG93cyBob25lc3QgImF3YWl0aW5nIGZlZWQiIGZvciB0b3ducyB3aXRob3V0IGRhdGEgKFIxOSknLCAoKSA9PiB7CiAgICByZW5kZXIoCiAgICAgIDxNYXBDb250ZXh0LlByb3ZpZGVyIHZhbHVlPXtzdHViTWFwKDgpfT4KICAgICAgICA8VG93bkJhZGdlcyB0b3ducz17dG93bnN9IHRlbXBzPXt7fX0gLz4KICAgICAgPC9NYXBDb250ZXh0LlByb3ZpZGVyPiwKICAgICkKICAgIGV4cGVjdChzY3JlZW4uZ2V0QnlUZXN0SWQoJ3Rvd24tYmFkZ2Utc3ByaW5nZmllbGQnKS50ZXh0Q29udGVudCkudG9CZSgnYXdhaXRpbmcgZmVlZCcpCiAgfSkKCiAgaXQoJ2hpZGVzIGJhZGdlcyBiZWxvdyB0aGUgem9vbSBncmFkZScsICgpID0+IHsKICAgIHJlbmRlcigKICAgICAgPE1hcENvbnRleHQuUHJvdmlkZXIgdmFsdWU9e3N0dWJNYXAoNSl9PgogICAgICAgIDxUb3duQmFkZ2VzIHRvd25zPXt0b3duc30gdGVtcHM9e3sgc3ByaW5nZmllbGQ6IDEwIH19IC8+CiAgICAgIDwvTWFwQ29udGV4dC5Qcm92aWRlcj4sCiAgICApCiAgICBleHBlY3Qoc2NyZWVuLnF1ZXJ5QnlUZXN0SWQoJ3Rvd24tYmFkZ2Utc3ByaW5nZmllbGQnKSkudG9CZU51bGwoKQogIH0pCgogIGl0KCdwb3NpdGlvbnMgYmFkZ2VzIHZpYSBtYXAucHJvamVjdCgpJywgKCkgPT4gewogICAgcmVuZGVyKAogICAgICA8TWFwQ29udGV4dC5Qcm92aWRlciB2YWx1ZT17c3R1Yk1hcCg4KX0+CiAgICAgICAgPFRvd25CYWRnZXMgdG93bnM9e3Rvd25zfSB0ZW1wcz17eyBzcHJpbmdmaWVsZDogMTAgfX0gLz4KICAgICAgPC9NYXBDb250ZXh0LlByb3ZpZGVyPiwKICAgICkKICAgIGNvbnN0IGJhZGdlID0gc2NyZWVuLmdldEJ5VGVzdElkKCd0b3duLWJhZGdlLXNwcmluZ2ZpZWxkJykKICAgIGV4cGVjdChiYWRnZS5nZXRBdHRyaWJ1dGUoJ3N0eWxlJykpLnRvQ29udGFpbignbGVmdDogODk2LjUwMXB4JykKICAgIGV4cGVjdChiYWRnZS5nZXRBdHRyaWJ1dGUoJ3N0eWxlJykpLnRvQ29udGFpbigndG9wOiAzOTcuODE3cHgnKQogIH0pCgogIGl0KCd0aHJvd3MgYSBjbGVhciBzZWFtIGVycm9yIHdpdGhvdXQgbWFwIGNvbnRleHQnLCAoKSA9PiB7CiAgICBleHBlY3QoKCkgPT4gcmVuZGVyKDxUb3duQmFkZ2VzIHRvd25zPXt0b3duc30gdGVtcHM9e3t9fSAvPikpLnRvVGhyb3coL25vIG1hcCBpbnN0YW5jZS8pCiAgfSkKfSkK
+// @vitest-environment jsdom
+import { describe, expect, it } from 'vitest'
+import { render, screen } from '@testing-library/react'
+import { MapContext, type MapLike } from '../src/lib/map/map-context'
+import { TownBadges } from '../src/components/TownBadges'
+import type { TownCoord } from '../src/lib/weather/openmeteo-batch'
+
+const towns: TownCoord[] = [
+  { id: 'springfield', name: 'Springfield', lat: 39.7817, lon: -89.6501 },
+  { id: 'faraway', name: 'Faraway', lat: 44.9778, lon: -93.265 },
+]
+
+function stubMap(zoom: number): MapLike {
+  return {
+    project: ([lon, lat]) => ({ x: lon * -10, y: lat * 10 }),
+    getZoom: () => zoom,
+    getBounds: () => ({ west: -90, east: -89, south: 39, north: 40 }),
+  }
+}
+
+describe('TownBadges', () => {
+  it('renders rounded temp numbers over towns when zoomed in', () => {
+    render(
+      <MapContext.Provider value={stubMap(8)}>
+        <TownBadges towns={towns} temps={{ springfield: 21.6, faraway: 4 }} />
+      </MapContext.Provider>,
+    )
+    const badge = screen.getByTestId('town-badge-springfield')
+    expect(badge.textContent).toBe('22°')
+    expect(screen.getByTestId('town-badge-faraway').textContent).toBe('4°')
+  })
+
+  it('shows honest "awaiting feed" for towns without data (R19)', () => {
+    render(
+      <MapContext.Provider value={stubMap(8)}>
+        <TownBadges towns={towns} temps={{}} />
+      </MapContext.Provider>,
+    )
+    expect(screen.getByTestId('town-badge-springfield').textContent).toBe('awaiting feed')
+  })
+
+  it('hides badges below the zoom grade', () => {
+    render(
+      <MapContext.Provider value={stubMap(5)}>
+        <TownBadges towns={towns} temps={{ springfield: 10 }} />
+      </MapContext.Provider>,
+    )
+    expect(screen.queryByTestId('town-badge-springfield')).toBeNull()
+  })
+
+  it('positions badges via map.project()', () => {
+    render(
+      <MapContext.Provider value={stubMap(8)}>
+        <TownBadges towns={towns} temps={{ springfield: 10 }} />
+      </MapContext.Provider>,
+    )
+    const badge = screen.getByTestId('town-badge-springfield')
+    expect(badge.getAttribute('style')).toContain('left: 896.501px')
+    expect(badge.getAttribute('style')).toContain('top: 397.817px')
+  })
+
+  it('throws a clear seam error without map context', () => {
+    expect(() => render(<TownBadges towns={towns} temps={{}} />)).toThrow(/no map instance/)
+  })
+})

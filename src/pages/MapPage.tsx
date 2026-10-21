@@ -1,1 +1,140 @@
-Ly8gTDEyIEFQUC1XSVJJTkcg4oCUIE1hcFBhZ2UgaG9zdHMgdGhlIHJlYWwgbWFwIHNoZWxsIChMNSBNYXBWaWV3KSBhcyB0aGUgcGFnZQovLyBib2R5LCB3aXRoIHRoZSBMNiBUb3duQmFkZ2VzIG92ZXJsYXkgZmVkIGJ5IHZpZXdwb3J0LWZpbHRlcmVkIHRvd25zIGFuZCB0aGUKLy8gT3Blbi1NZXRlbyBiYXRjaCByZWZyZXNoZXIgKDUtbWluIHdpbmRvdywgbGFzdC1kYXRhLXdpbnMpLgovLwovLyBSMTcgZGV0ZXJtaW5pc206IHRvd24gaWRzIGFyZSBzbHVnaWZ5KG5hbWUpICsgcm91bmRlZCBsYXQvbG9uIOKAlCBwdXJlLAovLyBjbG9jay0gYW5kIFJORy1mcmVlICh0aGUgY2hlY2stZGV0ZXJtaW5pc20gc2Nhbm5lciBmbGFncyB0aG9zZSBsaXRlcmFscykuCmltcG9ydCB7IHVzZUVmZmVjdCwgdXNlTWVtbywgdXNlUmVmLCB1c2VTdGF0ZSB9IGZyb20gJ3JlYWN0JzsKaW1wb3J0IHRvd25zRGF0YSBmcm9tICcuLi8uLi9kYXRhL3Rvd25zL3VzLXRvd25zLmpzb24nOwppbXBvcnQgTWFwVmlldyBmcm9tICcuLi9jb21wb25lbnRzL01hcFZpZXcnOwppbXBvcnQgeyBUb3duQmFkZ2VzLCBUT1dOX0JBREdFX01JTl9aT09NIH0gZnJvbSAnLi4vY29tcG9uZW50cy9Ub3duQmFkZ2VzJzsKaW1wb3J0IHsgdXNlTWFwQ29udGV4dCB9IGZyb20gJy4uL2xpYi9tYXAvbWFwLWNvbnRleHQnOwppbXBvcnQgeyB0b3duc0luQmJveCwgdHlwZSBUb3duc0ZpbGUgfSBmcm9tICcuLi9saWIvbWFwL2dhemV0dGVlcic7CmltcG9ydCB7CiAgY3JlYXRlV2VhdGhlclJlZnJlc2hlciwKICB0eXBlIEN1cnJlbnRUZW1wLAogIHR5cGUgR2VvQm91bmRzLAogIHR5cGUgVG93bkNvb3JkLAp9IGZyb20gJy4uL2xpYi93ZWF0aGVyL29wZW5tZXRlby1iYXRjaCc7Cgpjb25zdCBUT1dOUzogVG93bnNGaWxlID0gdG93bnNEYXRhIGFzIFRvd25zRmlsZTsKCi8qKiBMb3dlcmNhc2UsIG5vbi1hbG51bSAtPiBzaW5nbGUgZGFzaCwgdHJpbW1lZC4gRGV0ZXJtaW5pc3RpYy4gKi8KZnVuY3Rpb24gc2x1Z2lmeShuYW1lOiBzdHJpbmcpOiBzdHJpbmcgewogIHJldHVybiBuYW1lLnRvTG93ZXJDYXNlKCkucmVwbGFjZSgvW15hLXowLTldKy9nLCAnLScpLnJlcGxhY2UoL14tK3wtKyQvZywgJycpOwp9CgovKiogU3RhYmxlIHRvd24gaWQ6IHNsdWdpZmllZCBuYW1lICsgcm91bmRlZCBjb29yZGluYXRlcyAoMmRwKS4gKi8KZXhwb3J0IGZ1bmN0aW9uIHRvd25JZChuYW1lOiBzdHJpbmcsIGxhdDogbnVtYmVyLCBsb246IG51bWJlcik6IHN0cmluZyB7CiAgcmV0dXJuIGAke3NsdWdpZnkobmFtZSl9LSR7TWF0aC5yb3VuZChsYXQgKiAxMDApIC8gMTAwfS0ke01hdGgucm91bmQobG9uICogMTAwKSAvIDEwMH1gOwp9CgpmdW5jdGlvbiBib3VuZHNPZihtYXA6IHsgZ2V0Qm91bmRzKCk6IHsgZ2V0U291dGhXZXN0KCk6IHsgbG5nOiBudW1iZXI7IGxhdDogbnVtYmVyIH07IGdldE5vcnRoRWFzdCgpOiB7IGxuZzogbnVtYmVyOyBsYXQ6IG51bWJlciB9IH0gfSk6IEdlb0JvdW5kcyB7CiAgY29uc3Qgc3cgPSBtYXAuZ2V0Qm91bmRzKCkuZ2V0U291dGhXZXN0KCk7CiAgY29uc3QgbmUgPSBtYXAuZ2V0Qm91bmRzKCkuZ2V0Tm9ydGhFYXN0KCk7CiAgcmV0dXJuIHsgd2VzdDogc3cubG5nLCBzb3V0aDogc3cubGF0LCBlYXN0OiBuZS5sbmcsIG5vcnRoOiBuZS5sYXQgfTsKfQoKLyoqCiAqIEJhZGdlIG92ZXJsYXkgaW5zaWRlIE1hcFZpZXc6IGNvbXB1dGVzIHZpZXdwb3J0IHRvd25zICh0b3duc0luQmJveCBvdmVyCiAqIG1hcC5nZXRCb3VuZHMpLCBrZWVwcyB0aGUgd2VhdGhlciByZWZyZXNoZXIgcG9pbnRlZCBhdCB0aGVtLCBhbmQgaGFuZHMKICogdG93bnMgKyB0ZW1wcyB0byA8VG93bkJhZGdlcz4uCiAqCiAqIFJlZnJlc2hlciBsYXcgKGJyaWVmIGxhdyAyKTogZmV0Y2ggcGVyIH41LW1pbiB3aW5kb3csIE5FVkVSIHBlciBwYW4uIFRoZQogKiByZWZyZXNoZXIgcnVucyBjb250aW51b3VzbHk7IHRvd25zIGFyZSBvbmx5IHN1cHBsaWVkIG9uY2UgdGhlIHpvb20gcmVhY2hlcwogKiBUT1dOX0JBREdFX01JTl9aT09NIChiYWRnZXMgYXJlIGludmlzaWJsZSBiZWxvdyBpdCwgc28gdGhlcmUgaXMgbm90aGluZyB0bwogKiBmZXRjaCkuIFdoZW4gem9vbSBDUk9TU0VTIHRoZSB0aHJlc2hvbGQgdXB3YXJkLCB0aGUgd2luZG93IGlzIHJlc3RhcnRlZCBzbwogKiB0aGUgZmlyc3QgZmV0Y2ggaGFwcGVucyBpbW1lZGlhdGVseSDigJQgYSB6b29tIGV2ZW50IGlzIGEgd2luZG93IGJvdW5kYXJ5LAogKiBub3QgYSBwYW4uCiAqLwpmdW5jdGlvbiBNYXBCYWRnZXMoKSB7CiAgY29uc3QgeyBtYXAsIHJlYWR5IH0gPSB1c2VNYXBDb250ZXh0KCk7CiAgY29uc3QgW3RlbXBzLCBzZXRUZW1wc10gPSB1c2VTdGF0ZTxSZWFkb25seTxSZWNvcmQ8c3RyaW5nLCBudW1iZXI+Pj4oe30pOwogIGNvbnN0IFt0aWNrLCBzZXRUaWNrXSA9IHVzZVN0YXRlKDApOwogIGNvbnN0IHJlZnJlc2hlclJlZiA9IHVzZVJlZjxSZXR1cm5UeXBlPHR5cGVvZiBjcmVhdGVXZWF0aGVyUmVmcmVzaGVyPiB8IG51bGw+KG51bGwpOwogIGNvbnN0IHZpc2libGVSZWYgPSB1c2VSZWY8VG93bkNvb3JkW10+KFtdKTsKICBjb25zdCBiZWxvd1JlZiA9IHVzZVJlZih0cnVlKTsKCiAgLy8gUmUtcmVuZGVyIG9uIG1hcCBtb3Rpb24gc28gdmlzaWJsZS10b3duIHNlbGVjdGlvbiB0cmFja3MgdGhlIHZpZXdwb3J0LgogIHVzZUVmZmVjdCgoKSA9PiB7CiAgICBpZiAoIW1hcCkgcmV0dXJuOwogICAgY29uc3QgYnVtcCA9ICgpID0+IHNldFRpY2soKHQpID0+IHQgKyAxKTsKICAgIG1hcC5vbignbW92ZWVuZCcsIGJ1bXApOwogICAgbWFwLm9uKCd6b29tZW5kJywgYnVtcCk7CiAgICByZXR1cm4gKCkgPT4gewogICAgICBtYXAub2ZmKCdtb3ZlZW5kJywgYnVtcCk7CiAgICAgIG1hcC5vZmYoJ3pvb21lbmQnLCBidW1wKTsKICAgIH07CiAgfSwgW21hcF0pOwoKICAvLyBWaWV3cG9ydC1maWx0ZXJlZCB0b3ducyAodGljayBkcml2ZXMgcmVjb21wdXRlOyBwb3NpdGlvbnMgY29tZSBmcm9tIG1hcCkuCiAgY29uc3QgdmlzaWJsZSA9IHVzZU1lbW88VG93bkNvb3JkW10+KCgpID0+IHsKICAgIHZvaWQgdGljazsKICAgIGlmICghbWFwKSByZXR1cm4gW107CiAgICBjb25zdCBiID0gYm91bmRzT2YobWFwKTsKICAgIHJldHVybiB0b3duc0luQmJveChUT1dOUy50b3ducywgYi53ZXN0LCBiLnNvdXRoLCBiLmVhc3QsIGIubm9ydGgpLm1hcCgodCkgPT4gKHsKICAgICAgaWQ6IHRvd25JZCh0Lm5hbWUsIHQubGF0LCB0LmxvbiksCiAgICAgIG5hbWU6IHQubmFtZSwKICAgICAgbGF0OiB0LmxhdCwKICAgICAgbG9uOiB0LmxvbiwKICAgIH0pKTsKICAgIC8vIGVzbGludC1kaXNhYmxlLW5leHQtbGluZSByZWFjdC1ob29rcy9leGhhdXN0aXZlLWRlcHMKICB9LCBbbWFwLCB0aWNrXSk7CiAgdmlzaWJsZVJlZi5jdXJyZW50ID0gdmlzaWJsZTsKCiAgLy8gV2VhdGhlciByZWZyZXNoZXI6IDUtbWluIHdpbmRvd3MsIGluamVjdGFibGUgZmV0Y2gsIGxhc3QtZGF0YS13aW5zLgogIHVzZUVmZmVjdCgoKSA9PiB7CiAgICBpZiAoIW1hcCB8fCAhcmVhZHkpIHJldHVybjsKICAgIGNvbnN0IHJlZnJlc2hlciA9IGNyZWF0ZVdlYXRoZXJSZWZyZXNoZXIoewogICAgICBnZXRUb3duczogKCkgPT4KICAgICAgICBtYXAuZ2V0Wm9vbSgpID49IFRPV05fQkFER0VfTUlOX1pPT00gPyB2aXNpYmxlUmVmLmN1cnJlbnQgOiBbXSwKICAgICAgZ2V0Vmlld3BvcnQ6ICgpID0+IGJvdW5kc09mKG1hcCksCiAgICAgIGZldGNoSW1wbDogKGlucHV0LCBpbml0KSA9PiBmZXRjaChpbnB1dCwgaW5pdCksCiAgICAgIG9uVGVtcHM6IChiYXRjaDogQ3VycmVudFRlbXBbXSkgPT4KICAgICAgICBzZXRUZW1wcygocHJldikgPT4gewogICAgICAgICAgY29uc3QgbmV4dCA9IHsgLi4ucHJldiB9OwogICAgICAgICAgZm9yIChjb25zdCB0IG9mIGJhdGNoKSBuZXh0W3QudG93bklkXSA9IHQudGVtcGVyYXR1cmVDOwogICAgICAgICAgcmV0dXJuIG5leHQ7CiAgICAgICAgfSksCiAgICB9KTsKICAgIHJlZnJlc2hlclJlZi5jdXJyZW50ID0gcmVmcmVzaGVyOwogICAgcmVmcmVzaGVyLnN0YXJ0KCk7CiAgICByZXR1cm4gKCkgPT4gewogICAgICByZWZyZXNoZXIuc3RvcCgpOwogICAgICByZWZyZXNoZXJSZWYuY3VycmVudCA9IG51bGw7CiAgICB9OwogIH0sIFttYXAsIHJlYWR5XSk7CgogIC8vIENyb3NzaW5nIG1pblpvb20gdXB3YXJkIHJlc3RhcnRzIHRoZSB3aW5kb3cgKGltbWVkaWF0ZSBmaXJzdCBmZXRjaCkuCiAgdXNlRWZmZWN0KCgpID0+IHsKICAgIGlmICghbWFwKSByZXR1cm47CiAgICBjb25zdCBvblpvb20gPSAoKSA9PiB7CiAgICAgIGNvbnN0IHogPSBtYXAuZ2V0Wm9vbSgpOwogICAgICBpZiAoeiA+PSBUT1dOX0JBREdFX01JTl9aT09NICYmIGJlbG93UmVmLmN1cnJlbnQpIHsKICAgICAgICBiZWxvd1JlZi5jdXJyZW50ID0gZmFsc2U7CiAgICAgICAgcmVmcmVzaGVyUmVmLmN1cnJlbnQ/LnN0b3AoKTsKICAgICAgICByZWZyZXNoZXJSZWYuY3VycmVudD8uc3RhcnQoKTsKICAgICAgfSBlbHNlIGlmICh6IDwgVE9XTl9CQURHRV9NSU5fWk9PTSkgewogICAgICAgIGJlbG93UmVmLmN1cnJlbnQgPSB0cnVlOwogICAgICB9CiAgICB9OwogICAgbWFwLm9uKCd6b29tZW5kJywgb25ab29tKTsKICAgIHJldHVybiAoKSA9PiB7CiAgICAgIG1hcC5vZmYoJ3pvb21lbmQnLCBvblpvb20pOwogICAgfTsKICB9LCBbbWFwXSk7CgogIGlmICghcmVhZHkpIHJldHVybiBudWxsOwogIHJldHVybiA8VG93bkJhZGdlcyB0b3ducz17dmlzaWJsZX0gdGVtcHM9e3RlbXBzfSAvPjsKfQoKZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gTWFwUGFnZSgpIHsKICByZXR1cm4gKAogICAgPHNlY3Rpb24gYXJpYS1sYWJlbGxlZGJ5PSJtYXAtaGVhZGluZyIgY2xhc3NOYW1lPSJtYXAtcGFnZSI+CiAgICAgIDxoMSBpZD0ibWFwLWhlYWRpbmciPk1hcDwvaDE+CiAgICAgIDxNYXBWaWV3IGNlbnRlcj17Wy05OC41LCAzOS44XX0gem9vbT17M30+CiAgICAgICAgPE1hcEJhZGdlcyAvPgogICAgICA8L01hcFZpZXc+CiAgICA8L3NlY3Rpb24+CiAgKTsKfQo=
+// L12 APP-WIRING — MapPage hosts the real map shell (L5 MapView) as the page
+// body, with the L6 TownBadges overlay fed by viewport-filtered towns and the
+// Open-Meteo batch refresher (5-min window, last-data-wins).
+//
+// R17 determinism: town ids are slugify(name) + rounded lat/lon — pure,
+// clock- and RNG-free (the check-determinism scanner flags those literals).
+import { useEffect, useMemo, useRef, useState } from 'react';
+import townsData from '../../data/towns/us-towns.json';
+import MapView from '../components/MapView';
+import { TownBadges, TOWN_BADGE_MIN_ZOOM } from '../components/TownBadges';
+import { useMapContext } from '../lib/map/map-context';
+import { townsInBbox, type TownsFile } from '../lib/map/gazetteer';
+import {
+  createWeatherRefresher,
+  type CurrentTemp,
+  type GeoBounds,
+  type TownCoord,
+} from '../lib/weather/openmeteo-batch';
+
+const TOWNS: TownsFile = townsData as TownsFile;
+
+/** Lowercase, non-alnum -> single dash, trimmed. Deterministic. */
+function slugify(name: string): string {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+
+/** Stable town id: slugified name + rounded coordinates (2dp). */
+export function townId(name: string, lat: number, lon: number): string {
+  return `${slugify(name)}-${Math.round(lat * 100) / 100}-${Math.round(lon * 100) / 100}`;
+}
+
+function boundsOf(map: { getBounds(): { getSouthWest(): { lng: number; lat: number }; getNorthEast(): { lng: number; lat: number } } }): GeoBounds {
+  const sw = map.getBounds().getSouthWest();
+  const ne = map.getBounds().getNorthEast();
+  return { west: sw.lng, south: sw.lat, east: ne.lng, north: ne.lat };
+}
+
+/**
+ * Badge overlay inside MapView: computes viewport towns (townsInBbox over
+ * map.getBounds), keeps the weather refresher pointed at them, and hands
+ * towns + temps to <TownBadges>.
+ *
+ * Refresher law (brief law 2): fetch per ~5-min window, NEVER per pan. The
+ * refresher runs continuously; towns are only supplied once the zoom reaches
+ * TOWN_BADGE_MIN_ZOOM (badges are invisible below it, so there is nothing to
+ * fetch). When zoom CROSSES the threshold upward, the window is restarted so
+ * the first fetch happens immediately — a zoom event is a window boundary,
+ * not a pan.
+ */
+function MapBadges() {
+  const { map, ready } = useMapContext();
+  const [temps, setTemps] = useState<Readonly<Record<string, number>>>({});
+  const [tick, setTick] = useState(0);
+  const refresherRef = useRef<ReturnType<typeof createWeatherRefresher> | null>(null);
+  const visibleRef = useRef<TownCoord[]>([]);
+  const belowRef = useRef(true);
+
+  // Re-render on map motion so visible-town selection tracks the viewport.
+  useEffect(() => {
+    if (!map) return;
+    const bump = () => setTick((t) => t + 1);
+    map.on('moveend', bump);
+    map.on('zoomend', bump);
+    return () => {
+      map.off('moveend', bump);
+      map.off('zoomend', bump);
+    };
+  }, [map]);
+
+  // Viewport-filtered towns (tick drives recompute; positions come from map).
+  const visible = useMemo<TownCoord[]>(() => {
+    void tick;
+    if (!map) return [];
+    const b = boundsOf(map);
+    return townsInBbox(TOWNS.towns, b.west, b.south, b.east, b.north).map((t) => ({
+      id: townId(t.name, t.lat, t.lon),
+      name: t.name,
+      lat: t.lat,
+      lon: t.lon,
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [map, tick]);
+  visibleRef.current = visible;
+
+  // Weather refresher: 5-min windows, injectable fetch, last-data-wins.
+  useEffect(() => {
+    if (!map || !ready) return;
+    const refresher = createWeatherRefresher({
+      getTowns: () =>
+        map.getZoom() >= TOWN_BADGE_MIN_ZOOM ? visibleRef.current : [],
+      getViewport: () => boundsOf(map),
+      fetchImpl: (input, init) => fetch(input, init),
+      onTemps: (batch: CurrentTemp[]) =>
+        setTemps((prev) => {
+          const next = { ...prev };
+          for (const t of batch) next[t.townId] = t.temperatureC;
+          return next;
+        }),
+    });
+    refresherRef.current = refresher;
+    refresher.start();
+    return () => {
+      refresher.stop();
+      refresherRef.current = null;
+    };
+  }, [map, ready]);
+
+  // Crossing minZoom upward restarts the window (immediate first fetch).
+  useEffect(() => {
+    if (!map) return;
+    const onZoom = () => {
+      const z = map.getZoom();
+      if (z >= TOWN_BADGE_MIN_ZOOM && belowRef.current) {
+        belowRef.current = false;
+        refresherRef.current?.stop();
+        refresherRef.current?.start();
+      } else if (z < TOWN_BADGE_MIN_ZOOM) {
+        belowRef.current = true;
+      }
+    };
+    map.on('zoomend', onZoom);
+    return () => {
+      map.off('zoomend', onZoom);
+    };
+  }, [map]);
+
+  if (!ready) return null;
+  return <TownBadges towns={visible} temps={temps} />;
+}
+
+export default function MapPage() {
+  return (
+    <section aria-labelledby="map-heading" className="map-page">
+      <h1 id="map-heading">Map</h1>
+      <MapView center={[-98.5, 39.8]} zoom={3}>
+        <MapBadges />
+      </MapView>
+    </section>
+  );
+}

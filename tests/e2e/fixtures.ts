@@ -1,1 +1,74 @@
-aW1wb3J0IHsgZXhwZWN0LCB0ZXN0IGFzIGJhc2UsIHR5cGUgUGFnZSB9IGZyb20gJ0BwbGF5d3JpZ2h0L3Rlc3QnOwppbXBvcnQgeyBta2RpclN5bmMgfSBmcm9tICdub2RlOmZzJzsKaW1wb3J0IHsgZGlybmFtZSwgam9pbiwgcmVzb2x2ZSB9IGZyb20gJ25vZGU6cGF0aCc7CmltcG9ydCB7IGZpbGVVUkxUb1BhdGggfSBmcm9tICdub2RlOnVybCc7CgovKioKICogTDIgaGFybmVzcyBmaXh0dXJlcyDigJQgdGhlIGdhdGUgZm91bmRhdGlvbiBldmVyeSBsYW5lIHBsdWdzIGludG8uCiAqCiAqIC0gY29uc29sZS1lcnJvciBjb2xsZWN0b3I6IGFueSBjb25zb2xlIGVycm9yIChvciB1bmNhdWdodCBwYWdlZXJyb3IpIGZhaWxzCiAqICAgdGhlIHRlc3QuIFdhcm5pbmdzIGFyZSBjb2xsZWN0ZWQgYW5kIHN1cmZhY2VkIGluIHRoZSBmYWlsdXJlIG1lc3NhZ2UuCiAqIC0gc2NyZWVuc2hvdCBhcmNoaXZpbmc6IGFyY2hpdmVTY3JlZW5zaG90KCkgd3JpdGVzIGludG8KICogICBkb2NzL3NjcmVlbnNob3RzLzx0ZXN0Pi88cHJvamVjdD4tPG5hbWU+LnBuZyAoR2F0ZSAxIGV2aWRlbmNlKS4KICovCgpjb25zdCByZXBvUm9vdCA9IHJlc29sdmUoZGlybmFtZShmaWxlVVJMVG9QYXRoKGltcG9ydC5tZXRhLnVybCkpLCAnLi4nLCAnLi4nKTsKCmV4cG9ydCB0eXBlIENvbnNvbGVCdW5kbGUgPSB7CiAgZXJyb3JzOiBzdHJpbmdbXTsKICB3YXJuaW5nczogc3RyaW5nW107Cn07CgpleHBvcnQgY29uc3QgdGVzdCA9IGJhc2UuZXh0ZW5kPHsgY29uc29sZUJ1bmRsZTogQ29uc29sZUJ1bmRsZSB9Pih7CiAgLy8gYXV0bzogdHJ1ZSDigJQgdGhlIGNvbGxlY3RvciBhdHRhY2hlcyB0byBFVkVSWSB0ZXN0IGF1dG9tYXRpY2FsbHksIGV2ZW4KICAvLyB3aGVuIHRoZSB0ZXN0IGJvZHkgbmV2ZXIgcmVxdWVzdHMgdGhlIGZpeHR1cmUgKGxhenktZml4dHVyZSB0cmFwKS4KICBjb25zb2xlQnVuZGxlOiBbCiAgICBhc3luYyAoeyBwYWdlIH0sIHVzZSkgPT4gewogICAgICBjb25zdCBidW5kbGU6IENvbnNvbGVCdW5kbGUgPSB7IGVycm9yczogW10sIHdhcm5pbmdzOiBbXSB9OwoKICAgICAgY29uc3QgYXR0YWNoID0gKHRhcmdldDogUGFnZSkgPT4gewogICAgICAgIHRhcmdldC5vbignY29uc29sZScsIChtc2cpID0+IHsKICAgICAgICAgIGNvbnN0IHRleHQgPSBgJHt0YXJnZXQgPT09IHBhZ2UgPyAnJyA6ICdbd29ya2VyXSAnfSR7bXNnLnR5cGUoKX06ICR7bXNnLnRleHQoKX1gOwogICAgICAgICAgaWYgKG1zZy50eXBlKCkgPT09ICdlcnJvcicpIGJ1bmRsZS5lcnJvcnMucHVzaCh0ZXh0KTsKICAgICAgICAgIGVsc2UgaWYgKG1zZy50eXBlKCkgPT09ICd3YXJuaW5nJykgYnVuZGxlLndhcm5pbmdzLnB1c2godGV4dCk7CiAgICAgICAgfSk7CiAgICAgICAgdGFyZ2V0Lm9uKCdwYWdlZXJyb3InLCAoZXJyKSA9PiBidW5kbGUuZXJyb3JzLnB1c2goYHBhZ2VlcnJvcjogJHtlcnIubWVzc2FnZX1gKSk7CiAgICAgICAgdGFyZ2V0Lm9uKCd3ZWJzb2NrZXRlcnJvcicsIChlcnIpID0+IGJ1bmRsZS5lcnJvcnMucHVzaChgd2Vic29ja2V0ZXJyb3I6ICR7ZXJyfWApKTsKICAgICAgfTsKICAgICAgYXR0YWNoKHBhZ2UpOwogICAgICBwYWdlLm9uKCdwb3B1cCcsIGF0dGFjaCk7CgogICAgICBhd2FpdCB1c2UoYnVuZGxlKTsKCiAgICAgIGlmIChidW5kbGUuZXJyb3JzLmxlbmd0aCA+IDApIHsKICAgICAgICBjb25zdCBkZXRhaWwgPSBbLi4ubmV3IFNldChidW5kbGUuZXJyb3JzKV0uam9pbignXG4gICcpOwogICAgICAgIGNvbnN0IHdhcm5Ob3RlID0KICAgICAgICAgIGJ1bmRsZS53YXJuaW5ncy5sZW5ndGggPiAwCiAgICAgICAgICAgID8gYFxud2FybmluZ3M6XG4gICR7Wy4uLm5ldyBTZXQoYnVuZGxlLndhcm5pbmdzKV0uam9pbignXG4gICcpfWAKICAgICAgICAgICAgOiAnJzsKICAgICAgICBleHBlY3QoCiAgICAgICAgICBmYWxzZSwKICAgICAgICAgIGBjb25zb2xlIGVycm9ycyBkdXJpbmcgdGVzdCAoemVyby1lcnJvciBidWRnZXQpOlxuICAke2RldGFpbH0ke3dhcm5Ob3RlfWAsCiAgICAgICAgKS50b0JlVHJ1dGh5KCk7CiAgICAgIH0KICAgIH0sCiAgICB7IGF1dG86IHRydWUgfSwKICBdLAp9KTsKCi8qKiBBcmNoaXZlIGEgZnVsbC1wYWdlIHNjcmVlbnNob3QgdW5kZXIgZG9jcy9zY3JlZW5zaG90cy88c2FmZS10ZXN0LXRpdGxlPi8uICovCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBhcmNoaXZlU2NyZWVuc2hvdCgKICBwYWdlOiBQYWdlLAogIHRlc3RJbmZvOiB7IHRpdGxlOiBzdHJpbmc7IHByb2plY3Q/OiB7IG5hbWU/OiBzdHJpbmcgfSB9LAogIG5hbWU6IHN0cmluZywKKTogUHJvbWlzZTxzdHJpbmc+IHsKICBjb25zdCBzYWZlVGVzdCA9IHRlc3RJbmZvLnRpdGxlLnJlcGxhY2UoL1teYS16QS1aMC05Ll8tXSsvZywgJ18nKS5zbGljZSgwLCA4MCk7CiAgY29uc3QgZGlyID0gam9pbihyZXBvUm9vdCwgJ2RvY3MnLCAnc2NyZWVuc2hvdHMnLCBzYWZlVGVzdCk7CiAgbWtkaXJTeW5jKGRpciwgeyByZWN1cnNpdmU6IHRydWUgfSk7CiAgY29uc3QgcHJvamVjdCA9IHRlc3RJbmZvLnByb2plY3Q/Lm5hbWUgPz8gJ2RlZmF1bHQnOwogIGNvbnN0IHBhdGggPSBqb2luKGRpciwgYCR7cHJvamVjdH0tJHtuYW1lfS5wbmdgKTsKICBhd2FpdCBwYWdlLnNjcmVlbnNob3QoeyBwYXRoLCBmdWxsUGFnZTogZmFsc2UgfSk7CiAgcmV0dXJuIHBhdGg7Cn0KCmV4cG9ydCB7IGV4cGVjdCB9Owo=
+import { expect, test as base, type Page } from '@playwright/test';
+import { mkdirSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+/**
+ * L2 harness fixtures — the gate foundation every lane plugs into.
+ *
+ * - console-error collector: any console error (or uncaught pageerror) fails
+ *   the test. Warnings are collected and surfaced in the failure message.
+ * - screenshot archiving: archiveScreenshot() writes into
+ *   docs/screenshots/<test>/<project>-<name>.png (Gate 1 evidence).
+ */
+
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
+
+export type ConsoleBundle = {
+  errors: string[];
+  warnings: string[];
+};
+
+export const test = base.extend<{ consoleBundle: ConsoleBundle }>({
+  // auto: true — the collector attaches to EVERY test automatically, even
+  // when the test body never requests the fixture (lazy-fixture trap).
+  consoleBundle: [
+    async ({ page }, use) => {
+      const bundle: ConsoleBundle = { errors: [], warnings: [] };
+
+      const attach = (target: Page) => {
+        target.on('console', (msg) => {
+          const text = `${target === page ? '' : '[worker] '}${msg.type()}: ${msg.text()}`;
+          if (msg.type() === 'error') bundle.errors.push(text);
+          else if (msg.type() === 'warning') bundle.warnings.push(text);
+        });
+        target.on('pageerror', (err) => bundle.errors.push(`pageerror: ${err.message}`));
+        target.on('websocketerror', (err) => bundle.errors.push(`websocketerror: ${err}`));
+      };
+      attach(page);
+      page.on('popup', attach);
+
+      await use(bundle);
+
+      if (bundle.errors.length > 0) {
+        const detail = [...new Set(bundle.errors)].join('\n  ');
+        const warnNote =
+          bundle.warnings.length > 0
+            ? `\nwarnings:\n  ${[...new Set(bundle.warnings)].join('\n  ')}`
+            : '';
+        expect(
+          false,
+          `console errors during test (zero-error budget):\n  ${detail}${warnNote}`,
+        ).toBeTruthy();
+      }
+    },
+    { auto: true },
+  ],
+});
+
+/** Archive a full-page screenshot under docs/screenshots/<safe-test-title>/. */
+export async function archiveScreenshot(
+  page: Page,
+  testInfo: { title: string; project?: { name?: string } },
+  name: string,
+): Promise<string> {
+  const safeTest = testInfo.title.replace(/[^a-zA-Z0-9._-]+/g, '_').slice(0, 80);
+  const dir = join(repoRoot, 'docs', 'screenshots', safeTest);
+  mkdirSync(dir, { recursive: true });
+  const project = testInfo.project?.name ?? 'default';
+  const path = join(dir, `${project}-${name}.png`);
+  await page.screenshot({ path, fullPage: false });
+  return path;
+}
+
+export { expect };

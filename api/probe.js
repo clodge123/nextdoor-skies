@@ -1,1 +1,16 @@
-Ly8gVEVNUE9SQVJZIHdhdmUtMSBwcmVmbGlnaHQgcHJvYmU6IHZlcmlmeSBOZW9uIGNvbm5lY3Rpdml0eSBmcm9tIFZlcmNlbC4KLy8gU2FtZSBkYi1wcm9iZSBwcmVjZWRlbnQgYXMgcnVuIDEuIFJlbW92ZWQgb25jZSB3YXZlIDEgbGFuZXMgbGFuZC4KZXhwb3J0IGRlZmF1bHQgYXN5bmMgZnVuY3Rpb24gaGFuZGxlcihfcmVxLCByZXMpIHsKICBjb25zdCB1cmwgPSBwcm9jZXNzLmVudi5QT1NUR1JFU19VUkwKICBpZiAoIXVybCkgcmV0dXJuIHJlcy5zdGF0dXMoMjAwKS5qc29uKHsgb2s6IGZhbHNlLCBlcnJvcjogJ1BPU1RHUkVTX1VSTCBub3Qgc2V0JyB9KQogIHRyeSB7CiAgICBjb25zdCB7IGRlZmF1bHQ6IHBnIH0gPSBhd2FpdCBpbXBvcnQoJ3BnJykKICAgIGNvbnN0IGNsaWVudCA9IG5ldyBwZy5DbGllbnQoeyBjb25uZWN0aW9uU3RyaW5nOiB1cmwsIHNzbDogeyByZWplY3RVbmF1dGhvcml6ZWQ6IGZhbHNlIH0gfSkKICAgIGF3YWl0IGNsaWVudC5jb25uZWN0KCkKICAgIGNvbnN0IHIgPSBhd2FpdCBjbGllbnQucXVlcnkoJ3NlbGVjdCBjdXJyZW50X2RhdGFiYXNlKCkgYXMgZGInKQogICAgYXdhaXQgY2xpZW50LmVuZCgpCiAgICByZXR1cm4gcmVzLnN0YXR1cygyMDApLmpzb24oeyBvazogdHJ1ZSwgZGI6IHIucm93c1swXS5kYiB9KQogIH0gY2F0Y2ggKGVycikgewogICAgcmV0dXJuIHJlcy5zdGF0dXMoMjAwKS5qc29uKHsgb2s6IGZhbHNlLCBlcnJvcjogU3RyaW5nKGVyci5tZXNzYWdlID8/IGVycikgfSkKICB9Cn0K
+// TEMPORARY wave-1 preflight probe: verify Neon connectivity from Vercel.
+// Same db-probe precedent as run 1. Removed once wave 1 lanes land.
+export default async function handler(_req, res) {
+  const url = process.env.POSTGRES_URL
+  if (!url) return res.status(200).json({ ok: false, error: 'POSTGRES_URL not set' })
+  try {
+    const { default: pg } = await import('pg')
+    const client = new pg.Client({ connectionString: url, ssl: { rejectUnauthorized: false } })
+    await client.connect()
+    const r = await client.query('select current_database() as db')
+    await client.end()
+    return res.status(200).json({ ok: true, db: r.rows[0].db })
+  } catch (err) {
+    return res.status(200).json({ ok: false, error: String(err.message ?? err) })
+  }
+}

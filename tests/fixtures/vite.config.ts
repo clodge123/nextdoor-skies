@@ -1,1 +1,16 @@
-aW1wb3J0IHsgZGVmaW5lQ29uZmlnIH0gZnJvbSAndml0ZSc7CgovLyBMMiBoYXJuZXNzIGZpeHR1cmVzIHRhcmdldDogYnVpbHQgYW5kIHByZXZpZXdlZCBieSBzY3JpcHRzL2UyZS1zZXJ2ZS5tanMuCi8vIFNQQSBhcHBUeXBlIGdpdmVzIGhpc3RvcnkgZmFsbGJhY2sgc28gL2ZlZWQgcmVzb2x2ZXMgdW5kZXIgYHZpdGUgcHJldmlld2AuCmV4cG9ydCBkZWZhdWx0IGRlZmluZUNvbmZpZyh7CiAgcm9vdDogaW1wb3J0Lm1ldGEuZGlybmFtZSwKICBiYXNlOiAnLycsCiAgYXBwVHlwZTogJ3NwYScsCiAgYnVpbGQ6IHsKICAgIG91dERpcjogJ2Rpc3QnLAogICAgZW1wdHlPdXREaXI6IHRydWUsCiAgICBzb3VyY2VtYXA6IGZhbHNlLAogIH0sCiAgc2VydmVyOiB7IGhvc3Q6ICcxMjcuMC4wLjEnIH0sCiAgcHJldmlldzogeyBob3N0OiAnMTI3LjAuMC4xJyB9LAp9KTsK
+import { defineConfig } from 'vite';
+
+// L2 harness fixtures target: built and previewed by scripts/e2e-serve.mjs.
+// SPA appType gives history fallback so /feed resolves under `vite preview`.
+export default defineConfig({
+  root: import.meta.dirname,
+  base: '/',
+  appType: 'spa',
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
+    sourcemap: false,
+  },
+  server: { host: '127.0.0.1' },
+  preview: { host: '127.0.0.1' },
+});

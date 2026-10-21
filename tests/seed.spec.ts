@@ -1,1 +1,51 @@
-aW1wb3J0IHsgZXhwZWN0LCB0ZXN0IH0gZnJvbSAnQHBsYXl3cmlnaHQvdGVzdCc7CmltcG9ydCB7IGJ1aWxkU2VlZERhdGEgfSBmcm9tICcuLi9zZXJ2ZXIvbGliL3NlZWQuanMnOwppbXBvcnQgeyBGRUVEX0hUTUwgfSBmcm9tICcuL2ZpeHR1cmVzL2ZlZWQtcGFnZS5qcyc7CgovKioKICogR2F0ZSAxIChMNyk6IHRoZSBmZWVkIHBhZ2Ugc2hvd3Mgc2VlZGVkIGRlbW8gcG9zdHMgY2FycnlpbmcgYW4gaG9uZXN0CiAqICJEZW1vIGRhdGEiIGxhYmVsLiBBUEkgaXMgbW9ja2VkIHdpdGggdGhlIHJlYWwgc2VlZCBvdXRwdXQg4oCUIG5vIHByb2QgTmVvbi4KICovCnRlc3QoJ2ZlZWQgcGFnZSByZW5kZXJzIHNlZWRlZCBwb3N0cyB3aXRoIERlbW8gZGF0YSBsYWJlbHMnLCBhc3luYyAoeyBwYWdlIH0pID0+IHsKICBjb25zdCBzZWVkID0gYnVpbGRTZWVkRGF0YShuZXcgRGF0ZSgnMjAyNi0xMC0yMFQxODowMDowMC4wMDBaJykpOwoKICBhd2FpdCBwYWdlLnJvdXRlKCdodHRwOi8vc2VlZC5sb2NhbC9hcGkvcmVwb3J0cycsIChyb3V0ZSkgPT4KICAgIHJvdXRlLmZ1bGZpbGwoewogICAgICBzdGF0dXM6IDIwMCwKICAgICAgY29udGVudFR5cGU6ICdhcHBsaWNhdGlvbi9qc29uJywKICAgICAgYm9keTogSlNPTi5zdHJpbmdpZnkoeyByZXBvcnRzOiBzZWVkLnJlcG9ydHMsIGNvbW1lbnRzOiBzZWVkLmNvbW1lbnRzIH0pLAogICAgfSksCiAgKTsKICBhd2FpdCBwYWdlLnJvdXRlKCdodHRwOi8vc2VlZC5sb2NhbC8nLCAocm91dGUpID0+CiAgICByb3V0ZS5mdWxmaWxsKHsgc3RhdHVzOiAyMDAsIGNvbnRlbnRUeXBlOiAndGV4dC9odG1sJywgYm9keTogRkVFRF9IVE1MIH0pLAogICk7CgogIGNvbnN0IGNvbnNvbGVFcnJvcnM6IHN0cmluZ1tdID0gW107CiAgcGFnZS5vbignY29uc29sZScsIChtc2cpID0+IHsKICAgIGlmIChtc2cudHlwZSgpID09PSAnZXJyb3InKSBjb25zb2xlRXJyb3JzLnB1c2gobXNnLnRleHQoKSk7CiAgfSk7CiAgcGFnZS5vbigncGFnZWVycm9yJywgKGVycikgPT4gY29uc29sZUVycm9ycy5wdXNoKFN0cmluZyhlcnIpKSk7CgogIGF3YWl0IHBhZ2UuZ290bygnaHR0cDovL3NlZWQubG9jYWwvJyk7CgogIGNvbnN0IHBvc3RzID0gcGFnZS5sb2NhdG9yKCcucG9zdCcpOwogIGF3YWl0IGV4cGVjdChwb3N0cykudG9IYXZlQ291bnQoMzApOwoKICBjb25zdCBsYWJlbHMgPSBwYWdlLmxvY2F0b3IoJy5kZW1vLWxhYmVsJyk7CiAgYXdhaXQgZXhwZWN0KGxhYmVscykudG9IYXZlQ291bnQoMzApOwogIGF3YWl0IGV4cGVjdChsYWJlbHMuZmlyc3QoKSkudG9IYXZlVGV4dCgnRGVtbyBkYXRhJyk7CgogIC8vIGV2ZXJ5IHJlbmRlcmVkIHBvc3QgaXMgbWFya2VkIHNlZWRlZAogIGF3YWl0IGV4cGVjdChwYWdlLmxvY2F0b3IoJy5wb3N0W2RhdGEtc2VlZGVkPSJ0cnVlIl0nKSkudG9IYXZlQ291bnQoMzApOwoKICAvLyBvbmUtbGV2ZWwgY29tbWVudHMgcmVuZGVyIHVuZGVyIHBvc3RzCiAgYXdhaXQgZXhwZWN0KHBhZ2UubG9jYXRvcignLmNvbW1lbnQnKS5maXJzdCgpKS50b0JlVmlzaWJsZSgpOwoKICAvLyBhIHJlYWwgdG93biBsYWJlbCArIGEgdmFsaWQgd2VhdGhlciB0eXBlIGFyZSB2aXNpYmxlCiAgYXdhaXQgZXhwZWN0KHBhZ2UubG9jYXRvcignLnBvc3QgLm1ldGEnLCB7IGhhc1RleHQ6ICdNYXJmYSwgVFgnIH0pLmZpcnN0KCkpLnRvQmVWaXNpYmxlKCk7CiAgYXdhaXQgZXhwZWN0KHBhZ2UubG9jYXRvcignLnR5cGUnLCB7IGhhc1RleHQ6IC9yYWlufHN0b3JtfHNub3d8Y2xlYXJ8aGVhdC9pIH0pLmZpcnN0KCkpLnRvQmVWaXNpYmxlKCk7CgogIGV4cGVjdChjb25zb2xlRXJyb3JzKS50b0VxdWFsKFtdKTsKCiAgYXdhaXQgcGFnZS5zY3JlZW5zaG90KHsgcGF0aDogJ2RvY3Mvc2NyZWVuc2hvdHMvTDcvZmVlZC1zZWVkZWQtZGVza3RvcC5wbmcnLCBmdWxsUGFnZTogZmFsc2UgfSk7Cn0pOwo=
+import { expect, test } from '@playwright/test';
+import { buildSeedData } from '../server/lib/seed.js';
+import { FEED_HTML } from './fixtures/feed-page.js';
+
+/**
+ * Gate 1 (L7): the feed page shows seeded demo posts carrying an honest
+ * "Demo data" label. API is mocked with the real seed output — no prod Neon.
+ */
+test('feed page renders seeded posts with Demo data labels', async ({ page }) => {
+  const seed = buildSeedData(new Date('2026-10-20T18:00:00.000Z'));
+
+  await page.route('http://seed.local/api/reports', (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ reports: seed.reports, comments: seed.comments }),
+    }),
+  );
+  await page.route('http://seed.local/', (route) =>
+    route.fulfill({ status: 200, contentType: 'text/html', body: FEED_HTML }),
+  );
+
+  const consoleErrors: string[] = [];
+  page.on('console', (msg) => {
+    if (msg.type() === 'error') consoleErrors.push(msg.text());
+  });
+  page.on('pageerror', (err) => consoleErrors.push(String(err)));
+
+  await page.goto('http://seed.local/');
+
+  const posts = page.locator('.post');
+  await expect(posts).toHaveCount(30);
+
+  const labels = page.locator('.demo-label');
+  await expect(labels).toHaveCount(30);
+  await expect(labels.first()).toHaveText('Demo data');
+
+  // every rendered post is marked seeded
+  await expect(page.locator('.post[data-seeded="true"]')).toHaveCount(30);
+
+  // one-level comments render under posts
+  await expect(page.locator('.comment').first()).toBeVisible();
+
+  // a real town label + a valid weather type are visible
+  await expect(page.locator('.post .meta', { hasText: 'Marfa, TX' }).first()).toBeVisible();
+  await expect(page.locator('.type', { hasText: /rain|storm|snow|clear|heat/i }).first()).toBeVisible();
+
+  expect(consoleErrors).toEqual([]);
+
+  await page.screenshot({ path: 'docs/screenshots/L7/feed-seeded-desktop.png', fullPage: false });
+});

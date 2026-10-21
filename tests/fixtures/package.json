@@ -1,1 +1,7 @@
-ewogICJuYW1lIjogIm5kcy1maXh0dXJlcyIsCiAgInByaXZhdGUiOiB0cnVlLAogICJ2ZXJzaW9uIjogIjAuMC4wIiwKICAidHlwZSI6ICJtb2R1bGUiLAogICJkZXNjcmlwdGlvbiI6ICJMMiBoYXJuZXNzIHNlbGYtc3VmZmljaWVuY3kgdGFyZ2V0OiBtaW5pbWFsIHJvdXRlcyAvIGFuZCAvZmVlZCBhcHAuIFJlcGxhY2VkIGJ5IEwxJ3MgcmVhbCBhcHAgc2hlbGwgd2hlbiBtZXJnZWQgKHNldCBFMkVfVEFSR0VUPWFwcCkuIgp9Cg==
+{
+  "name": "nds-fixtures",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "L2 harness self-sufficiency target: minimal routes / and /feed app. Replaced by L1's real app shell when merged (set E2E_TARGET=app)."
+}

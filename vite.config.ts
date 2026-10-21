@@ -1,1 +1,11 @@
-aW1wb3J0IHsgZGVmaW5lQ29uZmlnIH0gZnJvbSAndml0ZSc7CmltcG9ydCByZWFjdCBmcm9tICdAdml0ZWpzL3BsdWdpbi1yZWFjdCc7CgovLyBNZXJnZWQgd2F2ZS0xIGNvbmZpZyAoTDEgc2hlbGwgKyBMNSBidWlsZCArIEwyIHByZXZpZXcgcG9ydHMpLgovLyBWaXRlc3QgY29uZmlnIGxpdmVzIGluIHZpdGVzdC5jb25maWcudHMuCmV4cG9ydCBkZWZhdWx0IGRlZmluZUNvbmZpZyh7CiAgcGx1Z2luczogW3JlYWN0KCldLAogIHNlcnZlcjogeyBwb3J0OiA1MTc2IH0sCiAgcHJldmlldzogeyBzdHJpY3RQb3J0OiB0cnVlIH0sCiAgYnVpbGQ6IHsgc291cmNlbWFwOiB0cnVlIH0sCn0pOwo=
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+// Merged wave-1 config (L1 shell + L5 build + L2 preview ports).
+// Vitest config lives in vitest.config.ts.
+export default defineConfig({
+  plugins: [react()],
+  server: { port: 5176 },
+  preview: { strictPort: true },
+  build: { sourcemap: true },
+});

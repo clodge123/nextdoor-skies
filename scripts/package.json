@@ -1,1 +1,7 @@
-ewogICJuYW1lIjogIm5kcy1zY3JpcHRzLXNoaWVsZCIsCiAgInByaXZhdGUiOiB0cnVlLAogICJ2ZXJzaW9uIjogIjAuMC4wIiwKICAidHlwZSI6ICJtb2R1bGUiLAogICJkZXNjcmlwdGlvbiI6ICJOb2RlIHBhY2thZ2UuanNvbiByZXNvbHV0aW9uIHNoaWVsZCBmb3Igc2NyaXB0cy8qLm1qcyAoc2VlIHRlc3RzL2UyZS9wYWNrYWdlLmpzb24pLiIKfQo=
+{
+  "name": "nds-scripts-shield",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Node package.json resolution shield for scripts/*.mjs (see tests/e2e/package.json)."
+}

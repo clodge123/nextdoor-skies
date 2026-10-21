@@ -1,1 +1,60 @@
-IyBXQVZFLTEgTUVUUklDUyBST0xMVVAgKHJ1biAyKSDigJQgY2xvc2Utb3V0CgpBY2NvdW50aW5nIGxhdyAoUjE4KTogd2FsbC1jbG9jayBBQ1RJVkUgbWludXRlcyBvbmx5OyBmbGVldCBnYXBzIGV4Y2x1ZGVkLgpUMCA9IDIwMjYtMTAtMjAgMTk6NDUgQ0RULiBXYXZlIGNsb3NlZCAyMToyMiBDRFQgKGFsbCBsYW5lcyBtZXJnZWQpLCBpbnRlZ3JhdGlvbgptZXJnZSBgNDY3ZWUwMmAgMjI6MDYgQ0RULiBTb3VyY2Ugcm93czogZG9jcy9tZXRyaWNzL0wqLm1kLgoKIyMgQWN0aXZlIG1pbnV0ZXMgcGVyIGxhbmUKCnwgTGFuZSB8IFdpbmRvdyAoQ0RUKSB8IEFjdGl2ZSBtaW4gfCBTb3VyY2UgfCBOb3RlcyB8CnwtLS0tLS18LS0tLS0tLS0tLS0tLS18LS0tLS0tLS0tLS18LS0tLS0tLS18LS0tLS0tLXwKfCBMMSBzY2FmZm9sZCB8IDE5OjQ14oCTMjA6MjUgfCAzOCB8IEwxLXNjYWZmb2xkLm1kIHwgfAp8IEwyIHBsYXl3cmlnaHQgfCAyMDowMuKAkzIwOjQ3IHwgNDUgfCBMMi1wbGF5d3JpZ2h0Lm1kIHwgfAp8IEwzIGRlcGxveSB8IDIwOjAy4oCTMjA6MTUgfCAxMyB8IEwzLWRlcGxveS5tZCB8IHwKfCBMNCB0aGVtZSB8IDIwOjAy4oCTMjA6MjMgfCB+MjEgfCAqKnJlY29uc3RydWN0ZWQqKiB8IG1ldHJpY3MgZmlsZSBtaXNzaW5nIChsYW5lIGtpbGxlZCk7IHdpbmRvdyA9IGxhbmUgc3RhcnQg4oaSIGxhbmUgY29tbWl0IGA2MDhhYzUwYCAyMDoyMyB8CnwgTDUgbWFwIHwgMjA6MDLigJMyMDo0MSB8IH4zOSB8ICoqcmVjb25zdHJ1Y3RlZCoqIHwgbWV0cmljcyBmaWxlIG1pc3NpbmcgKGxhbmUga2lsbGVkKTsgd2luZG93ID0gbGFuZSBzdGFydCDihpIgbGFzdCBsYW5lIGNvbW1pdCBgZDU5ODdhN2AgMjA6NDEgfAp8IEw2IGJhZGdlcyB8IDIwOjAy4oCTMjE6MTAgfCA3MiB8IEw2LWJhZGdlcy5tZCB8IHBoYXNlIHRhYmxlIHN1bXMgfjcyIHwKfCBMNyBzZWVkIHwgMjA6MDLigJMyMDozNyB8IDM1IHwgTDctc2VlZC5tZCB8IHwKfCAqKldBVkUtMSBUT1RBTCoqIHwgfCAqKn4yNjMqKiB8IHwgNS83IGxhbmVzIHNlbGYtcmVwb3J0ZWQ7IDIgcmVjb25zdHJ1Y3RlZCBmcm9tIGdpdCBoaXN0b3J5IHwKCldhbGwtY2xvY2sgd2F2ZSBzcGFuICgxOTo0NeKGkjIxOjIyIG1lcmdlcykgPSA5NyBtaW47IGFjdGl2ZS1zdW0gMjYzIG1pbiBhY3Jvc3MKNyBwYXJhbGxlbCBsYW5lcyAocGFyYWxsZWxpc20gZmFjdG9yIH4yLjfDlykuCgojIyBHYXRlIGNvdW50ZXJzCgp8IEdhdGUgfCBSZXN1bHQgfCBFdmlkZW5jZSB8CnwtLS0tLS18LS0tLS0tLS18LS0tLS0tLS0tLXwKfCBHYXRlIDAgw5cgNyBsYW5lcyB8IDcvNyBQQVNTIHwgTDEgdHNjL2VzbGludC9idWlsZC92aXRlc3QrMyBzY2FuczsgTDIgZTJlIDYvNitzZWxmdGVzdDsgTDMgdml0ZXN0IDE4LzE4OyBMNCB0aGVtZSB2aXRlc3QgZ3JlZW4gKG1lcmdlIGA0NjdlZTAyYCk7IEw1IHZpdGVzdCAxNi8xNiAoYGQ1OTg3YTdgKTsgTDYgdml0ZXN0IDE4LzE4OyBMNyB2aXRlc3QgOC84IHwKfCBHYXRlIDEgw5cgNyBsYW5lcyB8IDUvNyBhcmNoaXZlZCwgMi83IGNvZGUtb25seSB8IEwyIGdvbGRlbi1wYXRoIDYvNiAzLXZpZXdwb3J0OyBMNiBiYWRnZXMgNi82ICsgNiBzY3JlZW5zaG90czsgTDcgc2VlZCAzLzMgKyAxIHNjcmVlbnNob3Q7IEw0IHRoZW1lIHNwZWMgYXNzZXJ0cyBjb21wdXRlZCBhY2NlbnQgKG5vIFBORyBhcmNoaXZlZCk7IEw1IG1hcCBzcGVjIHJlbmRlcnMrem9vbSBhc3NlcnRzIChubyBQTkcgYXJjaGl2ZWQpIHwKfCBEZXRlcm1pbmlzbSBzY2FuIChSMTcpIHwgUEFTUyBhbGwgbGFuZXMgfCBDSSBzY2FuICsgbGFuZS1zY2Fucy5zaCwgemVybyBoaXRzIHwKfCBSYWRpdXMgc2NhbiAoUjIwKSB8IFBBU1MgYWxsIGxhbmVzIHwgemVybyByYXcgYm9yZGVyLXJhZGl1cyB8CnwgTm8tQ1dDIGltcG9ydCBzY2FuIHwgUEFTUyB8IHplcm8gY3Jvc3MtcmVwbyBpbXBvcnRzIHwKfCBEZXBsb3kgcHJlZmxpZ2h0IChtYWluIHRpcCkgfCAzIFBBU1MgKyAxIGRvY3VtZW50ZWQgRkFJTCB8IGF1dGhvciAzNi8zNiDinJMsIGZ1bmN0aW9ucyAx4omkMTIg4pyTLCBlbnYtYXVkaXQgc2tpcHBlZCAobm8gdmVyY2VsIENMSSksIG1pZ3JhdGUtY2hlY2sgTk8tR08gd2l0aG91dCBQT1NUR1JFU19VUkwgKGNvcnJlY3QgZ2F0ZSBiZWhhdmlvcikgfAp8IGFwaSBmdW5jdGlvbiBjb3VudCB8IDEgKHByb2JlLmpzKSDiiaQgMTIgfCB8CgojIyBDYXRjaGVzIChkZWZlY3RzIGZvdW5kIGJ5IGdhdGVzKQoKfCBMYW5lIHwgQ2F0Y2hlcyB8IEhpZ2hsaWdodHMgfAp8LS0tLS0tfC0tLS0tLS0tLXwtLS0tLS0tLS0tLXwKfCBMMSB8IDUgfCBiYXNlNjQtY29ycnVwdCBsYW5lcyBkb2MgcmVjb3ZlcmVkIGZyb20gYDJhZDgwZWFgOyBAdHlwZXMvbm9kZTsgdGVzdCBpbXBvcnQgcGF0aDsgc2Nhbm5lciBzZWxmLWZsYWc7IHRzYnVpbGRpbmZvIGNvbW1pdHRlZCB8CnwgTDIgfCA1IHwgcm9vdCBwYWNrYWdlLmpzb24gYmFzZTY0IChucG0gdW5wYXJzZWFibGUpIOKGkiBkZWNvZGVkICsgc2hpZWxkIHBhY2thZ2UuanNvbnM7IC5lMmUgaXNvbGF0ZWQgZGVwczsgTk9ERV9VU0VfRU5WX1BST1hZIGhpamFja2VkIGxvY2FsaG9zdCBoZWFsdGgtY2hlY2tzIOKGkiBOT19QUk9YWTsgcG9ydCA0MTczIHNxdWF0dGVkIGJ5IGZvcmVpZ24gYXBwIOKGkiA0MzExNzsgbGF6eSBjb25zb2xlIGNvbGxlY3RvciDihpIgYXV0bzp0cnVlIHwKfCBMMyB8IDEgfCBwYWNrYWdlLmpzb24gYmFzZTY0LWNvcnJ1cHRlZCBpbiBzY2FmZm9sZCAobnBtIGluc3RhbGwgYnJva2UpIOKAlCBkZWNvZGVkICYgZml4ZWQgfAp8IEw0IHwgbi9hIHwgbm8gbWV0cmljcyBmaWxlIChraWxsZWQgbGFuZSkgfAp8IEw1IHwgbi9hIHwgbm8gbWV0cmljcyBmaWxlIChraWxsZWQgbGFuZSkgfAp8IEw2IHwgMyB8IGVncmVzcyBwcm94eSA0MDcgbG9vcGJhY2sg4oaSIC0tbm8tcHJveHktc2VydmVyICsgcG9ydCA0MTgzOyB3ZWJraXQgbWlzc2luZyBhcm02NCDihpIgMyBDaHJvbWl1bSB0b3VjaCBwcm9qZWN0czsgLnRhcCgpIG9uIG5vbi10b3VjaCBkZXNrdG9wIOKGkiB0YXBPckNsaWNrIHwKfCBMNyB8IDEgfCBQbGF5d3JpZ2h0IGFib3V0OmJsYW5rIGZldGNoIOKGkiBmaXh0dXJlIHNlcnZlcyBwYWdlK0FQSSBzYW1lLW9yaWdpbiB8CnwgKipUb3RhbCoqIHwgKioxNSoqIHwgKCsxIGNyb3NzLWxhbmUgcG9ydCBjb2xsaXNpb24sIEw24oaUTDIpIHwKCiMjIEludGVydmVudGlvbnMKCi0gKipPd25lciBpbnRlcnZlbnRpb25zOiAyKiog4oCUICgxKSBiYXNlNjQgdHJlZXMtQVBJIGNvcnJ1cHRpb24gZml4IGRpcmVjdGl2ZSwKICAoMikgbGFuZS1yZXN1bWUgZGlyZWN0aXZlIGFmdGVyIG1pZC1ydW4ga2lsbHMuCi0gQ3Jvc3MtbGFuZSBjb2xsaXNpb25zOiAxIChwb3J0IDQxNzM7IG1vdmVkIHRvIDQxODMsIG5vIGNvZGUgaW1wYWN0KS4KCiMjIFRvdGFscwoKLSBBY3RpdmUgbGFuZS1taW51dGVzOiAqKn4yNjMqKiAoMzgrNDUrMTMrMjErMzkrNzIrMzUpCi0gR2F0ZSAwOiAqKjcvNyBQQVNTKiogwrcgR2F0ZSAxOiAqKjUvNyBmdWxseSBhcmNoaXZlZCoqICgyIHNjcmVlbnNob3QgR0FQcywgTDQvTDUpCi0gQ2F0Y2hlczogKioxNSoqIMK3IE93bmVyIGludGVydmVudGlvbnM6ICoqMioqCi0gTGFuZXMga2lsbGVkIG1pZC1ydW46IDMgKHBlciByZXRybzsgd29yayByZXNjdWVkIHZpYSBtZXJnZSBgNDY3ZWUwMmApCi0gQ29tbWl0cyBvbiBtYWluOiAzNiwgYWxsIGF1dGhvcmVkIGNsb2RnZTEyM0B1c2Vycy5ub3JlcGx5LmdpdGh1Yi5jb20K
+# WAVE-1 METRICS ROLLUP (run 2) — close-out
+
+Accounting law (R18): wall-clock ACTIVE minutes only; fleet gaps excluded.
+T0 = 2026-10-20 19:45 CDT. Wave closed 21:22 CDT (all lanes merged), integration
+merge `467ee02` 22:06 CDT. Source rows: docs/metrics/L*.md.
+
+## Active minutes per lane
+
+| Lane | Window (CDT) | Active min | Source | Notes |
+|------|--------------|-----------|--------|-------|
+| L1 scaffold | 19:45–20:25 | 38 | L1-scaffold.md | |
+| L2 playwright | 20:02–20:47 | 45 | L2-playwright.md | |
+| L3 deploy | 20:02–20:15 | 13 | L3-deploy.md | |
+| L4 theme | 20:02–20:23 | ~21 | **reconstructed** | metrics file missing (lane killed); window = lane start → lane commit `608ac50` 20:23 |
+| L5 map | 20:02–20:41 | ~39 | **reconstructed** | metrics file missing (lane killed); window = lane start → last lane commit `d5987a7` 20:41 |
+| L6 badges | 20:02–21:10 | 72 | L6-badges.md | phase table sums ~72 |
+| L7 seed | 20:02–20:37 | 35 | L7-seed.md | |
+| **WAVE-1 TOTAL** | | **~263** | | 5/7 lanes self-reported; 2 reconstructed from git history |
+
+Wall-clock wave span (19:45→21:22 merges) = 97 min; active-sum 263 min across
+7 parallel lanes (parallelism factor ~2.7×).
+
+## Gate counters
+
+| Gate | Result | Evidence |
+|------|--------|----------|
+| Gate 0 × 7 lanes | 7/7 PASS | L1 tsc/eslint/build/vitest+3 scans; L2 e2e 6/6+selftest; L3 vitest 18/18; L4 theme vitest green (merge `467ee02`); L5 vitest 16/16 (`d5987a7`); L6 vitest 18/18; L7 vitest 8/8 |
+| Gate 1 × 7 lanes | 5/7 archived, 2/7 code-only | L2 golden-path 6/6 3-viewport; L6 badges 6/6 + 6 screenshots; L7 seed 3/3 + 1 screenshot; L4 theme spec asserts computed accent (no PNG archived); L5 map spec renders+zoom asserts (no PNG archived) |
+| Determinism scan (R17) | PASS all lanes | CI scan + lane-scans.sh, zero hits |
+| Radius scan (R20) | PASS all lanes | zero raw border-radius |
+| No-CWC import scan | PASS | zero cross-repo imports |
+| Deploy preflight (main tip) | 3 PASS + 1 documented FAIL | author 36/36 ✓, functions 1≤12 ✓, env-audit skipped (no vercel CLI), migrate-check NO-GO without POSTGRES_URL (correct gate behavior) |
+| api function count | 1 (probe.js) ≤ 12 | |
+
+## Catches (defects found by gates)
+
+| Lane | Catches | Highlights |
+|------|---------|-----------|
+| L1 | 5 | base64-corrupt lanes doc recovered from `2ad80ea`; @types/node; test import path; scanner self-flag; tsbuildinfo committed |
+| L2 | 5 | root package.json base64 (npm unparseable) → decoded + shield package.jsons; .e2e isolated deps; NODE_USE_ENV_PROXY hijacked localhost health-checks → NO_PROXY; port 4173 squatted by foreign app → 43117; lazy console collector → auto:true |
+| L3 | 1 | package.json base64-corrupted in scaffold (npm install broke) — decoded & fixed |
+| L4 | n/a | no metrics file (killed lane) |
+| L5 | n/a | no metrics file (killed lane) |
+| L6 | 3 | egress proxy 407 loopback → --no-proxy-server + port 4183; webkit missing arm64 → 3 Chromium touch projects; .tap() on non-touch desktop → tapOrClick |
+| L7 | 1 | Playwright about:blank fetch → fixture serves page+API same-origin |
+| **Total** | **15** | (+1 cross-lane port collision, L6↔L2) |
+
+## Interventions
+
+- **Owner interventions: 2** — (1) base64 trees-API corruption fix directive,
+  (2) lane-resume directive after mid-run kills.
+- Cross-lane collisions: 1 (port 4173; moved to 4183, no code impact).
+
+## Totals
+
+- Active lane-minutes: **~263** (38+45+13+21+39+72+35)
+- Gate 0: **7/7 PASS** · Gate 1: **5/7 fully archived** (2 screenshot GAPs, L4/L5)
+- Catches: **15** · Owner interventions: **2**
+- Lanes killed mid-run: 3 (per retro; work rescued via merge `467ee02`)
+- Commits on main: 36, all authored clodge123@users.noreply.github.com

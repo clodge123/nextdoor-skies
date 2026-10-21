@@ -1,1 +1,15 @@
-aW1wb3J0IHsgZGVmaW5lQ29uZmlnIH0gZnJvbSAndml0ZXN0L2NvbmZpZyc7CmltcG9ydCByZWFjdCBmcm9tICdAdml0ZWpzL3BsdWdpbi1yZWFjdCc7CgovLyBNZXJnZWQgd2F2ZS0xIHZpdGVzdCBjb25maWc6IHNyYyB1bml0L2NvbXBvbmVudCB0ZXN0cyAoTDEvTDQvTDUpICsKLy8gdGVzdHMvKiogdW5pdCB0ZXN0cyAoTDUvTDYvTDcpLiBDb21wb25lbnQgc3BlY3MgZGVjbGFyZSBqc2RvbSB2aWEKLy8gQHZpdGVzdC1lbnZpcm9ubWVudCBwcmFnbWE7IGVudiBkZWZhdWx0IGpzZG9tIGtlZXBzIG5vZGUtbGVzcyBsaWJzIGhhcHB5LgpleHBvcnQgZGVmYXVsdCBkZWZpbmVDb25maWcoewogIHBsdWdpbnM6IFtyZWFjdCgpXSwKICB0ZXN0OiB7CiAgICBlbnZpcm9ubWVudDogJ2pzZG9tJywKICAgIGdsb2JhbHM6IHRydWUsCiAgICBzZXR1cEZpbGVzOiBbJy4vc3JjL3Rlc3Qvc2V0dXAudHMnXSwKICAgIGluY2x1ZGU6IFsnc3JjLyoqLyoudGVzdC57dHMsdHN4fScsICd0ZXN0cy8qKi8qLnRlc3Que3RzLHRzeH0nXSwKICB9LAp9KTsK
+import { defineConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
+
+// Merged wave-1 vitest config: src unit/component tests (L1/L4/L5) +
+// tests/** unit tests (L5/L6/L7). Component specs declare jsdom via
+// @vitest-environment pragma; env default jsdom keeps node-less libs happy.
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./src/test/setup.ts'],
+    include: ['src/**/*.test.{ts,tsx}', 'tests/**/*.test.{ts,tsx}'],
+  },
+});

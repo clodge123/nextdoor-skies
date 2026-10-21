@@ -1,1 +1,54 @@
-IyBTRUVELUNPTlRSQUNUIOKAlCBMNyBTZWVkLURlbW8tSW5mcmEgKFIxNCkKCiMjIFB1cnBvc2UKClRoZSBhcHAgbXVzdCBuZXZlciBiZSBlbXB0eSAoUjE0KS4gT24gYSBmcmVzaCBzdG9yZSwgYHNlZWRPbmNlYCBpbnNlcnRzIH4zMCBkZW1vCnBvc3RzIHNwcmVhZCBhY3Jvc3MgMzAgcmVhbCBVUyB0b3ducywgZWFjaCB3aXRoIDPigJM2IG9uZS1sZXZlbCBjb21tZW50cywgYWxsCmZsYWdnZWQgc28gdGhlIFVJIGNhbiBsYWJlbCB0aGVtIGhvbmVzdGx5IChSMTk6IHJlYWwgZGF0YSBvciBleHBsaWNpdCBkZW1vIOKAlApuZXZlciBsb29rYWxpa2UgZmFsbGJhY2tzKS4KCiMjIFRoZSBjb250cmFjdAoKMS4gKipTZWVkLW9uY2UuKiogU2VlZGluZyBydW5zIG9ubHkgd2hlbiB0aGUgcmVwb3J0cyB0YWJsZS9maWxlIGlzIEVNUFRZLgogICBBIG5vbi1lbXB0eSBzdG9yZSBpcyBsZWZ0IHVudG91Y2hlZDsgdGhlIHJ1bm5lciByZXBvcnRzCiAgIGBub3Qgc2VlZGVkIChyZXBvcnRzIHRhYmxlL2ZpbGUgbm90IGVtcHR5IOKAlCBzZWVkLW9uY2UsIHNraXBwaW5nKWAuCjIuICoqU2VlZGVkIGZsYWcuKiogRXZlcnkgc2VlZGVkIHJvdyAocG9zdHMgQU5EIGNvbW1lbnRzKSBjYXJyaWVzCiAgIGBzZWVkZWQ6IHRydWVgLiBSZWFsIHVzZXIgcm93cyBjYXJyeSBgc2VlZGVkOiBmYWxzZWAgKGNvbHVtbiBkZWZhdWx0KS4KMy4gKipVSSBsYWJlbGluZy4qKiBUaGUgZmVlZCByZW5kZXJzIGEgdmlzaWJsZSAqKiJEZW1vIGRhdGEiKiogYmFkZ2Ugb24gZXZlcnkKICAgcm93IHdoZXJlIGBzZWVkZWQgPT09IHRydWVgLiBUaGlzIGJhZGdlIGlzIG1hbmRhdG9yeSBVSSBjb3B5IOKAlCB0aGUgd2F2ZS0yCiAgIGZlZWQgbXVzdCBrZWVwIGl0IChmaXh0dXJlOiBgdGVzdHMvZml4dHVyZXMvZmVlZC1wYWdlLnRzYCwgcHJvb2Y6CiAgIGB0ZXN0cy9zZWVkLnNwZWMudHNgKS4KNC4gKipJZGVtcG90ZW50IHdyaXRlcy4qKiBgSU5TRVJUIC4uLiBPTiBDT05GTElDVCAoaWQpIERPIE5PVEhJTkdgIHdpdGgKICAgZGV0ZXJtaW5pc3RpYyBpZHMgKGBzZWVkLXBvc3QtPG4+YCwgYHNlZWQtY29tbWVudC08cG9zdD4tPG4+YCksIHNvIGRvdWJsZQogICBydW5zIGNhbiBuZXZlciBkdXBsaWNhdGUgcm93cy4KNS4gKipSb3cgc2hhcGUuKiogMzAgcG9zdHMsIG9uZSBwZXIgdG93biBpbiBgVE9XTlNgIChyZWFsIFVTIHRvd25zIHdpdGggcmVhbAogICBjb29yZGluYXRlcywgZS5nLiBNYXJmYSBUWCAzMC4zMDk3LC0xMDQuMDE5OSkuIFdlYXRoZXIgdHlwZXMgYXJlIG9uZSBvZgogICBgcmFpbiB8IHN0b3JtIHwgc25vdyB8IGNsZWFyIHwgaGVhdGAsIH43NSUgbWF0Y2hpbmcgdGhlIHRvd24ncyBjbGltYXRlIHpvbmUKICAgZm9yIHBsYXVzaWJpbGl0eS4gRXZlcnkgYHRzYCBpcyB3aXRoaW4gMjRoIGJlZm9yZSB0aGUgc2VlZCB0aW1lLiBDb21tZW50cwogICBhdHRhY2ggdG8gcG9zdHMgb25seSAob25lIGxldmVsLCBSOCkgd2l0aCBgdHNgIGJldHdlZW4gcG9zdCB0cyBhbmQgc2VlZCB0aW1lLgoKIyMgQmFja2VuZHMKCnwgQmFja2VuZCB8IFRyaWdnZXIgfCBOb3RlcyB8CnwtLS18LS0tfC0tLXwKfCBQb3N0Z3JlcyAoTmVvbikgfCBgUE9TVEdSRVNfVVJMYCBlbnYgfCBBcHBsaWVzIGBzZXJ2ZXIvbWlncmF0aW9ucy8wMDFfcmVwb3J0cy5zcWxgIChDUkVBVEUgVEFCTEUgSUYgTk9UIEVYSVNUUykgdGhlbiBzZWVkcy4gUHJvZHVjdGlvbiBwYXRoLiB8CnwgSlNPTiBmaWxlIHwgYFJFUE9SVFNfRklMRWAgZW52IHwgU2FtZSBzZWVkLW9uY2Ugc2VtYW50aWNzIG92ZXIgYHt2ZXJzaW9uLHJlcG9ydHMsY29tbWVudHN9YCBKU09OLiBUZXN0cy9kZXYgb25seSDigJQgbmV2ZXIgcG9pbnRzIGF0IHByb2QgTmVvbi4gfAoKSWYgYm90aCBhcmUgc2V0LCBQb3N0Z3JlcyB3aW5zLiBgc2NyaXB0cy9zZWVkLm1qc2AgcmVhZHMgZW52IHZhcnMgYW5kIGV4aXRzIDAKaW4gYm90aCBzZWVkZWQgYW5kIGFscmVhZHktc2VlZGVkIGNhc2VzLgoKIyMgRGV0ZXJtaW5pc20gKFIxNykKCi0gYHNlcnZlci9saWIvc2VlZC50c2AgY29udGFpbnMgbm8gYE1hdGgucmFuZG9tYCwgYERhdGUubm93YCwgb3IgYG5ldyBEYXRlKClgCiAgKHRoZSBzdGF0aWMgc2NhbiBwcm92ZXMgaXQpLiBUaGUgc2VlZCBzaW11bGF0aW9uIHVzZXMgbXVsYmVycnkzMiB3aXRoIHRoZQogIGZpeGVkIGNvbnN0YW50IGAweDVlZWQxMjM0YDsgdGhlIHNlZWQgdGltZSBhcnJpdmVzIGFzIGEgYG5vd2AgcGFyYW1ldGVyLgotIFRoZSBDTEkgKGBzY3JpcHRzL3NlZWQubWpzYCkgcGFzc2VzIGBuZXcgRGF0ZSgpYCBhdCB0aGUgcHJvY2VzcyBlZGdlIOKAlCB0aGF0CiAgaXMgdGhlIHNlZWQgKnJ1biogdGltZSwgbm90IHJlbmRlci9sb2dpYy1wYXRoIGNsb2NrIHVzZS4KLSBTYW1lIGBub3dgIOKHkiBieXRlLWlkZW50aWNhbCBkYXRhc2V0IChhc3NlcnRlZCBpbiBgdGVzdHMvc2VlZC50ZXN0LnRzYCkuCgojIyBSdW5uaW5nCgpgYGBiYXNoCm5wbSBydW4gYnVpbGQgJiYgbnBtIHJ1biBzZWVkICAgICAgICAgICAgICAgICAgICAjIFBPU1RHUkVTX1VSTCByZXF1aXJlZApSRVBPUlRTX0ZJTEU9Li90bXAvcmVwb3J0cy5qc29uIG5vZGUgc2NyaXB0cy9zZWVkLm1qcyAgICMgZmlsZSBtb2RlCmBgYAo=
+# SEED-CONTRACT — L7 Seed-Demo-Infra (R14)
+
+## Purpose
+
+The app must never be empty (R14). On a fresh store, `seedOnce` inserts ~30 demo
+posts spread across 30 real US towns, each with 3–6 one-level comments, all
+flagged so the UI can label them honestly (R19: real data or explicit demo —
+never lookalike fallbacks).
+
+## The contract
+
+1. **Seed-once.** Seeding runs only when the reports table/file is EMPTY.
+   A non-empty store is left untouched; the runner reports
+   `not seeded (reports table/file not empty — seed-once, skipping)`.
+2. **Seeded flag.** Every seeded row (posts AND comments) carries
+   `seeded: true`. Real user rows carry `seeded: false` (column default).
+3. **UI labeling.** The feed renders a visible **"Demo data"** badge on every
+   row where `seeded === true`. This badge is mandatory UI copy — the wave-2
+   feed must keep it (fixture: `tests/fixtures/feed-page.ts`, proof:
+   `tests/seed.spec.ts`).
+4. **Idempotent writes.** `INSERT ... ON CONFLICT (id) DO NOTHING` with
+   deterministic ids (`seed-post-<n>`, `seed-comment-<post>-<n>`), so double
+   runs can never duplicate rows.
+5. **Row shape.** 30 posts, one per town in `TOWNS` (real US towns with real
+   coordinates, e.g. Marfa TX 30.3097,-104.0199). Weather types are one of
+   `rain | storm | snow | clear | heat`, ~75% matching the town's climate zone
+   for plausibility. Every `ts` is within 24h before the seed time. Comments
+   attach to posts only (one level, R8) with `ts` between post ts and seed time.
+
+## Backends
+
+| Backend | Trigger | Notes |
+|---|---|---|
+| Postgres (Neon) | `POSTGRES_URL` env | Applies `server/migrations/001_reports.sql` (CREATE TABLE IF NOT EXISTS) then seeds. Production path. |
+| JSON file | `REPORTS_FILE` env | Same seed-once semantics over `{version,reports,comments}` JSON. Tests/dev only — never points at prod Neon. |
+
+If both are set, Postgres wins. `scripts/seed.mjs` reads env vars and exits 0
+in both seeded and already-seeded cases.
+
+## Determinism (R17)
+
+- `server/lib/seed.ts` contains no `Math.random`, `Date.now`, or `new Date()`
+  (the static scan proves it). The seed simulation uses mulberry32 with the
+  fixed constant `0x5eed1234`; the seed time arrives as a `now` parameter.
+- The CLI (`scripts/seed.mjs`) passes `new Date()` at the process edge — that
+  is the seed *run* time, not render/logic-path clock use.
+- Same `now` ⇒ byte-identical dataset (asserted in `tests/seed.test.ts`).
+
+## Running
+
+```bash
+npm run build && npm run seed                    # POSTGRES_URL required
+REPORTS_FILE=./tmp/reports.json node scripts/seed.mjs   # file mode
+```

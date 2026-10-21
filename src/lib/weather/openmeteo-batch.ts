@@ -1,1 +1,194 @@
-LyoqCiAqIEw2IFRPV04tV0VBVEhFUi1CQURHRVMg4oCUIE9wZW4tTWV0ZW8gYmF0Y2ggY2xpZW50LgogKgogKiBLZXlsZXNzIFBPU1QgdG8gaHR0cHM6Ly9hcGkub3Blbi1tZXRlby5jb20vdjEvYmF0Y2gsIHVwIHRvIDEwMDAgY29vcmRpbmF0ZXMKICogcGVyIGNhbGwgKE9wZW4tTWV0ZW8gYmF0Y2ggbGltaXQpLiBWaWV3cG9ydC1ib3VuZGVkOiBvbmx5IHRvd25zIGluc2lkZSB0aGUKICogY3VycmVudCBtYXAgYm91bmRzIChwbHVzIG1hcmdpbikgYXJlIHJlcXVlc3RlZC4gUmVmcmVzaCBjYWRlbmNlIGlzIHRoZQogKiB+NS1taW51dGUgd2luZG93IGxhdyAoYnJpZWYgbGF3IDIpOiBmZXRjaCBwZXIgd2luZG93LCBORVZFUiBwZXIgcGFuLgogKgogKiBEZXRlcm1pbmlzbSBsYXcgKFIxNyk6IG5vIE1hdGgucmFuZG9tIC8gRGF0ZS5ub3cgLyBuZXcgRGF0ZSBhbnl3aGVyZSBpbgogKiB0aGlzIG1vZHVsZS4gVGltaW5nIGNvbWVzIGZyb20gdGhlIGluamVjdGVkIHNjaGVkdWxlcjsgdGhlIGZldGNoIGl0c2VsZiBpcwogKiBhIHB1cmUgcmVxdWVzdC9yZXNwb25zZSB3aXRoIGFuIGluamVjdGFibGUgZmV0Y2hJbXBsIGZvciB0ZXN0cy4KICovCgpleHBvcnQgY29uc3QgT1BFTl9NRVRFT19CQVRDSF9VUkwgPSAnaHR0cHM6Ly9hcGkub3Blbi1tZXRlby5jb20vdjEvYmF0Y2gnCgovKiogT3Blbi1NZXRlbyBiYXRjaCBlbmRwb2ludCBoYXJkIGxpbWl0IHBlciBjYWxsLiAqLwpleHBvcnQgY29uc3QgTUFYX0JBVENIX0NPT1JEUyA9IDEwMDAKCi8qKiBCcmllZiBsYXcgMjogZmV0Y2ggcGVyIH41LW1pbiB3aW5kb3csIE5PVCBwZXIgcGFuLiAqLwpleHBvcnQgY29uc3QgUkVGUkVTSF9JTlRFUlZBTF9NUyA9IDUgKiA2MF8wMDAKCmV4cG9ydCBpbnRlcmZhY2UgVG93bkNvb3JkIHsKICBpZDogc3RyaW5nCiAgbmFtZTogc3RyaW5nCiAgbGF0OiBudW1iZXIKICBsb246IG51bWJlcgp9CgpleHBvcnQgaW50ZXJmYWNlIEN1cnJlbnRUZW1wIHsKICB0b3duSWQ6IHN0cmluZwogIC8qKiBDZWxzaXVzLCBzdHJhaWdodCBmcm9tIE9wZW4tTWV0ZW8gYGN1cnJlbnQudGVtcGVyYXR1cmVfMm1gLiAqLwogIHRlbXBlcmF0dXJlQzogbnVtYmVyCn0KCi8qKiBHZW9ncmFwaGljIGJvdW5kcyBpbiBkZWdyZWVzLiAqLwpleHBvcnQgaW50ZXJmYWNlIEdlb0JvdW5kcyB7CiAgd2VzdDogbnVtYmVyCiAgc291dGg6IG51bWJlcgogIGVhc3Q6IG51bWJlcgogIG5vcnRoOiBudW1iZXIKfQoKLyoqIEluamVjdGFibGUgZmV0Y2ggZm9yIHRlc3RzICh2aXRlc3QpIGFuZCB0aGUgYXBwICh3aW5kb3cuZmV0Y2gpLiAqLwpleHBvcnQgdHlwZSBGZXRjaEltcGwgPSAoCiAgaW5wdXQ6IHN0cmluZywKICBpbml0OiB7IG1ldGhvZDogc3RyaW5nOyBoZWFkZXJzOiBSZWNvcmQ8c3RyaW5nLCBzdHJpbmc+OyBib2R5OiBzdHJpbmcgfSwKKSA9PiBQcm9taXNlPHsgb2s6IGJvb2xlYW47IHN0YXR1czogbnVtYmVyOyBqc29uOiAoKSA9PiBQcm9taXNlPHVua25vd24+IH0+CgovKiogT25lIGNodW5rIG9mIHRoZSBiYXRjaCBQT1NUIGJvZHkuICovCmV4cG9ydCBpbnRlcmZhY2UgQmF0Y2hSZXF1ZXN0Qm9keSB7CiAgYmF0Y2g6IEFycmF5PHsgbGF0aXR1ZGU6IG51bWJlcjsgbG9uZ2l0dWRlOiBudW1iZXI7IGN1cnJlbnQ6IHN0cmluZzsgdGltZXpvbmU6IHN0cmluZyB9Pgp9CgovKiogU3BsaXQgdG93bnMgaW50byA8PU1BWF9CQVRDSF9DT09SRFMgY2h1bmtzLCBwcmVzZXJ2aW5nIG9yZGVyLiAqLwpleHBvcnQgZnVuY3Rpb24gY2h1bmtUb3ducyh0b3duczogcmVhZG9ubHkgVG93bkNvb3JkW10sIG1heCA9IE1BWF9CQVRDSF9DT09SRFMpOiBUb3duQ29vcmRbXVtdIHsKICBpZiAobWF4IDwgMSkgdGhyb3cgbmV3IEVycm9yKGBjaHVua1Rvd25zOiBtYXggbXVzdCBiZSA+PSAxLCBnb3QgJHttYXh9YCkKICBjb25zdCBvdXQ6IFRvd25Db29yZFtdW10gPSBbXQogIGZvciAobGV0IGkgPSAwOyBpIDwgdG93bnMubGVuZ3RoOyBpICs9IG1heCkgewogICAgb3V0LnB1c2godG93bnMuc2xpY2UoaSwgaSArIG1heCkpCiAgfQogIHJldHVybiBvdXQKfQoKLyoqIEJ1aWxkIHRoZSBQT1NUIGJvZHkgZm9yIG9uZSBjaHVuazogcGFyYWxsZWwgYXJyYXlzIHBlciBPcGVuLU1ldGVvIGJhdGNoLiAqLwpleHBvcnQgZnVuY3Rpb24gYnVpbGRCYXRjaFJlcXVlc3RCb2R5KHRvd25zOiByZWFkb25seSBUb3duQ29vcmRbXSk6IEJhdGNoUmVxdWVzdEJvZHkgewogIHJldHVybiB7CiAgICBiYXRjaDogdG93bnMubWFwKCh0KSA9PiAoewogICAgICBsYXRpdHVkZTogdC5sYXQsCiAgICAgIGxvbmdpdHVkZTogdC5sb24sCiAgICAgIGN1cnJlbnQ6ICd0ZW1wZXJhdHVyZV8ybScsCiAgICAgIHRpbWV6b25lOiAnVVRDJywKICAgIH0pKSwKICB9Cn0KCi8qKgogKiBWaWV3cG9ydCBjdWxsaW5nOiB0b3ducyBzdHJpY3RseSBpbnNpZGUgYm91bmRzIChleHBhbmRlZCBieSBtYXJnaW5EZWcgb24KICogZWFjaCBzaWRlKSBzdXJ2aXZlLiBLZWVwcyBiYWRnZSBmZXRjaGVzIGJvdW5kZWQgdG8gd2hhdCB0aGUgdXNlciBzZWVzLgogKi8KZXhwb3J0IGZ1bmN0aW9uIGZpbHRlclZpc2libGVUb3ducygKICB0b3duczogcmVhZG9ubHkgVG93bkNvb3JkW10sCiAgYm91bmRzOiBHZW9Cb3VuZHMsCiAgbWFyZ2luRGVnID0gMC41LAopOiBUb3duQ29vcmRbXSB7CiAgY29uc3QgdyA9IGJvdW5kcy53ZXN0IC0gbWFyZ2luRGVnCiAgY29uc3QgZSA9IGJvdW5kcy5lYXN0ICsgbWFyZ2luRGVnCiAgY29uc3QgcyA9IGJvdW5kcy5zb3V0aCAtIG1hcmdpbkRlZwogIGNvbnN0IG4gPSBib3VuZHMubm9ydGggKyBtYXJnaW5EZWcKICByZXR1cm4gdG93bnMuZmlsdGVyKCh0KSA9PiB0LmxvbiA+PSB3ICYmIHQubG9uIDw9IGUgJiYgdC5sYXQgPj0gcyAmJiB0LmxhdCA8PSBuKQp9CgppbnRlcmZhY2UgT3Blbk1ldGVvQ3VycmVudCB7CiAgY3VycmVudD86IHsgdGVtcGVyYXR1cmVfMm0/OiBudW1iZXIgfCBudWxsIH0KfQoKLyoqCiAqIFBhcnNlIGJhdGNoIHJlc3BvbnNlcyBpbnRvIHRlbXBzIGtleWVkIGJ5IHRvd24gaWQuIEEgY2h1bmsgZW50cnkgbWlzc2luZwogKiBpdHMgdGVtcGVyYXR1cmUgKEFQSSBoaWNjdXAsIGdlb2NvZGluZyBtaXNzKSB5aWVsZHMgTk8gZW50cnkg4oCUIHRoZSBiYWRnZQogKiBrZWVwcyBpdHMgbGFzdCB2YWx1ZSAobGFzdC1kYXRhLXdpbnMgbGF3IDMpIGFuZCB0aGUgc3VyZmFjZSBzdGF5cyBob25lc3QKICogKFIxOTogcmVhbCBkYXRhIG9ubHksIG5ldmVyIGEgbG9va2FsaWtlIGZhbGxiYWNrKS4KICovCmV4cG9ydCBmdW5jdGlvbiBwYXJzZUJhdGNoUmVzcG9uc2UoCiAgcGF5bG9hZDogdW5rbm93biwKICB0b3duczogcmVhZG9ubHkgVG93bkNvb3JkW10sCik6IEN1cnJlbnRUZW1wW10gewogIGNvbnN0IGJhdGNoID0gKHBheWxvYWQgYXMgeyBiYXRjaD86IE9wZW5NZXRlb0N1cnJlbnRbXSB9KT8uYmF0Y2gKICBpZiAoIUFycmF5LmlzQXJyYXkoYmF0Y2gpKSByZXR1cm4gW10KICBjb25zdCBvdXQ6IEN1cnJlbnRUZW1wW10gPSBbXQogIGNvbnN0IG4gPSBNYXRoLm1pbihiYXRjaC5sZW5ndGgsIHRvd25zLmxlbmd0aCkKICBmb3IgKGxldCBpID0gMDsgaSA8IG47IGkrKykgewogICAgY29uc3QgdGVtcCA9IGJhdGNoW2ldPy5jdXJyZW50Py50ZW1wZXJhdHVyZV8ybQogICAgaWYgKHR5cGVvZiB0ZW1wID09PSAnbnVtYmVyJyAmJiBOdW1iZXIuaXNGaW5pdGUodGVtcCkpIHsKICAgICAgb3V0LnB1c2goeyB0b3duSWQ6IHRvd25zW2ldLmlkLCB0ZW1wZXJhdHVyZUM6IHRlbXAgfSkKICAgIH0KICB9CiAgcmV0dXJuIG91dAp9CgovKioKICogRmV0Y2ggY3VycmVudCB0ZW1wcyBmb3IgQUxMIGdpdmVuIHRvd25zLCBjaHVua2VkIGludG8gPD0xMDAwLWNvb3JkIFBPU1RzLgogKiBSZXR1cm5zIHRoZSBtZXJnZWQgbGlzdDsgY2h1bmsgb3JkZXIgaXMgcHJlc2VydmVkIHNvIHBhcnNlIHBhaXJpbmcgaXMgc2FmZS4KICovCmV4cG9ydCBhc3luYyBmdW5jdGlvbiBmZXRjaEN1cnJlbnRUZW1wcygKICB0b3duczogcmVhZG9ubHkgVG93bkNvb3JkW10sCiAgZmV0Y2hJbXBsOiBGZXRjaEltcGwsCik6IFByb21pc2U8Q3VycmVudFRlbXBbXT4gewogIGNvbnN0IHJlc3VsdHM6IEN1cnJlbnRUZW1wW10gPSBbXQogIGZvciAoY29uc3QgY2h1bmsgb2YgY2h1bmtUb3ducyh0b3ducykpIHsKICAgIGNvbnN0IHJlcyA9IGF3YWl0IGZldGNoSW1wbChPUEVOX01FVEVPX0JBVENIX1VSTCwgewogICAgICBtZXRob2Q6ICdQT1NUJywKICAgICAgaGVhZGVyczogeyAnQ29udGVudC1UeXBlJzogJ2FwcGxpY2F0aW9uL2pzb24nIH0sCiAgICAgIGJvZHk6IEpTT04uc3RyaW5naWZ5KGJ1aWxkQmF0Y2hSZXF1ZXN0Qm9keShjaHVuaykpLAogICAgfSkKICAgIGlmICghcmVzLm9rKSB7CiAgICAgIHRocm93IG5ldyBFcnJvcihgb3Blbi1tZXRlbyBiYXRjaCBmYWlsZWQ6IEhUVFAgJHtyZXMuc3RhdHVzfWApCiAgICB9CiAgICByZXN1bHRzLnB1c2goLi4ucGFyc2VCYXRjaFJlc3BvbnNlKGF3YWl0IHJlcy5qc29uKCksIGNodW5rKSkKICB9CiAgcmV0dXJuIHJlc3VsdHMKfQoKZXhwb3J0IGludGVyZmFjZSBXZWF0aGVyUmVmcmVzaGVyT3B0aW9ucyB7CiAgZ2V0VG93bnM6ICgpID0+IHJlYWRvbmx5IFRvd25Db29yZFtdCiAgZ2V0Vmlld3BvcnQ6ICgpID0+IEdlb0JvdW5kcwogIGZldGNoSW1wbDogRmV0Y2hJbXBsCiAgLyoqIENhbGxlZCB3aXRoIHRoZSBsYXRlc3QgdGVtcHMgd2hlbmV2ZXIgYSB3aW5kb3cgZmV0Y2ggc3VjY2VlZHMuICovCiAgb25UZW1wczogKHRlbXBzOiBDdXJyZW50VGVtcFtdKSA9PiB2b2lkCiAgLyoqIFdpbmRvdyBjYWRlbmNlOyBkZWZhdWx0cyB0byBSRUZSRVNIX0lOVEVSVkFMX01TICg1IG1pbikuICovCiAgaW50ZXJ2YWxNcz86IG51bWJlcgogIC8qKiBUZXN0IHNlYW0gZm9yIHNldEludGVydmFsL2NsZWFySW50ZXJ2YWwuICovCiAgc2V0SW50ZXJ2YWxGbj86IChjYjogKCkgPT4gdm9pZCwgbXM6IG51bWJlcikgPT4gUmV0dXJuVHlwZTx0eXBlb2Ygc2V0SW50ZXJ2YWw+CiAgY2xlYXJJbnRlcnZhbEZuPzogKGlkOiBSZXR1cm5UeXBlPHR5cGVvZiBzZXRJbnRlcnZhbD4pID0+IHZvaWQKfQoKLyoqCiAqIFZpZXdwb3J0LWJvdW5kZWQsIHdpbmRvdy1kcml2ZW4gcmVmcmVzaGVyLiBGZXRjaGVzIG9uY2UgaW1tZWRpYXRlbHksIHRoZW4KICogb24gZXZlcnkgNS1taW4gd2luZG93IHVzaW5nIHRoZSB2aWV3cG9ydCBDVVJSRU5UIEFUIFRIQVQgTU9NRU5UIOKAlCBwYW5uaW5nCiAqIGJldHdlZW4gd2luZG93cyBuZXZlciB0cmlnZ2VycyBhIGZldGNoIChsYXcgMikuIExhc3QtZGF0YS13aW5zOiBhIGZhaWxlZAogKiB3aW5kb3cgbGVhdmVzIHRoZSBwcmV2aW91cyB0ZW1wcyB1bnRvdWNoZWQgKGxhdyAzLCBSMTkpLgogKi8KZXhwb3J0IGZ1bmN0aW9uIGNyZWF0ZVdlYXRoZXJSZWZyZXNoZXIob3B0czogV2VhdGhlclJlZnJlc2hlck9wdGlvbnMpOiB7CiAgc3RhcnQ6ICgpID0+IHZvaWQKICBzdG9wOiAoKSA9PiB2b2lkCn0gewogIGNvbnN0IGludGVydmFsTXMgPSBvcHRzLmludGVydmFsTXMgPz8gUkVGUkVTSF9JTlRFUlZBTF9NUwogIGNvbnN0IHNldEludCA9IG9wdHMuc2V0SW50ZXJ2YWxGbiA/PyBzZXRJbnRlcnZhbAogIGNvbnN0IGNsZWFySW50ID0gb3B0cy5jbGVhckludGVydmFsRm4gPz8gY2xlYXJJbnRlcnZhbAogIGxldCB0aW1lcjogUmV0dXJuVHlwZTx0eXBlb2Ygc2V0SW50ZXJ2YWw+IHwgbnVsbCA9IG51bGwKCiAgY29uc3QgcnVuV2luZG93ID0gYXN5bmMgKCk6IFByb21pc2U8dm9pZD4gPT4gewogICAgY29uc3QgdmlzaWJsZSA9IGZpbHRlclZpc2libGVUb3ducyhvcHRzLmdldFRvd25zKCksIG9wdHMuZ2V0Vmlld3BvcnQoKSkKICAgIGlmICh2aXNpYmxlLmxlbmd0aCA9PT0gMCkgcmV0dXJuCiAgICB0cnkgewogICAgICBjb25zdCB0ZW1wcyA9IGF3YWl0IGZldGNoQ3VycmVudFRlbXBzKHZpc2libGUsIG9wdHMuZmV0Y2hJbXBsKQogICAgICBpZiAodGVtcHMubGVuZ3RoID4gMCkgb3B0cy5vblRlbXBzKHRlbXBzKQogICAgfSBjYXRjaCB7CiAgICAgIC8vIFdpbmRvdyBmYWlsZWQ6IGtlZXAgbGFzdCBkYXRhIChsYXcgMykuIE5ldmVyIGZsaXAgdGhlIFVJIHRvIGVycm9yLgogICAgfQogIH0KCiAgcmV0dXJuIHsKICAgIHN0YXJ0KCkgewogICAgICBpZiAodGltZXIgIT09IG51bGwpIHJldHVybgogICAgICB2b2lkIHJ1bldpbmRvdygpCiAgICAgIHRpbWVyID0gc2V0SW50KCgpID0+IHZvaWQgcnVuV2luZG93KCksIGludGVydmFsTXMpCiAgICB9LAogICAgc3RvcCgpIHsKICAgICAgaWYgKHRpbWVyICE9PSBudWxsKSB7CiAgICAgICAgY2xlYXJJbnQodGltZXIpCiAgICAgICAgdGltZXIgPSBudWxsCiAgICAgIH0KICAgIH0sCiAgfQp9Cg==
+/**
+ * L6 TOWN-WEATHER-BADGES — Open-Meteo batch client.
+ *
+ * Keyless POST to https://api.open-meteo.com/v1/batch, up to 1000 coordinates
+ * per call (Open-Meteo batch limit). Viewport-bounded: only towns inside the
+ * current map bounds (plus margin) are requested. Refresh cadence is the
+ * ~5-minute window law (brief law 2): fetch per window, NEVER per pan.
+ *
+ * Determinism law (R17): no Math.random / Date.now / new Date anywhere in
+ * this module. Timing comes from the injected scheduler; the fetch itself is
+ * a pure request/response with an injectable fetchImpl for tests.
+ */
+
+export const OPEN_METEO_BATCH_URL = 'https://api.open-meteo.com/v1/batch'
+
+/** Open-Meteo batch endpoint hard limit per call. */
+export const MAX_BATCH_COORDS = 1000
+
+/** Brief law 2: fetch per ~5-min window, NOT per pan. */
+export const REFRESH_INTERVAL_MS = 5 * 60_000
+
+export interface TownCoord {
+  id: string
+  name: string
+  lat: number
+  lon: number
+}
+
+export interface CurrentTemp {
+  townId: string
+  /** Celsius, straight from Open-Meteo `current.temperature_2m`. */
+  temperatureC: number
+}
+
+/** Geographic bounds in degrees. */
+export interface GeoBounds {
+  west: number
+  south: number
+  east: number
+  north: number
+}
+
+/** Injectable fetch for tests (vitest) and the app (window.fetch). */
+export type FetchImpl = (
+  input: string,
+  init: { method: string; headers: Record<string, string>; body: string },
+) => Promise<{ ok: boolean; status: number; json: () => Promise<unknown> }>
+
+/** One chunk of the batch POST body. */
+export interface BatchRequestBody {
+  batch: Array<{ latitude: number; longitude: number; current: string; timezone: string }>
+}
+
+/** Split towns into <=MAX_BATCH_COORDS chunks, preserving order. */
+export function chunkTowns(towns: readonly TownCoord[], max = MAX_BATCH_COORDS): TownCoord[][] {
+  if (max < 1) throw new Error(`chunkTowns: max must be >= 1, got ${max}`)
+  const out: TownCoord[][] = []
+  for (let i = 0; i < towns.length; i += max) {
+    out.push(towns.slice(i, i + max))
+  }
+  return out
+}
+
+/** Build the POST body for one chunk: parallel arrays per Open-Meteo batch. */
+export function buildBatchRequestBody(towns: readonly TownCoord[]): BatchRequestBody {
+  return {
+    batch: towns.map((t) => ({
+      latitude: t.lat,
+      longitude: t.lon,
+      current: 'temperature_2m',
+      timezone: 'UTC',
+    })),
+  }
+}
+
+/**
+ * Viewport culling: towns strictly inside bounds (expanded by marginDeg on
+ * each side) survive. Keeps badge fetches bounded to what the user sees.
+ */
+export function filterVisibleTowns(
+  towns: readonly TownCoord[],
+  bounds: GeoBounds,
+  marginDeg = 0.5,
+): TownCoord[] {
+  const w = bounds.west - marginDeg
+  const e = bounds.east + marginDeg
+  const s = bounds.south - marginDeg
+  const n = bounds.north + marginDeg
+  return towns.filter((t) => t.lon >= w && t.lon <= e && t.lat >= s && t.lat <= n)
+}
+
+interface OpenMeteoCurrent {
+  current?: { temperature_2m?: number | null }
+}
+
+/**
+ * Parse batch responses into temps keyed by town id. A chunk entry missing
+ * its temperature (API hiccup, geocoding miss) yields NO entry — the badge
+ * keeps its last value (last-data-wins law 3) and the surface stays honest
+ * (R19: real data only, never a lookalike fallback).
+ */
+export function parseBatchResponse(
+  payload: unknown,
+  towns: readonly TownCoord[],
+): CurrentTemp[] {
+  const batch = (payload as { batch?: OpenMeteoCurrent[] })?.batch
+  if (!Array.isArray(batch)) return []
+  const out: CurrentTemp[] = []
+  const n = Math.min(batch.length, towns.length)
+  for (let i = 0; i < n; i++) {
+    const temp = batch[i]?.current?.temperature_2m
+    if (typeof temp === 'number' && Number.isFinite(temp)) {
+      out.push({ townId: towns[i].id, temperatureC: temp })
+    }
+  }
+  return out
+}
+
+/**
+ * Fetch current temps for ALL given towns, chunked into <=1000-coord POSTs.
+ * Returns the merged list; chunk order is preserved so parse pairing is safe.
+ */
+export async function fetchCurrentTemps(
+  towns: readonly TownCoord[],
+  fetchImpl: FetchImpl,
+): Promise<CurrentTemp[]> {
+  const results: CurrentTemp[] = []
+  for (const chunk of chunkTowns(towns)) {
+    const res = await fetchImpl(OPEN_METEO_BATCH_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(buildBatchRequestBody(chunk)),
+    })
+    if (!res.ok) {
+      throw new Error(`open-meteo batch failed: HTTP ${res.status}`)
+    }
+    results.push(...parseBatchResponse(await res.json(), chunk))
+  }
+  return results
+}
+
+export interface WeatherRefresherOptions {
+  getTowns: () => readonly TownCoord[]
+  getViewport: () => GeoBounds
+  fetchImpl: FetchImpl
+  /** Called with the latest temps whenever a window fetch succeeds. */
+  onTemps: (temps: CurrentTemp[]) => void
+  /** Window cadence; defaults to REFRESH_INTERVAL_MS (5 min). */
+  intervalMs?: number
+  /** Test seam for setInterval/clearInterval. */
+  setIntervalFn?: (cb: () => void, ms: number) => ReturnType<typeof setInterval>
+  clearIntervalFn?: (id: ReturnType<typeof setInterval>) => void
+}
+
+/**
+ * Viewport-bounded, window-driven refresher. Fetches once immediately, then
+ * on every 5-min window using the viewport CURRENT AT THAT MOMENT — panning
+ * between windows never triggers a fetch (law 2). Last-data-wins: a failed
+ * window leaves the previous temps untouched (law 3, R19).
+ */
+export function createWeatherRefresher(opts: WeatherRefresherOptions): {
+  start: () => void
+  stop: () => void
+} {
+  const intervalMs = opts.intervalMs ?? REFRESH_INTERVAL_MS
+  const setInt = opts.setIntervalFn ?? setInterval
+  const clearInt = opts.clearIntervalFn ?? clearInterval
+  let timer: ReturnType<typeof setInterval> | null = null
+
+  const runWindow = async (): Promise<void> => {
+    const visible = filterVisibleTowns(opts.getTowns(), opts.getViewport())
+    if (visible.length === 0) return
+    try {
+      const temps = await fetchCurrentTemps(visible, opts.fetchImpl)
+      if (temps.length > 0) opts.onTemps(temps)
+    } catch {
+      // Window failed: keep last data (law 3). Never flip the UI to error.
+    }
+  }
+
+  return {
+    start() {
+      if (timer !== null) return
+      void runWindow()
+      timer = setInt(() => void runWindow(), intervalMs)
+    },
+    stop() {
+      if (timer !== null) {
+        clearInt(timer)
+        timer = null
+      }
+    },
+  }
+}

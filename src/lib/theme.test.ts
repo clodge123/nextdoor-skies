@@ -1,1 +1,80 @@
-Ly8gTDQgdml0ZXN0IHN1aXRlIOKAlCBzZXRBY2NlbnQgbWFwcGluZyArIHRoZW1lIHBlcnNpc3RlbmNlIChHYXRlIDAsIHVuaXQpLgovLyBEZXRlcm1pbmlzbSBsYXcgaG9ub3JlZDogZml4ZWQgaW5wdXRzIG9ubHksIG5vIE1hdGgucmFuZG9tL0RhdGUubm93L25ldyBEYXRlLgppbXBvcnQgeyBiZWZvcmVFYWNoLCBkZXNjcmliZSwgZXhwZWN0LCBpdCwgdmkgfSBmcm9tICd2aXRlc3QnOwppbXBvcnQgewogIEFDQ0VOVF9DT0xPUlMsCiAgZ2V0U3RvcmVkVGhlbWUsCiAgaW5pdFRoZW1lLAogIHNldEFjY2VudCwKICBzZXRUaGVtZSwKICBzeXN0ZW1UaGVtZSwKICBUSEVNRV9TVE9SQUdFX0tFWSwKICB0b2dnbGVUaGVtZSwKICB0eXBlIFdlYXRoZXJBY2NlbnQsCn0gZnJvbSAnLi90aGVtZSc7CgpiZWZvcmVFYWNoKCgpID0+IHsKICBkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQucmVtb3ZlQXR0cmlidXRlKCdkYXRhLXRoZW1lJyk7CiAgZG9jdW1lbnQuZG9jdW1lbnRFbGVtZW50LnN0eWxlLnJlbW92ZVByb3BlcnR5KCctLWN1cnJlbnQtYWNjZW50Jyk7CiAgd2luZG93LmxvY2FsU3RvcmFnZS5jbGVhcigpOwp9KTsKCmRlc2NyaWJlKCdzZXRBY2NlbnQgd2VhdGhlcuKGkmNvbG9yIG1hcHBpbmcgKFIxMiknLCAoKSA9PiB7CiAgY29uc3QgZXhwZWN0ZWQ6IFJlY29yZDxXZWF0aGVyQWNjZW50LCBzdHJpbmc+ID0gewogICAgcmFpbjogJyMzOGJkZjgnLAogICAgc3Rvcm06ICcjYTg1NWY3JywKICAgIHNub3c6ICcjZTBmMmZlJywKICAgIGNsZWFyOiAnIzAwZmY5ZCcsCiAgICBoZWF0OiAnI2Y5NzMxNicsCiAgfTsKCiAgZm9yIChjb25zdCBbbmFtZSwgY29sb3JdIG9mIE9iamVjdC5lbnRyaWVzKGV4cGVjdGVkKSkgewogICAgaXQoYG1hcHMgJHtuYW1lfSAtPiAke2NvbG9yfWAsICgpID0+IHsKICAgICAgc2V0QWNjZW50KG5hbWUgYXMgV2VhdGhlckFjY2VudCk7CiAgICAgIGV4cGVjdChkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQuc3R5bGUuZ2V0UHJvcGVydHlWYWx1ZSgnLS1jdXJyZW50LWFjY2VudCcpKS50b0JlKGNvbG9yKTsKICAgIH0pOwogIH0KCiAgaXQoJ0FDQ0VOVF9DT0xPUlMgdGFibGUgbWF0Y2hlcyB0aGUgYnJpZWYgZXhhY3RseScsICgpID0+IHsKICAgIGV4cGVjdChBQ0NFTlRfQ09MT1JTKS50b0VxdWFsKGV4cGVjdGVkKTsKICB9KTsKfSk7CgpkZXNjcmliZSgndGhlbWUgcGVyc2lzdGVuY2UnLCAoKSA9PiB7CiAgaXQoJ3NldFRoZW1lIHdyaXRlcyBkYXRhLXRoZW1lIG9uIGh0bWwgYW5kIHBlcnNpc3RzIHRvIGxvY2FsU3RvcmFnZSBuZHMtdGhlbWUnLCAoKSA9PiB7CiAgICBzZXRUaGVtZSgnbGlnaHQnKTsKICAgIGV4cGVjdChkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQuZ2V0QXR0cmlidXRlKCdkYXRhLXRoZW1lJykpLnRvQmUoJ2xpZ2h0Jyk7CiAgICBleHBlY3Qod2luZG93LmxvY2FsU3RvcmFnZS5nZXRJdGVtKFRIRU1FX1NUT1JBR0VfS0VZKSkudG9CZSgnbGlnaHQnKTsKICAgIHNldFRoZW1lKCdkYXJrJyk7CiAgICBleHBlY3QoZG9jdW1lbnQuZG9jdW1lbnRFbGVtZW50LmdldEF0dHJpYnV0ZSgnZGF0YS10aGVtZScpKS50b0JlKCdkYXJrJyk7CiAgICBleHBlY3Qod2luZG93LmxvY2FsU3RvcmFnZS5nZXRJdGVtKFRIRU1FX1NUT1JBR0VfS0VZKSkudG9CZSgnZGFyaycpOwogIH0pOwoKICBpdCgnaW5pdFRoZW1lIHJlc3RvcmVzIHRoZSBzdG9yZWQgdGhlbWUgb3ZlciBzeXN0ZW0gcHJlZmVyZW5jZScsICgpID0+IHsKICAgIHdpbmRvdy5sb2NhbFN0b3JhZ2Uuc2V0SXRlbShUSEVNRV9TVE9SQUdFX0tFWSwgJ2xpZ2h0Jyk7CiAgICBjb25zdCB0aGVtZSA9IGluaXRUaGVtZSgpOwogICAgZXhwZWN0KHRoZW1lKS50b0JlKCdsaWdodCcpOwogICAgZXhwZWN0KGRvY3VtZW50LmRvY3VtZW50RWxlbWVudC5nZXRBdHRyaWJ1dGUoJ2RhdGEtdGhlbWUnKSkudG9CZSgnbGlnaHQnKTsKICB9KTsKCiAgaXQoJ2luaXRUaGVtZSBmYWxscyBiYWNrIHRvIHByZWZlcnMtY29sb3Itc2NoZW1lIHdoZW4gbm90aGluZyBzdG9yZWQnLCAoKSA9PiB7CiAgICBjb25zdCBtYXRjaCA9IHZpLmZuKCgpID0+ICh7IG1hdGNoZXM6IHRydWUsIGFkZEV2ZW50TGlzdGVuZXI6ICgpID0+IHt9LCByZW1vdmVFdmVudExpc3RlbmVyOiAoKSA9PiB7fSB9KSk7CiAgICB2aS5zdHViR2xvYmFsKCdtYXRjaE1lZGlhJywgbWF0Y2gpOwogICAgZXhwZWN0KHN5c3RlbVRoZW1lKCkpLnRvQmUoJ2xpZ2h0Jyk7CiAgICBleHBlY3QoaW5pdFRoZW1lKCkpLnRvQmUoJ2xpZ2h0Jyk7CiAgICB2aS51bnN0dWJBbGxHbG9iYWxzKCk7CiAgfSk7CgogIGl0KCd0b2dnbGVUaGVtZSBmbGlwcyBkYXJrPC0+bGlnaHQgYW5kIHBlcnNpc3RzJywgKCkgPT4gewogICAgc2V0VGhlbWUoJ2RhcmsnKTsKICAgIGV4cGVjdCh0b2dnbGVUaGVtZSgpKS50b0JlKCdsaWdodCcpOwogICAgZXhwZWN0KHdpbmRvdy5sb2NhbFN0b3JhZ2UuZ2V0SXRlbShUSEVNRV9TVE9SQUdFX0tFWSkpLnRvQmUoJ2xpZ2h0Jyk7CiAgICBleHBlY3QodG9nZ2xlVGhlbWUoKSkudG9CZSgnZGFyaycpOwogICAgZXhwZWN0KHdpbmRvdy5sb2NhbFN0b3JhZ2UuZ2V0SXRlbShUSEVNRV9TVE9SQUdFX0tFWSkpLnRvQmUoJ2RhcmsnKTsKICB9KTsKCiAgaXQoJ2dldFN0b3JlZFRoZW1lIHJldHVybnMgbnVsbCBmb3IganVuayB2YWx1ZXMnLCAoKSA9PiB7CiAgICB3aW5kb3cubG9jYWxTdG9yYWdlLnNldEl0ZW0oVEhFTUVfU1RPUkFHRV9LRVksICduZW9uJyk7CiAgICBleHBlY3QoZ2V0U3RvcmVkVGhlbWUoKSkudG9CZU51bGwoKTsKICB9KTsKfSk7Cg==
+// L4 vitest suite — setAccent mapping + theme persistence (Gate 0, unit).
+// Determinism law honored: fixed inputs only, no Math.random/Date.now/new Date.
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import {
+  ACCENT_COLORS,
+  getStoredTheme,
+  initTheme,
+  setAccent,
+  setTheme,
+  systemTheme,
+  THEME_STORAGE_KEY,
+  toggleTheme,
+  type WeatherAccent,
+} from './theme';
+
+beforeEach(() => {
+  document.documentElement.removeAttribute('data-theme');
+  document.documentElement.style.removeProperty('--current-accent');
+  window.localStorage.clear();
+});
+
+describe('setAccent weather→color mapping (R12)', () => {
+  const expected: Record<WeatherAccent, string> = {
+    rain: '#38bdf8',
+    storm: '#a855f7',
+    snow: '#e0f2fe',
+    clear: '#00ff9d',
+    heat: '#f97316',
+  };
+
+  for (const [name, color] of Object.entries(expected)) {
+    it(`maps ${name} -> ${color}`, () => {
+      setAccent(name as WeatherAccent);
+      expect(document.documentElement.style.getPropertyValue('--current-accent')).toBe(color);
+    });
+  }
+
+  it('ACCENT_COLORS table matches the brief exactly', () => {
+    expect(ACCENT_COLORS).toEqual(expected);
+  });
+});
+
+describe('theme persistence', () => {
+  it('setTheme writes data-theme on html and persists to localStorage nds-theme', () => {
+    setTheme('light');
+    expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+    expect(window.localStorage.getItem(THEME_STORAGE_KEY)).toBe('light');
+    setTheme('dark');
+    expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
+    expect(window.localStorage.getItem(THEME_STORAGE_KEY)).toBe('dark');
+  });
+
+  it('initTheme restores the stored theme over system preference', () => {
+    window.localStorage.setItem(THEME_STORAGE_KEY, 'light');
+    const theme = initTheme();
+    expect(theme).toBe('light');
+    expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+  });
+
+  it('initTheme falls back to prefers-color-scheme when nothing stored', () => {
+    const match = vi.fn(() => ({ matches: true, addEventListener: () => {}, removeEventListener: () => {} }));
+    vi.stubGlobal('matchMedia', match);
+    expect(systemTheme()).toBe('light');
+    expect(initTheme()).toBe('light');
+    vi.unstubAllGlobals();
+  });
+
+  it('toggleTheme flips dark<->light and persists', () => {
+    setTheme('dark');
+    expect(toggleTheme()).toBe('light');
+    expect(window.localStorage.getItem(THEME_STORAGE_KEY)).toBe('light');
+    expect(toggleTheme()).toBe('dark');
+    expect(window.localStorage.getItem(THEME_STORAGE_KEY)).toBe('dark');
+  });
+
+  it('getStoredTheme returns null for junk values', () => {
+    window.localStorage.setItem(THEME_STORAGE_KEY, 'neon');
+    expect(getStoredTheme()).toBeNull();
+  });
+});

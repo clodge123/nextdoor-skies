@@ -1,1 +1,53 @@
-IyEvdXNyL2Jpbi9lbnYgbm9kZQovKioKICogTDIgaGFybmVzcyBzZWxmdGVzdDogcHJvdmVzIHRoZSBjb25zb2xlLWVycm9yIGNvbGxlY3RvciBGQUlMUyB0ZXN0cy4KICogUnVucyB0aGUgcHJvYmUgc3BlYyAodGVzdHMvaGFybmVzcy1wcm9iZSkgaW4gaXRzIG93biBQbGF5d3JpZ2h0IHByb2Nlc3MKICogYW5kIGFzc2VydHMgZXhpdCBjb2RlICE9IDAgd2l0aCB0aGUgY29uc29sZSBlcnJvciBuYW1lZCBpbiB0aGUgb3V0cHV0LgogKiBVc2FnZTogbm9kZSBzY3JpcHRzL2UyZS1zZWxmdGVzdC5tanMKICovCmltcG9ydCB7IHNwYXduU3luYyB9IGZyb20gJ25vZGU6Y2hpbGRfcHJvY2Vzcyc7CmltcG9ydCB7IGV4aXN0c1N5bmMgfSBmcm9tICdub2RlOmZzJzsKaW1wb3J0IHsgZGlybmFtZSwgam9pbiwgcmVzb2x2ZSB9IGZyb20gJ25vZGU6cGF0aCc7CmltcG9ydCB7IGZpbGVVUkxUb1BhdGggfSBmcm9tICdub2RlOnVybCc7Cgpjb25zdCByZXBvUm9vdCA9IHJlc29sdmUoZGlybmFtZShmaWxlVVJMVG9QYXRoKGltcG9ydC5tZXRhLnVybCkpLCAnLi4nKTsKY29uc3QgcHdDbGkgPSBqb2luKHJlcG9Sb290LCAnLmUyZScsICdub2RlX21vZHVsZXMnLCAnQHBsYXl3cmlnaHQnLCAndGVzdCcsICdjbGkuanMnKTsKaWYgKCFleGlzdHNTeW5jKHB3Q2xpKSkgewogIGNvbnNvbGUuZXJyb3IoJ1tlMmUtc2VsZnRlc3RdIEBwbGF5d3JpZ2h0L3Rlc3Qgbm90IGluc3RhbGxlZC4gUnVuOiBub2RlIHNjcmlwdHMvZTJlLXNldHVwLm1qcycpOwogIHByb2Nlc3MuZXhpdCgxKTsKfQoKY29uc3QgcmVzID0gc3Bhd25TeW5jKAogIHByb2Nlc3MuZXhlY1BhdGgsCiAgWwogICAgcHdDbGksCiAgICAndGVzdCcsCiAgICAnLWMnLAogICAgJ3Rlc3RzL2hhcm5lc3MtcHJvYmUvcGxheXdyaWdodC5wcm9iZS5jb25maWcudHMnLAogICAgJy0tcHJvamVjdD1kZXNrdG9wJywKICAgICctLXJlcG9ydGVyPWxpc3QnLAogIF0sCiAgewogICAgY3dkOiByZXBvUm9vdCwKICAgIGVuY29kaW5nOiAndXRmOCcsCiAgICBlbnY6IHsKICAgICAgLi4ucHJvY2Vzcy5lbnYsCiAgICAgIE5PX1BST1hZOiAnMTI3LjAuMC4xLGxvY2FsaG9zdCcsCiAgICAgIG5vX3Byb3h5OiAnMTI3LjAuMC4xLGxvY2FsaG9zdCcsCiAgICB9LAogIH0sCik7Cgpjb25zdCBvdXRwdXQgPSBgJHtyZXMuc3Rkb3V0ID8/ICcnfVxuJHtyZXMuc3RkZXJyID8/ICcnfWA7CmNvbnN0IGZhaWxlZCA9IHJlcy5zdGF0dXMgIT09IDAgJiYgcmVzLnN0YXR1cyAhPT0gbnVsbDsKY29uc3QgY2F1Z2h0ID0gL2NvbnNvbGUgZXJyb3JzIGR1cmluZyB0ZXN0W1xzXFNdKmhhcm5lc3Mtc2VsZnRlc3Q6IGRlbGliZXJhdGUgYm9vbS8udGVzdChvdXRwdXQpOwoKaWYgKGZhaWxlZCAmJiBjYXVnaHQpIHsKICBjb25zb2xlLmxvZygnW2UyZS1zZWxmdGVzdF0gUEFTUyDigJQgY29uc29sZSBlcnJvciBjb3JyZWN0bHkgZmFpbGVkIHRoZSBwcm9iZSB0ZXN0LicpOwogIHByb2Nlc3MuZXhpdCgwKTsKfQpjb25zb2xlLmVycm9yKAogIGBbZTJlLXNlbGZ0ZXN0XSBGQUlMIOKAlCBleHBlY3RlZCBwcm9iZSBydW4gdG8gZXhpdCBub256ZXJvIHdpdGggY29sbGVjdG9yIG1lc3NhZ2UuIGAgKwogICAgYGV4aXQ9JHtyZXMuc3RhdHVzfSBjYXVnaHQ9JHtjYXVnaHR9XG4tLS0gb3V0cHV0IC0tLVxuJHtvdXRwdXQuc2xpY2UoLTMwMDApfWAsCik7CnByb2Nlc3MuZXhpdCgxKTsK
+#!/usr/bin/env node
+/**
+ * L2 harness selftest: proves the console-error collector FAILS tests.
+ * Runs the probe spec (tests/harness-probe) in its own Playwright process
+ * and asserts exit code != 0 with the console error named in the output.
+ * Usage: node scripts/e2e-selftest.mjs
+ */
+import { spawnSync } from 'node:child_process';
+import { existsSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const pwCli = join(repoRoot, '.e2e', 'node_modules', '@playwright', 'test', 'cli.js');
+if (!existsSync(pwCli)) {
+  console.error('[e2e-selftest] @playwright/test not installed. Run: node scripts/e2e-setup.mjs');
+  process.exit(1);
+}
+
+const res = spawnSync(
+  process.execPath,
+  [
+    pwCli,
+    'test',
+    '-c',
+    'tests/harness-probe/playwright.probe.config.ts',
+    '--project=desktop',
+    '--reporter=list',
+  ],
+  {
+    cwd: repoRoot,
+    encoding: 'utf8',
+    env: {
+      ...process.env,
+      NO_PROXY: '127.0.0.1,localhost',
+      no_proxy: '127.0.0.1,localhost',
+    },
+  },
+);
+
+const output = `${res.stdout ?? ''}\n${res.stderr ?? ''}`;
+const failed = res.status !== 0 && res.status !== null;
+const caught = /console errors during test[\s\S]*harness-selftest: deliberate boom/.test(output);
+
+if (failed && caught) {
+  console.log('[e2e-selftest] PASS — console error correctly failed the probe test.');
+  process.exit(0);
+}
+console.error(
+  `[e2e-selftest] FAIL — expected probe run to exit nonzero with collector message. ` +
+    `exit=${res.status} caught=${caught}\n--- output ---\n${output.slice(-3000)}`,
+);
+process.exit(1);

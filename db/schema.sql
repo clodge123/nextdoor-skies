@@ -1,1 +1,54 @@
-LS0gTmV4dERvb3IgU2tpZXMgcnVuIDIg4oCUIGNhbm9uaWNhbCBzY2hlbWEgKGlkZW1wb3RlbnQ6IHNhZmUgdG8gcmUtcnVuIGFueSBudW1iZXIgb2YgdGltZXMpLgotLSBBcHBsaWVkIGJ5IGRiL21pZ3JhdGUubWpzLiBQb3N0Z3JlcyAoTmVvbikgZGlhbGVjdC4KCkNSRUFURSBUQUJMRSBJRiBOT1QgRVhJU1RTIHJlcG9ydHMgKAogIGlkICAgICAgICAgICAgICAgIHRleHQgUFJJTUFSWSBLRVksCiAgbGF0ICAgICAgICAgICAgICAgZG91YmxlIHByZWNpc2lvbiBOT1QgTlVMTCwKICBsb24gICAgICAgICAgICAgICBkb3VibGUgcHJlY2lzaW9uIE5PVCBOVUxMLAogIHRleHQgICAgICAgICAgICAgIHRleHQsCiAgdHlwZSAgICAgICAgICAgICAgdGV4dCwKICB0cyAgICAgICAgICAgICAgICB0aW1lc3RhbXB0eiBOT1QgTlVMTCwKICBhdXRob3JfdG9rZW5faGFzaCB0ZXh0IE5PVCBOVUxMLAogIHNlZWRlZCAgICAgICAgICAgIGJvb2xlYW4gTk9UIE5VTEwgREVGQVVMVCBmYWxzZSwKICBjcmVhdGVkX2F0ICAgICAgICB0aW1lc3RhbXB0eiBOT1QgTlVMTCBERUZBVUxUIG5vdygpCik7CgpDUkVBVEUgVEFCTEUgSUYgTk9UIEVYSVNUUyBjb21tZW50cyAoCiAgaWQgICAgICAgICAgICAgICAgdGV4dCBQUklNQVJZIEtFWSwKICByZXBvcnRfaWQgICAgICAgICB0ZXh0IE5PVCBOVUxMIFJFRkVSRU5DRVMgcmVwb3J0cyhpZCkgT04gREVMRVRFIENBU0NBREUsCiAgdGV4dCAgICAgICAgICAgICAgdGV4dCwKICBhdXRob3JfdG9rZW5faGFzaCB0ZXh0IE5PVCBOVUxMLAogIHNlZWRlZCAgICAgICAgICAgIGJvb2xlYW4gTk9UIE5VTEwgREVGQVVMVCBmYWxzZSwKICBjcmVhdGVkX2F0ICAgICAgICB0aW1lc3RhbXB0eiBOT1QgTlVMTCBERUZBVUxUIG5vdygpCik7CkNSRUFURSBJTkRFWCBJRiBOT1QgRVhJU1RTIGNvbW1lbnRzX3JlcG9ydF9pZF9pZHggT04gY29tbWVudHMgKHJlcG9ydF9pZCk7CgpDUkVBVEUgVEFCTEUgSUYgTk9UIEVYSVNUUyBmbGFncyAoCiAgaWQgICAgICAgICAgICAgICAgdGV4dCBQUklNQVJZIEtFWSwKICByZXBvcnRfaWQgICAgICAgICB0ZXh0IE5PVCBOVUxMIFJFRkVSRU5DRVMgcmVwb3J0cyhpZCkgT04gREVMRVRFIENBU0NBREUsCiAgY29tbWVudGVyX2lkICAgICAgdGV4dCwKICByZWFzb24gICAgICAgICAgICB0ZXh0LAogIGF1dGhvcl90b2tlbl9oYXNoIHRleHQgTk9UIE5VTEwsCiAgY3JlYXRlZF9hdCAgICAgICAgdGltZXN0YW1wdHogTk9UIE5VTEwgREVGQVVMVCBub3coKQopOwpDUkVBVEUgSU5ERVggSUYgTk9UIEVYSVNUUyBmbGFnc19yZXBvcnRfaWRfaWR4IE9OIGZsYWdzIChyZXBvcnRfaWQpOwoKQ1JFQVRFIFRBQkxFIElGIE5PVCBFWElTVFMgcmVhY3Rpb25zICgKICBpZCAgICAgICAgICAgICAgICB0ZXh0IFBSSU1BUlkgS0VZLAogIHJlcG9ydF9pZCAgICAgICAgIHRleHQgTk9UIE5VTEwgUkVGRVJFTkNFUyByZXBvcnRzKGlkKSBPTiBERUxFVEUgQ0FTQ0FERSwKICBlbW9qaSAgICAgICAgICAgICB0ZXh0IE5PVCBOVUxMLAogIGF1dGhvcl90b2tlbl9oYXNoIHRleHQgTk9UIE5VTEwsCiAgY3JlYXRlZF9hdCAgICAgICAgdGltZXN0YW1wdHogTk9UIE5VTEwgREVGQVVMVCBub3coKSwKICBVTklRVUUgKHJlcG9ydF9pZCwgZW1vamksIGF1dGhvcl90b2tlbl9oYXNoKQopOwpDUkVBVEUgSU5ERVggSUYgTk9UIEVYSVNUUyByZWFjdGlvbnNfcmVwb3J0X2lkX2lkeCBPTiByZWFjdGlvbnMgKHJlcG9ydF9pZCk7CgpDUkVBVEUgVEFCTEUgSUYgTk9UIEVYSVNUUyByYXRlX2xpbWl0ICgKICBpZCAgICAgICAgICAgICAgICB0ZXh0IFBSSU1BUlkgS0VZLAogIGF1dGhvcl90b2tlbl9oYXNoIHRleHQgTk9UIE5VTEwsCiAgYnVja2V0ICAgICAgICAgICAgdGV4dCBOT1QgTlVMTCwKICBjb3VudCAgICAgICAgICAgICBpbnRlZ2VyIE5PVCBOVUxMIERFRkFVTFQgMSwKICB3aW5kb3dfc3RhcnQgICAgICB0aW1lc3RhbXB0eiBOT1QgTlVMTCBERUZBVUxUIG5vdygpLAogIGNyZWF0ZWRfYXQgICAgICAgIHRpbWVzdGFtcHR6IE5PVCBOVUxMIERFRkFVTFQgbm93KCksCiAgVU5JUVVFIChhdXRob3JfdG9rZW5faGFzaCwgYnVja2V0KQopOwo=
+-- NextDoor Skies run 2 — canonical schema (idempotent: safe to re-run any number of times).
+-- Applied by db/migrate.mjs. Postgres (Neon) dialect.
+
+CREATE TABLE IF NOT EXISTS reports (
+  id                text PRIMARY KEY,
+  lat               double precision NOT NULL,
+  lon               double precision NOT NULL,
+  text              text,
+  type              text,
+  ts                timestamptz NOT NULL,
+  author_token_hash text NOT NULL,
+  seeded            boolean NOT NULL DEFAULT false,
+  created_at        timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS comments (
+  id                text PRIMARY KEY,
+  report_id         text NOT NULL REFERENCES reports(id) ON DELETE CASCADE,
+  text              text,
+  author_token_hash text NOT NULL,
+  seeded            boolean NOT NULL DEFAULT false,
+  created_at        timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS comments_report_id_idx ON comments (report_id);
+
+CREATE TABLE IF NOT EXISTS flags (
+  id                text PRIMARY KEY,
+  report_id         text NOT NULL REFERENCES reports(id) ON DELETE CASCADE,
+  commenter_id      text,
+  reason            text,
+  author_token_hash text NOT NULL,
+  created_at        timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS flags_report_id_idx ON flags (report_id);
+
+CREATE TABLE IF NOT EXISTS reactions (
+  id                text PRIMARY KEY,
+  report_id         text NOT NULL REFERENCES reports(id) ON DELETE CASCADE,
+  emoji             text NOT NULL,
+  author_token_hash text NOT NULL,
+  created_at        timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (report_id, emoji, author_token_hash)
+);
+CREATE INDEX IF NOT EXISTS reactions_report_id_idx ON reactions (report_id);
+
+CREATE TABLE IF NOT EXISTS rate_limit (
+  id                text PRIMARY KEY,
+  author_token_hash text NOT NULL,
+  bucket            text NOT NULL,
+  count             integer NOT NULL DEFAULT 1,
+  window_start      timestamptz NOT NULL DEFAULT now(),
+  created_at        timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (author_token_hash, bucket)
+);

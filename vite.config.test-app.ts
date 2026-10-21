@@ -1,1 +1,25 @@
-aW1wb3J0IHsgZGVmaW5lQ29uZmlnIH0gZnJvbSAndml0ZSc7CmltcG9ydCB7IGZpbGVVUkxUb1BhdGggfSBmcm9tICdub2RlOnVybCc7CgovKioKICogTDYgR2F0ZSAxIGhhcm5lc3MgdGFyZ2V0OiBidWlsZHMgdGVzdC1hcHAvaW5kZXguaHRtbCAtPiBzcmMvdGVzdC1hcHAvbWFpbi50c3gKICogKGRldGVybWluaXN0aWMgbWFwIHN0dWIgKyBUb3duQmFkZ2VzIG92ZXJsYXkpIHNvIHRlc3RzL2JhZGdlcy5zcGVjLnRzIGNhbgogKiBkcml2ZSB6b29tIGRldGVybWluaXN0aWNhbGx5LiBTZWxlY3RlZCB2aWEgRTJFX1RBUkdFVD10ZXN0LWFwcCBpbgogKiBzY3JpcHRzL2UyZS1zZXJ2ZS5tanMuCiAqCiAqIEpTWCBpcyB0cmFuc2Zvcm1lZCBieSBlc2J1aWxkICh0aGUgLmUyZSB0b29sY2hhaW4gaGFzIG5vIEB2aXRlanMvcGx1Z2luLXJlYWN0OwogKiBlc2J1aWxkIGhvbm91cnMgdHNjb25maWcncyAianN4IjogInJlYWN0LWpzeCIsIHNvIG5vIHBsdWdpbiBpcyBuZWVkZWQpLgogKi8KZXhwb3J0IGRlZmF1bHQgZGVmaW5lQ29uZmlnKHsKICByb290OiBmaWxlVVJMVG9QYXRoKG5ldyBVUkwoJy4vdGVzdC1hcHAnLCBpbXBvcnQubWV0YS51cmwpKSwKICBiYXNlOiAnLycsCiAgYXBwVHlwZTogJ3NwYScsCiAgZXNidWlsZDogeyBqc3g6ICdhdXRvbWF0aWMnIH0sCiAgYnVpbGQ6IHsKICAgIG91dERpcjogJ2Rpc3QnLAogICAgZW1wdHlPdXREaXI6IHRydWUsCiAgICBzb3VyY2VtYXA6IGZhbHNlLAogIH0sCiAgc2VydmVyOiB7IGhvc3Q6ICcxMjcuMC4wLjEnIH0sCiAgcHJldmlldzogeyBob3N0OiAnMTI3LjAuMC4xJywgc3RyaWN0UG9ydDogdHJ1ZSB9LAp9KTsK
+import { defineConfig } from 'vite';
+import { fileURLToPath } from 'node:url';
+
+/**
+ * L6 Gate 1 harness target: builds test-app/index.html -> src/test-app/main.tsx
+ * (deterministic map stub + TownBadges overlay) so tests/badges.spec.ts can
+ * drive zoom deterministically. Selected via E2E_TARGET=test-app in
+ * scripts/e2e-serve.mjs.
+ *
+ * JSX is transformed by esbuild (the .e2e toolchain has no @vitejs/plugin-react;
+ * esbuild honours tsconfig's "jsx": "react-jsx", so no plugin is needed).
+ */
+export default defineConfig({
+  root: fileURLToPath(new URL('./test-app', import.meta.url)),
+  base: '/',
+  appType: 'spa',
+  esbuild: { jsx: 'automatic' },
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
+    sourcemap: false,
+  },
+  server: { host: '127.0.0.1' },
+  preview: { host: '127.0.0.1', strictPort: true },
+});

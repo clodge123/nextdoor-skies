@@ -1,1 +1,90 @@
-Ly8gTDUgZ2F6ZXR0ZWVyIGJha2U6IEdlb05hbWVzIGNpdGllczUwMC56aXAgKyBjaXRpZXMxMDAwLnppcCAtPiBkYXRhL3Rvd25zL3VzLXRvd25zLmpzb24KLy8gVVMgZW50cmllcyBvbmx5LCBwb3B1bGF0aW9uID49IDUwMCwgdGllcmVkIGJ5IHBvcCAoc2VlIHNyYy9saWIvbWFwL3RpZXJzLnRzKS4KLy8gRmFsbHMgYmFjayB0byBhIGJ1bmRsZWQgc2FtcGxlIG9mIDIwMCByZWFsIFVTIHRvd25zIGlmIHRoZSBkb3dubG9hZCBmYWlscy4KaW1wb3J0IHsgbWtkaXJTeW5jLCByZWFkRmlsZVN5bmMsIHdyaXRlRmlsZVN5bmMsIGV4aXN0c1N5bmMgfSBmcm9tICdub2RlOmZzJzsKaW1wb3J0IHsgZXhlY1N5bmMgfSBmcm9tICdub2RlOmNoaWxkX3Byb2Nlc3MnOwppbXBvcnQgeyBkaXJuYW1lLCBqb2luIH0gZnJvbSAnbm9kZTpwYXRoJzsKaW1wb3J0IHsgZmlsZVVSTFRvUGF0aCB9IGZyb20gJ25vZGU6dXJsJzsKCmNvbnN0IHJvb3QgPSBqb2luKGRpcm5hbWUoZmlsZVVSTFRvUGF0aChpbXBvcnQubWV0YS51cmwpKSwgJy4uJyk7CmNvbnN0IGNhY2hlRGlyID0gam9pbihyb290LCAnLmNhY2hlL2dlb25hbWVzJyk7CmNvbnN0IG91dEZpbGUgPSBqb2luKHJvb3QsICdkYXRhL3Rvd25zL3VzLXRvd25zLmpzb24nKTsKY29uc3QgTUlOX1BPUCA9IDUwMDsKCmNvbnN0IFRJRVJfUlVMRVMgPSBbCiAgWydjb3VudHJ5JywgMV8wMDBfMDAwXSwKICBbJ3N0YXRlJywgMTAwXzAwMF0sCiAgWydjaXR5JywgMTBfMDAwXSwKICBbJ3Rvd24nLCA1MDBdLApdOwpjb25zdCB0aWVyRm9yID0gKHBvcCkgPT4gVElFUl9SVUxFUy5maW5kKChbLCBtaW5dKSA9PiBwb3AgPj0gbWluKT8uWzBdID8/IG51bGw7CgpmdW5jdGlvbiBwYXJzZUxpbmVzKHRleHQpIHsKICBjb25zdCBvdXQgPSBbXTsKICBmb3IgKGNvbnN0IGxpbmUgb2YgdGV4dC5zcGxpdCgnXG4nKSkgewogICAgaWYgKCFsaW5lLnRyaW0oKSkgY29udGludWU7CiAgICBjb25zdCBmID0gbGluZS5zcGxpdCgnXHQnKTsKICAgIC8vIGdlb25hbWVzIGZpZWxkcyAoMTktY29sIGR1bXApOiAwIGlkLCAxIG5hbWUsIDQgbGF0LCA1IGxvbiwgOCBjb3VudHJ5LCAxNCBwb3B1bGF0aW9uCiAgICBpZiAoZls4XSAhPT0gJ1VTJykgY29udGludWU7CiAgICBjb25zdCBwb3AgPSBOdW1iZXIoZlsxNF0gfHwgMCk7CiAgICBpZiAoIShwb3AgPj0gTUlOX1BPUCkpIGNvbnRpbnVlOwogICAgY29uc3QgbGF0ID0gTnVtYmVyKGZbNF0pOwogICAgY29uc3QgbG9uID0gTnVtYmVyKGZbNV0pOwogICAgaWYgKCFOdW1iZXIuaXNGaW5pdGUobGF0KSB8fCAhTnVtYmVyLmlzRmluaXRlKGxvbikpIGNvbnRpbnVlOwogICAgY29uc3QgdGllciA9IHRpZXJGb3IocG9wKTsKICAgIGlmICghdGllcikgY29udGludWU7CiAgICBvdXQucHVzaCh7IG5hbWU6IGZbMV0sIGxhdDogTWF0aC5yb3VuZChsYXQgKiAxZTQpIC8gMWU0LCBsb246IE1hdGgucm91bmQobG9uICogMWU0KSAvIDFlNCwgcG9wLCB0aWVyIH0pOwogIH0KICByZXR1cm4gb3V0Owp9CgpmdW5jdGlvbiBkZWR1cGVCeUxvY2F0aW9uKHRvd25zKSB7CiAgY29uc3Qgc2VlbiA9IG5ldyBNYXAoKTsKICBmb3IgKGNvbnN0IHQgb2YgdG93bnMpIHsKICAgIGNvbnN0IGsgPSBgJHt0LmxhdH06JHt0Lmxvbn1gOwogICAgaWYgKCFzZWVuLmhhcyhrKSB8fCBzZWVuLmdldChrKS5wb3AgPCB0LnBvcCkgc2Vlbi5zZXQoaywgdCk7CiAgfQogIHJldHVybiBbLi4uc2Vlbi52YWx1ZXMoKV0uc29ydCgoYSwgYikgPT4gYi5wb3AgLSBhLnBvcCk7Cn0KCmZ1bmN0aW9uIGJha2VGcm9tRHVtcCgpIHsKICBjb25zdCB0b3ducyA9IFtdOwogIGZvciAoY29uc3QgemlwIG9mIFsnY2l0aWVzNTAwLnppcCcsICdjaXRpZXMxMDAwLnppcCddKSB7CiAgICBjb25zdCBwYXRoID0gam9pbihjYWNoZURpciwgemlwKTsKICAgIGlmICghZXhpc3RzU3luYyhwYXRoKSkgdGhyb3cgbmV3IEVycm9yKGBtaXNzaW5nICR7cGF0aH1gKTsKICAgIGNvbnN0IHRleHQgPSBleGVjU3luYyhgdW56aXAgLXAgJHtKU09OLnN0cmluZ2lmeShwYXRoKX1gLCB7CiAgICAgIG1heEJ1ZmZlcjogNTEyICogMTAyNCAqIDEwMjQsCiAgICAgIGVuY29kaW5nOiAndXRmOCcsCiAgICB9KTsKICAgIHRvd25zLnB1c2goLi4ucGFyc2VMaW5lcyh0ZXh0KSk7CiAgfQogIHJldHVybiBkZWR1cGVCeUxvY2F0aW9uKHRvd25zKTsKfQoKLy8gQnVuZGxlZCBmYWxsYmFjazogMjAwIHJlYWwgVVMgdG93bnMgKG5hbWUsIGxhdCwgbG9uLCBwb3ApIOKAlCBkb2N1bWVudGVkIGluCi8vIGRvY3MvbWV0cmljcy9MNS1tYXAubWQuIFVzZWQgT05MWSBpZiB0aGUgZ2VvbmFtZXMgZG93bmxvYWQgZmFpbHMuCmltcG9ydCB7IEZBTExCQUNLX1RPV05TIH0gZnJvbSAnLi9mYWxsYmFjay10b3ducy5tanMnOwoKbGV0IHRvd25zOwpsZXQgc291cmNlOwp0cnkgewogIHRvd25zID0gYmFrZUZyb21EdW1wKCk7CiAgc291cmNlID0gJ2dlb25hbWVzLWR1bXA6Y2l0aWVzNTAwK2NpdGllczEwMDAnOwogIGlmICh0b3ducy5sZW5ndGggPCA1MDApIHRocm93IG5ldyBFcnJvcihgc3VzcGljaW91c2x5IGZldyB0b3duczogJHt0b3ducy5sZW5ndGh9YCk7Cn0gY2F0Y2ggKGVycikgewogIGNvbnNvbGUuZXJyb3IoYFtiYWtlXSBnZW9uYW1lcyBkdW1wIGZhaWxlZCAoJHtlcnIubWVzc2FnZX0pOyB1c2luZyBidW5kbGVkIHNhbXBsZSBvZiAyMDAgcmVhbCBVUyB0b3duc2ApOwogIHRvd25zID0gZGVkdXBlQnlMb2NhdGlvbigKICAgIEZBTExCQUNLX1RPV05TLm1hcCgoW25hbWUsIGxhdCwgbG9uLCBwb3BdKSA9PiAoeyBuYW1lLCBsYXQsIGxvbiwgcG9wLCB0aWVyOiB0aWVyRm9yKHBvcCkgfSkpLmZpbHRlcigodCkgPT4gdC50aWVyKSwKICApOwogIHNvdXJjZSA9ICdidW5kbGVkLXNhbXBsZS0yMDAnOwp9Cgpta2RpclN5bmMoZGlybmFtZShvdXRGaWxlKSwgeyByZWN1cnNpdmU6IHRydWUgfSk7CndyaXRlRmlsZVN5bmMoCiAgb3V0RmlsZSwKICBKU09OLnN0cmluZ2lmeSh7IHNvdXJjZSwgYmFrZWRWZXJzaW9uOiAxLCBjb3VudDogdG93bnMubGVuZ3RoLCB0b3ducyB9KSwKKSA7CmNvbnNvbGUubG9nKGBbYmFrZV0gd3JvdGUgJHtvdXRGaWxlfTogJHt0b3ducy5sZW5ndGh9IHRvd25zIGZyb20gJHtzb3VyY2V9YCk7CmZvciAoY29uc3QgW3RpZXJdIG9mIFRJRVJfUlVMRVMpIHsKICBjb25zb2xlLmxvZyhgICAke3RpZXJ9OiAke3Rvd25zLmZpbHRlcigodCkgPT4gdC50aWVyID09PSB0aWVyKS5sZW5ndGh9YCk7Cn0K
+// L5 gazetteer bake: GeoNames cities500.zip + cities1000.zip -> data/towns/us-towns.json
+// US entries only, population >= 500, tiered by pop (see src/lib/map/tiers.ts).
+// Falls back to a bundled sample of 200 real US towns if the download fails.
+import { mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { execSync } from 'node:child_process';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+const cacheDir = join(root, '.cache/geonames');
+const outFile = join(root, 'data/towns/us-towns.json');
+const MIN_POP = 500;
+
+const TIER_RULES = [
+  ['country', 1_000_000],
+  ['state', 100_000],
+  ['city', 10_000],
+  ['town', 500],
+];
+const tierFor = (pop) => TIER_RULES.find(([, min]) => pop >= min)?.[0] ?? null;
+
+function parseLines(text) {
+  const out = [];
+  for (const line of text.split('\n')) {
+    if (!line.trim()) continue;
+    const f = line.split('\t');
+    // geonames fields (19-col dump): 0 id, 1 name, 4 lat, 5 lon, 8 country, 14 population
+    if (f[8] !== 'US') continue;
+    const pop = Number(f[14] || 0);
+    if (!(pop >= MIN_POP)) continue;
+    const lat = Number(f[4]);
+    const lon = Number(f[5]);
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) continue;
+    const tier = tierFor(pop);
+    if (!tier) continue;
+    out.push({ name: f[1], lat: Math.round(lat * 1e4) / 1e4, lon: Math.round(lon * 1e4) / 1e4, pop, tier });
+  }
+  return out;
+}
+
+function dedupeByLocation(towns) {
+  const seen = new Map();
+  for (const t of towns) {
+    const k = `${t.lat}:${t.lon}`;
+    if (!seen.has(k) || seen.get(k).pop < t.pop) seen.set(k, t);
+  }
+  return [...seen.values()].sort((a, b) => b.pop - a.pop);
+}
+
+function bakeFromDump() {
+  const towns = [];
+  for (const zip of ['cities500.zip', 'cities1000.zip']) {
+    const path = join(cacheDir, zip);
+    if (!existsSync(path)) throw new Error(`missing ${path}`);
+    const text = execSync(`unzip -p ${JSON.stringify(path)}`, {
+      maxBuffer: 512 * 1024 * 1024,
+      encoding: 'utf8',
+    });
+    towns.push(...parseLines(text));
+  }
+  return dedupeByLocation(towns);
+}
+
+// Bundled fallback: 200 real US towns (name, lat, lon, pop) — documented in
+// docs/metrics/L5-map.md. Used ONLY if the geonames download fails.
+import { FALLBACK_TOWNS } from './fallback-towns.mjs';
+
+let towns;
+let source;
+try {
+  towns = bakeFromDump();
+  source = 'geonames-dump:cities500+cities1000';
+  if (towns.length < 500) throw new Error(`suspiciously few towns: ${towns.length}`);
+} catch (err) {
+  console.error(`[bake] geonames dump failed (${err.message}); using bundled sample of 200 real US towns`);
+  towns = dedupeByLocation(
+    FALLBACK_TOWNS.map(([name, lat, lon, pop]) => ({ name, lat, lon, pop, tier: tierFor(pop) })).filter((t) => t.tier),
+  );
+  source = 'bundled-sample-200';
+}
+
+mkdirSync(dirname(outFile), { recursive: true });
+writeFileSync(
+  outFile,
+  JSON.stringify({ source, bakedVersion: 1, count: towns.length, towns }),
+) ;
+console.log(`[bake] wrote ${outFile}: ${towns.length} towns from ${source}`);
+for (const [tier] of TIER_RULES) {
+  console.log(`  ${tier}: ${towns.filter((t) => t.tier === tier).length}`);
+}

@@ -1,1 +1,30 @@
-Ly8gTDUgbGF3ICMyOiBmZXRjaCBQRVIgfjUtbWluIFdJTkRPVywgbmV2ZXIgcGVyIHBhbi4gVGhpcyBpcyB0aGUgc2hhcmVkCi8vIGNhZGVuY2Ugc2VhbSBMNiB1c2VzIGZvciB3ZWF0aGVyIGJhdGNoZXMuIFVzZXMgcGVyZm9ybWFuY2Uubm93KCkgKG5vCi8vIERhdGUubm93L25ldyBEYXRlIGluIGxvZ2ljIOKAlCBSMTcgZGV0ZXJtaW5pc20gbGF3KS4KZXhwb3J0IGNvbnN0IFdJTkRPV19NUyA9IDUgKiA2MCAqIDEwMDA7Cgp0eXBlIEluRmxpZ2h0ID0geyBwcm9taXNlOiBQcm9taXNlPFJlc3BvbnNlPjsgc2V0dGxlZEF0OiBudW1iZXIgfTsKCmNvbnN0IGNhY2hlID0gbmV3IE1hcDxzdHJpbmcsIEluRmxpZ2h0PigpOwoKLyoqCiAqIFJldHVybiBhIHByb21pc2UgZm9yIGB1cmxgJ3MgcmVzcG9uc2UuIFdpdGhpbiBvbmUgNS1taW51dGUgd2luZG93LCBhbGwKICogY2FsbGVycyBzaGFyZSBPTkUgcmVxdWVzdCAoZGVkdXBlICsgY2FjaGUpLiBBIHBhbiB0aGF0IGxhbmRzIGluIHRoZSBzYW1lCiAqIHdpbmRvdyByZXVzZXMgdGhlIGNhY2hlZCByZXNwb25zZSDigJQgbm8gcmVmZXRjaCBzdG9ybS4KICovCmV4cG9ydCBmdW5jdGlvbiBmZXRjaFdpbmRvdyh1cmw6IHN0cmluZywgd2luZG93TXM6IG51bWJlciA9IFdJTkRPV19NUyk6IFByb21pc2U8UmVzcG9uc2U+IHsKICBjb25zdCBub3cgPSBwZXJmb3JtYW5jZS5ub3coKTsKICBjb25zdCBoaXQgPSBjYWNoZS5nZXQodXJsKTsKICBpZiAoaGl0ICYmIG5vdyAtIGhpdC5zZXR0bGVkQXQgPCB3aW5kb3dNcykgcmV0dXJuIGhpdC5wcm9taXNlOwogIGNvbnN0IHAgPSBmZXRjaCh1cmwpLnRoZW4oKHJlcykgPT4gewogICAgY2FjaGUuc2V0KHVybCwgeyBwcm9taXNlOiBwLCBzZXR0bGVkQXQ6IHBlcmZvcm1hbmNlLm5vdygpIH0pOwogICAgcmV0dXJuIHJlczsKICB9KTsKICBjYWNoZS5zZXQodXJsLCB7IHByb21pc2U6IHAsIHNldHRsZWRBdDogbm93IH0pOwogIHJldHVybiBwOwp9CgovKiogVGVzdCBzZWFtOiBjbGVhciB0aGUgd2luZG93IGNhY2hlLiAqLwpleHBvcnQgZnVuY3Rpb24gcmVzZXRGZXRjaFdpbmRvdygpOiB2b2lkIHsKICBjYWNoZS5jbGVhcigpOwp9Cg==
+// L5 law #2: fetch PER ~5-min WINDOW, never per pan. This is the shared
+// cadence seam L6 uses for weather batches. Uses performance.now() (no
+// Date.now/new Date in logic — R17 determinism law).
+export const WINDOW_MS = 5 * 60 * 1000;
+
+type InFlight = { promise: Promise<Response>; settledAt: number };
+
+const cache = new Map<string, InFlight>();
+
+/**
+ * Return a promise for `url`'s response. Within one 5-minute window, all
+ * callers share ONE request (dedupe + cache). A pan that lands in the same
+ * window reuses the cached response — no refetch storm.
+ */
+export function fetchWindow(url: string, windowMs: number = WINDOW_MS): Promise<Response> {
+  const now = performance.now();
+  const hit = cache.get(url);
+  if (hit && now - hit.settledAt < windowMs) return hit.promise;
+  const p = fetch(url).then((res) => {
+    cache.set(url, { promise: p, settledAt: performance.now() });
+    return res;
+  });
+  cache.set(url, { promise: p, settledAt: now });
+  return p;
+}
+
+/** Test seam: clear the window cache. */
+export function resetFetchWindow(): void {
+  cache.clear();
+}

@@ -1,1 +1,38 @@
-IyEvdXNyL2Jpbi9lbnYgbm9kZQovLyBSMjAgcmFkaXVzIHNjYW46IHplcm8gcmF3IGJvcmRlci1yYWRpdXMgdmFsdWVzIGluIHNyYyAoQ1NTICsgaW5saW5lIHN0eWxlcykuCi8vIFRoZSBvbmx5IGFsbG93ZWQgZm9ybSBpcyB2YXIoLS1yYWRpdXMpICh0b2tlbiwgPSAwcHggcGVyIEw0KS4KaW1wb3J0IHsgcmVhZGRpclN5bmMsIHJlYWRGaWxlU3luYywgc3RhdFN5bmMgfSBmcm9tICdub2RlOmZzJwppbXBvcnQgeyBqb2luIH0gZnJvbSAnbm9kZTpwYXRoJwoKY29uc3QgUk9PVCA9ICdzcmMnCmNvbnN0IEFMTE9XRUQgPSAvYm9yZGVyLXJhZGl1c1xzKjpccyp2YXJcKC0tcmFkaXVzXCkvZwpjb25zdCBSQVcgPSAvYm9yZGVyLXJhZGl1c1xzKjpccyooPyF2YXJcKC0tcmFkaXVzXCkpW147fV0rL2cKCmZ1bmN0aW9uIHdhbGsoZGlyLCBvdXQgPSBbXSkgewogIGZvciAoY29uc3QgZW50cnkgb2YgcmVhZGRpclN5bmMoZGlyKSkgewogICAgY29uc3QgZnVsbCA9IGpvaW4oZGlyLCBlbnRyeSkKICAgIGNvbnN0IHN0ID0gc3RhdFN5bmMoZnVsbCkKICAgIGlmIChzdC5pc0RpcmVjdG9yeSgpKSB3YWxrKGZ1bGwsIG91dCkKICAgIGVsc2UgaWYgKC9cLihjc3N8dHN8dHN4KSQvLnRlc3QoZW50cnkpKSBvdXQucHVzaChmdWxsKQogIH0KICByZXR1cm4gb3V0Cn0KCmNvbnN0IGZpbGVzID0gd2FsayhST09UKQpjb25zdCBoaXRzID0gW10KZm9yIChjb25zdCBmaWxlIG9mIGZpbGVzKSB7CiAgY29uc3QgdGV4dCA9IHJlYWRGaWxlU3luYyhmaWxlLCAndXRmOCcpCiAgY29uc3Qgc3RyaXBwZWQgPSB0ZXh0LnJlcGxhY2UoQUxMT1dFRCwgJycpCiAgZm9yIChjb25zdCBtIG9mIHN0cmlwcGVkLm1hdGNoQWxsKFJBVykpIHsKICAgIGhpdHMucHVzaChgJHtmaWxlfTogImJvcmRlci1yYWRpdXM6ICR7bVsxXS50cmltKCl9ImApCiAgfQp9CgppZiAoaGl0cy5sZW5ndGggPiAwKSB7CiAgY29uc29sZS5lcnJvcigKICAgICdSQURJVVMgU0NBTiBGQUlMRUQgKFIyMCk6IHJhdyBib3JkZXItcmFkaXVzIHZhbHVlcyBmb3VuZCAodXNlIHZhcigtLXJhZGl1cykpOlxuJyArCiAgICAgIGhpdHMuam9pbignXG4nKSwKICApCiAgcHJvY2Vzcy5leGl0KDEpCn0KY29uc29sZS5sb2coYHJhZGl1cyBzY2FuIE9LICgke2ZpbGVzLmxlbmd0aH0gZmlsZXMgc2Nhbm5lZCwgc3F1YXJlIGdlb21ldHJ5IGVuZm9yY2VkKWApCg==
+#!/usr/bin/env node
+// R20 radius scan: zero raw border-radius values in src (CSS + inline styles).
+// The only allowed form is var(--radius) (token, = 0px per L4).
+import { readdirSync, readFileSync, statSync } from 'node:fs'
+import { join } from 'node:path'
+
+const ROOT = 'src'
+const ALLOWED = /border-radius\s*:\s*var\(--radius\)/g
+const RAW = /border-radius\s*:\s*(?!var\(--radius\))[^;}]+/g
+
+function walk(dir, out = []) {
+  for (const entry of readdirSync(dir)) {
+    const full = join(dir, entry)
+    const st = statSync(full)
+    if (st.isDirectory()) walk(full, out)
+    else if (/\.(css|ts|tsx)$/.test(entry)) out.push(full)
+  }
+  return out
+}
+
+const files = walk(ROOT)
+const hits = []
+for (const file of files) {
+  const text = readFileSync(file, 'utf8')
+  const stripped = text.replace(ALLOWED, '')
+  for (const m of stripped.matchAll(RAW)) {
+    hits.push(`${file}: "border-radius: ${m[1].trim()}"`)
+  }
+}
+
+if (hits.length > 0) {
+  console.error(
+    'RADIUS SCAN FAILED (R20): raw border-radius values found (use var(--radius)):\n' +
+      hits.join('\n'),
+  )
+  process.exit(1)
+}
+console.log(`radius scan OK (${files.length} files scanned, square geometry enforced)`)

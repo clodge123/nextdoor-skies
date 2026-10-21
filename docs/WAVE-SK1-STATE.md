@@ -1,1 +1,37 @@
-IyBXYXZlIFNLMSAocnVuIDIgd2F2ZSAxKSBzdGF0ZSDigJQgb3JjaGVzdHJhdG9yIGxlZGdlcgpUMDogMjAyNi0xMC0yMCAxOTo0NSBDRFQuIERlcGxveSBjYWRlbmNlOiBwZXItd2F2ZSBvbmx5LiBObyBkZXBsb3kgaW4tbGFuZS4KCiMjIExhbmUgc3RhdHVzIChmbGVldCBsYXc6IGtlZXAgYWxsIDcgc2xvdHMgYnVzeTsgbmV4dCBsYW5lIHN0YXJ0cyB0aGUgbW9tZW50IG9uZSBlbmRzKQp8IExhbmUgfCBCcmFuY2ggfCBSdW4gaWQgfCBTdGF0dXMgfAp8LS0tLS0tfC0tLS0tLS0tfC0tLS0tLS0tfC0tLS0tLS0tfAp8IEwxIFNDQUZGT0xEIHwgcjJ3MS9MMS1zY2FmZm9sZCB8IDU1MDMwYWU4IHwgRE9ORSBtZXJnZWQgKEdhdGUgMCBQQVNTLCAzOCBtaW4pIHwKfCBMMiBQTEFZV1JJR0hUIHwgcjJ3MS9MMi1wbGF5d3JpZ2h0IHwgMzc0YzlmNDEgfCBET05FIG1lcmdlZCAoaGFybmVzcyBncmVlbiwgNDUgbWluKSB8CnwgTDMgREVQTE9ZIHwgcjJ3MS9MMy1kZXBsb3kgfCBhM2IwYzA2NyB8IERPTkUgbWVyZ2VkICh2aXRlc3QgMTgvMTgpIHwKfCBMNCBUSEVNRSB8IHIydzEvTDQtdGhlbWUgfCBmZDAwZDc1ZCB8IFJFU1VNRUQgdmVyaWZ5IChvd25lciBraWxsZWQgMjE6MDY7IHdvcmsgbWVyZ2VkLCBHYXRlIDEgcmUtcnVuIGluIG1lcmdlZCB0cmVlKSB8CnwgTDUgTUFQIHwgcjJ3MS9MNS1tYXAgfCAzZjcxZmExYSB8IFJFU1VNRUQgdmVyaWZ5IChraWxsZWQgMjE6MDY7IG1hcC5zcGVjICsgbmRzTWFwIHNlYW0gcmVzY3VlZCBmcm9tIHVuY29tbWl0dGVkKSB8CnwgTDYgQkFER0VTIHwgcjJ3MS9MNi1iYWRnZXMgfCBlMDNkNzc4NSB8IFJFU1VNRUQgdmVyaWZ5IChraWxsZWQgMjE6MDY7IHRhcE9yQ2xpY2sgZml4IGZpbmlzaGVkIGluLXZlcmlmeSkgfAp8IEw3IFNFRUQgfCByMncxL0w3LXNlZWQgfCBhNmZiN2RmMSB8IERPTkUgbWVyZ2VkICh2aXRlc3QgOC84LCBQbGF5d3JpZ2h0IGdyZWVuKSB8CnwgTDggSU5URUdSQVRJT04gfCByMncxL0w4LWludGVncmF0aW9uIHwgMTYyMmZmNjIgfCBSVU5OSU5HIOKAlCBHYXRlIDIgZnVsbCBzdWl0ZSwgMyB2aWV3cG9ydHMgKGZpeGluZyBlMmUgcHJveHkgaGVhbHRoLWNoZWNrKSB8CnwgTDEwIENMT1NFT1VUIHwgcjJ3MS9MMTAtY2xvc2VvdXQgfCA4YjU5M2ZkNCB8IFJVTk5JTkcg4oCUIEdhdGUgNCBldmlkZW5jZTogbGVkZ2VyIGF1ZGl0LCBtZXRyaWNzIHJvbGx1cCwgcmV0cm8sIGRlcGxveSBjaGVja2xpc3QgfAoKIyMgSW50ZWdyYXRpb24gbm90ZXMgKG1haW4gdGlwIDQ2N2VlMDIpCi0gQmFzZTY0IGNvcnJ1cHRpb24gZml4ZWQgKHRyZWVzLUFQSSBwdXNoIHN0b3JlZCBiYXNlNjQgdGV4dDsgQ29udGVudHMgQVBJIGlzIHRoZSBjb3JyZWN0IHBhdGgpLgotIE1lcmdlIGNvbmZsaWN0IG1hcmtlcnMgY2xlYXJlZCBmcm9tIDggZmlsZXM7IG1hcC1jb250ZXh0IGR1YWwgc2VhbSBtZXJnZWQgKE1hcFN0YXRlQ29udGV4dCArIE1hcENvbnRleHQpLgotIEdhdGVzIG9uIG1lcmdlZCB0cmVlOiB0c2MgZXhpdCAwLCB2aXRlc3QgNTYvNTYsIGJ1aWxkIGV4aXQgMC4gUGxheXdyaWdodCBibG9ja2VkIG9uIHdlYlNlcnZlcgogIGhlYWx0aC1jaGVjayB0aHJvdWdoIGVncmVzcyBwcm94eSAoTDggZml4aW5nKS4KLSBub2RlX21vZHVsZXMgcmVzdG9yZWQgKGUyZS1zZXR1cCBoYWQgc3ltbGlua2VkIGl0IHRvIC5lMmUvbm9kZV9tb2R1bGVzKS4KCiMjIFByZWZsaWdodCAoYmVmb3JlIGxhdW5jaCkKLSBOZW9uIHByb2R1Y3Rpb24gY29ubmVjdGlvbiBWRVJJRklFRCB2aWEgYXBpL3Byb2JlLmpzOiB7Im9rIjp0cnVlLCJkYiI6Im5lb25kYiJ9LiBQcm9iZSByZW1vdmVkIGF0IHdhdmUgY2xvc2UuCi0gVmVyY2VsIHByb2plY3QgbmV4dGRvb3Itc2tpZXMtcnVuMiBsaW5rZWQ7IEdpdEh1YiByZXBvIGxpbmtlZCBieSBvd25lci4KLSBHaXQgdHJhbnNwb3J0IHByb3h5LWJsb2NrZWQg4oCUIHB1c2hlcyB2aWEgR2l0SHViIENvbnRlbnRzIEFQSSAoYmFzZTY0IHdpcmUsIHBsYWluLXRleHQgc3RvcmFnZSkuCgojIyBHYXRlIGxhZGRlciAoZG9jcy9ERUZJTklUSU9OLU9GLURPTkUubWQpCkdhdGUgMCBwZXIgbGFuZSAtPiBHYXRlIDEgcGVyIGxhbmUgKFBsYXl3cmlnaHQsIDMgdmlld3BvcnRzKSAtPiBHYXRlIDIgd2F2ZSBpbnRlZ3JhdGlvbiAoTDgpCi0+IEdhdGUgMyBkZXBsb3krc21va2UgKFBsYXl3cmlnaHQgKyBoYW5kcy1vbiBicm93c2VyLCBmaXggbG9vcCBtYXggMykgLT4gR2F0ZSA0IGNsb3NlLW91dCAoTDEwKS4KCiMjIExhbmUgY29tcGxldGlvbnMgKDIyOjMwIENEVCkKLSBMMTAgY2xvc2Utb3V0IERPTkUgbWVyZ2VkICg2MDI5YjFkKTogbGVkZ2VyICg0IHBhcnRpYWwgZ2FwcywgMCBtaXNzaW5nKSwgbWV0cmljcyByb2xsdXAgKH4yNjMgYWN0aXZlIG1pbiwgMi43eCBwYXJhbGxlbGlzbSwgMTUgY2F0Y2hlcywgMiBpbnRlcnZlbnRpb25zKSwgcmV0cm8sIGRlcGxveSBjaGVja2xpc3QuIFByZWZsaWdodCBsaXZlLXZlcmlmaWVkOiBhdXRob3IgMzYvMzYsIGZ1bmN0aW9ucyAxLzEyLgotIEw2IGJhZGdlcyBWRVJJRlkgRE9ORSBtZXJnZWQgKDY5NDE0ZmUpOiBHYXRlIDEgNi82IGFjcm9zcyAzIHZpZXdwb3J0cywgY29uc29sZS1jbGVhbiwgOCBzY3JlZW5zaG90cywgZmV0Y2gtcGVyLXdpbmRvdyBsYXcgdW5pdC1wcm92ZW4uIEZpeGVkIGtpbGwtbWlkLWVkaXQgdGFwT3JDbGljayArIG1lcmdlZC10cmVlIHRlc3QtYXBwIGVudHJ5IGdhcC4KLSBUaGVtZSBsb2NhbFN0b3JhZ2Uga2V5ICduZHMtdGhlbWUnIHJlc3RvcmVkIChtYXNraW5nIGFydGlmYWN0OyAxOTNlYjUzKSDigJQgdW5ibG9ja3MgdGhlbWUgdG9nZ2xlIEdhdGUgMSB0ZXN0LgotIFNsb3QgcmVmaWxsOiBMMTEgR0FURS1FVklERU5DRSBsYXVuY2hlZCAoZmlsbHMgdmFjYXRlZCBzbG90OyBjbG9zZXMgbGVkZ2VyJ3MgNCBwYXJ0aWFsIGdhcHM6IEw1L1IxLVIyICsgUjEyIHNjcmVlbnNob3RzLCBMNC9MNSBtZXRyaWMgcm93cykuCg==
+# Wave SK1 (run 2 wave 1) state — orchestrator ledger
+T0: 2026-10-20 19:45 CDT. Deploy cadence: per-wave only. No deploy in-lane.
+
+## Lane status (fleet law: keep all 7 slots busy; next lane starts the moment one ends)
+| Lane | Branch | Run id | Status |
+|------|--------|--------|--------|
+| L1 SCAFFOLD | r2w1/L1-scaffold | 55030ae8 | DONE merged (Gate 0 PASS, 38 min) |
+| L2 PLAYWRIGHT | r2w1/L2-playwright | 374c9f41 | DONE merged (harness green, 45 min) |
+| L3 DEPLOY | r2w1/L3-deploy | a3b0c067 | DONE merged (vitest 18/18) |
+| L4 THEME | r2w1/L4-theme | fd00d75d | RESUMED verify (owner killed 21:06; work merged, Gate 1 re-run in merged tree) |
+| L5 MAP | r2w1/L5-map | 3f71fa1a | RESUMED verify (killed 21:06; map.spec + ndsMap seam rescued from uncommitted) |
+| L6 BADGES | r2w1/L6-badges | e03d7785 | RESUMED verify (killed 21:06; tapOrClick fix finished in-verify) |
+| L7 SEED | r2w1/L7-seed | a6fb7df1 | DONE merged (vitest 8/8, Playwright green) |
+| L8 INTEGRATION | r2w1/L8-integration | 1622ff62 | RUNNING — Gate 2 full suite, 3 viewports (fixing e2e proxy health-check) |
+| L10 CLOSEOUT | r2w1/L10-closeout | 8b593fd4 | RUNNING — Gate 4 evidence: ledger audit, metrics rollup, retro, deploy checklist |
+
+## Integration notes (main tip 467ee02)
+- Base64 corruption fixed (trees-API push stored base64 text; Contents API is the correct path).
+- Merge conflict markers cleared from 8 files; map-context dual seam merged (MapStateContext + MapContext).
+- Gates on merged tree: tsc exit 0, vitest 56/56, build exit 0. Playwright blocked on webServer
+  health-check through egress proxy (L8 fixing).
+- node_modules restored (e2e-setup had symlinked it to .e2e/node_modules).
+
+## Preflight (before launch)
+- Neon production connection VERIFIED via api/probe.js: {"ok":true,"db":"neondb"}. Probe removed at wave close.
+- Vercel project nextdoor-skies-run2 linked; GitHub repo linked by owner.
+- Git transport proxy-blocked — pushes via GitHub Contents API (base64 wire, plain-text storage).
+
+## Gate ladder (docs/DEFINITION-OF-DONE.md)
+Gate 0 per lane -> Gate 1 per lane (Playwright, 3 viewports) -> Gate 2 wave integration (L8)
+-> Gate 3 deploy+smoke (Playwright + hands-on browser, fix loop max 3) -> Gate 4 close-out (L10).
+
+## Lane completions (22:30 CDT)
+- L10 close-out DONE merged (6029b1d): ledger (4 partial gaps, 0 missing), metrics rollup (~263 active min, 2.7x parallelism, 15 catches, 2 interventions), retro, deploy checklist. Preflight live-verified: author 36/36, functions 1/12.
+- L6 badges VERIFY DONE merged (69414fe): Gate 1 6/6 across 3 viewports, console-clean, 8 screenshots, fetch-per-window law unit-proven. Fixed kill-mid-edit tapOrClick + merged-tree test-app entry gap.
+- Theme localStorage key 'nds-theme' restored (masking artifact; 193eb53) — unblocks theme toggle Gate 1 test.
+- Slot refill: L11 GATE-EVIDENCE launched (fills vacated slot; closes ledger's 4 partial gaps: L5/R1-R2 + R12 screenshots, L4/L5 metric rows).

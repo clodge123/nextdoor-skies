@@ -1,1 +1,15 @@
-aW1wb3J0IHsgTmF2TGluayB9IGZyb20gJ3JlYWN0LXJvdXRlci1kb20nCgpleHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBIZWFkZXIoKSB7CiAgcmV0dXJuICgKICAgIDxoZWFkZXIgY2xhc3NOYW1lPSJhcHAtaGVhZGVyIj4KICAgICAgPHNwYW4gY2xhc3NOYW1lPSJhcHAtYnJhbmQiPk5leHREb29yIFNraWVzPC9zcGFuPgogICAgICA8bmF2IGNsYXNzTmFtZT0iYXBwLW5hdiIgYXJpYS1sYWJlbD0iUHJpbWFyeSI+CiAgICAgICAgPE5hdkxpbmsgdG89Ii8iIGVuZCBkYXRhLXJvdXRlPSIvIj4KICAgICAgICAgIE1hcAogICAgICAgIDwvTmF2TGluaz4KICAgICAgICA8TmF2TGluayB0bz0iL2ZlZWQiIGRhdGEtcm91dGU9Ii9mZWVkIj5GZWVkPC9OYXZMaW5rPgogICAgICA8L25hdj4KICAgIDwvaGVhZGVyPgogICkKfQo=
+import { NavLink } from 'react-router-dom'
+
+export default function Header() {
+  return (
+    <header className="app-header">
+      <span className="app-brand">NextDoor Skies</span>
+      <nav className="app-nav" aria-label="Primary">
+        <NavLink to="/" end data-route="/">
+          Map
+        </NavLink>
+        <NavLink to="/feed" data-route="/feed">Feed</NavLink>
+      </nav>
+    </header>
+  )
+}
