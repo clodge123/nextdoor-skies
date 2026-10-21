@@ -12,7 +12,7 @@ import type { TownCoord } from '../lib/weather/openmeteo-batch'
  *   Positioning recomputes purely from map state + render tick.
  */
 
-export const TOWN_BADGE_MIN_ZOOM = 6
+export const TOWN_BADGE_MIN_ZOOM = 9
 
 export interface TownBadgesProps {
   towns: readonly TownCoord[]
