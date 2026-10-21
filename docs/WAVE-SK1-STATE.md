@@ -24,7 +24,7 @@ Day-0 contracts merged (`f732d5b`, S1-S8). Zoom-9 badge rule landed on main
 live-egress law:
 
 - W1 WEATHER-PROXY (fixes Open-Meteo batch 404 "awaiting feed" bug)
-- W2 NWS-ALERTS-PROXY (points->FIPS cache, UA server-side)
+- W2 NWS-ALERTS-PROXY ✅ MERGED (`a71bff8`): /api/alerts proxy, zone cache, UA server-side, live-egress ALL PASS, 104/104 vitest
 - W3 IDENTITY ✅ MERGED (`890e2b9`): session lib S1 + IdentityPicker + nearestTown, 25 new tests, gates 81/81 vitest
 - W4 POSTS-API (posts/comments/reactions/flags, 1 function, migrations)
 - W5 FEED-UI (hot-pinned + newest, canvas snapshots, reply flow)
