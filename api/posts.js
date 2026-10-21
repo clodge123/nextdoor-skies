@@ -22,6 +22,7 @@
 
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import { resolve } from 'node:path';
 
 export const RATE_LIMIT_MAX = 5; // posts per IP per hour (run-1 rate_limit table)
 export const SNAPSHOT_MAX_BYTES = 120 * 1024; // S7: data URL <= 120 KB
@@ -394,12 +395,17 @@ let gazetteerCache = null;
 /** Load town slugs from the baked gazetteer (dynamic JSON import = traceable). */
 export async function loadGazetteer() {
   if (gazetteerCache) return gazetteerCache;
-  const url = new URL('../data/towns/us-towns.json', import.meta.url);
+  // Vercel bundles only api/*.js + traced files: resolve the baked gazetteer
+  // module-relative (file: URL in dev/tests) and fall back to cwd (production
+  // serverless keeps repo files next to the function). Same pattern as
+  // api/weather.js (live-verified 200 in production).
+  const u = new URL('../data/towns/us-towns.json', import.meta.url);
+  const filePath = u.protocol === 'file:' ? fileURLToPath(u) : resolve(process.cwd(), 'data/towns/us-towns.json');
   let towns;
   try {
-    towns = (await import(url.href, { with: { type: 'json' } })).default.towns;
-  } catch {
-    towns = JSON.parse(readFileSync(fileURLToPath(url), 'utf8')).towns;
+    towns = JSON.parse(readFileSync(filePath, 'utf8')).towns;
+  } catch (err) {
+    throw new Error(`gazetteer load failed (${filePath}): ${err.message}`);
   }
   const set = new Set();
   for (const t of towns) {
