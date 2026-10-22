@@ -10,7 +10,6 @@
 // resolve on hard load via the Vercel SPA rewrite (/api-excluded paths).
 import { Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
-import CommandPalette, { usePaletteOpen } from './components/CommandPalette'
 import FeedPage from './pages/FeedPage'
 import MapPage from './pages/MapPage'
 import TownPage from './pages/TownPage'
@@ -20,8 +19,6 @@ import AlertsPage from './pages/AlertsPage'
 import NotFoundPage from './pages/NotFoundPage'
 
 export default function App() {
-  // W3-C3 COMMAND PALETTE: Ctrl/Cmd+K app-wide (session 3 decision 4).
-  const palette = usePaletteOpen()
   return (
     <div className="app-shell">
       <Header />
@@ -36,7 +33,6 @@ export default function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
-      <CommandPalette open={palette.open} onClose={() => palette.setOpen(false)} />
     </div>
   )
 }

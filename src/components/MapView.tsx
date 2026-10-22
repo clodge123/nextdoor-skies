@@ -118,14 +118,19 @@ export default function MapView({ center = [-98.5, 39.8], zoom = 3, children }: 
     });
     m.on('zoomend', () => setTier(tierForZoom(m.getZoom())));
 
-    // W3-C2 FLY-TO SEAM (documented): alert-center rows (and future search)
+    // W3-C2 FLY-TO SEAM (documented): alert-center rows (and W3-B4 search)
     // call requestFlyTo; the mounted map answers with maplibre flyTo, ~1.8s
     // (wave-1 fly-to animation law: 1.5-2s, nothing snaps). Zoom clamps UP
     // to badge-visible level (>= TOWN_BADGE_MIN_ZOOM) so badge dots land in
     // view; an explicit lower target is honored only when already visible.
+    // A request arriving BEFORE style-load (deep link /?panel=... opening on
+    // mount) is deferred to 'load' — maplibre drops flyTo on an unloaded
+    // style, and the animation law says the jump must never teleport.
     const unsubscribeFly = subscribeFlyTo((req) => {
       const target = Math.max(9, req.zoom ?? m.getZoom());
-      m.flyTo({ center: [req.lon, req.lat], zoom: target, duration: 1800 });
+      const run = () => m.flyTo({ center: [req.lon, req.lat], zoom: target, duration: 1800 });
+      if (m.isStyleLoaded?.() !== false) run();
+      else m.once('load', run);
     });
 
     return () => {

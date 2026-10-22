@@ -40,15 +40,6 @@ export function requestPanelOpen(): void {
   for (const fn of openListeners) fn()
 }
 
-// W3-C3: toggle-request channel (command palette "Toggle side panel" — the
-// P-law action from surfaces outside MapPage, same pattern as requestPanelOpen).
-const toggleListeners = new Set<() => void>()
-
-/** Ask every mounted panel to toggle open/closed. */
-export function requestPanelToggle(): void {
-  for (const fn of toggleListeners) fn()
-}
-
 export interface PanelState {
   open: boolean;
   toggle: () => void;
@@ -90,15 +81,7 @@ export function usePanelState(): PanelState {
     return () => {
       openListeners.delete(open);
     };
-  }, [])
-
-  // W3-C3: palette seam — register the stable toggle (P-law action).
-  useEffect(() => {
-    toggleListeners.add(toggle);
-    return () => {
-      toggleListeners.delete(toggle);
-    };
-  }, [toggle]);
+  }, []);
 
   return { open, toggle, setOpen };
 }
