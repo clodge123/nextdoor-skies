@@ -20,7 +20,6 @@ import {
   mapWithConcurrency,
   neighborRing,
   normalizeTempF,
-  normalizeWeatherCode,
   parseWeatherQuery,
   prefetchTowns,
   resetWeatherCache,
@@ -119,7 +118,7 @@ describe('handleWeather (S5 core)', () => {
   it('below zoom 9 returns empty, no upstream calls', async () => {
     const fetchImpl = vi.fn(async () => ({ ok: true, json: async () => omPayload(20) }))
     const out = await handleWeather({ ...SPRINGFIELD, zoom: MIN_ZOOM - 1 }, { fetchImpl })
-    expect(out).toEqual({ temps: {}, codes: {}, stale: false })
+    expect(out).toEqual({ temps: {}, stale: false })
     expect(fetchImpl).not.toHaveBeenCalled()
   })
 
@@ -224,85 +223,6 @@ describe('handleWeather (S5 core)', () => {
     )
     expect(out.temps).toEqual({})
     expect(out.stale).toBe(true)
-  })
-})
-
-// ---------------------------------------------------------------------------
-// W3-A2: weathercode parsing + per-town condition passthrough
-// ---------------------------------------------------------------------------
-
-describe('W3-A2 weathercode parsing', () => {
-  it('normalizeWeatherCode passes finite integers through', () => {
-    expect(normalizeWeatherCode({ current: { weather_code: 0 } })).toBe(0)
-    expect(normalizeWeatherCode({ current: { weather_code: 95 } })).toBe(95)
-    expect(normalizeWeatherCode({ current: { weather_code: 61.9 } })).toBe(61) // trunc, never round-fabricate
-  })
-
-  it('normalizeWeatherCode degrades to undefined on missing/garbage (R19)', () => {
-    expect(normalizeWeatherCode({})).toBeUndefined()
-    expect(normalizeWeatherCode({ current: {} })).toBeUndefined()
-    expect(normalizeWeatherCode({ current: { weather_code: null } })).toBeUndefined()
-    expect(normalizeWeatherCode({ current: { weather_code: 'stormy' } })).toBeUndefined()
-    expect(normalizeWeatherCode({ current: { weather_code: NaN } })).toBeUndefined()
-  })
-
-  it('the upstream URL requests weather_code alongside temperature (live-probe 2026-10-22)', () => {
-    const url = forecastUrl(39.7392, -104.9903)
-    expect(url).toContain('current=temperature_2m,weather_code')
-  })
-
-  it('handleWeather returns per-town codes next to temps', async () => {
-    const fetchImpl = vi.fn(async () => ({
-      ok: true,
-      json: async () => ({
-        current_units: { temperature_2m: '°C', weather_code: 'wmo code' },
-        current: { temperature_2m: 21.2, weather_code: 61 },
-      }),
-    }))
-    const out = await handleWeather(
-      { ...SPRINGFIELD, zoom: 10 },
-      { fetchImpl, prefetch: false },
-    )
-    const slugs = Object.keys(out.temps)
-    expect(slugs.length).toBeGreaterThan(0)
-    expect(slugs.every((s) => out.codes[s] === 61)).toBe(true)
-  })
-
-  it('towns with a temp but no weathercode appear in temps only — no icon data (R19)', async () => {
-    const fetchImpl = vi.fn(async () => ({
-      ok: true,
-      json: async () => ({
-        current_units: { temperature_2m: '°C' },
-        current: { temperature_2m: 15 },
-      }),
-    }))
-    const out = await handleWeather(
-      { ...SPRINGFIELD, zoom: 10 },
-      { fetchImpl, prefetch: false },
-    )
-    expect(Object.keys(out.temps).length).toBeGreaterThan(0)
-    expect(Object.keys(out.codes)).toHaveLength(0)
-  })
-
-  it('cache hit serves the cached weathercode too (60-min town cache)', async () => {
-    const fetchImpl = vi.fn(async () => ({
-      ok: true,
-      json: async () => ({
-        current_units: { temperature_2m: '°C', weather_code: 'wmo code' },
-        current: { temperature_2m: 21.2, weather_code: 3 },
-      }),
-    }))
-    const now = 1_730_000_000_000
-    const first = await handleWeather(
-      { ...SPRINGFIELD, zoom: 10 },
-      { fetchImpl, now, prefetch: false },
-    )
-    const second = await handleWeather(
-      { ...SPRINGFIELD, zoom: 10 },
-      { fetchImpl, now: now + 1000, prefetch: false },
-    )
-    expect(second.codes).toEqual(first.codes)
-    expect(Object.keys(second.codes).length).toBeGreaterThan(0)
   })
 })
 

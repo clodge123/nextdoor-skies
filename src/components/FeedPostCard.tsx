@@ -5,6 +5,7 @@
 // R17: clock/RNG-free — timestamps render via
 // formatStamp (pure string slicing).
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   REACTION_EMOJIS,
   addComment,
@@ -20,6 +21,7 @@ import {
   type ReactionEmoji,
   type Session,
 } from '../lib/feed'
+import { Lightbox } from './Lightbox'
 
 export interface FeedPostCardProps {
   post: Post
@@ -40,6 +42,7 @@ export function FeedPostCard({ post, session, fetchImpl }: FeedPostCardProps) {
   const [replyError, setReplyError] = useState('')
   const [flagged, setFlagged] = useState(false)
   const [reactionError, setReactionError] = useState('')
+  const [lightboxOpen, setLightboxOpen] = useState(false)
   const localIdRef = useRef(0)
   const loadedRef = useRef(false)
 
@@ -100,9 +103,13 @@ export function FeedPostCard({ post, session, fetchImpl }: FeedPostCardProps) {
   return (
     <article className="feed-card" data-testid={`post-${post.id}`} data-post-id={post.id}>
       <div className="feed-card-meta">
-        <strong className="feed-author">{view.author}</strong>
+        {/* W3-D3 discoverability: author/timestamp click into /p/<id> so the
+            full detail page (comments, share) is one tap from the feed. */}
+        <Link className="feed-view-post" data-testid={`view-post-${post.id}`} to={`/p/${post.id}`}>
+          <strong className="feed-author">{view.author}</strong>
+          <span className="feed-stamp">{formatStamp(view.createdAt)}</span>
+        </Link>
         <span className="feed-town">{view.town}</span>
-        <span className="feed-stamp">{formatStamp(view.createdAt)}</span>
         {view.hot && (
           <span className="feed-hot-badge" title="Hot in this town">
             hot
@@ -111,11 +118,26 @@ export function FeedPostCard({ post, session, fetchImpl }: FeedPostCardProps) {
       </div>
       <p className="feed-card-text">{view.text}</p>
       {view.snapshot && (
-        <img
-          className="feed-snapshot"
-          data-testid={`snapshot-${post.id}`}
+        <button
+          type="button"
+          className="feed-snapshot-button"
+          data-testid={`snapshot-button-${post.id}`}
+          aria-label="Open map snapshot full screen"
+          onClick={() => setLightboxOpen(true)}
+        >
+          <img
+            className="feed-snapshot"
+            data-testid={`snapshot-${post.id}`}
+            src={view.snapshot}
+            alt={`Map snapshot from ${view.author}`}
+          />
+        </button>
+      )}
+      {lightboxOpen && view.snapshot && (
+        <Lightbox
           src={view.snapshot}
           alt={`Map snapshot from ${view.author}`}
+          onClose={() => setLightboxOpen(false)}
         />
       )}
       <div className="feed-reactions">

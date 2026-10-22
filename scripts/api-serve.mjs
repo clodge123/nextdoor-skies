@@ -57,9 +57,21 @@ function makeDb() {
     async getPost(id) {
       return posts.has(id);
     },
-    async updateSnapshot(id, snapshot) {
+    /** W3-D3: full single-post row for the /api/posts?path=<id> detail route. */
+    async getPostRow(id) {
       const p = posts.get(id);
-      if (p) p.snapshot = snapshot;
+      if (!p) return null;
+      const emojis = Object.fromEntries(REACTION_EMOJIS.map((e) => [e, 0]));
+      for (const [key, emoji] of reactions) {
+        if (key.startsWith(`${id}|`)) emojis[emoji] = (emojis[emoji] ?? 0) + 1;
+      }
+      return {
+        ...p,
+        commentsCount: comments.filter((c) => c.postId === id).length,
+        reactionCount: [...reactions.keys()].filter((k) => k.startsWith(`${id}|`)).length,
+        flagCount: [...flags.keys()].filter((k) => k.startsWith(`${id}|`)).length,
+        emojis,
+      };
     },
     async listPosts(town) {
       return [...posts.values()]

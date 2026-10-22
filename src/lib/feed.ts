@@ -417,3 +417,25 @@ export function sanitizeNickname(raw: string): string {
     .replace(/\s+/g, ' ')
     .trim()
 }
+
+/**
+ * W3-D3 POST DETAIL: GET /api/posts?path=<id> — single post by id (the
+ * /p/<id> deep link). Same contract shape as a list row; unknown id 404s
+ * honestly (the caller maps that to NotFoundPage, never a fabricated post).
+ */
+export async function fetchPost(
+  postId: string,
+  fetchImpl?: FetchLike,
+): Promise<ApiResult<Post>> {
+  const impl = fetchImpl ?? defaultFetch
+  const res = await apiJson<unknown>(
+    `/api/posts?path=${encodeURIComponent(postId)}`,
+    { method: 'GET' },
+    impl,
+  )
+  if (!res.ok) return res
+  const raw = isRecord(res.data) && isRecord(res.data.post) ? res.data.post : res.data
+  const post = normalizePost(raw)
+  if (!post) return { ok: false, status: 0, error: 'malformed post response' }
+  return { ok: true, data: post }
+}
