@@ -45,6 +45,11 @@ export interface CurrentTemp {
   townId: string
   /** Celsius, converted from the proxy's Fahrenheit `temps` values. */
   temperatureC: number
+  /**
+   * W3-A2: Open-Meteo WMO weathercode ("wmo code") for the town, when the
+   * proxy carried real condition data. Undefined => no icon (honest, R19).
+   */
+  weathercode?: number
 }
 
 /** Geographic bounds in degrees. */
@@ -112,11 +117,13 @@ export function chunkBounds(towns: readonly TownCoord[]): GeoBounds {
 }
 
 /**
- * Parse a proxy response `{ temps: { <townSlug>: tempF }, stale }` into
- * CurrentTemp entries for the towns we asked about (F -> C). A town absent
- * from `temps` (upstream hiccup, geocoding miss) yields NO entry — the badge
- * keeps its last value (last-data-wins law 3) and the surface stays honest
- * (R19: real data only, never a lookalike fallback).
+ * Parse a proxy response `{ temps: { <townSlug>: tempF }, codes: { <townSlug>: wmoCode }, stale }`
+ * into CurrentTemp entries for the towns we asked about (F -> C). A town
+ * absent from `temps` (upstream hiccup, geocoding miss) yields NO entry — the
+ * badge keeps its last value (last-data-wins law 3) and the surface stays
+ * honest (R19: real data only, never a lookalike fallback). A town present in
+ * `temps` but absent from `codes` gets the temp with NO weathercode — the
+ * badge shows the temp and no icon (never a guessed condition).
  */
 export function parseProxyResponse(
   payload: unknown,
@@ -124,11 +131,18 @@ export function parseProxyResponse(
 ): CurrentTemp[] {
   const temps = (payload as { temps?: Record<string, unknown> })?.temps
   if (!temps || typeof temps !== 'object') return []
+  const codes = (payload as { codes?: Record<string, unknown> })?.codes
   const out: CurrentTemp[] = []
   for (const t of towns) {
     const f = temps[t.id]
     if (typeof f === 'number' && Number.isFinite(f)) {
-      out.push({ townId: t.id, temperatureC: ((f - 32) * 5) / 9 })
+      const rawCode = codes && typeof codes === 'object' ? codes[t.id] : undefined
+      const code = typeof rawCode === 'number' && Number.isFinite(rawCode) ? Math.trunc(rawCode) : undefined
+      out.push({
+        townId: t.id,
+        temperatureC: ((f - 32) * 5) / 9,
+        ...(code === undefined ? {} : { weathercode: code }),
+      })
     }
   }
   return out

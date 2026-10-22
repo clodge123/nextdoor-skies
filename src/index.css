@@ -642,3 +642,44 @@ body {
   border: 1px solid var(--bg);
   border-radius: var(--radius);
 }
+
+/* W3-A2 CONDITION ICONS + FADE-IN LAW (wave-3 session 1, decision 2).
+   Theme-neutrality (owner law): the chip paints itself with theme vars
+   (var(--surface)/var(--text)) so the lucide glyph — which inherits
+   currentColor — is legible on BOTH dark and light themes. No hardcoded
+   colors anywhere in this block. Square geometry (R20) untouched. */
+.town-badge {
+  background: var(--surface);
+  color: var(--text);
+}
+
+/* Chip content wrapper: temp + condition icon side by side. */
+.town-badge-data {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  /* Fade-in law (~200ms CSS): opacity 0 -> 1 when data arrives. Keyed ONLY
+     on the presence of data via .is-live on the chip — pure CSS transition,
+     zero JS timers (determinism R17). No data => stays transparent => the
+     honest "awaiting feed" span (outside this wrapper) stays visible. */
+  opacity: 0;
+  transition: opacity 200ms linear;
+}
+
+.town-badge.is-live .town-badge-data {
+  opacity: 1;
+}
+
+.town-badge-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* currentColor -> var(--text): one rule covers both themes. */
+  color: var(--text);
+}
+
+.town-badge-icon svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}

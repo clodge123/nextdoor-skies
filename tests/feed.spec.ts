@@ -70,61 +70,6 @@ function mockPostsApi(page: Page, posts: ReturnType<typeof fixturePosts>): void 
 
   page.route('**/api/posts?**', async (route) => {
     const url = new URL(route.request().url())
-    const pathQ = url.searchParams.get('path')
-    if (pathQ) {
-      // Query-param route form (the C6 fix shape): /api/posts?path=<id>/<action>
-      const [id, action] = pathQ.split('/')
-      if (action === 'comments') {
-        if (route.request().method() === 'POST') {
-          const body = route.request().postDataJSON() as { text: string }
-          const comment = {
-            id: `c_${nextCommentId++}`,
-            author: 'jordan',
-            text: body.text,
-            createdAt: '2026-10-21T13:00:00.000Z',
-          }
-          ;(comments[id] ??= []).push(comment)
-          await route.fulfill({ status: 201, contentType: 'application/json', body: JSON.stringify(comment) })
-          return
-        }
-        await route.fulfill({
-          status: 200,
-          contentType: 'application/json',
-          body: JSON.stringify(comments[id] ?? []),
-        })
-        return
-      }
-      if (action === 'reactions' && route.request().method() === 'POST') {
-        const { emoji } = route.request().postDataJSON() as { emoji: '👍' | '❤️' | '😂' }
-        const post = posts.find((p) => p.id === id)
-        if (!post) {
-          await route.fulfill({ status: 404, body: 'not found' })
-          return
-        }
-        if (post.myReaction === emoji) {
-          post.reactions[emoji] = Math.max(0, post.reactions[emoji] - 1)
-          post.myReaction = null
-        } else {
-          if (post.myReaction) post.reactions[post.myReaction] = Math.max(0, post.reactions[post.myReaction] - 1)
-          post.reactions[emoji] += 1
-          post.myReaction = emoji
-        }
-        // Real server shape (api/posts.js): { ok, myReaction } — the client
-        // reconciles this into the optimistic view.
-        await route.fulfill({
-          status: 200,
-          contentType: 'application/json',
-          body: JSON.stringify({ ok: true, myReaction: post.myReaction }),
-        })
-        return
-      }
-      if (action === 'flag' && route.request().method() === 'POST') {
-        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, flags: 1 }) })
-        return
-      }
-      await route.fulfill({ status: 404, body: 'not found' })
-      return
-    }
     const town = url.searchParams.get('town')
     if (route.request().method() !== 'GET') {
       await route.fulfill({ status: 405, body: 'method not allowed' })
@@ -137,36 +82,46 @@ function mockPostsApi(page: Page, posts: ReturnType<typeof fixturePosts>): void 
     await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ posts }) })
   })
 
-  // Legacy subpath routes must NOT be used by the client any more (C6). If a
-  // stray subpath request appears, fail loudly (fulfill 404 like production).
-  page.route('**/api/posts/*/comments**', (route) =>
-    route.fulfill({ status: 404, body: JSON.stringify({ error: 'subpath routing removed (C6)' }) }),
-  )
-  page.route('**/api/posts/*/reactions**', (route) =>
-    route.fulfill({ status: 404, body: JSON.stringify({ error: 'subpath routing removed (C6)' }) }),
-  )
-
-  page.route('**/api/posts', async (route) => {
-    // POST /api/posts (create) — exact URL, no query string.
+  page.route('**/api/posts/*/comments**', async (route) => {
+    const url = new URL(route.request().url())
+    const id = url.pathname.split('/')[3]
     if (route.request().method() === 'POST') {
-      const body = route.request().postDataJSON() as { town: string; text: string }
-      const post = {
-        id: `p_created_${nextCommentId++}`,
+      const body = route.request().postDataJSON() as { text: string }
+      const comment = {
+        id: `c_${nextCommentId++}`,
         author: 'jordan',
-        town: body.town,
         text: body.text,
-        snapshot: null,
         createdAt: '2026-10-21T13:00:00.000Z',
-        reactions: { '👍': 0, '❤️': 0, '😂': 0 },
-        myReaction: null,
-        commentsCount: 0,
-        hot: false,
       }
-      posts.push(post)
-      await route.fulfill({ status: 201, contentType: 'application/json', body: JSON.stringify({ post }) })
+      ;(comments[id] ??= []).push(comment)
+      await route.fulfill({ status: 201, contentType: 'application/json', body: JSON.stringify(comment) })
       return
     }
-    await route.fallback()
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify(comments[id] ?? []),
+    })
+  })
+
+  page.route('**/api/posts/*/reactions**', async (route) => {
+    const url = new URL(route.request().url())
+    const id = url.pathname.split('/')[3]
+    const { emoji } = route.request().postDataJSON() as { emoji: '👍' | '❤️' | '😂' }
+    const post = posts.find((p) => p.id === id)
+    if (!post) {
+      await route.fulfill({ status: 404, body: 'not found' })
+      return
+    }
+    if (post.myReaction === emoji) {
+      post.reactions[emoji] = Math.max(0, post.reactions[emoji] - 1)
+      post.myReaction = null
+    } else {
+      if (post.myReaction) post.reactions[post.myReaction] = Math.max(0, post.reactions[post.myReaction] - 1)
+      post.reactions[emoji] += 1
+      post.myReaction = emoji
+    }
+    await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(post) })
   })
 }
 

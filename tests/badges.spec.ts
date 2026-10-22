@@ -101,14 +101,23 @@ function stubOpenMeteo(page: Page): Promise<void> {
     const s = Math.min(lat1, lat2), n = Math.max(lat1, lat2)
     // Deterministic F temps (no RNG): cycle a fixed ladder per town index.
     const ladder = [70.5, 66.4, 31.3, 55.0, -2.5, 88.9]
+    // W3-A2: deterministic WMO weathercodes alongside temps (Open-Meteo
+    // "wmo code" values; 61=rain, 0=clear, 3=overcast, 71=snow, 95=storm,
+    // 45=fog). One town deliberately gets NO code to prove the honest
+    // no-icon path (R19).
+    const codeLadder = [61, 0, 3, 71, 95, 45]
     const temps: Record<string, number> = {}
+    const codes: Record<string, number> = {}
     let i = 0
     for (const t of stubTowns) {
       if (t.lon >= w && t.lon <= e && t.lat >= s && t.lat <= n) {
-        temps[stubTownId(t.name, t.lat, t.lon)] = ladder[i++ % ladder.length]
+        const id = stubTownId(t.name, t.lat, t.lon)
+        temps[id] = ladder[i % ladder.length]
+        if (i % 6 !== 4) codes[id] = codeLadder[i % codeLadder.length] // town #5 mod 6: temp, no code
+        i++
       }
     }
-    await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ temps, stale: false }) })
+    await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ temps, codes, stale: false }) })
   })
 }
 
@@ -180,6 +189,33 @@ test('badge shows temp number over a town when zoomed', async ({ page }, testInf
   // Square geometry (R20): zero border-radius.
   await expect(badge).toHaveCSS('border-radius', '0px')
 
+  // W3-A2 CONDITION ICONS: the first badge (Salina region, code ladder index
+  // 0 -> weathercode 61 rain) carries a lucide <svg> inside the chip, and the
+  // chip fades in on data arrival (fade-in law: .is-live class + computed
+  // opacity 1 on the data wrapper; the 0->1 transition is pure CSS).
+  const icon = badge.locator('[data-testid^="weather-icon-"]')
+  await expect(icon.first()).toBeVisible({ timeout: 10_000 })
+  await expect(icon.first().locator('svg')).toHaveCount(1)
+  await expect(badge).toHaveClass(/is-live/)
+  await expect(badge.locator('.town-badge-data')).toHaveCSS('opacity', '1', { timeout: 5_000 })
+
+  // THEME-NEUTRALITY (owner law): the icon inherits var(--text) — exact
+  // contrast check on BOTH data-theme states. The app's INITIAL theme
+  // follows prefers-color-scheme (varies per viewport project), so both
+  // states are driven explicitly via data-theme (the same seam ThemeToggle
+  // uses) — deterministic, no reliance on the starting theme.
+  await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'))
+  const darkColor = await icon.first().evaluate((el) => getComputedStyle(el).color)
+  expect(darkColor).toBe('rgb(245, 245, 242)') // --text dark: #f5f5f2
+  // Light: --text #16161f, chip surface var(--surface) -> #ffffff.
+  await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'light'))
+  const lightColor = await icon.first().evaluate((el) => getComputedStyle(el).color)
+  expect(lightColor).toBe('rgb(22, 22, 31)')
+  const lightSurface = await badge.evaluate((el) => getComputedStyle(el).backgroundColor)
+  expect(lightSurface).toBe('rgb(255, 255, 255)')
+  // Restore dark for the remaining assertions.
+  await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'))
+
   // S6 integration: alert banner lists the stubbed alert, and the Salina
   // badge carries a severity dot (contract consumer seam alertDotForTown).
   const banner = page.getByTestId('alert-banner')
@@ -214,6 +250,9 @@ test('mobile viewport: badge renders temp after tap-zoom', async ({ page }, test
   const badge = page.locator('.town-badge').first()
   await expect(badge).toBeVisible({ timeout: 10_000 })
   await expect(badge.locator('.town-badge-temp')).toContainText(/-?\d+°/, { timeout: 10_000 })
+  // W3-A2 mobile parity: condition icon + fade-in class present on touch too.
+  await expect(badge.locator('[data-testid^="weather-icon-"] svg').first()).toHaveCount(1)
+  await expect(badge).toHaveClass(/is-live/)
   await page.screenshot({
     path: path.join(SHOT_DIR, `badges-mobile-tap-${testInfo.project.name}.png`),
   })

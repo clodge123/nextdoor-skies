@@ -195,34 +195,19 @@ export async function createPost(
     fetchImpl_,
   )
   if (!res.ok) return res
-  // Server contract (api/posts.js): 201 body is { post: {...} }. Accept the
-  // bare row too so the client is robust to both shapes.
-  const raw = isRecord(res.data) && isRecord(res.data.post) ? res.data.post : res.data
-  const post = normalizePost(raw)
+  const post = normalizePost(res.data)
   if (!post) return { ok: false, status: 0, error: 'malformed post response' }
   return { ok: true, data: post }
 }
 
-/**
- * Route an action on a post. Production (Vercel) filesystem routing only
- * dispatches the exact `/api/posts` file, so subpaths like
- * `/api/posts/:id/reactions` fall through to the SPA rewrite and 404
- * (docs/WAVE-3-CRITIQUE-TRIAGE.md C6). The server's supported form is the
- * query-param route `/api/posts?path=<id>/<action>` (api/posts.js parses
- * `path`); every per-post call uses it.
- */
-function postActionUrl(postId: string, action: string): string {
-  return `/api/posts?path=${encodeURIComponent(`${postId}/${action}`)}`
-}
-
-/** S3: GET /api/posts?path=<id>/comments */
+/** S3: GET /api/posts/:id/comments */
 export async function fetchComments(
   postId: string,
   fetchImpl?: FetchLike,
 ): Promise<ApiResult<Comment[]>> {
   const impl = fetchImpl ?? defaultFetch
   const res = await apiJson<unknown>(
-    postActionUrl(postId, 'comments'),
+    `/api/posts/${encodeURIComponent(postId)}/comments`,
     { method: 'GET' },
     impl,
   )
@@ -239,7 +224,7 @@ export async function addComment(
 ): Promise<ApiResult<Comment>> {
   const impl = fetchImpl ?? defaultFetch
   const res = await apiJson<unknown>(
-    postActionUrl(postId, 'comments'),
+    `/api/posts/${encodeURIComponent(postId)}/comments`,
     { method: 'POST', headers: sessionHeaders(session), body: JSON.stringify({ text }) },
     impl,
   )
@@ -249,12 +234,7 @@ export async function addComment(
   return { ok: true, data: rows[0] }
 }
 
-/**
- * S4: POST /api/posts?path=<id>/reactions — server-side toggle.
- * The server's real body is `{ ok: true, myReaction }` (NOT a full post);
- * the client reconciles the authoritative myReaction into the optimistic
- * post view (counts adjusted to match the server's truth).
- */
+/** S4: POST /api/posts/:id/reactions — server-side toggle. */
 export async function setReaction(
   postId: string,
   emoji: ReactionEmoji,
@@ -263,59 +243,14 @@ export async function setReaction(
 ): Promise<ApiResult<Post>> {
   const impl = fetchImpl ?? defaultFetch
   const res = await apiJson<unknown>(
-    postActionUrl(postId, 'reactions'),
+    `/api/posts/${encodeURIComponent(postId)}/reactions`,
     { method: 'POST', headers: sessionHeaders(session), body: JSON.stringify({ emoji }) },
     impl,
   )
   if (!res.ok) return res
-  const body = isRecord(res.data) ? res.data : {}
-  if ('myReaction' in body) {
-    // Real server shape: { ok: true, myReaction }. Merge the authoritative
-    // value into the optimistic view.
-    const serverMy = REACTION_EMOJIS.includes(body.myReaction as ReactionEmoji)
-      ? (body.myReaction as ReactionEmoji)
-      : null
-    return { ok: true, data: reconcileReaction(postId, serverMy) }
-  }
-  // Legacy/contract-echo shape: a full post row (mocked gates). Keep the
-  // historical behavior — normalize the row.
   const post = normalizePost(res.data)
   if (!post) return { ok: false, status: 0, error: 'malformed reaction response' }
   return { ok: true, data: post }
-}
-
-/** Last optimistic view per post id (module-level, keyed) so the server's
- *  authoritative myReaction can be merged into fresh counts. Cleared on
- *  success; the map is a reconciliation aid, not a cache. */
-const pendingReactions = new Map<string, Post>()
-
-/** Called by FeedPostCard's optimistic update path (see applyReaction). */
-export function noteOptimisticReaction(postId: string, view: Post): void {
-  pendingReactions.set(postId, view)
-}
-
-function reconcileReaction(postId: string, serverMy: ReactionEmoji | null): Post {
-  const base = pendingReactions.get(postId)
-  pendingReactions.delete(postId)
-  if (!base) {
-    // No optimistic view tracked (direct call): synthesize a minimal view
-    // reflecting the server truth for this emoji only.
-    return {
-      id: postId, author: '', town: '', text: '', snapshot: null, createdAt: '',
-      reactions: { '👍': 0, '❤️': 0, '😂': 0, ...(serverMy ? { [serverMy]: 1 } : {}) },
-      myReaction: serverMy, commentsCount: 0, hot: false,
-    }
-  }
-  // Trust the server's myReaction; adjust counts so the sum matches exactly
-  // one reaction per nickname (the optimistic delta may have raced).
-  const reactions = { ...base.reactions }
-  if (base.myReaction && base.myReaction !== serverMy) {
-    reactions[base.myReaction] = Math.max(0, reactions[base.myReaction] - 1)
-  }
-  if (serverMy && serverMy !== base.myReaction) {
-    reactions[serverMy] = reactions[serverMy] + 1
-  }
-  return { ...base, reactions, myReaction: serverMy }
 }
 
 /** S2: POST /api/posts/:id/flag — hidden after 3 distinct flags server-side. */
@@ -326,7 +261,7 @@ export async function flagPost(
 ): Promise<ApiResult<{ flagged: true }>> {
   const impl = fetchImpl ?? defaultFetch
   return apiJson<{ flagged: true }>(
-    postActionUrl(postId, 'flag'),
+    `/api/posts/${encodeURIComponent(postId)}/flag`,
     { method: 'POST', headers: sessionHeaders(session), body: JSON.stringify({}) },
     impl,
   )

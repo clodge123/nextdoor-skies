@@ -16,12 +16,7 @@ import { defineConfig, devices } from '@playwright/test';
  */
 
 const PORT = Number(process.env.E2E_PORT ?? 43117);
-// REAL_API=1 (W3-D1 C6 law): serve the app + the ACTUAL api/*.js handlers
-// from scripts/api-serve.mjs on E2E_API_PORT (default 43118) so gated specs
-// hit real endpoints with zero mocked routes. Default webServer is unchanged.
-const REAL_API = process.env.REAL_API === '1';
-const API_PORT = Number(process.env.E2E_API_PORT ?? 43118);
-const BASE_URL = REAL_API ? `http://127.0.0.1:${API_PORT}` : `http://127.0.0.1:${PORT}`;
+const BASE_URL = `http://127.0.0.1:${PORT}`;
 
 // This host egresses through an authenticating HTTP proxy (NODE_USE_ENV_PROXY=1,
 // HTTP(S)_PROXY set). Node 24's fetch — used by Playwright's webServer
@@ -90,26 +85,14 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 800 } },
     },
   ],
-  webServer: REAL_API
-    ? {
-        // Production-shaped local harness: static dist + real api handlers.
-        // Build first (the app bundle), then serve — same dispatch as Vercel.
-        command: `npx vite build && node scripts/api-serve.mjs ${API_PORT}`,
-        url: BASE_URL,
-        env: { NO_PROXY: '127.0.0.1,localhost', no_proxy: '127.0.0.1,localhost' },
-        reuseExistingServer: false,
-        timeout: 180_000,
-        stdout: 'pipe',
-        stderr: 'pipe',
-      }
-    : {
-        command: `node scripts/e2e-serve.mjs ${PORT}`,
-        url: BASE_URL,
-        // Node 24 honors env proxies; keep the localhost health-check off the egress proxy.
-        env: { NO_PROXY: '127.0.0.1,localhost', no_proxy: '127.0.0.1,localhost' },
-        reuseExistingServer: false,
-        timeout: 120_000,
-        stdout: 'pipe',
-        stderr: 'pipe',
-      },
+  webServer: {
+    command: `node scripts/e2e-serve.mjs ${PORT}`,
+    url: BASE_URL,
+    // Node 24 honors env proxies; keep the localhost health-check off the egress proxy.
+    env: { NO_PROXY: '127.0.0.1,localhost', no_proxy: '127.0.0.1,localhost' },
+    reuseExistingServer: false,
+    timeout: 120_000,
+    stdout: 'pipe',
+    stderr: 'pipe',
+  },
 });

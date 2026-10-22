@@ -52,6 +52,9 @@ function boundsOf(map: { getBounds(): { getSouthWest(): { lng: number; lat: numb
 function MapBadges() {
   const { map, ready } = useMapContext();
   const [temps, setTemps] = useState<Readonly<Record<string, number>>>({});
+  // W3-A2: last-data-wins WMO weathercodes per town (towns without real
+  // condition data are ABSENT — their badges render no icon, R19 honest).
+  const [codes, setCodes] = useState<Readonly<Record<string, number>>>({});
   const [tick, setTick] = useState(0);
   const refresherRef = useRef<ReturnType<typeof createWeatherRefresher> | null>(null);
   const visibleRef = useRef<TownCoord[]>([]);
@@ -100,12 +103,20 @@ function MapBadges() {
       getViewport: () => boundsOf(map),
       getZoom: () => map.getZoom(),
       fetchImpl: (input, init) => fetch(input, init),
-      onTemps: (batch: CurrentTemp[]) =>
+      onTemps: (batch: CurrentTemp[]) => {
         setTemps((prev) => {
           const next = { ...prev };
           for (const t of batch) next[t.townId] = t.temperatureC;
           return next;
-        }),
+        });
+        setCodes((prev) => {
+          const next = { ...prev };
+          for (const t of batch) {
+            if (typeof t.weathercode === 'number') next[t.townId] = t.weathercode;
+          }
+          return next;
+        });
+      },
     });
     refresherRef.current = refresher;
     refresher.start();
@@ -141,7 +152,7 @@ function MapBadges() {
   for (const t of visible) alertsByTown[t.id] = alertDotForTown(alertState.alerts, t.id);
   return (
     <>
-      <TownBadges towns={visible} temps={temps} alerts={alertsByTown} />
+      <TownBadges towns={visible} temps={temps} codes={codes} alerts={alertsByTown} />
       <AlertBanner state={alertState} />
     </>
   );
