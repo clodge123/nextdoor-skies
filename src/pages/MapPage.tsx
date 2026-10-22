@@ -8,7 +8,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import townsData from '../../data/towns/us-towns.json';
 import MapView from '../components/MapView';
 import { TownBadges, TOWN_BADGE_MIN_ZOOM } from '../components/TownBadges';
-import { AlertBanner, useAlerts } from '../components/AlertBanner';
+import { useAlerts } from '../components/AlertBanner';
+import SidePanel, { usePanelState } from '../components/SidePanel';
 import { alertDotForTown } from '../lib/weather/alerts';
 import { useMapContext } from '../lib/map/map-context';
 import { townsInBbox, type TownsFile } from '../lib/map/gazetteer';
@@ -139,10 +140,12 @@ function MapBadges() {
   // visible town from the shared last-good alert payload.
   const alertsByTown: Record<string, string | null> = {};
   for (const t of visible) alertsByTown[t.id] = alertDotForTown(alertState.alerts, t.id);
+  // W3-C1: the alert banner overlay is UNMOUNTED (alert center lands in C2);
+  // the refresher + state stay alive here because the badge dots read the
+  // SAME last-good payload — one poll per window drives both surfaces.
   return (
     <>
       <TownBadges towns={visible} temps={temps} alerts={alertsByTown} />
-      <AlertBanner state={alertState} />
     </>
   );
 }
@@ -164,12 +167,28 @@ function centerFromLocation(): [number, number] {
 }
 
 export default function MapPage() {
+  // W3-C1 LAYOUT-SHELL: map docked beside the right side panel (open by
+  // default on desktop, collapsed bottom sheet on mobile; `P` toggles).
+  const panel = usePanelState();
   return (
-    <section aria-labelledby="map-heading" className="map-page">
-      <h1 id="map-heading">Map</h1>
-      <MapView center={centerFromLocation()} zoom={3}>
-        <MapBadges />
-      </MapView>
-    </section>
+    <div className="map-layout">
+      <section aria-labelledby="map-heading" className="map-page">
+        <h1 id="map-heading">Map</h1>
+        <MapView center={centerFromLocation()} zoom={3}>
+          <MapBadges />
+        </MapView>
+        <button
+          type="button"
+          className="panel-toggle map-panel-toggle"
+          data-testid="panel-toggle"
+          aria-label={panel.open ? 'Close side panel' : 'Open side panel'}
+          aria-expanded={panel.open}
+          onClick={panel.toggle}
+        >
+          {panel.open ? '»' : '«'}
+        </button>
+      </section>
+      <SidePanel open={panel.open} onToggle={panel.toggle} />
+    </div>
   );
 }
