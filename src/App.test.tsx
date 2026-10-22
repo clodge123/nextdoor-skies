@@ -62,4 +62,86 @@ describe('App shell', () => {
     // W5: honest gate — no session means no town, so the picker shows first-click.
     expect(screen.getByTestId('identity-picker')).toBeInTheDocument()
   });
+
+  // W3-B1 ROUTING — deep routes resolve from a hard-load path, header nav
+  // highlights the active route family, unknown slugs get the honest 404.
+  describe('W3-B1 routes', () => {
+    const SPRINGFIELD = 'springfield-37.22--93.3'
+
+    it('renders the town page shell on /t/<real-slug>', () => {
+      render(
+        <MemoryRouter initialEntries={[`/t/${SPRINGFIELD}`]}>
+          <App />
+        </MemoryRouter>,
+      )
+      expect(screen.getByTestId('town-page')).toBeInTheDocument()
+      expect(screen.getByRole('heading', { name: 'Springfield' })).toBeInTheDocument()
+      expect(screen.getByTestId('town-open-feed')).toHaveAttribute('href', `/t/${SPRINGFIELD}/feed`)
+      // Deep town routes light the Map nav (session 2: town detail lives on the map family).
+      expect(screen.getByRole('link', { name: 'Map' })).toHaveAttribute('aria-current', 'page')
+    })
+
+    it('renders the town feed seeded with the URL town on /t/<slug>/feed', () => {
+      render(
+        <MemoryRouter initialEntries={[`/t/${SPRINGFIELD}/feed`]}>
+          <App />
+        </MemoryRouter>,
+      )
+      expect(screen.getByTestId('feed-page')).toBeInTheDocument()
+      // Seeded with the URL town, not the session town (no session in tests).
+      expect(screen.getByTestId('feed-town')).toHaveTextContent('Springfield')
+      expect(screen.getByRole('link', { name: 'Feed' })).toHaveAttribute('aria-current', 'page')
+    })
+
+    it('renders the honest loading placeholder on /p/<id>', () => {
+      render(
+        <MemoryRouter initialEntries={['/p/post_123']}>
+          <App />
+        </MemoryRouter>,
+      )
+      expect(screen.getByTestId('post-detail-page')).toBeInTheDocument()
+      expect(screen.getByTestId('post-detail-loading')).toHaveTextContent(/loading/i)
+    })
+
+    it('renders the alerts placeholder on /alerts and highlights Alerts nav', () => {
+      render(
+        <MemoryRouter initialEntries={['/alerts']}>
+          <App />
+        </MemoryRouter>,
+      )
+      expect(screen.getByTestId('alerts-page')).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: 'Alerts' })).toHaveAttribute('aria-current', 'page')
+    })
+
+    it('unknown town slug -> honest 404 page with search box', () => {
+      render(
+        <MemoryRouter initialEntries={['/t/no-such-town-0.0-0.0']}>
+          <App />
+        </MemoryRouter>,
+      )
+      expect(screen.getByTestId('not-found-page')).toBeInTheDocument()
+      expect(screen.getByRole('heading', { name: /404/ })).toBeInTheDocument()
+      expect(screen.getByTestId('not-found-slug')).toHaveTextContent('no-such-town-0.0-0.0')
+      expect(screen.getByTestId('not-found-search')).toBeInTheDocument()
+    })
+
+    it('unknown path -> honest 404 page', () => {
+      render(
+        <MemoryRouter initialEntries={['/wat']}> 
+          <App />
+        </MemoryRouter>,
+      )
+      expect(screen.getByTestId('not-found-page')).toBeInTheDocument()
+    })
+
+    it('root highlights Map only', () => {
+      render(
+        <MemoryRouter initialEntries={['/']}>
+          <App />
+        </MemoryRouter>,
+      )
+      expect(screen.getByRole('link', { name: 'Map' })).toHaveAttribute('aria-current', 'page')
+      expect(screen.getByRole('link', { name: 'Feed' })).not.toHaveAttribute('aria-current')
+    })
+  })
 });
