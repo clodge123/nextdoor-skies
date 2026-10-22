@@ -32,9 +32,12 @@ visibility law (localStorage seen-flag, discreet replay).
 - vitest: 386/386 (tour state machine 15: seen-once, skip marks seen, replay,
   step order, route gate, non-modal; palette registry updated for show-tour).
 - tsc -b: clean. npm run build: clean. check:all (determinism/radius/no-cwc): clean.
-- Playwright: tests/tour.spec.ts — fresh context -> tour appears -> Next x2 ->
-  Done -> reload -> gone -> palette 'Show tour' replays (+ drawer replay,
-  scrim-advance/Esc-skip, /feed route gate), run via scripts/e2e-gate.sh.
+- Playwright (gated, scripts/e2e-gate.sh): tests/tour.spec.ts **10/10**
+  (2 phone-only skips by design) — fresh context -> tour appears -> Next x2
+  -> Done -> reload -> gone -> palette 'Show tour' replays + drawer replay,
+  scrim-advance/Esc-skip, /feed route gate. Full-suite regression pass
+  (150 passed) confirmed all seeded specs green; the only 3 failures were a
+  spec bug (clicked Done on step 0) fixed + verified green in `bef94b1`.
 
 ## Deviations
 
