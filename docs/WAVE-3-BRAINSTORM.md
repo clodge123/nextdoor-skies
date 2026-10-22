@@ -80,7 +80,24 @@ app impressive, polished, usable, intuitive, friendly.
 **Wave planning note (owner):** wave 3 = features; budget a FINAL POLISH WAVE
 (wave 4) after. Keep the 4-wave shape in mind when scheduling lanes.
 
-## Session 4 — Feed correctness & demo liveliness (IN PROGRESS)
+## Session 4 — Feed correctness & demo liveliness ✅ DECIDED (2026-10-21 22:51 CDT)
+
+All five accepted:
+1. **Engagement seeding**: ~3–8 reactions + 0–3 comments per seeded post,
+   deterministic fixed pattern per post index (no randomness).
+2. **Hot formula: keep** replies×2 + reactions×1 + 12h decay.
+3. **Sharing: both** — Copy-link button + native Web Share API on mobile.
+4. **Image lightbox: yes** — tap post image → full-screen, swipe between
+   images in a post.
+5. **Comments: flat one-level** (Nextdoor-style, demo-appropriate).
+
+Carried fixes (from critique triage, non-negotiable): production routing fix
+(`?path=` form), seeder canvas-paint capture fix + re-seed, real-API local
+harness (no mocked routes), click-every-button manual pass in Definition of
+Done, pull-to-refresh + refresh button with animated skeletons, post detail
+page `/p/<id>`.
+
+## Session 5 — Acceptance criteria & wave scoping (IN PROGRESS)
 - Fix production routing bug (subpath → `?path=` form + real-API local harness
   so mocked-route blind spots die).
 - Fix seeder canvas capture (await paint frame) → real map images in posts.
