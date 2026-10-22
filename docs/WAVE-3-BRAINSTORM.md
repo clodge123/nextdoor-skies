@@ -106,14 +106,49 @@ page `/p/<id>`.
 - QA bar: click-every-button manual pass + production-shaped local harness
   (vercel dev), no mocked routes.
 
-## Session 5 — Acceptance criteria & wave scoping
-- Define per-feature "done" gates (first-glance test, mobile parity, 44px,
-  honest states, determinism) + demo script for the recruiter showcase.
-- Lane sketch (draft, post-brainstorm): W3-A weather-cache+fade, W3-B town
-  detail+click/nav, W3-C layout/panel system, W3-D feed fixes+engagement
-  seed, W3-E visual polish pass, W3-F QA harness (real-API local).
-- Laws carried: deploy-once-per-wave, closeout sweep, browser serialization,
-  live-egress, no silent fallbacks.
+## Session 5 — Acceptance criteria & wave scoping (IN PROPOSED)
+
+### Per-feature "done" gates (every lane, all viewports)
+- First-glance test: layer teaches itself in ~2s, no clicks needed.
+- Mobile parity + 44px targets; honest states (no silent fallbacks, skeletons
+  not spinners); determinism scan clean; theme-neutral icons (both themes).
+- Animation law: fly-to ~1.5-2s eased, panels ~200ms, nothing snaps.
+- Real-API local harness (vercel-dev shape, no mocked routes) +
+  click-every-button manual pass recorded per feature.
+- Live-egress proof for any lane touching external APIs.
+
+### Recruiter demo script (wave-3 acceptance run)
+1. Land → map alive with temps fading in, weather-driven tint, alert dots.
+2. Search "Austin" → fly-to, town panel, conditions card + alerts + posts.
+3. Tap badge → expand full weather card → "Open town feed" (animated).
+4. React 👍 (instant, persists), reply, tap post image → lightbox.
+5. Ctrl+K → jump to Chicago → share link `/p/<id>` → open in new tab.
+6. Phone viewport: bottom sheet, pull-to-refresh, Web Share sheet.
+Total < 90 seconds, zero console errors, zero dead clicks.
+
+### Lane sketch (wave 3 = features, wave 4 = polish pass per owner)
+- W3-A WEATHER-CORE: 60-min server cache + SWR + neighbor prefetch + fade-in
+  + lucide condition icons + map tint (live-egress lane).
+- W3-B NAV-DETAIL: routing (`/t/<slug>`, `/p/<id>`, `/alerts`), town panel +
+  page, click-to-detail (badges, labels, low-zoom dots), search box, my-town
+  chip, fly-to animations, "View on map".
+- W3-C LAYOUT-SHELL: side panel (open desktop/bottom-sheet mobile), alert
+  center (severity-grouped, mute), command palette + shortcuts, banner
+  removal, mobile drawer.
+- W3-D FEED-FIX: `?path=` routing fix, real-API local harness, capture fix +
+  re-seed, engagement seed, post detail page, lightbox, share, pull-to-refresh.
+- W3-E POLISH-SEEDS: skeletons, micro-interactions, identicons, typography
+  scale, 3-step tour (full polish pass deferred to wave 4).
+- W3-F QA-HARNESS: click-every-button spec suite, demo-script e2e, production-
+  shaped smoke additions (reaction round-trip, snapshot render).
+Dependencies: A → B (card needed by panel); C parallel; D independent; E
+after B/C; F last. Browser runs serialized (traffic law). ONE deploy at wave
+end (deploy law). Closeout sweep every lane.
+
+### Open Q for owner
+1. Lane count/split above OK, or merge/polish differently?
+2. Wave-4 polish pass: schedule right after wave 3, or gap for feedback?
+3. Demo script as the wave-3 acceptance test — sign off?
 
 ## Standing constraints (non-negotiable, from owner history)
 No silent fallbacks / honest empty states · fetch-per-window · determinism
