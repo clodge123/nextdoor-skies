@@ -11,6 +11,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import townsData from '../../data/towns/us-towns.json';
 import type { TownsFile } from '../lib/map/gazetteer';
 import { MapProvider } from '../lib/map/map-context';
+import { subscribeFlyTo } from '../lib/map/fly-to';
 import { coordKey, tierForZoom, TIER_RULES, type Tier } from '../lib/map/tiers';
 
 const STYLE_URL = 'https://tiles.openfreemap.org/styles/bright';
@@ -117,7 +118,18 @@ export default function MapView({ center = [-98.5, 39.8], zoom = 3, children }: 
     });
     m.on('zoomend', () => setTier(tierForZoom(m.getZoom())));
 
+    // W3-C2 FLY-TO SEAM (documented): alert-center rows (and future search)
+    // call requestFlyTo; the mounted map answers with maplibre flyTo, ~1.8s
+    // (wave-1 fly-to animation law: 1.5-2s, nothing snaps). Zoom clamps UP
+    // to badge-visible level (>= TOWN_BADGE_MIN_ZOOM) so badge dots land in
+    // view; an explicit lower target is honored only when already visible.
+    const unsubscribeFly = subscribeFlyTo((req) => {
+      const target = Math.max(9, req.zoom ?? m.getZoom());
+      m.flyTo({ center: [req.lon, req.lat], zoom: target, duration: 1800 });
+    });
+
     return () => {
+      unsubscribeFly();
       m.remove();
       mapRef.current = null;
     };

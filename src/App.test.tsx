@@ -103,13 +103,16 @@ describe('App shell', () => {
       expect(screen.getByTestId('post-detail-loading')).toHaveTextContent(/loading/i)
     })
 
-    it('renders the alerts placeholder on /alerts and highlights Alerts nav', () => {
+    it('renders the alert center on /alerts and highlights Alerts nav', () => {
       render(
         <MemoryRouter initialEntries={['/alerts']}>
           <App />
         </MemoryRouter>,
       )
       expect(screen.getByTestId('alerts-page')).toBeInTheDocument()
+      // W3-C2: the placeholder is replaced by the real alert center (the
+      // jsdom fetch fails -> honest "Checking alerts…", never fake rows).
+      expect(screen.getByTestId('alert-center')).toBeInTheDocument()
       expect(screen.getByRole('link', { name: 'Alerts' })).toHaveAttribute('aria-current', 'page')
     })
 

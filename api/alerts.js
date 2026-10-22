@@ -125,6 +125,11 @@ export async function alertsForZone(zone, fetchImpl, now) {
       event: f.properties.event,
       severity: f.properties.severity ?? 'Unknown',
       expires: f.properties.expires ?? f.properties.ends ?? null,
+      // W3-C2 ALERT CENTER passthrough: NWS carries these per feature; the
+      // client renders what exists and never fabricates (absent -> undefined).
+      headline: typeof f.properties.headline === 'string' ? f.properties.headline : undefined,
+      summary: typeof f.properties.desc === 'string' ? f.properties.desc : undefined,
+      effective: typeof f.properties.effective === 'string' ? f.properties.effective : null,
     }))
   zoneCache.set(zone, { alerts, fetchedAt: now })
   return { alerts, fresh: true }

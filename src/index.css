@@ -734,3 +734,140 @@ body {
 .post-detail-comments {
   margin-top: 16px;
 }
+ 
+ /* ==========================================================================
+    W3-C2 ALERT CENTER — side-panel list replacing the wave-2 banner.
+    Square geometry (R20: var(--radius) only), theme vars (L4). Severity badge
+    colors are fixed per NWS severity level (not theme-dependent).
+    ========================================================================== */
+ .alert-center {
+   display: flex;
+   flex-direction: column;
+   gap: 8px;
+ }
+ 
+ .alert-center-checking,
+ .alert-center-empty {
+   margin: 18px 4px;
+   text-align: center;
+   font: 500 14px/1.5 ui-sans-serif, system-ui, sans-serif;
+   color: var(--text);
+   opacity: 0.75;
+ }
+ 
+ .alert-center-stale {
+   margin: 0;
+   padding: 6px 10px;
+   font: 600 12px/1.4 ui-sans-serif, system-ui, sans-serif;
+   color: var(--text);
+   background: var(--surface);
+   border: 1px dashed var(--warn);
+   border-radius: var(--radius);
+ }
+ 
+ .alert-center-list {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+   display: flex;
+   flex-direction: column;
+   gap: 8px;
+ }
+ 
+ .alert-row {
+   display: flex;
+   align-items: flex-start;
+   justify-content: space-between;
+   gap: 8px;
+   padding: 8px 10px;
+   background: var(--surface);
+   border: 1px solid var(--border);
+   border-radius: var(--radius);
+ }
+ 
+ .alert-row-head {
+   display: flex;
+   align-items: flex-start;
+   gap: 8px;
+   flex: 1 1 auto;
+   min-width: 0;
+   padding: 0;
+   background: none;
+   border: 0;
+   color: inherit;
+   font: inherit;
+   text-align: left;
+   cursor: pointer;
+ }
+ 
+ .alert-sev {
+   flex: 0 0 auto;
+   padding: 2px 6px;
+   font: 700 11px/1.4 ui-sans-serif, system-ui, sans-serif;
+   letter-spacing: 0.04em;
+   text-transform: uppercase;
+   color: #ffffff;
+   border-radius: var(--radius);
+ }
+ 
+ .alert-sev-extreme { background: #b91c1c; }
+ .alert-sev-severe { background: #c2410c; }
+ .alert-sev-moderate { background: #a16207; }
+ .alert-sev-minor { background: #3f6212; }
+ .alert-sev-unknown { background: var(--border); color: var(--text); }
+ 
+ .alert-row-main {
+   display: flex;
+   flex-direction: column;
+   gap: 2px;
+   min-width: 0;
+ }
+ 
+ .alert-row-event {
+   font: 700 13px/1.35 ui-sans-serif, system-ui, sans-serif;
+   color: var(--text);
+ }
+ 
+ .alert-row-headline {
+   font: 400 12px/1.45 ui-sans-serif, system-ui, sans-serif;
+   color: var(--text);
+   opacity: 0.8;
+   overflow: hidden;
+   display: -webkit-box;
+   -webkit-line-clamp: 2;
+   -webkit-box-orient: vertical;
+ }
+ 
+ .alert-row-headline.is-expanded {
+   display: block;
+   -webkit-line-clamp: unset;
+   overflow: visible;
+ }
+ 
+ .alert-row-stamps {
+   font: 500 11px/1.4 ui-sans-serif, system-ui, sans-serif;
+   color: var(--text);
+   opacity: 0.6;
+ }
+ 
+ .alert-row-town {
+   flex: 0 0 auto;
+   max-width: 110px;
+ }
+ 
+ .alert-row-fly {
+   min-height: 32px;
+   padding: 4px 8px;
+   font: 600 12px/1.3 ui-sans-serif, system-ui, sans-serif;
+   background: var(--bg);
+   color: var(--text);
+   border: 1px solid var(--current-accent);
+   border-radius: var(--radius);
+   cursor: pointer;
+ }
+ 
+ /* Full-page /alerts variant: roomier rows, no map fly seam (documented). */
+ .alerts-page .alert-center {
+   max-width: 720px;
+   margin: 0 auto;
+ }

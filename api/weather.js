@@ -163,15 +163,17 @@ export function resetWeatherCache() {
 /**
  * SWR read: { tempF, state: 'fresh' } before expiry, { tempF, state: 'stale' }
  * after expiry (value kept — last-data-wins), undefined on a true miss.
+ * W3-A2: entries also carry the cached WMO weathercode (undefined for pre-
+ * A2 cache rows and towns whose upstream code was malformed).
  */
 export function cacheGet(slug, now) {
   const hit = tempCache.get(slug)
   if (!hit) return undefined
-  return { tempF: hit.tempF, state: now < hit.expiresAt ? 'fresh' : 'stale' }
+  return { tempF: hit.tempF, code: hit.code, state: now < hit.expiresAt ? 'fresh' : 'stale' }
 }
 
-export function cacheSet(slug, tempF, now) {
-  tempCache.set(slug, { tempF, expiresAt: now + CACHE_TTL_MS })
+export function cacheSet(slug, tempF, now, code = undefined) {
+  tempCache.set(slug, { tempF, code, expiresAt: now + CACHE_TTL_MS })
 }
 
 /** Slug set currently being fetched (served request OR prefetch) — dedupe. */
@@ -189,7 +191,9 @@ export function inFlightSlugs() {
 export function forecastUrl(lat, lon) {
   return (
     `${UPSTREAM_FORECAST_URL}?latitude=${lat}&longitude=${lon}` +
-    '&current=temperature_2m&units=imperial'
+    // W3-A2: weather_code (snake_case — live probe 2026-10-22 answers
+    // current_units.weather_code="wmo code") alongside the temperature.
+    '&current=temperature_2m,weather_code&units=imperial'
   )
 }
 
@@ -211,21 +215,41 @@ export function normalizeTempF(payload) {
 }
 
 /**
- * Fetch one town's current temp (Fahrenheit). Returns a finite number, or
- * undefined on ANY failure (HTTP error, timeout, malformed payload) — the
- * degradation path. No fake values, ever (R19).
+ * W3-A2: extract the WMO weathercode from an Open-Meteo payload (live probe:
+ * `current.weather_code`, unit "wmo code"). A finite integer passes through;
+ * anything else degrades to undefined — the badge renders NO icon (R19
+ * honesty: real data only, never a guessed condition).
  */
-export async function fetchTownTemp(town, fetchImpl, signal) {
+export function normalizeWeatherCode(payload) {
+  const c = payload?.current?.weather_code
+  if (typeof c !== 'number' || !Number.isFinite(c)) return undefined
+  return Math.trunc(c)
+}
+
+/**
+ * Fetch one town's current temp (Fahrenheit) + WMO weathercode. Returns
+ * { tempF, code } where tempF is a finite number (undefined on ANY failure —
+ * the degradation path) and code is the parsed weathercode (undefined when
+ * absent/malformed — the badge shows no icon, never a fake). No fake values,
+ * ever (R19).
+ */
+export async function fetchTownConditions(town, fetchImpl, signal) {
   try {
     const res = await fetchImpl(forecastUrl(town.lat, town.lon), {
       method: 'GET',
       signal,
     })
-    if (!res.ok) return undefined
-    return normalizeTempF(await res.json())
+    if (!res.ok) return { tempF: undefined, code: undefined }
+    const payload = await res.json()
+    return { tempF: normalizeTempF(payload), code: normalizeWeatherCode(payload) }
   } catch {
-    return undefined
+    return { tempF: undefined, code: undefined }
   }
+}
+
+/** Back-compat alias: temp-only fetch (tests + callers that ignore codes). */
+export async function fetchTownTemp(town, fetchImpl, signal) {
+  return (await fetchTownConditions(town, fetchImpl, signal)).tempF
 }
 
 /**
@@ -257,15 +281,15 @@ export async function mapWithConcurrency(jobs, concurrency) {
  */
 export async function prefetchTowns(towns, fetchImpl, now) {
   const targets = towns.slice(0, MAX_PREFETCH_TOWNS)
-  const jobs = targets
+    const jobs = targets
     .filter((t) => !inFlight.has(townId(t.name, t.lat, t.lon)))
     .map((t) => async () => {
       const slug = townId(t.name, t.lat, t.lon)
       if (inFlight.has(slug)) return false
       inFlight.add(slug)
       try {
-        const tempF = await fetchTownTemp(t, fetchImpl, AbortSignal.timeout(UPSTREAM_TIMEOUT_MS))
-        if (tempF !== undefined) cacheSet(slug, tempF, now)
+        const { tempF, code } = await fetchTownConditions(t, fetchImpl, AbortSignal.timeout(UPSTREAM_TIMEOUT_MS))
+        if (tempF !== undefined) cacheSet(slug, tempF, now, code)
         return tempF !== undefined
       } finally {
         inFlight.delete(slug)
@@ -280,9 +304,12 @@ export async function prefetchTowns(towns, fetchImpl, now) {
 
 /**
  * Handle one weather request.
- * @returns {Promise<{temps: Record<string, number>, stale: boolean}>}
+ * @returns {Promise<{temps: Record<string, number>, codes: Record<string, number>, stale: boolean}>}
  *   stale=true only when towns were in scope and NOT ONE temp could be served
  *   (fresh or cached) — an honest "the feed is down" signal, never a lie.
+ *   W3-A2: `codes` maps slug -> WMO weathercode for towns where real
+ *   condition data exists (a town with no code is simply ABSENT from codes —
+ *   its badge renders no icon, never a guessed one).
  *
  * opts.now: injectable clock (tests never touch Date.now).
  * opts.schedule: seam for background work (SWR refresh + ring prefetch).
@@ -302,7 +329,7 @@ export async function handleWeather(query, opts = {}) {
     },
   } = opts
   const { west, south, east, north, zoom } = query
-  if (zoom < MIN_ZOOM) return { temps: {}, stale: false }
+  if (zoom < MIN_ZOOM) return { temps: {}, codes: {}, stale: false }
 
   const towns = loadTowns()
   const inBox = townsInBbox(towns, west, south, east, north)
@@ -310,12 +337,14 @@ export async function handleWeather(query, opts = {}) {
 
   const misses = []
   const temps = {}
+  const codes = {}
   const staleEntries = []
   for (const t of served) {
     const slug = townId(t.name, t.lat, t.lon)
     const hit = cacheGet(slug, now)
     if (hit) {
       temps[slug] = hit.tempF // fresh OR stale: serve last-known instantly
+      if (hit.code !== undefined) codes[slug] = hit.code
       if (hit.state === 'stale') staleEntries.push({ slug, town: t })
     } else {
       misses.push({ slug, town: t })
@@ -326,10 +355,11 @@ export async function handleWeather(query, opts = {}) {
     if (inFlight.has(slug)) return false
     inFlight.add(slug)
     try {
-      const tempF = await fetchTownTemp(town, fetchImpl, AbortSignal.timeout(UPSTREAM_TIMEOUT_MS))
+      const { tempF, code } = await fetchTownConditions(town, fetchImpl, AbortSignal.timeout(UPSTREAM_TIMEOUT_MS))
       if (tempF !== undefined) {
-        cacheSet(slug, tempF, now)
+        cacheSet(slug, tempF, now, code)
         temps[slug] = tempF
+        if (code !== undefined) codes[slug] = code
       }
       return tempF !== undefined
     } finally {
@@ -362,7 +392,7 @@ export async function handleWeather(query, opts = {}) {
 
   const servedCount = Object.keys(temps).length
   const stale = served.length > 0 && servedCount === 0
-  return { temps, stale }
+  return { temps, codes, stale }
 }
 
 /** SWR revalidation: refetch stale entries, update cache, never block. */
@@ -371,8 +401,8 @@ async function refreshEntries(entries, fetchImpl, now) {
     if (inFlight.has(slug)) return false
     inFlight.add(slug)
     try {
-      const tempF = await fetchTownTemp(town, fetchImpl, AbortSignal.timeout(UPSTREAM_TIMEOUT_MS))
-      if (tempF !== undefined) cacheSet(slug, tempF, now)
+      const { tempF, code } = await fetchTownConditions(town, fetchImpl, AbortSignal.timeout(UPSTREAM_TIMEOUT_MS))
+      if (tempF !== undefined) cacheSet(slug, tempF, now, code)
       return tempF !== undefined
     } finally {
       inFlight.delete(slug)
@@ -401,6 +431,6 @@ export default async function handler(req, res) {
     return res.status(200).json(out)
   } catch (err) {
     // Unexpected blow-up: honest empty + stale, never a crash-to-500 for the UI.
-    return res.status(200).json({ temps: {}, stale: true, error: String(err?.message ?? err) })
+    return res.status(200).json({ temps: {}, codes: {}, stale: true, error: String(err?.message ?? err) })
   }
 }

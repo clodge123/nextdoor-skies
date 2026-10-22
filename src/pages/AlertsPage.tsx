@@ -1,13 +1,31 @@
-// W3-B1 ROUTING — /alerts page placeholder (session 3 decision 3: the
-// severity-grouped alert center replaces the banner in the wave-3 lanes).
-// Honest state: no fabricated alert list; the page says what is coming.
+// W3-C2 ALERT CENTER — /alerts full page (session 3 decision: alert center
+// replaces the banner; the page renders the SAME sorted severity list as the
+// side panel). No map is mounted here, so rows are inert by design (no
+// fly-to on this route — documented deviation: the fly seam needs a mounted
+// map; the panel version flies).
+//
+// Polling law: one refresher per window-owner. The map page's refresher
+// lives in MapPage; this page owns its OWN page-scoped refresher over a
+// fixed continental-US viewport (deterministic bbox, server caps at 50
+// towns). This is the same ONE-poll-per-window law, scoped to the page —
+// not a second poller next to the panel (the panel is not mounted here).
+//
+// Honest states (R19): same family as the panel — "No active alerts" only
+// after a successful zero-alert poll; stale feed shows "Feed unavailable —
+// showing last known". Determinism (R17): no clock/RNG reads.
+import { useAlerts } from '../components/AlertBanner'
+import AlertCenter from '../components/AlertCenter'
+
+/** Continental-US bbox (fixed, deterministic — gazetteer towns all live
+ *  inside it; the server caps requests at 50 towns by population). */
+export const ALERTS_PAGE_BOUNDS = { west: -125, south: 24, east: -66, north: 50 }
+
 export default function AlertsPage() {
+  const state = useAlerts(() => ALERTS_PAGE_BOUNDS)
   return (
     <section className="alerts-page" aria-labelledby="alerts-heading" data-testid="alerts-page">
       <h1 id="alerts-heading">Alerts</h1>
-      <p className="alerts-placeholder" data-testid="alerts-placeholder">
-        The severity-grouped alert center lands in wave 3 (D2).
-      </p>
+      <AlertCenter state={state} mode="page" />
     </section>
   )
 }

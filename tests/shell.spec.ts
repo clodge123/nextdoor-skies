@@ -4,7 +4,8 @@
 // Asserts the session-3 layout rulings:
 //   1. Right side panel: ~360px docked beside the map, OPEN by default on
 //      desktop/tablet, COLLAPSED bottom sheet on phone (drag handle), with
-//      the honest "Nothing to show yet" empty state (slot fills in B2/C2).
+//      the honest alert-center empty state (W3-C2 fills the slot; with the
+//      zero-alert stub it says "No active alerts" — never fake rows).
 //      Keyboard `P` toggles; the map-edge button toggles; ~200ms transition
 //      (animation law — nothing snaps).
 //   2. Alert banner overlay is GONE from the map page (alert center lands in
@@ -123,12 +124,15 @@ test.describe('W3-C1 layout shell', () => {
       await expect(handle).toBeVisible();
       const hb = await handle.boundingBox();
       expect(hb!.height).toBeGreaterThanOrEqual(36);
-      // Tap the handle -> sheet expands with the honest empty state.
+      // Tap the handle -> sheet expands with the alert center (C2).
       await tapOrClick(page, handle);
       await expect(panel).toHaveAttribute('data-open', 'true');
-      await expect(page.getByTestId('panel-empty')).toBeVisible();
+      await expect(page.getByTestId('alert-center')).toBeVisible();
     } else {
-      // Desktop/tablet: docked column, ~360px, visible, empty slot honest.
+      // Desktop/tablet: docked column, ~360px, visible, alert center fills
+      // the slot (W3-C2). With the zero-alert stub the honest state is
+      // "No active alerts" (R19) — the panel-empty slot is only rendered
+      // when NO content exists, which C2 replaced.
       await expect(panel).toHaveAttribute('data-open', 'true');
       await expect(panel).toBeVisible();
       const box = await panel.boundingBox();
@@ -137,8 +141,8 @@ test.describe('W3-C1 layout shell', () => {
       // Docked BESIDE the map (right edge), not over it.
       const mapBox = await page.getByTestId('map-view').boundingBox();
       expect(box!.x).toBeGreaterThanOrEqual(mapBox!.x + mapBox!.width - 2);
-      await expect(page.getByTestId('panel-empty')).toBeVisible();
-      await expect(page.getByTestId('panel-empty')).toContainText('Nothing to show yet');
+      await expect(page.getByTestId('alert-center')).toBeVisible();
+      await expect(page.getByTestId('alert-center-empty')).toContainText('No active alerts');
 
       // Keyboard law: P collapses, P again re-opens. ~200ms transition.
       const dur = await panel.evaluate((el) => getComputedStyle(el).transitionDuration);

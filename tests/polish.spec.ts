@@ -179,10 +179,14 @@ test('header: visible, >=44px nav hit boxes, active-route highlight, theme toggl
   await expect(page.getByTestId('identity-picker')).toBeVisible()
   await expect(feedLink).toHaveClass(/is-active/)
   await expect(mapLink).not.toHaveClass(/is-active/)
-  await expect(page.locator('[data-route="/feed"].is-active')).toHaveCount(1)
+  // W3-C1: the phone drawer's Feed item also carries data-route="/feed";
+  // count only the inline header nav.
+  await expect(page.locator('.app-nav [data-route="/feed"].is-active')).toHaveCount(1)
 
   // Theme toggle: >=44px, visibly bordered, flips html[data-theme].
-  const toggle = page.getByTestId('theme-toggle')
+  // W3-C1: the phone drawer also carries a theme toggle; assert the inline
+  // header one.
+  const toggle = page.locator('.app-header-actions [data-testid="theme-toggle"]')
   await expect(toggle).toBeVisible()
   const tbox = await toggle.boundingBox()
   expect(tbox!.width).toBeGreaterThanOrEqual(44)
