@@ -36,22 +36,6 @@ function makeDb() {
     async getPost(id) {
       return posts.has(id);
     },
-    // W3-D3: full single-post row for GET /api/posts?path=<id> (detail page).
-    async getPostRow(id) {
-      const p = posts.get(id);
-      if (!p) return null;
-      const emojis = Object.fromEntries(REACTION_EMOJIS.map((e) => [e, 0]));
-      for (const [key, emoji] of reactions) {
-        if (key.startsWith(`${id}|`)) emojis[emoji] = (emojis[emoji] ?? 0) + 1;
-      }
-      return {
-        ...p,
-        commentsCount: comments.filter((c) => c.postId === id).length,
-        reactionCount: [...reactions.keys()].filter((k) => k.startsWith(`${id}|`)).length,
-        flagCount: [...flags.keys()].filter((k) => k.startsWith(`${id}|`)).length,
-        emojis,
-      };
-    },
     async listPosts(town) {
       return [...posts.values()]
         .filter((p) => p.town === town)
@@ -297,79 +281,6 @@ describe('CRUD', () => {
         await h.call(makeReq({ method: 'POST', url: '/api/posts/p_x/comments', body: { text: 'hi' } }))
       ).statusCode,
     ).toBe(401);
-  });
-});
-
-// ---------------------------------------------------------------------------
-// W3-D3 single-post route — GET /api/posts?path=<id> (the /p/<id> detail page)
-// ---------------------------------------------------------------------------
-
-describe('single post by id (W3-D3 detail route)', () => {
-  it('GET ?path=<id> returns the contract-shaped post with reaction counts', async () => {
-    const h = harness();
-    seedPost(h, { id: 'p_detail', text: 'storm cell' });
-    await h.call(
-      makeReq({
-        method: 'POST',
-        url: '/api/posts/p_detail/reactions',
-        headers: { 'x-nds-session': session('bob') },
-        body: { emoji: '👍' },
-      }),
-    );
-    const res = await h.call(makeReq({ url: '/api/posts?path=p_detail' }));
-    expect(res.statusCode).toBe(200);
-    expect(res.body.post.id).toBe('p_detail');
-    expect(res.body.post.author).toBe('alice');
-    expect(res.body.post.text).toBe('storm cell');
-    expect(res.body.post.snapshot).toBeNull();
-    expect(res.body.post.reactions['👍']).toBe(1);
-    expect(res.body.post.commentsCount).toBe(0);
-    expect(res.body.post.myReaction).toBeNull();
-  });
-
-  it('GET ?path=<id> with a session echoes myReaction', async () => {
-    const h = harness();
-    seedPost(h, { id: 'p_mine' });
-    await h.call(
-      makeReq({
-        method: 'POST',
-        url: '/api/posts/p_mine/reactions',
-        headers: { 'x-nds-session': session('alice') },
-        body: { emoji: '❤️' },
-      }),
-    );
-    const res = await h.call(
-      makeReq({ url: '/api/posts?path=p_mine', headers: { 'x-nds-session': session('alice') } }),
-    );
-    expect(res.statusCode).toBe(200);
-    expect(res.body.post.myReaction).toBe('❤️');
-  });
-
-  it('unknown id -> 404 (honest deep-link law); flagged-out post reads as gone', async () => {
-    const h = harness();
-    expect((await h.call(makeReq({ url: '/api/posts?path=nope' }))).statusCode).toBe(404);
-    seedPost(h, { id: 'p_flagged' });
-    for (const who of ['aa', 'bb', 'cc']) {
-      await h.call(
-        makeReq({
-          method: 'POST',
-          url: '/api/posts/p_flagged/flag',
-          headers: { 'x-nds-session': session(who) },
-          body: {},
-        }),
-      );
-    }
-    const res = await h.call(makeReq({ url: '/api/posts?path=p_flagged' }));
-    expect(res.statusCode).toBe(404);
-  });
-
-  it('non-GET on the bare-id route stays 404 (no write surface invented)', async () => {
-    const h = harness();
-    seedPost(h, { id: 'p_ro' });
-    const res = await h.call(
-      makeReq({ method: 'POST', url: '/api/posts?path=p_ro', body: { text: 'nope' } }),
-    );
-    expect(res.statusCode).toBe(404);
   });
 });
 

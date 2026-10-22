@@ -3,7 +3,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { MemoryRouter } from 'react-router-dom'
 import FeedPage from './FeedPage'
 import { SESSION_STORAGE_KEY, type FetchLike } from '../lib/feed'
 
@@ -49,11 +48,7 @@ beforeEach(() => localStorage.clear())
 
 describe('FeedPage session gate (S1)', () => {
   it('shows the identity picker first-click when no session exists', () => {
-    render(
-      <MemoryRouter>
-        <FeedPage />
-      </MemoryRouter>,
-    )
+    render(<FeedPage />)
     expect(screen.getByTestId('feed-no-session')).toBeInTheDocument()
     expect(screen.getByTestId('identity-picker')).toBeInTheDocument()
   })
@@ -63,11 +58,7 @@ describe('FeedPage honest states', () => {
   it('empty town renders the honest empty message', async () => {
     setSession()
     const fetchImpl: FetchLike = vi.fn(async () => jsonResponse({ posts: [] }))
-    render(
-      <MemoryRouter>
-        <FeedPage fetchImpl={fetchImpl} />
-      </MemoryRouter>,
-    )
+    render(<FeedPage fetchImpl={fetchImpl} />)
     expect(await screen.findByTestId('feed-empty')).toHaveTextContent('No posts in Springfield yet.')
     expect(screen.queryByTestId('feed-error')).toBeNull()
   })
@@ -75,11 +66,7 @@ describe('FeedPage honest states', () => {
   it('failed fetch renders an honest error with retry, never fake posts', async () => {
     setSession()
     const fetchImpl: FetchLike = vi.fn(async () => jsonResponse({ error: 'db down' }, 500))
-    render(
-      <MemoryRouter>
-        <FeedPage fetchImpl={fetchImpl} />
-      </MemoryRouter>,
-    )
+    render(<FeedPage fetchImpl={fetchImpl} />)
     expect(await screen.findByTestId('feed-error')).toBeInTheDocument()
     expect(screen.getByTestId('feed-retry')).toBeInTheDocument()
     expect(screen.queryByTestId('feed-empty')).toBeNull()
@@ -88,11 +75,7 @@ describe('FeedPage honest states', () => {
   it('renders hot-pinned section then newest list', async () => {
     setSession()
     const fetchImpl: FetchLike = vi.fn(async () => jsonResponse({ posts: SEED_POSTS }))
-    render(
-      <MemoryRouter>
-        <FeedPage fetchImpl={fetchImpl} />
-      </MemoryRouter>,
-    )
+    render(<FeedPage fetchImpl={fetchImpl} />)
     expect(await screen.findByTestId('post-p_hot')).toBeInTheDocument()
     expect(screen.getByTestId('hot-pinned')).toBeInTheDocument()
     expect(screen.getByTestId('newest-list')).toBeInTheDocument()
@@ -117,11 +100,7 @@ describe('FeedPage interactions', () => {
       }
       return jsonResponse({ posts: SEED_POSTS })
     })
-    render(
-      <MemoryRouter>
-        <FeedPage fetchImpl={fetchImpl} />
-      </MemoryRouter>,
-    )
+    render(<FeedPage fetchImpl={fetchImpl} />)
     await screen.findByTestId('post-p_new')
     const button = screen.getByTestId('react-p_new-👍')
     expect(button).toHaveAttribute('aria-pressed', 'false')
@@ -135,11 +114,7 @@ describe('FeedPage interactions', () => {
   it('sort toggle switches hot/new views', async () => {
     setSession()
     const fetchImpl: FetchLike = vi.fn(async () => jsonResponse({ posts: SEED_POSTS }))
-    render(
-      <MemoryRouter>
-        <FeedPage fetchImpl={fetchImpl} />
-      </MemoryRouter>,
-    )
+    render(<FeedPage fetchImpl={fetchImpl} />)
     await screen.findByTestId('post-p_hot')
     await fireEvent.click(screen.getByTestId('sort-new'))
     // new view: no separate pinned section, newest-first ordering

@@ -2,19 +2,26 @@
 // body, with the L6 TownBadges overlay fed by viewport-filtered towns and the
 // Open-Meteo batch refresher (5-min window, last-data-wins).
 //
+// W3-B2 TOWN PANEL (wave-3 session 2, decision 1): clicking a badge opens the
+// in-map slide-over panel. Panel state lives in the URL as `?panel=<slug>`
+// (src/lib/panel.ts documents the scheme): deep links open it, the back
+// button closes it, close/Esc/click-outside replace the param. `/t/<slug>`
+// stays the FULL town page (B1 routing).
+//
 // R17 determinism: town ids are slugify(name) + rounded lat/lon — pure,
 // clock- and RNG-free (the check-determinism scanner flags those literals).
-import { useEffect, useMemo, useRef, useState, type MutableRefObject } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import townsData from '../../data/towns/us-towns.json';
 import MapView from '../components/MapView';
 import { TownBadges, TOWN_BADGE_MIN_ZOOM } from '../components/TownBadges';
-import { MapTint } from '../components/MapTint';
-import { useAlerts, type BannerState } from '../components/AlertBanner';
-import AlertCenter, { PANEL_TITLE } from '../components/AlertCenter';
-import SidePanel, { usePanelState } from '../components/SidePanel';
-import { alertDotForTown } from '../lib/weather/alerts';
+import { TownPanel } from '../components/TownPanel';
+import { AlertBanner, useAlerts } from '../components/AlertBanner';
+import { alertDotForTown, type Alert } from '../lib/weather/alerts';
 import { useMapContext } from '../lib/map/map-context';
 import { townsInBbox, type TownsFile } from '../lib/map/gazetteer';
+import { resolveTown } from '../lib/routing';
+import { panelCloseHref, panelOpenHref, panelSlugFromSearch } from '../lib/panel';
 import {
   createWeatherRefresher,
   type CurrentTemp,
@@ -51,41 +58,41 @@ function boundsOf(map: { getBounds(): { getSouthWest(): { lng: number; lat: numb
  * fetch). When zoom CROSSES the threshold upward, the window is restarted so
  * the first fetch happens immediately — a zoom event is a window boundary,
  * not a pan.
+ *
+ * W3-B2: temps/codes/alerts are lifted to MapPage (props in, callbacks out)
+ * so the town panel reads the SAME last-good data the badges show — one poll
+ * drives every surface (S6 law), no second fetch per panel open.
  */
 function MapBadges({
-  boundsRef,
-  alertState,
+  temps,
+  panelHrefFor,
+  onPanelOpen,
+  onTemps,
+  onCodes,
+  onAlerts,
 }: {
-  boundsRef: MutableRefObject<GeoBounds>;
-  alertState: BannerState;
+  temps: Readonly<Record<string, number>>;
+  panelHrefFor?: (townId: string) => string;
+  onPanelOpen?: (townId: string) => void;
+  onTemps: (townId: string, tempC: number) => void;
+  onCodes: (townId: string, code: number) => void;
+  onAlerts: (alerts: readonly Alert[]) => void;
 }) {
   const { map, ready } = useMapContext();
-  const [temps, setTemps] = useState<Readonly<Record<string, number>>>({});
-  // W3-A2: last-data-wins WMO weathercodes per town (towns without real
-  // condition data are ABSENT — their badges render no icon, R19 honest).
-  const [codes, setCodes] = useState<Readonly<Record<string, number>>>({});
   const [tick, setTick] = useState(0);
   const refresherRef = useRef<ReturnType<typeof createWeatherRefresher> | null>(null);
   const visibleRef = useRef<TownCoord[]>([]);
   const belowRef = useRef(true);
 
-  // W3-C2: the viewport used by the ONE shared alerts refresher (owned by
-  // MapPage) tracks the map here — fetch-per-window law means the refresher
-  // reads it at window boundaries, never per pan. Badge dots read the SAME
-  // last-good payload (contract consumer seam alertDotForTown).
+  // S6 ALERTS: one viewport-bounded refresher per 5-min window (fetch-per-
+  // window law, same cadence as weather). The banner and the badge alert-dots
+  // read the SAME last-good payload — one poll drives both surfaces.
+  const alertState = useAlerts(
+    () => (map ? boundsOf(map) : { west: 0, south: 0, east: 0, north: 0 }),
+  );
   useEffect(() => {
-    if (!map) return;
-    const sync = () => {
-      boundsRef.current = boundsOf(map);
-    };
-    sync();
-    map.on('moveend', sync);
-    map.on('zoomend', sync);
-    return () => {
-      map.off('moveend', sync);
-      map.off('zoomend', sync);
-    };
-  }, [map, boundsRef]);
+    onAlerts(alertState.alerts);
+  }, [alertState.alerts, onAlerts]);
 
   // Re-render on map motion so visible-town selection tracks the viewport.
   useEffect(() => {
@@ -124,18 +131,10 @@ function MapBadges({
       getZoom: () => map.getZoom(),
       fetchImpl: (input, init) => fetch(input, init),
       onTemps: (batch: CurrentTemp[]) => {
-        setTemps((prev) => {
-          const next = { ...prev };
-          for (const t of batch) next[t.townId] = t.temperatureC;
-          return next;
-        });
-        setCodes((prev) => {
-          const next = { ...prev };
-          for (const t of batch) {
-            if (typeof t.weathercode === 'number') next[t.townId] = t.weathercode;
-          }
-          return next;
-        });
+        for (const t of batch) {
+          onTemps(t.townId, t.temperatureC);
+          if (typeof t.weathercode === 'number') onCodes(t.townId, t.weathercode);
+        }
       },
     });
     refresherRef.current = refresher;
@@ -144,7 +143,7 @@ function MapBadges({
       refresher.stop();
       refresherRef.current = null;
     };
-  }, [map, ready]);
+  }, [map, ready, onTemps, onCodes]);
 
   // Crossing minZoom upward restarts the window (immediate first fetch).
   useEffect(() => {
@@ -172,13 +171,14 @@ function MapBadges({
   for (const t of visible) alertsByTown[t.id] = alertDotForTown(alertState.alerts, t.id);
   return (
     <>
-      {/* W3-A3 MAP TINT: sky-tone wash by dominant condition over the MAP
-          (below zoom 9 nothing renders — same gate as the badges). */}
-      <MapTint towns={visible} temps={temps} />
-      <TownBadges towns={visible} temps={temps} codes={codes} alerts={alertsByTown} />
-      {/* W3-C1/C2: the alert banner overlay stays UNMOUNTED; the alert center
-          renders in the side panel (fed by the SAME payload MapPage owns).
-          One poll per window drives badge dots AND the alert center. */}
+      <TownBadges
+        towns={visible}
+        temps={temps}
+        alerts={alertsByTown}
+        panelHrefFor={panelHrefFor}
+        onPanelOpen={onPanelOpen}
+      />
+      <AlertBanner state={alertState} />
     </>
   );
 }
@@ -199,48 +199,62 @@ function centerFromLocation(): [number, number] {
   }
 }
 
-/**
- * Initial viewport for the shared alerts refresher before the map reports
- * its bounds (continental US, same fixed bbox law as the /alerts page — the
- * server caps requests at 50 towns by population). Once MapBadges mounts,
- * window polls track the live viewport.
- */
-export const ALERTS_INITIAL_BOUNDS: GeoBounds = { west: -125, south: 24, east: -66, north: 50 }
-
 export default function MapPage() {
-  // W3-C1 LAYOUT-SHELL: map docked beside the right side panel (open by
-  // default on desktop, collapsed bottom sheet on mobile; `P` toggles).
-  const panel = usePanelState();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  // W3-C2: ONE viewport-bounded alerts refresher per 5-min window lives HERE
-  // (fetch-per-window law, same cadence as weather). It feeds the badge
-  // alert-dots (MapBadges) AND the side-panel alert center — one poll drives
-  // both surfaces, never a second poller. Last-data-wins: a failed window
-  // keeps prior data; stale:true shows the honest 'last known' indicator.
-  const boundsRef = useRef<GeoBounds>(ALERTS_INITIAL_BOUNDS);
-  const alertState = useAlerts(() => boundsRef.current);
+  // W3-B2: panel state = the URL (src/lib/panel.ts scheme: ?panel=<slug>).
+  const panelSlug = panelSlugFromSearch(location.search);
+  const panelTown = panelSlug ? resolveTown(panelSlug) : null;
+
+  // Shared last-good data (one poll drives badges + banner + panel).
+  const [temps, setTemps] = useState<Readonly<Record<string, number>>>({});
+  const [codes, setCodes] = useState<Readonly<Record<string, number>>>({});
+  const [alerts, setAlerts] = useState<readonly Alert[]>([]);
+
+  const handleTemps = useCallback((id: string, c: number) => {
+    setTemps((prev) => (prev[id] === c ? prev : { ...prev, [id]: c }));
+  }, []);
+  const handleCodes = useCallback((id: string, code: number) => {
+    setCodes((prev) => (prev[id] === code ? prev : { ...prev, [id]: code }));
+  }, []);
+  const handleAlerts = useCallback((list: readonly Alert[]) => {
+    setAlerts(list);
+  }, []);
+
+  // Badge click: in-app navigation (push — back button closes the panel).
+  // A raw <a> reload would reset zoom/pan (animation law) and drop the
+  // panel's temps below the zoom-9 refresher gate.
+  const openPanel = (slug: string) => navigate(panelOpenHref(location.search, slug));
+  const closePanel = () => navigate(panelCloseHref(location.search), { replace: true });
+
+  // Badge ids ARE canonical gazetteer slugs (townId === session.townSlug —
+  // same slugify + 2dp rule), so one key feeds routing, feed, and alerts.
+  const panelAlerts = panelSlug ? alerts.filter((a) => a.town === panelSlug) : [];
 
   return (
-    <div className="map-layout">
-      <section aria-labelledby="map-heading" className="map-page">
-        <h1 id="map-heading">Map</h1>
-        <MapView center={centerFromLocation()} zoom={3}>
-          <MapBadges boundsRef={boundsRef} alertState={alertState} />
-        </MapView>
-        <button
-          type="button"
-          className="panel-toggle map-panel-toggle"
-          data-testid="panel-toggle"
-          aria-label={panel.open ? 'Close side panel' : 'Open side panel'}
-          aria-expanded={panel.open}
-          onClick={panel.toggle}
-        >
-          {panel.open ? '»' : '«'}
-        </button>
-      </section>
-      <SidePanel open={panel.open} onToggle={panel.toggle} title={PANEL_TITLE}>
-        <AlertCenter state={alertState} mode="panel" />
-      </SidePanel>
-    </div>
+    <section aria-labelledby="map-heading" className="map-page">
+      <h1 id="map-heading">Map</h1>
+      <MapView center={centerFromLocation()} zoom={3}>
+        <MapBadges
+          temps={temps}
+          panelHrefFor={(id) => panelOpenHref(location.search, id)}
+          onPanelOpen={openPanel}
+          onTemps={handleTemps}
+          onCodes={handleCodes}
+          onAlerts={handleAlerts}
+        />
+      </MapView>
+      {panelTown ? (
+        <TownPanel
+          slug={panelSlug as string}
+          name={panelTown.name}
+          onClose={closePanel}
+          tempC={temps[panelSlug as string]}
+          weathercode={codes[panelSlug as string]}
+          alerts={panelAlerts}
+        />
+      ) : null}
+    </section>
   );
 }
