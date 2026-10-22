@@ -8,9 +8,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import townsData from '../../data/towns/us-towns.json';
 import MapView from '../components/MapView';
 import { TownBadges, TOWN_BADGE_MIN_ZOOM } from '../components/TownBadges';
-import { MapTint } from '../components/MapTint';
-import { useAlerts } from '../components/AlertBanner';
-import SidePanel, { usePanelState } from '../components/SidePanel';
+import { AlertBanner, useAlerts } from '../components/AlertBanner';
 import { alertDotForTown } from '../lib/weather/alerts';
 import { useMapContext } from '../lib/map/map-context';
 import { townsInBbox, type TownsFile } from '../lib/map/gazetteer';
@@ -60,8 +58,8 @@ function MapBadges() {
   const belowRef = useRef(true);
 
   // S6 ALERTS: one viewport-bounded refresher per 5-min window (fetch-per-
-  // window law, same cadence as weather). The badge alert-dots read the SAME
-  // last-good payload — one poll drives both surfaces.
+  // window law, same cadence as weather). The banner and the badge alert-dots
+  // read the SAME last-good payload — one poll drives both surfaces.
   const alertState = useAlerts(
     () => (map ? boundsOf(map) : { west: 0, south: 0, east: 0, north: 0 }),
   );
@@ -143,13 +141,8 @@ function MapBadges() {
   for (const t of visible) alertsByTown[t.id] = alertDotForTown(alertState.alerts, t.id);
   return (
     <>
-      {/* W3-A3 MAP TINT: sky-tone wash by dominant condition over the MAP
-          (below zoom 9 nothing renders — same gate as the badges). */}
-      <MapTint towns={visible} temps={temps} />
       <TownBadges towns={visible} temps={temps} alerts={alertsByTown} />
-      {/* W3-C1: the alert banner overlay is UNMOUNTED (alert center lands in
-          C2); the refresher + state stay alive here because the badge dots
-          read the SAME last-good payload — one poll per window drives both. */}
+      <AlertBanner state={alertState} />
     </>
   );
 }
@@ -171,28 +164,12 @@ function centerFromLocation(): [number, number] {
 }
 
 export default function MapPage() {
-  // W3-C1 LAYOUT-SHELL: map docked beside the right side panel (open by
-  // default on desktop, collapsed bottom sheet on mobile; `P` toggles).
-  const panel = usePanelState();
   return (
-    <div className="map-layout">
-      <section aria-labelledby="map-heading" className="map-page">
-        <h1 id="map-heading">Map</h1>
-        <MapView center={centerFromLocation()} zoom={3}>
-          <MapBadges />
-        </MapView>
-        <button
-          type="button"
-          className="panel-toggle map-panel-toggle"
-          data-testid="panel-toggle"
-          aria-label={panel.open ? 'Close side panel' : 'Open side panel'}
-          aria-expanded={panel.open}
-          onClick={panel.toggle}
-        >
-          {panel.open ? '»' : '«'}
-        </button>
-      </section>
-      <SidePanel open={panel.open} onToggle={panel.toggle} />
-    </div>
+    <section aria-labelledby="map-heading" className="map-page">
+      <h1 id="map-heading">Map</h1>
+      <MapView center={centerFromLocation()} zoom={3}>
+        <MapBadges />
+      </MapView>
+    </section>
   );
 }

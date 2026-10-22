@@ -23,8 +23,7 @@ import {
 
 export interface FeedPostCardProps {
   post: Post
-  /** Session identity for mutations; null (town-feed deep link, no session) = read-only. */
-  session: Session | null
+  session: Session
   fetchImpl?: FetchLike
 }
 
@@ -78,7 +77,7 @@ export function FeedPostCard({ post, session, fetchImpl }: FeedPostCardProps) {
     const text = replyText.trim()
     if (!text) return
     const tempId = `local-${(localIdRef.current += 1)}`
-    const optimistic: Comment = { id: tempId, author: session?.nickname ?? 'you', text, createdAt: '' }
+    const optimistic: Comment = { id: tempId, author: session.nickname, text, createdAt: '' }
     setComments((c) => [...c, optimistic])
     setReplyText('')
     setReplyError('')

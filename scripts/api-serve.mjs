@@ -57,6 +57,10 @@ function makeDb() {
     async getPost(id) {
       return posts.has(id);
     },
+    async updateSnapshot(id, snapshot) {
+      const p = posts.get(id);
+      if (p) p.snapshot = snapshot;
+    },
     async listPosts(town) {
       return [...posts.values()]
         .filter((p) => p.town === town)

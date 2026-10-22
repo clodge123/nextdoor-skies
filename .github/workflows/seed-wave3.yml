@@ -1,0 +1,52 @@
+name: seed-wave3
+
+# W3-D2 RE-SEED — C7 capture fix, one-shot (owner-approved, runs AFTER the
+# wave-end deploy ships api/posts.js with the admin PATCH route).
+#
+# What it does: recaptures one paint-verified snapshot per metro town with
+# the fixed seeder capture (style load + tiles-loaded + idle + two rAF paint
+# frames + variance gate) and PATCHes every existing snapshot post in place
+# (PATCH /api/posts?path=<id>, x-nds-admin). Posts are KEPT (owner decision);
+# only their black canvases are replaced.
+#
+# Rate limit: 30 patches/hour/IP -> 147 snapshot posts / 20 towns = one town
+# per runner; 20 parallel runners each patch <=8 posts, far under budget.
+# The admin secret lives in repo secret NDS_ADMIN_SECRET (set it before
+# dispatch; the route honest-503s when unset server-side).
+#
+# Idempotent: re-dispatching recaptures + re-patches the same posts (the
+# freshness gate makes every run produce a non-black image).
+
+on:
+  workflow_dispatch:
+    inputs:
+      shard_size:
+        description: 'towns per runner (rate limit is 30 patches/hour/IP)'
+        default: '1'
+
+permissions:
+  contents: read
+
+jobs:
+  reseed:
+    name: reseed town ${{ matrix.shard }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+
+      - name: Install harness deps (isolated .e2e, provides @playwright/test + chromium)
+        run: node scripts/e2e-setup.mjs --with-deps
+
+      - name: Reseed shard ${{ matrix.shard }} (recapture + PATCH in place)
+        env:
+          SEED_BASE_URL: https://nextdoor-skies-run2.vercel.app
+          NDS_ADMIN_SECRET: ${{ secrets.NDS_ADMIN_SECRET }}
+        run: node scripts/seed-wave2.mjs --reseed --shard ${{ matrix.shard }} --count 1
