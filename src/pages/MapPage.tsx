@@ -15,6 +15,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import townsData from '../../data/towns/us-towns.json';
 import MapView from '../components/MapView';
 import { TownBadges, TOWN_BADGE_MIN_ZOOM } from '../components/TownBadges';
+import { TownLabelTargets, type TownTargetCoord } from '../components/TownLabelTargets';
 import { MapTint } from '../components/MapTint';
 import { TownPanel } from '../components/TownPanel';
 import { useAlerts, type BannerState } from '../components/AlertBanner';
@@ -73,6 +74,7 @@ function MapBadges({
   alertState,
   panelHrefFor,
   onPanelOpen,
+  onAlertOpen,
   onTemps,
   onCodes,
 }: {
@@ -82,6 +84,8 @@ function MapBadges({
   alertState: BannerState;
   panelHrefFor?: (townId: string) => string;
   onPanelOpen?: (townId: string) => void;
+  /** W3-B3: badge alert-dot click -> /alerts (deepest intent). */
+  onAlertOpen?: (townId: string) => void;
   onTemps: (townId: string, tempC: number) => void;
   onCodes: (townId: string, code: number) => void;
 }) {
@@ -198,12 +202,32 @@ function MapBadges({
         alerts={alertsByTown}
         panelHrefFor={panelHrefFor}
         onPanelOpen={onPanelOpen}
+        onAlertOpen={onAlertOpen}
       />
       {/* W3-C1/C2: the alert banner overlay stays UNMOUNTED; the alert center
           renders in the side panel (fed by the SAME payload MapPage owns).
           One poll per window drives badge dots AND the alert center. */}
     </>
   );
+}
+
+/**
+ * W3-B3 CLICK-TO-DETAIL: label/dot targets below the badge zoom grade.
+ * Gated on the map being READY (same law as MapBadges) — MapView's children
+ * render before the style loads, and useMap() needs the live instance.
+ */
+function MapTargets({
+  towns,
+  panelHrefFor,
+  onPanelOpen,
+}: {
+  towns: readonly TownTargetCoord[]
+  panelHrefFor?: (townId: string) => string
+  onPanelOpen?: (townId: string) => void
+}) {
+  const { ready } = useMapContext()
+  if (!ready) return null
+  return <TownLabelTargets towns={towns} panelHrefFor={panelHrefFor} onPanelOpen={onPanelOpen} />
 }
 
 /**
@@ -264,6 +288,9 @@ export default function MapPage() {
   // panel's temps below the zoom-9 refresher gate.
   const openPanel = (slug: string) => navigate(panelOpenHref(location.search, slug));
   const closePanel = () => navigate(panelCloseHref(location.search), { replace: true });
+  // W3-B3 CLICK-TO-DETAIL (session 2 decision 4): clicking a badge's alert
+  // DOT goes straight to /alerts — deepest intent, no intermediate panel.
+  const openAlerts = () => navigate('/alerts');
 
   // Badge ids ARE canonical gazetteer slugs (townId === session.townSlug —
   // same slugify + 2dp rule), so one key feeds routing, feed, and alerts.
@@ -281,8 +308,24 @@ export default function MapPage() {
             alertState={alertState}
             panelHrefFor={(id) => panelOpenHref(location.search, id)}
             onPanelOpen={openPanel}
+            onAlertOpen={openAlerts}
             onTemps={handleTemps}
             onCodes={handleCodes}
+          />
+          {/* W3-B3 CLICK-TO-DETAIL: below the badge zoom grade, town/city/
+              state LABELS and low-zoom dots get real clickable/focusable
+              targets opening the SAME town panel (session 2 decision 4 —
+              "no dead zones at any zoom level"). */}
+          <MapTargets
+            towns={TOWNS.towns.map((t) => ({
+              id: townId(t.name, t.lat, t.lon),
+              name: t.name,
+              lat: t.lat,
+              lon: t.lon,
+              pop: t.pop,
+            }))}
+            panelHrefFor={(id) => panelOpenHref(location.search, id)}
+            onPanelOpen={openPanel}
           />
         </MapView>
         <button

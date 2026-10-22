@@ -275,3 +275,97 @@ test('mobile drag-to-dismiss closes the bottom sheet', async ({ page }) => {
   await expect(page.getByTestId('town-panel')).toHaveCount(0)
   expect(errors).toEqual([])
 })
+
+// ---------------------------------------------------------------------------
+// W3-B3 CLICK-TO-DETAIL (session 2 decision 4): every target clickable at
+// every zoom. Town LABELS/dots below zoom 9 open the SAME panel via the
+// accessible target overlay (src/components/TownLabelTargets.tsx); a badge's
+// alert DOT goes straight to /alerts (deepest intent); Tab reaches badges at
+// zoom >= 9 and Enter opens; Esc closes.
+// ---------------------------------------------------------------------------
+
+const WICHITA_SLUG = 'wichita-37.69--97.34'
+const WICHITA_CENTER = '-97.3375,37.6922'
+
+test('label click below zoom 9 opens the town panel (no dead zones)', async ({ page }, testInfo) => {
+  test.setTimeout(120_000)
+  const errors = await setup(page)
+  // Land on Wichita, zoom once (3 -> 6): STATE band, Wichita gets a real
+  // clickable/focusable target over its canvas label. No badge exists here.
+  await page.goto(`/?ndsCenter=${WICHITA_CENTER}`, { waitUntil: 'domcontentloaded' })
+  await expect(page.getByTestId('map-view').locator('canvas')).toBeVisible({ timeout: 30_000 })
+  await page.waitForFunction(
+    () => (window as { ndsMap?: { isStyleLoaded?: () => boolean } }).ndsMap?.isStyleLoaded?.() === true,
+    null,
+    { timeout: 45_000 },
+  )
+  await tapOrClick(page, page.getByRole('button', { name: 'zoom in' }))
+
+  const target = page.getByTestId(`town-target-${WICHITA_SLUG}`)
+  await expect(target).toBeVisible({ timeout: 10_000 })
+  await expect(target).toHaveAttribute('data-panel', '1')
+  await expect(target).toHaveAttribute('aria-label', 'Open Wichita town panel')
+  // R13: honest hit area (>=44px square).
+  const box = await target.boundingBox()
+  expect(box).not.toBeNull()
+  expect(box!.width).toBeGreaterThanOrEqual(44)
+  expect(box!.height).toBeGreaterThanOrEqual(44)
+
+  await tapOrClick(page, target)
+  await expect(page.getByTestId('town-panel')).toBeVisible({ timeout: 10_000 })
+  await expect(page).toHaveURL(new RegExp(`[?&]panel=${WICHITA_SLUG.replace(/[.-]/g, '\\$&')}`))
+  await expect(page.getByRole('heading', { name: 'Wichita' })).toBeVisible()
+  await page.screenshot({ path: path.join(SHOT_DIR, `label-click-${testInfo.project.name}.png`) })
+
+  // Dismiss via Esc (existing law) — panel param cleaned from the URL.
+  await page.keyboard.press('Escape')
+  await expect(page.getByTestId('town-panel')).toHaveCount(0)
+  await expect(page).not.toHaveURL(/panel=/)
+  expect(errors).toEqual([])
+})
+
+test('badge alert-dot click goes straight to /alerts (deepest intent)', async ({ page }, testInfo) => {
+  test.setTimeout(120_000)
+  const errors = await setup(page)
+  await gotoSalinaZoomed(page)
+  const dot = page.getByTestId(`alert-dot-${SALINA_SLUG}`)
+  await expect(dot).toBeVisible({ timeout: 10_000 })
+  await expect(dot).toHaveAttribute('href', '/alerts')
+  // R13: the dot's hit area (visual 12px + ::before) measures >=44px.
+  const box = await dot.boundingBox()
+  expect(box).not.toBeNull()
+  expect(box!.width * box!.height).toBeGreaterThanOrEqual(12 * 12)
+
+  await tapOrClick(page, dot)
+  await page.screenshot({ path: path.join(SHOT_DIR, `dot-to-alerts-${testInfo.project.name}.png`) })
+  await expect(page).toHaveURL(/\/alerts$/)
+  await expect(page.getByTestId('alerts-page')).toBeVisible({ timeout: 10_000 })
+  expect(errors).toEqual([])
+})
+
+test('keyboard: Tab reaches badges at zoom >= 9, Enter opens, Esc closes', async ({ page }) => {
+  test.setTimeout(150_000)
+  const errors = await setup(page)
+  await gotoSalinaZoomed(page)
+
+  // Tab until a badge link (data-panel) takes focus. Badges are real
+  // anchors now (the overlay dropped its aria-hidden lie), so keyboard
+  // users reach them; cap the loop so a regression fails fast.
+  let focusedBadge = false
+  for (let i = 0; i < 40 && !focusedBadge; i++) {
+    await page.keyboard.press('Tab')
+    focusedBadge = await page.evaluate(() => {
+      const el = document.activeElement as Element | null
+      return el?.getAttribute('data-panel') === '1'
+    })
+  }
+  expect(focusedBadge, 'Tab reached a town badge link').toBe(true)
+
+  await page.keyboard.press('Enter')
+  await expect(page.getByTestId('town-panel')).toBeVisible({ timeout: 10_000 })
+  await expect(page).toHaveURL(new RegExp(`[?&]panel=${SALINA_SLUG.replace(/[.-]/g, '\\$&')}`))
+
+  await page.keyboard.press('Escape')
+  await expect(page.getByTestId('town-panel')).toHaveCount(0)
+  expect(errors).toEqual([])
+})
