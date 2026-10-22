@@ -59,6 +59,39 @@ describe('TownBadges', () => {
     expect(badge.getAttribute('style')).toContain('top: 397.817px')
   })
 
+  // W3-B2 TOWN PANEL: badges afford clicking — with panelHrefFor they are
+  // links carrying the ?panel=<slug> URL (lib/panel.ts scheme); without it
+  // they stay inert divs (pre-panel behavior, e2e specs unaffected).
+  describe('W3-B2 panel affordance', () => {
+    it('badges are links to the panel URL when panelHrefFor is set', () => {
+      render(
+        <MapContext.Provider value={stubMap(10)}>
+          <TownBadges
+            towns={towns}
+            temps={{ springfield: 10 }}
+            panelHrefFor={(id) => `/?panel=${id}`}
+          />
+        </MapContext.Provider>,
+      )
+      const badge = screen.getByTestId('town-badge-springfield')
+      expect(badge.tagName).toBe('A')
+      expect(badge).toHaveAttribute('href', '/?panel=springfield')
+      expect(badge).toHaveAttribute('data-panel', '1')
+      expect(badge.className).toContain('town-badge-clickable')
+    })
+
+    it('badges stay inert divs with no panelHrefFor', () => {
+      render(
+        <MapContext.Provider value={stubMap(10)}>
+          <TownBadges towns={towns} temps={{ springfield: 10 }} />
+        </MapContext.Provider>,
+      )
+      const badge = screen.getByTestId('town-badge-springfield')
+      expect(badge.tagName).toBe('DIV')
+      expect(badge).not.toHaveAttribute('href')
+    })
+  })
+
   it('renders alert dots for towns with active alerts (S6 seam)', () => {
     render(
       <MapContext.Provider value={stubMap(10)}>

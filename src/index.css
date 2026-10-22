@@ -871,3 +871,220 @@ body {
    max-width: 720px;
    margin: 0 auto;
  }
+ /* ==========================================================================
+    W3-B2 TOWN PANEL — in-map slide-over (wave-3 session 2, decision 1).
+    Desktop: right-docked ~360px panel, slides in ~200ms (animation law).
+    Phone (<=480px): bottom sheet with drag-to-dismiss handle.
+    Square geometry (R20): border-radius ONLY var(--radius); theme vars (L4).
+    ========================================================================== */
+ 
+ /* Click-outside dismiss layer: covers the map, sits below the panel. */
+ .town-panel-scrim {
+   position: fixed;
+   inset: 0;
+   z-index: 14;
+   background: rgba(0, 0, 0, 0.25);
+ }
+ 
+ .town-panel {
+   position: fixed;
+   top: var(--header-h);
+   right: 0;
+   z-index: 15;
+   width: min(360px, 100vw);
+   height: calc(100vh - var(--header-h));
+   overflow-y: auto;
+   display: flex;
+   flex-direction: column;
+   gap: 12px;
+   padding: 16px;
+   background: var(--surface);
+   color: var(--text);
+   border-left: 2px solid var(--current-accent);
+   border-radius: var(--radius);
+   transform: translateX(100%);
+   transition: transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 200ms ease;
+   opacity: 0;
+ }
+ 
+ .town-panel.is-open {
+   transform: translateX(0);
+   opacity: 1;
+ }
+ 
+ .town-panel-handle {
+   display: none;
+ }
+ 
+ .town-panel-head {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+ .town-panel-head h2 {
+   margin: 0;
+   font: 700 20px/1.2 system-ui, sans-serif;
+   color: var(--text);
+ .town-panel-close {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   padding: 8px;
+   background: var(--surface);
+   color: var(--text);
+   border: 2px solid var(--border);
+   border-radius: var(--radius);
+   cursor: pointer;
+ .town-panel-close:hover {
+   border-color: var(--current-accent);
+ }
+ 
+ .town-panel-weather {
+   gap: 10px;
+ .town-panel-temp {
+   font: 700 34px/1 ui-monospace, monospace;
+   color: var(--text);
+ .town-panel-icon {
+   display: inline-flex;
+   color: var(--text); /* theme-neutral glyph (currentColor, session 1 law) */
+ }
+ 
+ .town-panel-condition {
+   font-size: 0.9rem;
+   opacity: 0.85;
+ }
+ 
+ .town-panel-alerts {
+   display: inline-flex;
+   align-items: center;
+   gap: 6px;
+   min-height: 44px;
+   padding: 8px 10px;
+   background: var(--bg);
+   text-decoration: none;
+   font-size: 0.9rem;
+ .town-panel-alerts[data-alert-count]:not([data-alert-count='0']) {
+   border-color: var(--warn);
+ }
+ 
+ .town-panel-alerts:hover {
+   border-color: var(--current-accent);
+ }
+ 
+ .town-panel-feed {
+   flex-direction: column;
+   gap: 6px;
+ .town-panel-posts {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+   flex-direction: column;
+ .town-panel-posts a {
+   display: block;
+   padding: 8px 10px;
+   color: var(--text);
+   background: var(--bg);
+   text-decoration: none;
+ .town-panel-posts a:hover {
+   border-color: var(--current-accent);
+ }
+ 
+ .town-panel-post-meta {
+   display: block;
+   font: 500 11px/1.4 ui-monospace, monospace;
+   opacity: 0.7;
+ }
+ 
+ .town-panel-posts p {
+   margin: 4px 0 0;
+   font-size: 0.9rem;
+   line-height: 1.35;
+ }
+ 
+ .town-panel-see-all {
+   display: inline-flex;
+   align-items: center;
+   gap: 4px;
+   padding: 6px 0;
+   text-decoration: none;
+   font-size: 0.9rem;
+ }
+ 
+ .town-panel-open {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   gap: 6px;
+   min-height: 44px;
+   padding: 10px 12px;
+   margin-top: auto;
+   color: var(--bg);
+   background: var(--current-accent);
+   border: 2px solid var(--current-accent);
+   border-radius: var(--radius);
+   text-decoration: none;
+   font-weight: 700;
+ }
+ 
+ /* Phone: bottom sheet (session 2: "Mobile: bottom sheet, drag-to-dismiss"). */
+ @media (max-width: 480px) {
+   .town-panel {
+     top: auto;
+     bottom: 0;
+     left: 0;
+     right: 0;
+     width: 100vw;
+     height: auto;
+     max-height: 70vh;
+     border-left: 0;
+     border-top: 2px solid var(--current-accent);
+     transform: translateY(100%);
+   }
+ 
+   .town-panel.is-open {
+     transform: translateY(0);
+   }
+ 
+   .town-panel-handle {
+     display: block;
+     width: 44px;
+     height: 6px;
+     margin: 0 auto 4px;
+     background: var(--border);
+     border-radius: var(--radius);
+     touch-action: none;
+     cursor: grab;
+   }
+ }
+ 
+ /* W3-B2 badge affordance (first-glance discoverability law): badges are
+    clickable — pointer cursor + hover lift. Alert pulse: badges whose town
+    has an active alert dot pulse gently so "new alerts" is visible at a
+    glance. Pure CSS (R17: zero JS timers). */
+ .town-badge-clickable {
+   cursor: pointer;
+ .town-badge-clickable:hover {
+   transform: translate(-50%, -100%) scale(1.08);
+   border-color: var(--current-accent);
+ }
+ 
+ .town-badge-alert-dot {
+   animation: nds-alert-pulse 1.6s ease-in-out infinite;
+ }
+ 
+ @keyframes nds-alert-pulse {
+   0%,
+   100% {
+     box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.55);
+   }
+   50% {
+     box-shadow: 0 0 0 6px rgba(249, 115, 22, 0);
+   }
+ }
+ 
+ @media (prefers-reduced-motion: reduce) {
+   .town-panel {
+     transition: none;
+   }
+   .town-badge-alert-dot {
+     animation: none;
+   }
