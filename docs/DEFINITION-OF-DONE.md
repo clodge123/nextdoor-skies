@@ -37,9 +37,16 @@ a tsc pass, a build pass, or a curl 200 is necessary but NEVER sufficient.
       (square geometry, tokens, honest states, 2-second first-glance test)
 
 ### Gate 3 — Deploy gate (per wave, the only deploy cadence)
+**Deploy law (owner, 2026-10-21):** ALL testing happens LOCALLY — vitest,
+tsc, build, Playwright gates run against the local server exactly as they
+will behave deployed. A deploy is NEVER a testing step. No per-change
+deploys, no per-fix deploys, no preview deploys to "see if it works".
+One deploy per wave, as the LAST gate, solely to prove the deployed app
+behaves identically to local at the real URL. Free-plan deploy quota is
+finite; dozens of deploys burns the room.
 - [ ] Deploy pipeline preflight passes: commit author valid, function count
       ≤12, env-var audit clean, migrations applied to production DB
-- [ ] Wave deploys to production (wave-scoped, NOT per-merge)
+- [ ] Wave deploys to production (wave-scoped, NOT per-merge, NOT per-fix)
 - [ ] Production smoke in real browser (Playwright against live URL):
       pages 200 + renders + console clean + screenshots 3 viewports
 - [ ] HANDS-ON browser session (OpenClaw browser tool): a human-style pass —
