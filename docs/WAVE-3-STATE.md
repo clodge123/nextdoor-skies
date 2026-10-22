@@ -99,3 +99,23 @@ palette = Ctrl/Cmd+K with discoverable chip (owner first-try law).
   TownSearch, TownPanel, TownLabelTargets, AlertCenter, weathercode, map-tint
   CSS, QA=1 gate mode, polish roster all intact). Final wave gate (full
   Playwright suite, host quiet) next → wave-end deploy.
+
+## Heartbeat checks (cont.)
+- 15:20 CDT — FINAL WAVE GATE round 1: full suite 191 passed / 7 failed /
+  6 skipped. All 7 triaged as spec-only (zero product code): golden-path
+  targeted the L2 fixtures stand-in port+1 which REAL_API mode never serves
+  -> repointed to real-app surfaces (`26033a7`); qa keyboard tab budget was
+  flat 25 vs /alerts' 37 main focusables -> budget scales with census
+  (`26033a7`).
+- 15:55 CDT — round 2: 191 passed / 1 failed (shell.spec map-settle expired
+  inside the 30s default test timeout under load; harness budget fix
+  `9db7435`... (commit hash: see git log) -> set 90s.
+- 16:25 CDT — FINAL WAVE GATE CLEAN: **192 passed / 0 failed / 6 skipped**
+  (viewport skips by design), 25.8m, REAL_API=1 gated. Wave-3 gates DONE.
+  Deploy + seed-wave3.yml await owner credentials (see blockers).
+
+## Wave-3 blockers (owner-side, end of wave)
+1. Deploy: `npx vercel whoami` -> invalid-token-value. No working Vercel
+   credential on this host. Needs owner token/login for the single deploy.
+2. seed-wave3.yml: needs repo secret `NDS_ADMIN_SECRET` set (gh token here
+   returns 404 on secrets endpoints -> cannot verify) + deploy landed first.
