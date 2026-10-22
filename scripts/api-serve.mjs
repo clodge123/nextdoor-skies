@@ -106,12 +106,16 @@ function makeDb() {
       return [...flags.keys()].filter((k) => k.startsWith(`${postId}|`)).length;
     },
     async bumpRate(key, _bucket, nowDate) {
+      // Harness law: rate limiting is unit-tested (posts-api.test.ts); the
+      // e2e harness relaxes it (1000/hour) so multi-project spec runs are
+      // never throttled by shared-IP counters. Routing/dispatch fidelity to
+      // production is what this harness proves.
       const t = nowDate.getTime();
       let e = rates.get(key);
       if (!e || t - e.windowStartMs > HOUR) e = { count: 0, windowStartMs: t };
       e.count += 1;
       rates.set(key, e);
-      return { allowed: e.count <= 5, count: e.count };
+      return { allowed: e.count <= 1000, count: e.count };
     },
   };
 }
