@@ -1,30 +1,43 @@
-// W1 WEATHER-PROXY (wave-2 contract S5) — GET /api/weather?bbox=lng1,lat1,lng2,lat2&zoom=n
+// W3-A1 WEATHER-CACHE (wave-3 session-1 law) — GET /api/weather?bbox=lng1,lat1,lng2,lat2&zoom=n
 // -> { temps: { <townSlug>: tempF }, stale: boolean }
 //
-// Why this exists: the client used to POST https://api.open-meteo.com/v1/batch,
-// an endpoint that does NOT exist (HTTP 404) — every badge sat on
-// "awaiting feed" forever. Per docs/WAVE-2-CONTRACTS.md §S5 the browser now
-// asks this proxy; the proxy fans out per-town
-// GET https://api.open-meteo.com/v1/forecast?...&current=temperature_2m&units=imperial
-// calls (the endpoint proven alive by the live-egress assertion).
+// Wave-3 upgrade (docs/WAVE-3-BRAINSTORM.md session 1, decision 1):
+//   "60-minute town cache, server-side, stale-while-revalidate. Cache warms
+//    by gathering everything in view; users scrolling pull from the cache,
+//    the next ring prefetches quietly. No visible 'awaiting feed' for seen
+//    towns."
+//
+// Concretely this file now provides:
+//   1. 60-minute in-memory town cache (slug-keyed).
+//   2. Stale-while-revalidate (SWR): a cache hit ALWAYS serves the last-known
+//      temp instantly (fresh OR stale); when the entry is past its 60-min
+//      expiry the server kicks off a quiet background refresh that updates
+//      the cache for the next request. A seen town never blocks on upstream.
+//   3. Neighbor-ring prefetch: when serving a viewport bbox, the ring of
+//      towns just OUTSIDE that bbox is prefetched quietly (fire-and-forget,
+//      <=50 towns/request, <=10 concurrent upstream) so the next pan is
+//      already warm.
+//
+// Contract shape {temps:{slug:F}, stale} and the zoom-9 gate are UNCHANGED
+// (wave-2 S5 law). The client (src/lib/weather/openmeteo-batch.ts) keeps
+// fetch-per-window; all caching lives server-side.
 //
 // LAWS honored here:
-// - R17 determinism: no Math.random / new Date. Date.now appears ONLY for
-//   cache expiry (the one documented exception, per lane brief). All ordering
-//   is data-order (pop desc from the baked geonames dump), never RNG.
+// - R17 determinism: no Math.random / new Date. Date.now appears ONLY as the
+//   injectable clock default (documented exception, per lane brief). All
+//   ordering is data-order (pop desc from the baked geonames dump), never RNG.
 // - Graceful degradation (R19 honest states): a town whose upstream call
-//   fails is simply ABSENT from temps — the badge keeps "awaiting feed"
-//   (last-data-wins), we never invent a lookalike temp.
-// - Budget: <=50 towns served per request (data order, deterministic),
-//   <=10 upstream calls in flight per request (concurrency cap).
+//   fails is ABSENT from temps (fresh hit) or keeps its last-known value
+//   (stale hit) — we never invent a lookalike temp.
+// - Budget: <=50 towns served per request, <=50 towns prefetched per request,
+//   <=10 upstream calls in flight per request/per-prefetch-batch.
 // - Serverless budget: api/ holds probe.js + this file = 2 functions (<=12).
 //
-// NOTE (contract deviation, documented): the brief says "use lib/map/gazetteer
-// helpers". The serverless runtime executes plain .js; src/lib/map/gazetteer.ts
-// is TypeScript and cannot be imported here without a bundling step. The
-// gazetteer helpers are tiny pure functions, so townsInBbox/slugify/townId
-// below are exact mirrors of src/lib/map/gazetteer.ts and src/pages/MapPage.tsx
-// (kept in sync manually — behavior is identical).
+// NOTE (contract deviation, documented in W1): the brief says "use
+// lib/map/gazetteer helpers". The serverless runtime executes plain .js;
+// src/lib/map/gazetteer.ts is TypeScript and cannot be imported here without
+// a bundling step. The gazetteer helpers are tiny pure functions, so
+// townsInBbox/slugify/townId below are exact mirrors kept in sync manually.
 
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -35,8 +48,12 @@ export const UPSTREAM_FORECAST_URL = 'https://api.open-meteo.com/v1/forecast'
 export const MAX_TOWNS_PER_REQUEST = 50
 /** Contract §S5: <=10 upstream calls per request (in-flight concurrency). */
 export const MAX_UPSTREAM_CONCURRENCY = 10
-/** Cache TTL: ~5 minutes, keyed by town slug. */
-export const CACHE_TTL_MS = 5 * 60_000
+/** Wave-3 session-1 law: 60-minute town cache. */
+export const CACHE_TTL_MS = 60 * 60_000
+/** Neighbor-ring prefetch budget: <=50 towns per prefetch batch. */
+export const MAX_PREFETCH_TOWNS = 50
+/** Ring thickness: expand the viewport by this factor on every side. */
+export const PREFETCH_RING_FACTOR = 1
 /** Zoom gate (matches TOWN_BADGE_MIN_ZOOM on main). */
 export const MIN_ZOOM = 9
 /** Per-town upstream timeout; slow towns degrade to absent, not a hung request. */
@@ -61,6 +78,17 @@ export function townsInBbox(towns, west, south, east, north) {
   return towns.filter(
     (t) => t.lon >= west && t.lon <= east && t.lat >= south && t.lat <= north,
   )
+}
+
+/**
+ * The neighbor ring: expand each bbox side by factor*span, drop the towns
+ * already inside the original bbox. Deterministic (data order), pure.
+ */
+export function neighborRing(towns, bbox, factor = PREFETCH_RING_FACTOR) {
+  const dx = (bbox.east - bbox.west) * factor
+  const dy = (bbox.north - bbox.south) * factor
+  const ring = townsInBbox(towns, bbox.west - dx, bbox.south - dy, bbox.east + dx, bbox.north + dy)
+  return ring.filter((t) => !(t.lon >= bbox.west && t.lon <= bbox.east && t.lat >= bbox.south && t.lat <= bbox.north))
 }
 
 /** Parse "GET /api/weather?bbox=lng1,lat1,lng2,lat2&zoom=n". Nulls = invalid. */
@@ -120,7 +148,8 @@ export function resetTownsCache() {
 }
 
 // ---------------------------------------------------------------------------
-// Town-keyed cache (in-memory, TTL 5 min). Date.now lives HERE ONLY (documented).
+// Town-keyed cache (in-memory, TTL 60 min, SWR). Date.now lives HERE ONLY
+// as the injectable clock default (documented R17 exception).
 // ---------------------------------------------------------------------------
 
 const tempCache = new Map() // slug -> { tempF, expiresAt }
@@ -128,16 +157,29 @@ const tempCache = new Map() // slug -> { tempF, expiresAt }
 /** Test seam: clear the temperature cache. */
 export function resetWeatherCache() {
   tempCache.clear()
+  inFlight.clear()
 }
 
+/**
+ * SWR read: { tempF, state: 'fresh' } before expiry, { tempF, state: 'stale' }
+ * after expiry (value kept — last-data-wins), undefined on a true miss.
+ */
 export function cacheGet(slug, now) {
   const hit = tempCache.get(slug)
-  if (hit && now < hit.expiresAt) return hit.tempF
-  return undefined
+  if (!hit) return undefined
+  return { tempF: hit.tempF, state: now < hit.expiresAt ? 'fresh' : 'stale' }
 }
 
 export function cacheSet(slug, tempF, now) {
   tempCache.set(slug, { tempF, expiresAt: now + CACHE_TTL_MS })
+}
+
+/** Slug set currently being fetched (served request OR prefetch) — dedupe. */
+const inFlight = new Set()
+
+/** Test seam: slugs with an upstream call in flight right now. */
+export function inFlightSlugs() {
+  return new Set(inFlight)
 }
 
 // ---------------------------------------------------------------------------
@@ -207,8 +249,33 @@ export async function mapWithConcurrency(jobs, concurrency) {
   return results
 }
 
+/**
+ * Warm a set of towns in the background: fetch each (deduped against
+ * in-flight slugs), write successes to the cache. <=MAX_PREFETCH_TOWNS towns,
+ * <=MAX_UPSTREAM_CONCURRENCY in flight. Never throws — a failed prefetch
+ * simply leaves the town uncached for the next request.
+ */
+export async function prefetchTowns(towns, fetchImpl, now) {
+  const targets = towns.slice(0, MAX_PREFETCH_TOWNS)
+  const jobs = targets
+    .filter((t) => !inFlight.has(townId(t.name, t.lat, t.lon)))
+    .map((t) => async () => {
+      const slug = townId(t.name, t.lat, t.lon)
+      if (inFlight.has(slug)) return false
+      inFlight.add(slug)
+      try {
+        const tempF = await fetchTownTemp(t, fetchImpl, AbortSignal.timeout(UPSTREAM_TIMEOUT_MS))
+        if (tempF !== undefined) cacheSet(slug, tempF, now)
+        return tempF !== undefined
+      } finally {
+        inFlight.delete(slug)
+      }
+    })
+  return mapWithConcurrency(jobs, MAX_UPSTREAM_CONCURRENCY)
+}
+
 // ---------------------------------------------------------------------------
-// Request core (pure-ish: fetch + clock injectable for tests)
+// Request core (pure-ish: fetch + clock + scheduler injectable for tests)
 // ---------------------------------------------------------------------------
 
 /**
@@ -216,37 +283,102 @@ export async function mapWithConcurrency(jobs, concurrency) {
  * @returns {Promise<{temps: Record<string, number>, stale: boolean}>}
  *   stale=true only when towns were in scope and NOT ONE temp could be served
  *   (fresh or cached) — an honest "the feed is down" signal, never a lie.
+ *
+ * opts.now: injectable clock (tests never touch Date.now).
+ * opts.schedule: seam for background work (SWR refresh + ring prefetch).
+ *   Default: fire-and-forget (Vercel keeps the function warm to completion).
+ *   Tests inject `(p) => promises.push(p)` and await the promises.
+ * opts.prefetch: set false to disable the neighbor-ring prefetch (tests that
+ *   want to isolate the served path); production always prefetches.
  */
 export async function handleWeather(query, opts = {}) {
-  const { fetchImpl = fetch, now = Date.now, concurrency = MAX_UPSTREAM_CONCURRENCY } = opts
+  const {
+    fetchImpl = fetch,
+    now = Date.now,
+    concurrency = MAX_UPSTREAM_CONCURRENCY,
+    prefetch = true,
+    schedule = (p) => {
+      void Promise.resolve(p).catch(() => {})
+    },
+  } = opts
   const { west, south, east, north, zoom } = query
   if (zoom < MIN_ZOOM) return { temps: {}, stale: false }
 
-  const inBox = townsInBbox(loadTowns(), west, south, east, north)
+  const towns = loadTowns()
+  const inBox = townsInBbox(towns, west, south, east, north)
   const served = inBox.slice(0, MAX_TOWNS_PER_REQUEST) // data order = pop desc, deterministic
 
   const misses = []
   const temps = {}
+  const staleEntries = []
   for (const t of served) {
     const slug = townId(t.name, t.lat, t.lon)
-    const cached = cacheGet(slug, now)
-    if (cached !== undefined) temps[slug] = cached
-    else misses.push({ slug, town: t })
+    const hit = cacheGet(slug, now)
+    if (hit) {
+      temps[slug] = hit.tempF // fresh OR stale: serve last-known instantly
+      if (hit.state === 'stale') staleEntries.push({ slug, town: t })
+    } else {
+      misses.push({ slug, town: t })
+    }
   }
 
   const jobs = misses.map(({ slug, town }) => async () => {
-    const tempF = await fetchTownTemp(town, fetchImpl, AbortSignal.timeout(UPSTREAM_TIMEOUT_MS))
-    if (tempF !== undefined) {
-      cacheSet(slug, tempF, now)
-      temps[slug] = tempF
+    if (inFlight.has(slug)) return false
+    inFlight.add(slug)
+    try {
+      const tempF = await fetchTownTemp(town, fetchImpl, AbortSignal.timeout(UPSTREAM_TIMEOUT_MS))
+      if (tempF !== undefined) {
+        cacheSet(slug, tempF, now)
+        temps[slug] = tempF
+      }
+      return tempF !== undefined
+    } finally {
+      inFlight.delete(slug)
     }
-    return tempF !== undefined
   })
-  const okFlags = await mapWithConcurrency(jobs, concurrency)
+  await mapWithConcurrency(jobs, concurrency)
+
+  // SWR background refresh: stale entries were served instantly; re-fetch
+  // them quietly so the next request is fresh. Fire-and-forget.
+  if (staleEntries.length > 0) {
+    schedule(refreshEntries(staleEntries, fetchImpl, now))
+  }
+
+  // Neighbor-ring prefetch: towns just outside the viewport, quiet, capped.
+  if (prefetch) {
+    const servedSlugs = new Set(served.map((t) => townId(t.name, t.lat, t.lon)))
+    const ring = neighborRing(towns, { west, south, east, north }).filter(
+      (t) => !servedSlugs.has(townId(t.name, t.lat, t.lon)),
+    )
+    const ringTargets = ring.filter((t) => {
+      const slug = townId(t.name, t.lat, t.lon)
+      const hit = cacheGet(slug, now)
+      return !(hit && hit.state === 'fresh')
+    })
+    if (ringTargets.length > 0) {
+      schedule(prefetchTowns(ringTargets, fetchImpl, now))
+    }
+  }
 
   const servedCount = Object.keys(temps).length
   const stale = served.length > 0 && servedCount === 0
   return { temps, stale }
+}
+
+/** SWR revalidation: refetch stale entries, update cache, never block. */
+async function refreshEntries(entries, fetchImpl, now) {
+  const jobs = entries.map(({ slug, town }) => async () => {
+    if (inFlight.has(slug)) return false
+    inFlight.add(slug)
+    try {
+      const tempF = await fetchTownTemp(town, fetchImpl, AbortSignal.timeout(UPSTREAM_TIMEOUT_MS))
+      if (tempF !== undefined) cacheSet(slug, tempF, now)
+      return tempF !== undefined
+    } finally {
+      inFlight.delete(slug)
+    }
+  })
+  return mapWithConcurrency(jobs, MAX_UPSTREAM_CONCURRENCY)
 }
 
 // ---------------------------------------------------------------------------

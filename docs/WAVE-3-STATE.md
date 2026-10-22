@@ -10,13 +10,14 @@ Tip at kickoff: `231ad9a` (wave-3 briefs merged).
 ## Round 1 (running)
 | Lane | Worktree | Branch | Status | Next step |
 | --- | --- | --- | --- | --- |
-| W3-A1 weather-cache | ~/.openclaw/worktrees/r3/w3-A1-cache | r3w3/A1-cache | RUNNING | merge → gate → A2/A3 |
+| W3-A1 weather-cache | ~/.openclaw/worktrees/r3/w3-A1-cache | r3w3/A1-cache | ✅ MERGED `83ea2c0` (vitest 185/185, tsc 0) | A2/A3 spawned |
 | W3-B1 routing | ~/.openclaw/worktrees/r3/w3-B1-routing | r3w3/B1-routing | RUNNING | merge → gate → B2/B3/B4 |
 | W3-C1 layout-shell | ~/.openclaw/worktrees/r3/w3-C1-shell | r3w3/C1-shell | RUNNING | merge → gate → C2/C3 |
 | W3-D1 feed-fix | ~/.openclaw/worktrees/r3/w3-D1-feedfix | r3w3/D1-feedfix | RUNNING | merge → gate → D2/D3 |
 
-## Round 2 (queued)
-A2 icons+fade-in · A3 map tint · B2 town panel+page · B3 click-to-detail ·
+## Round 2 (partially running)
+**A2 icons+fade-in RUNNING** · **A3 map tint RUNNING**
+A2 icons+fade-in ✅ spawned · A3 map tint ✅ spawned · B2 town panel+page · B3 click-to-detail ·
 B4 search+fly-to · C2 alert center · C3 command palette · D2 seeder+engagement ·
 D3 post detail+lightbox+share
 
