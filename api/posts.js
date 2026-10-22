@@ -192,23 +192,7 @@ export function createHandler({ db, gazetteer, now = () => new Date(), ipOf = cl
 
     // ---- /api/posts/:id/... --------------------------------------------------
     const [postId, action] = seg;
-    // W3-D3: bare-id GET — the single-post route /api/posts?path=<id> used by
-    // the /p/<id> detail page. Same store, same shapes as the list view; a
-    // flagged-out post reads as not-found (feed law), unknown id 404s honestly.
-    if (postId && !action) {
-      if (method !== 'GET') return json(404, { error: 'not found' });
-      const row = await db.getPostRow(postId);
-      if (!row || row.flagCount >= FLAG_HIDE_COUNT) return json(404, { error: 'post not found' });
-      const { session } = parseSession(req, gazetteer); // optional: myReaction only
-      const mine = session ? ((await db.myReactions([postId], session.nickname)).get(postId) ?? null) : null;
-      const score = hotScore({
-        commentsCount: row.commentsCount,
-        reactionsTotal: row.reactionCount,
-        createdAt: isoOf(row.createdAt),
-        now: now(),
-      });
-      return json(200, { post: { ...postView(row, mine), hot: score >= HOT_SCORE_MIN } });
-    }
+    if (postId && !action) return json(404, { error: 'not found' });
 
     if (action === 'comments' && method === 'GET') {
       if (!(await db.getPost(postId))) return json(404, { error: 'post not found' });
@@ -306,31 +290,6 @@ export function createPgDb(pool) {
     async getPost(id) {
       const r = await q(`select 1 from posts where id = $1`, [id]);
       return r.rowCount > 0;
-    },
-    /** W3-D3: full single-post row for /api/posts?path=<id> (detail page). */
-    async getPostRow(id) {
-      const r = await q(
-        `select p.id, p.town, p.author, p.text, p.snapshot, p.created_at,
-                (select count(*) from post_comments c where c.post_id = p.id)::int as "commentsCount",
-                (select count(*) from post_reactions x where x.post_id = p.id)::int as "reactionCount",
-                (select count(distinct f.nickname) from post_flags f where f.post_id = p.id)::int as "flagCount"
-         from posts p where p.id = $1`,
-        [id],
-      );
-      const x = r.rows[0];
-      if (!x) return null;
-      const emo = (await q(
-        `select emoji, count(*)::int as n from post_reactions where post_id = $1 group by emoji`,
-        [id],
-      )).rows;
-      const emojis = {};
-      for (const e of emo) emojis[e.emoji] = e.n;
-      return {
-        id: x.id, town: x.town, author: x.author, text: x.text,
-        snapshot: x.snapshot, createdAt: x.created_at.toISOString(),
-        commentsCount: x.commentsCount, reactionCount: x.reactionCount,
-        flagCount: x.flagCount, emojis,
-      };
     },
     async listPosts(town) {
       const r = await q(

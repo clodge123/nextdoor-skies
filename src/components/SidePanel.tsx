@@ -89,11 +89,13 @@ export function usePanelState(): PanelState {
 export interface SidePanelProps {
   open: boolean;
   onToggle: () => void;
+  /** Head title (W3-C2: the panel is the Alert Center). Default 'Panel'. */
+  title?: string;
   /** Content slot — filled by lanes B2/C2; empty renders the honest state. */
   children?: ReactNode;
 }
 
-export default function SidePanel({ open, onToggle, children }: SidePanelProps) {
+export default function SidePanel({ open, onToggle, title = 'Panel', children }: SidePanelProps) {
   // Mobile drag-to-dismiss: pointer drag on the handle translates the sheet;
   // releasing past DRAG_SLOP collapses it (and dragging up re-opens).
   const [dragY, setDragY] = useState(0);
@@ -163,7 +165,7 @@ export default function SidePanel({ open, onToggle, children }: SidePanelProps) 
       </div>
 
       <div className="panel-head">
-        <h2 className="panel-title">Panel</h2>
+        <h2 className="panel-title">{title}</h2>
         <button
           type="button"
           className="panel-close"

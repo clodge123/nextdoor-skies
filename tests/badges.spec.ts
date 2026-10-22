@@ -167,6 +167,10 @@ test('badge shows temp number over a town when zoomed', async ({ page }, testInf
   // Zoomed out (initial zoom 3, below TOWN_BADGE_MIN_ZOOM=6): no badges.
   await expect(page.getByTestId('town-badges')).toHaveCount(0)
 
+  // W3-A3 MAP TINT gate (session-1 decision 6): below zoom 9 there is
+  // nothing to summarize, so the tint overlay must NOT exist in the DOM.
+  await expect(page.getByTestId('map-tint')).toHaveCount(0)
+
   // TWO clicks of 'zoom in' (3 -> 6 -> 9) cross the wave-2 zoom-9 badge grade
   // (TOWN_BADGE_MIN_ZOOM=9 on main; MapView steps +3 per click).
   await tapOrClick(page, page.getByRole('button', { name: 'zoom in' }))
@@ -180,11 +184,24 @@ test('badge shows temp number over a town when zoomed', async ({ page }, testInf
   // Square geometry (R20): zero border-radius.
   await expect(badge).toHaveCSS('border-radius', '0px')
 
-  // S6 integration: alert banner lists the stubbed alert, and the Salina
-  // badge carries a severity dot (contract consumer seam alertDotForTown).
-  const banner = page.getByTestId('alert-banner')
-  await expect(banner).toBeVisible({ timeout: 10_000 })
-  await expect(banner).toContainText('Flood Warning (Severe)')
+  // W3-A3 MAP TINT gate, part 2: at zoom 9 the sky-tone wash overlay is
+  // present, carries a valid dominant-condition class, stays within the
+  // opacity law (<= 0.12), and is STABLE across the ~600ms transition
+  // window (no flicker — deterministic mode over the same visible towns).
+  const tint = page.getByTestId('map-tint')
+  await expect(tint).toBeVisible({ timeout: 10_000 })
+  await expect(tint).toHaveAttribute('data-condition', /^(clear|overcast|rain|snow|storm)$/)
+  const tintOpacity = Number(await tint.evaluate((el) => getComputedStyle(el).opacity))
+  expect(tintOpacity).toBeLessThanOrEqual(0.12)
+  const conditionBefore = await tint.getAttribute('data-condition')
+  await page.waitForTimeout(700)
+  await expect(tint).toHaveAttribute('data-condition', conditionBefore!)
+
+  // S6 integration: the Salina badge carries a severity dot (contract
+  // consumer seam alertDotForTown). W3-C1: the banner OVERLAY is unmounted
+  // (alert center lands in C2) — the refresher keeps polling per window, so
+  // the dot must still light up; assert the banner is GONE from the map.
+  await expect(page.getByTestId('alert-banner')).toHaveCount(0)
   const dot = page.getByTestId(`alert-dot-${SALINA_SLUG}`)
   await expect(dot).toBeVisible({ timeout: 10_000 })
   await expect(dot).toHaveAttribute('data-alert-severity', 'Severe')
@@ -193,6 +210,9 @@ test('badge shows temp number over a town when zoomed', async ({ page }, testInf
   await tapOrClick(page, page.getByRole('button', { name: 'zoom out' }))
   await tapOrClick(page, page.getByRole('button', { name: 'zoom out' }))
   await expect(page.getByTestId('town-badges')).toHaveCount(0)
+
+  // W3-A3: zooming back below 9 removes the tint overlay entirely.
+  await expect(page.getByTestId('map-tint')).toHaveCount(0)
 
   // Gate 1: archive screenshot into docs/screenshots/L6/.
   await tapOrClick(page, page.getByRole('button', { name: 'zoom in' }))

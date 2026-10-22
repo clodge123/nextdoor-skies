@@ -18,6 +18,11 @@ export interface Alert {
   town: string
   severity: string
   expires: string | null
+  /** Optional NWS passthrough (W3-C2): headline/summary/effective when the
+   *  upstream feature carries them — absent for zone-only stubs, never faked. */
+  headline?: string
+  summary?: string
+  effective?: string | null
 }
 
 /** Geographic bounds in degrees (same shape as openmeteo-batch GeoBounds). */
@@ -70,6 +75,19 @@ export const SEVERITY_RANK: Record<string, number> = {
   Moderate: 2,
   Minor: 1,
   Unknown: 0,
+}
+
+/**
+ * W3-C2 ALERT CENTER — severity sort (Extreme > Severe > Moderate > Minor).
+ * Deterministic: fixed SEVERITY_RANK table, ties broken by id ascending.
+ * Stable across renders (pure, clock/RNG-free).
+ */
+export function sortAlertsBySeverity(alerts: readonly Alert[]): Alert[] {
+  return [...alerts].sort((a, b) => {
+    const rank = (SEVERITY_RANK[b.severity] ?? 0) - (SEVERITY_RANK[a.severity] ?? 0)
+    if (rank !== 0) return rank
+    return a.id < b.id ? -1 : a.id > b.id ? 1 : 0
+  })
 }
 
 export function alertDotForTown(alerts: readonly Alert[], townSlug: string): string | null {
