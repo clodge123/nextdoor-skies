@@ -39,7 +39,30 @@ All five decisions locked, plus the map-tint extra:
 Fade-in law (~200ms CSS) confirmed as part of the model. Source stays
 Open-Meteo via proxy, ≤50 towns/request, live-egress proof required.
 
-## Session 2 — Navigation & information architecture (IN PROGRESS)
+## Session 2 — Navigation & IA ✅ DECIDED (2026-10-21 21:01 CDT)
+
+All five accepted, plus an animation law:
+1. **Town detail: slide-over panel on map + full page at `/t/<slug>`** (same
+   components). Panel = weather card + town alerts + recent posts + "Open
+   town feed". Mobile: bottom sheet.
+2. **Real URLs**: `/t/<slug>`, `/t/<slug>/feed`, `/p/<id>`, `/alerts`.
+   Shareable links = the path out of demo phase (owner: "if enough people
+   share it"). Back-button works, seeded posts deep-link.
+3. **Header search box** (towns combobox) + "My town" chip. All jumps are
+   ANIMATED, never snapped (owner law, Google Earth style: zoom-and-fly with
+   easing ~1.5-2s; search results, "View on map", badge taps all fly-to).
+4. **Every target clickable**: badges (44px), town/city labels below zoom 9,
+   AND low-zoom state/city dots — no dead zones at any zoom level.
+5. **"View on map" on post cards** → animated fly-to that town.
+6. **Post detail: full page** (`/p/<id>`) with comment thread.
+
+**Animation law (new, wave 3)**: map transitions use `flyTo`-style eased
+zoom+pan (~1.5-2s, cubic easing); UI panels slide/fade ~200ms; nothing snaps.
+
+Creative-freedom grant extended: fill remaining gaps unprompted to make the
+app impressive, polished, usable, intuitive, friendly.
+
+## Session 3 — Layout system & visual polish (IN PROGRESS)
 - **Click-to-detail**: tap any badge/map label → town slide-over panel
   (conditions card + alerts + recent posts + "open town feed"). Tap post →
   post detail page. This fixes "click on a temperature nothing happens."
