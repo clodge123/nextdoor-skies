@@ -257,6 +257,12 @@ const server = createServer(async (req, res) => {
     return;
   }
   try {
+    // Vercel serverless shape: handlers receive `req.query` (parsed search
+    // params) alongside req.url. Plain node http gives only req.url, so
+    // synthesize the same surface — api/alerts.js reads req.query.bbox, and
+    // without this the harness 400s where production 200s (a harness
+    // blind spot of the C6 class — exactly what this server exists to kill).
+    req.query = Object.fromEntries(url.searchParams);
     await handler(req, adapt(res));
   } catch (err) {
     if (!res.headersSent) {

@@ -12,6 +12,14 @@
 #   scripts/e2e-gate.sh npx playwright test
 #   scripts/e2e-gate.sh npm run smoke:prod
 #
+# QA=1 mode (W3-F, optional — default OFF, existing behavior unchanged):
+#   QA=1 scripts/e2e-gate.sh                      # click-every-button sweep
+#   QA=1 scripts/e2e-gate.sh <cmd...>             # gate any command in QA mode
+# With QA=1 and NO command, the gate runs the QA harness sweep
+# (scripts/qa-harness.mjs: production-shaped REAL_API=1, zero mocked routes).
+# The canonical CI form stays explicit:
+#   QA=1 REAL_API=1 scripts/e2e-gate.sh npx playwright test tests/qa.spec.ts
+#
 # Semantics:
 #   - E2E_SLOTS (default 1) concurrent browser runs fleet-wide.
 #   - A queued caller blocks up to E2E_GATE_TIMEOUT (default 1800s), then
@@ -23,6 +31,12 @@ set -u
 SLOTS="${E2E_SLOTS:-1}"
 TIMEOUT="${E2E_GATE_TIMEOUT:-1800}"
 DIR="${E2E_LOCK_DIR:-/tmp}"
+
+# QA=1 + no command: default to the W3-F click-every-button sweep (opt-in,
+# documented above; unset QA leaves the usage check exactly as before).
+if [ "${QA:-0}" = "1" ] && [ "$#" -eq 0 ]; then
+  set -- node scripts/qa-harness.mjs
+fi
 
 if [ "$#" -eq 0 ]; then
   echo "usage: scripts/e2e-gate.sh <command...>" >&2
