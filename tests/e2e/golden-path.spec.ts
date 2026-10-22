@@ -1,4 +1,5 @@
 import { expect, test, archiveScreenshot } from './fixtures';
+import { markTourSeen } from '../tour-seed';
 
 /**
  * Golden-path skeleton (L2 Gate 1 foundation).
@@ -6,21 +7,24 @@ import { expect, test, archiveScreenshot } from './fixtures';
  * Runs in phone, tablet, and desktop projects. Zero console errors enforced
  * by the console-error collector fixture.
  *
- * L12 note: the main port now serves the REAL app (root vite project) so
- * map/badges specs can drive '/' directly. This lane's harness content (the
- * fixtures stand-in with the 'NextDoor Skies' h1) is served by
- * scripts/e2e-serve.mjs on port+1, which is what this spec targets.
+ * Wave-3 closeout note: this spec used to target the L2 fixtures stand-in on
+ * port+1 (the "NextDoor Skies" h1 harness page). In REAL_API=1 mode the
+ * webServer is api-serve and no fixtures preview exists — the golden path is
+ * a product journey, so it now drives the REAL app via baseURL in BOTH modes
+ * (plain e2e-serve serves the real app on the main port; REAL_API serves app
+ * + real API handlers). The app's own surfaces satisfy every assertion:
+ * h1#map-heading "Map", h1#feed-heading "Feed", nav links with data-route +
+ * computed aria-current. First-visit tour is seeded away (returning-visitor
+ * model, tests/tour-seed.ts) so the scrim never hijacks these clicks.
  */
-
-const PORT = Number(process.env.E2E_PORT ?? 43117);
-const FIXTURES_URL = `http://127.0.0.1:${PORT + 1}`;
 
 test.describe('golden path', () => {
   test('loads home, asserts heading, navigates to feed', async ({ page, consoleBundle }, testInfo) => {
     void consoleBundle; // console-error collector active for the whole test
 
-    await page.goto(`${FIXTURES_URL}/`);
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText('NextDoor Skies');
+    await markTourSeen(page);
+    await page.goto('/');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Map');
     await archiveScreenshot(page, testInfo, 'home');
 
     await page.getByRole('link', { name: 'Feed' }).click();
@@ -30,7 +34,8 @@ test.describe('golden path', () => {
   });
 
   test('nav highlights active route', async ({ page }) => {
-    await page.goto(`${FIXTURES_URL}/`);
+    await markTourSeen(page);
+    await page.goto('/');
     await expect(page.locator('nav a[data-route="/"]')).toHaveAttribute('aria-current', 'page');
     await page.getByRole('link', { name: 'Feed' }).click();
     await expect(page.locator('nav a[data-route="/feed"]')).toHaveAttribute('aria-current', 'page');

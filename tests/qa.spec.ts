@@ -83,7 +83,14 @@ test.describe('QA keyboard pass (no traps, Enter activates)', () => {
       // reachable header control there, and the drawer carries the nav.
       let sawHeader = false
       let sawMain = false
-      for (let i = 0; i < 25; i++) {
+      // Tab budget scales with the route's main-content size: /alerts rows
+      // (37 focusables on a populated run) legitimately sit behind ~10
+      // header controls, so a flat 25-tab sweep can stop inside main's
+      // first rows. Census first, then tab header_count + focusables +
+      // slack — the no-trap law must not depend on a lucky page size.
+      const focusablesInMain = await page.locator('main a, main button, main input, main textarea, main [role="button"]').count()
+      const tabBudget = Math.max(25, 10 + focusablesInMain + 15)
+      for (let i = 0; i < tabBudget; i++) {
         await page.keyboard.press('Tab')
         const cls = await page
           .locator(':focus')
@@ -102,7 +109,6 @@ test.describe('QA keyboard pass (no traps, Enter activates)', () => {
       // focusable elements (e.g. phone /alerts with an empty alert list) —
       // the census is explicit, never silent.
       if (!sawMain) {
-        const focusablesInMain = await page.locator('main a, main button, main input, main textarea, main [role="button"]').count()
         expect(focusablesInMain, `Tab never reached main content on ${path}`).toBe(0)
       }
 
