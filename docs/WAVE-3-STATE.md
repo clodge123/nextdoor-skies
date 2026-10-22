@@ -5,8 +5,8 @@ Laws: deploy-once-at-wave-end · closeout sweep every lane · browser
 serialization (e2e-gate.sh) · live-egress · commit author clodge123 ·
 survival commit ≤15 min · branch push via REST (python3 /tmp/push_tree.py).
 
-Tip at kickoff: `231ad9a` (wave-3 briefs merged). Current main tip: `3def7ce`
-(= remote `708a04d`).
+Tip at kickoff: `231ad9a` (wave-3 briefs merged). Current main tip: `51acf64`
+(= remote `8db2a1c`).
 
 ## Round 1
 | Lane | Branch | Status | Next step |
@@ -22,8 +22,8 @@ Tip at kickoff: `231ad9a` (wave-3 briefs merged). Current main tip: `3def7ce`
 ## Round 2
 | Lane | Status | Next step |
 | --- | --- | --- |
-| W3-B2 town panel | RUNNING (B1 dep satisfied) | panel → gates → merge |
-| W3-B3 click-to-detail | QUEUED behind B2 (MapPage serialization) | spawn when B2 merges |
+| W3-B2 town panel | ✅ MERGED `51acf64` — ?panel=<slug> URL state, slide-over/bottom sheet, badge-click SPA nav, shared last-good data; vitest 321/321, build+determinism clean. Reconciled with C1/C2 shell (lane forked pre-C1: MapPage rebuilt keeping panel slot + alert center + MapTint + A2 codes) | closed |
+| W3-B3 click-to-detail | SPAWNED (B2 dep satisfied) | click→detail wiring → gates → merge |
 | W3-B4 search+fly-to | QUEUED behind B2/B3 (MapPage serialization) | spawn when B3 merges |
 | W3-C2 alert center | ✅ MERGED `3def7ce` — severity-sorted panel list + /alerts page, one-poll law (refresher lifted to MapPage), fly-to seam (`src/lib/map/fly-to.ts`, reusable by B4), honest empty/stale states; vitest 298/298, alert-center+shell+badges 14/14 gated. Reconciliation note: the D3 merge had silently reverted 9 A2 files + MapTint render (discovered during C2 merge, restored) | closed |
 | W3-C3 command palette | SPAWNED (C2 dep satisfied) | palette → gates → merge |
