@@ -62,31 +62,25 @@ zoom+pan (~1.5-2s, cubic easing); UI panels slide/fade ~200ms; nothing snaps.
 Creative-freedom grant extended: fill remaining gaps unprompted to make the
 app impressive, polished, usable, intuitive, friendly.
 
-## Session 3 — Layout system & visual polish (IN PROGRESS)
-- **Click-to-detail**: tap any badge/map label → town slide-over panel
-  (conditions card + alerts + recent posts + "open town feed"). Tap post →
-  post detail page. This fixes "click on a temperature nothing happens."
-- **Search**: header search box (towns, states, "my feed") reusing the
-  identity-picker combobox.
-- **Routing**: real URLs (`/t/<slug>`, `/t/<slug>/feed`, `/p/<id>`) — shareable,
-  back-button works, seed posts link into feeds.
-- Open Q: panel vs full page for town detail? URL scheme? State-level browsing?
+## Session 3 — Layout system & visual polish ✅ DECIDED (2026-10-21 22:39 CDT)
 
-## Session 3 — Layout system & visual polish (the "jazz it up" session)
-- **Layout**: map + right side panel (alerts/feed/details, collapsible), bottom
-  sheet on mobile. Alert banner leaves the map center.
-- **Visual direction options**: (A) keep dark-terminal aesthetic, add depth:
-  elevation shadows, accent glow, gradient accents, motion 150-200ms; (B) go
-  consumer-app: lighter surfaces, rounded corners (needs owner waiver of the
-  square-geometry law R20 — ASK), icon set, avatar chips; (C) hybrid — keep
-  square geometry, add color-coded severity accents, weather iconography,
-  skeleton shimmer.
-- Skeleton loaders everywhere (no spinner walls); first-glance 2-second rule
-  per layer; micro-interactions (reaction pop, badge pulse on alert).
-- Open Q: R20 waiver? Font pairing? Avatar generation for nicknames?
-  (Icon set DECIDED session 1: lucide, theme-neutral.)
+1. **Visual direction: OPTION C (hybrid)** — square geometry stays the
+   signature (R20 NOT waived); add elevation shadows, weather iconography,
+   color-coded severity accents, skeleton shimmer, subtle gradients. Distinct
+   design language that sticks with recruiters.
+2. **Side panel: open by default on desktop** (shows alert center), collapsed
+   on mobile (bottom sheet). Collapsible, keyboard toggle (`P`).
+3. **Alert center: severity-grouped list, color-coded left borders, grouped by
+   town, per-row "mute town" — replaces the overlay banner entirely.**
+4. **Command palette (`Ctrl+K`) + keyboard shortcuts: YES** (jump to town,
+   switch theme, open feed, toggle panel).
+5. **Onboarding: quick 3-step spotlight tour** (pick town → explore map →
+   open feed). Demo-appropriate.
 
-## Session 4 — Feed correctness & demo liveliness
+**Wave planning note (owner):** wave 3 = features; budget a FINAL POLISH WAVE
+(wave 4) after. Keep the 4-wave shape in mind when scheduling lanes.
+
+## Session 4 — Feed correctness & demo liveliness (IN PROGRESS)
 - Fix production routing bug (subpath → `?path=` form + real-API local harness
   so mocked-route blind spots die).
 - Fix seeder canvas capture (await paint frame) → real map images in posts.
