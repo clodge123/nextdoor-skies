@@ -642,3 +642,39 @@ body {
   border: 1px solid var(--bg);
   border-radius: var(--radius);
 }
+
+/* ==========================================================================
+   W3-A3 MAP TINT — weather-driven sky-tone wash over the map (wave-3
+   session 1, decision 6). Overlay ONLY: pointer-events:none, opacity set
+   inline <= 0.12 (TINT_OPACITY), ~600ms color transition, square geometry
+   (R20: radius is var(--radius)=0px everywhere via the universal rule).
+   No z-index: it sits under .map-controls (z-index:2) in DOM order, so map
+   controls and canvas interactions are untouched.
+   ========================================================================== */
+.map-tint {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: opacity 600ms linear, background-color 600ms linear;
+}
+
+.map-tint--clear {
+  background-color: #ffd9a0; /* warm clear-sky wash */
+}
+
+.map-tint--overcast {
+  background-color: #8a93a3; /* cool gray */
+}
+
+.map-tint--rain {
+  background-color: #6b7f99; /* blue-gray */
+}
+
+.map-tint--snow {
+  background-color: #dfeaf5; /* pale ice */
+}
+
+.map-tint--storm {
+  background-color: #2a2f3a; /* dark storm band */
+}
+
