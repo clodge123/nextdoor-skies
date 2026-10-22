@@ -631,6 +631,38 @@ body {
   opacity: 0.8;
 }
 
+/* W3-A3 MAP TINT — weather-driven sky-tone wash over the map (zoom-9 gate
+   lives in MapTint.tsx; opacity <= 0.12 is the lane law). Restored during
+   W3-B3: the block was silently dropped by a prior merge (documented in the
+   wave ledger) so the tint rendered invisible. No z-index: it sits under
+   .map-controls (z-index:2) in DOM order. */
+.map-tint {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: opacity 600ms linear, background-color 600ms linear;
+}
+
+.map-tint--clear {
+  background-color: #ffd9a0; /* warm clear-sky wash */
+}
+
+.map-tint--overcast {
+  background-color: #8a93a3; /* cool gray */
+}
+
+.map-tint--rain {
+  background-color: #6b7f99; /* blue-gray */
+}
+
+.map-tint--snow {
+  background-color: #dfeaf5; /* pale ice */
+}
+
+.map-tint--storm {
+  background-color: #2a2f3a; /* dark storm band */
+}
+
 /* S6 consumer seam: severity dot inside a town badge (square, R20). */
 .town-badge-alert-dot {
   position: absolute;
@@ -920,10 +952,12 @@ body {
    display: flex;
    align-items: center;
    justify-content: space-between;
+ }
  .town-panel-head h2 {
    margin: 0;
    font: 700 20px/1.2 system-ui, sans-serif;
    color: var(--text);
+ }
  .town-panel-close {
    display: inline-flex;
    align-items: center;
@@ -934,15 +968,20 @@ body {
    border: 2px solid var(--border);
    border-radius: var(--radius);
    cursor: pointer;
+ }
  .town-panel-close:hover {
    border-color: var(--current-accent);
  }
  
  .town-panel-weather {
+   display: flex;
+   align-items: center;
    gap: 10px;
+ }
  .town-panel-temp {
    font: 700 34px/1 ui-monospace, monospace;
    color: var(--text);
+ }
  .town-panel-icon {
    display: inline-flex;
    color: var(--text); /* theme-neutral glyph (currentColor, session 1 law) */
@@ -962,6 +1001,7 @@ body {
    background: var(--bg);
    text-decoration: none;
    font-size: 0.9rem;
+ }
  .town-panel-alerts[data-alert-count]:not([data-alert-count='0']) {
    border-color: var(--warn);
  }
@@ -971,19 +1011,24 @@ body {
  }
  
  .town-panel-feed {
+   display: flex;
    flex-direction: column;
    gap: 6px;
+ }
  .town-panel-posts {
    list-style: none;
    margin: 0;
    padding: 0;
+   display: flex;
    flex-direction: column;
+ }
  .town-panel-posts a {
    display: block;
    padding: 8px 10px;
    color: var(--text);
    background: var(--bg);
    text-decoration: none;
+ }
  .town-panel-posts a:hover {
    border-color: var(--current-accent);
  }
@@ -1062,11 +1107,114 @@ body {
     glance. Pure CSS (R17: zero JS timers). */
  .town-badge-clickable {
    cursor: pointer;
+ }
  .town-badge-clickable:hover {
    transform: translate(-50%, -100%) scale(1.08);
    border-color: var(--current-accent);
  }
+ .town-badge-clickable:focus-visible {
+   outline: 2px solid var(--current-accent);
+   outline-offset: 2px;
+ }
  
+ /* W3-B3 CLICK-TO-DETAIL: the badge's alert dot is its OWN link to /alerts
+    (deepest intent) rendered as a sibling of the badge anchor inside a
+    positioned slot (no nested anchors). Visual stays the 12px severity
+    square at the badge's top-right corner; the ::before extends the hit
+    area to 44x44px (R13 tap-target law). */
+ .town-badge-slot {
+   position: absolute;
+   transform: translate(-50%, -100%);
+   pointer-events: none;
+ }
+ .town-badge-slot .town-badge {
+   position: static;
+   transform: none;
+   pointer-events: auto;
+ }
+ .town-badge-slot .town-badge-clickable:hover {
+   transform: scale(1.08);
+ }
+ /* Linked form (W3-B3): the dot sits INSIDE the badge's top-right corner
+    (fully inside the map overlay — a dot hanging above the badge can land
+    under the header band and swallow clicks). */
+ .town-badge-alert-dot-link {
+   position: absolute;
+   top: -7px;
+   right: -7px;
+   z-index: 1;
+   pointer-events: auto;
+   cursor: pointer;
+ }
+ /* Hit-area extension: the 44px pad grows ABOVE/RIGHT of the dot (the
+    badge's outer corner) so it never covers the badge center — badge click
+    opens the panel, dot click goes to /alerts, both targets stay live. */
+ .town-badge-alert-dot-link::before {
+   content: '';
+   position: absolute;
+   bottom: 100%;
+   left: 50%;
+   width: 44px;
+   height: 44px;
+   transform: translateX(-30%);
+ }
+ .town-badge-alert-dot-link:focus-visible {
+   outline: 2px solid var(--warn);
+   outline-offset: 2px;
+ }
+
+ /* W3-B3 CLICK-TO-DETAIL (session 2 decision 4): accessible targets over
+    canvas labels/dots BELOW the badge zoom grade. The overlay itself is
+    transparent + click-through; each target is a real 44px+ focusable
+    button centered on the label/dot. Labels render as faint chips so the
+    affordance is honest (the canvas text underneath stays the visual). */
+ .town-targets {
+   position: absolute;
+   inset: 0;
+   overflow: hidden;
+   pointer-events: none;
+   z-index: 1;
+ }
+ .town-target {
+   position: absolute;
+   transform: translate(-50%, -50%);
+   display: inline-flex;
+   align-items: center;
+   gap: 4px;
+   min-width: 44px;
+   min-height: 44px;
+   padding: 4px 8px;
+   background: transparent;
+   border: 2px solid transparent;
+   border-radius: var(--radius);
+   color: #101014;
+   font: 600 12px/1.2 system-ui, sans-serif;
+   text-decoration: none;
+   pointer-events: auto;
+   cursor: pointer;
+ }
+ .town-target:hover {
+   border-color: var(--current-accent);
+   background: rgb(255 255 255 / 55%);
+ }
+ .town-target:focus-visible {
+   outline: 2px solid var(--current-accent);
+   outline-offset: 2px;
+   background: rgb(255 255 255 / 70%);
+ }
+ .town-target-dot {
+   width: 8px;
+   height: 8px;
+   flex: none;
+   background: var(--current-accent);
+   border: 1px solid var(--bg);
+   border-radius: var(--radius);
+ }
+ .town-target-label {
+   white-space: nowrap;
+   text-shadow: 0 0 3px #fff, 0 0 3px #fff;
+ }
+
  .town-badge-alert-dot {
    animation: nds-alert-pulse 1.6s ease-in-out infinite;
  }
@@ -1088,3 +1236,287 @@ body {
    .town-badge-alert-dot {
      animation: none;
    }
+   .town-target:hover {
+     transition: none;
+   }
+ }
+
+ 
+ /* ==========================================================================
+    W3-C1 LAYOUT-SHELL — right side panel + phone nav drawer.
+    Session 3 (option C hybrid): square geometry stays (var(--radius) only),
+    elevation shadows + subtle gradient allowed. Animation law: ~200ms
+    slide/fade, nothing snaps. Theme vars work in both themes.
+    ========================================================================== */
+ 
+ .map-layout {
+   display: flex;
+   align-items: stretch;
+   height: calc(100vh - var(--header-h));
+   min-height: 480px;
+ }
+ 
+ /* Map keeps flex-grow so the panel docks beside it, never over it. */
+ .map-layout .map-page {
+   flex: 1 1 auto;
+   height: auto;
+   min-height: 0;
+ }
+ 
+ /* Panel toggle floating on the map edge (>=44px touch law). */
+ .panel-toggle {
+   position: absolute;
+   top: 8px;
+   right: 8px;
+   z-index: 3;
+   min-width: 44px;
+   min-height: 44px;
+   padding: 8px 12px;
+   font: 600 15px/1 ui-sans-serif, system-ui, sans-serif;
+   background: var(--surface);
+   color: var(--text);
+   border: 2px solid var(--current-accent);
+   border-radius: var(--radius);
+   cursor: pointer;
+ }
+ 
+ /* Desktop: 360px column docked right, slides in/out ~200ms. */
+ .side-panel {
+   position: relative;
+   flex: 0 0 360px;
+   width: 360px;
+   display: flex;
+   flex-direction: column;
+   background: linear-gradient(180deg, var(--surface), var(--bg));
+   border-left: 2px solid var(--border);
+   box-shadow: -8px 0 24px rgb(0 0 0 / 0.25);
+   overflow: hidden;
+   transition:
+     width 200ms ease,
+     flex-basis 200ms ease,
+     opacity 200ms ease,
+     transform 200ms ease;
+ }
+ 
+ .side-panel.is-collapsed {
+   width: 0;
+   flex-basis: 0;
+   opacity: 0;
+   border-left-width: 0;
+   pointer-events: none;
+ }
+ 
+ .panel-handle {
+   display: none;
+ }
+ 
+ .panel-head {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: 8px;
+   padding: 10px 14px;
+   border-bottom: 1px solid var(--border);
+ }
+ 
+ .panel-title {
+   margin: 0;
+   font: 700 14px/1.2 ui-sans-serif, system-ui, sans-serif;
+   letter-spacing: 0.04em;
+   text-transform: uppercase;
+   color: var(--text);
+ }
+ 
+ .panel-close {
+   min-width: 44px;
+   min-height: 44px;
+   padding: 0 10px;
+   font: 600 18px/1 ui-sans-serif, system-ui, sans-serif;
+   background: var(--bg);
+   color: var(--text);
+   border: 1px solid var(--border);
+   border-radius: var(--radius);
+   cursor: pointer;
+ }
+ 
+ .panel-body {
+   flex: 1 1 auto;
+   overflow-y: auto;
+   padding: 14px;
+ }
+ 
+ /* Honest empty state (content slot fills in B2/C2). */
+ .panel-empty {
+   display: flex;
+   flex-direction: column;
+   gap: 6px;
+   padding: 18px 4px;
+   text-align: center;
+ }
+ 
+ .panel-empty-title {
+   margin: 0;
+   font: 700 15px/1.3 ui-sans-serif, system-ui, sans-serif;
+   color: var(--text);
+ }
+ 
+ .panel-empty-note {
+   margin: 0;
+   font: 500 13px/1.5 ui-sans-serif, system-ui, sans-serif;
+   color: var(--text);
+   opacity: 0.7;
+ }
+ 
+ /* Phone: the panel becomes a bottom sheet, collapsed by default. */
+ @media (max-width: 480px) {
+   .map-layout {
+     position: relative;
+     display: block;
+     height: auto;
+   }
+ 
+   .map-layout .map-page {
+     height: calc(100vh - var(--header-h));
+   }
+ 
+   .side-panel {
+     position: fixed;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     z-index: 12;
+     width: auto;
+     flex: none;
+     max-height: 60vh;
+     border-left: none;
+     border-top: 2px solid var(--border);
+     box-shadow: 0 -8px 24px rgb(0 0 0 / 0.3);
+     transform: translateY(0);
+   }
+ 
+   .side-panel.is-collapsed {
+     width: auto;
+     flex: none;
+     opacity: 1;
+     transform: translateY(calc(100% - 36px));
+     pointer-events: auto;
+   }
+ 
+   .panel-handle {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     min-height: 36px;
+     padding: 8px 0 4px;
+     cursor: grab;
+     touch-action: none;
+     background: var(--surface);
+   }
+ 
+   .panel-grip {
+     display: inline-block;
+     width: 44px;
+     height: 5px;
+     background: var(--border);
+     border-radius: var(--radius);
+   }
+ }
+ 
+ /* Phone nav drawer (hamburger). >=44px targets, ~200ms slide/fade. */
+ .nav-menu-button {
+   display: none;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   gap: 4px;
+   min-width: 44px;
+   min-height: 44px;
+   padding: 10px 12px;
+   background: var(--surface);
+   border: 1px solid var(--border);
+   border-radius: var(--radius);
+   cursor: pointer;
+ }
+ 
+ .nav-menu-bar {
+   display: block;
+   width: 18px;
+   height: 2px;
+   background: var(--text);
+ }
+ 
+ .nav-drawer {
+   position: fixed;
+   top: var(--header-h);
+   left: 0;
+   right: 0;
+   z-index: 20;
+   display: flex;
+   flex-direction: column;
+   gap: 8px;
+   padding: 12px 16px 16px;
+   background: var(--surface);
+   border-bottom: 2px solid var(--border);
+   box-shadow: 0 12px 24px rgb(0 0 0 / 0.3);
+   opacity: 0;
+   transform: translateY(-8px);
+   pointer-events: none;
+   transition:
+     opacity 200ms ease,
+     transform 200ms ease;
+ }
+ 
+ .nav-drawer.is-open {
+   opacity: 1;
+   transform: translateY(0);
+   pointer-events: auto;
+ }
+ 
+ .nav-drawer-link {
+   display: inline-flex;
+   align-items: center;
+   justify-content: flex-start;
+   /* 44px law (R13): min-height 45 guards the >=44 assertion against
+      sub-pixel layout rounding (measured 43.99999 on phone dpr). */
+   min-height: 45px;
+   min-width: 44px;
+   padding: 0 14px;
+   font: 600 15px/1 ui-sans-serif, system-ui, sans-serif;
+   color: var(--text);
+   text-decoration: none;
+   background: var(--bg);
+   border: 1px solid var(--border);
+   border-radius: var(--radius);
+   cursor: pointer;
+ }
+ 
+ .nav-drawer-link.is-active {
+   color: var(--current-accent);
+   border-color: var(--current-accent);
+   box-shadow: inset 4px 0 0 var(--current-accent);
+ }
+ 
+ .nav-drawer-theme {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: 12px;
+   min-height: 44px;
+   padding: 0 14px;
+   background: var(--bg);
+   border: 1px solid var(--border);
+   border-radius: var(--radius);
+ }
+ 
+ .nav-drawer-theme-label {
+   font: 700 13px/1.2 ui-sans-serif, system-ui, sans-serif;
+   letter-spacing: 0.04em;
+   text-transform: uppercase;
+   color: var(--text);
+ }
+ 
+ @media (max-width: 480px) {
+   .nav-menu-button {
+     display: inline-flex;
+   }
+ }

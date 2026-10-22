@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
-import { describe, expect, it } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { describe, expect, it, vi } from 'vitest'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { MapContext, type MapLike } from '../src/lib/map/map-context'
 import { TownBadges } from '../src/components/TownBadges'
 import type { TownCoord } from '../src/lib/weather/openmeteo-batch'
@@ -114,6 +114,110 @@ describe('TownBadges', () => {
       </MapContext.Provider>,
     )
     expect(screen.queryByTestId(/alert-dot-/)).toBeNull()
+  })
+
+  // -------------------------------------------------------------------------
+  // W3-B3 CLICK-TO-DETAIL (session 2 decision 4): badges are keyboard-
+  // reachable links; the alert DOT routes straight to /alerts.
+  // -------------------------------------------------------------------------
+  describe('W3-B3 click-to-detail', () => {
+    it('badge links carry an accessible name (aria-label) for Tab users', () => {
+      render(
+        <MapContext.Provider value={stubMap(10)}>
+          <TownBadges
+            towns={towns}
+            temps={{ springfield: 10 }}
+            panelHrefFor={(id) => `/?panel=${id}`}
+          />
+        </MapContext.Provider>,
+      )
+      const badge = screen.getByTestId('town-badge-springfield')
+      expect(badge.tagName).toBe('A')
+      expect(badge).toHaveAttribute('aria-label', 'Open Springfield town panel')
+    })
+
+    it('alert dot becomes a link to /alerts when onAlertOpen is wired', () => {
+      const onAlertOpen = vi.fn()
+      render(
+        <MapContext.Provider value={stubMap(10)}>
+          <TownBadges
+            towns={towns}
+            temps={{ springfield: 10 }}
+            alerts={{ springfield: 'Severe', faraway: null }}
+            panelHrefFor={(id) => `/?panel=${id}`}
+            onPanelOpen={vi.fn()}
+            onAlertOpen={onAlertOpen}
+          />
+        </MapContext.Provider>,
+      )
+      const dot = screen.getByTestId('alert-dot-springfield')
+      expect(dot.tagName).toBe('A')
+      expect(dot).toHaveAttribute('href', '/alerts')
+      expect(dot).toHaveAttribute('data-alert-severity', 'Severe')
+      expect(dot).toHaveAttribute(
+        'aria-label',
+        'Springfield: active Severe alert — open alerts page',
+      )
+      fireEvent.click(dot, { button: 0 })
+      expect(onAlertOpen).toHaveBeenCalledWith('springfield')
+      // No dot for a town without alerts.
+      expect(screen.queryByTestId('alert-dot-faraway')).toBeNull()
+    })
+
+    it('dot click does NOT open the panel (deepest intent wins)', () => {
+      const onPanelOpen = vi.fn()
+      render(
+        <MapContext.Provider value={stubMap(10)}>
+          <TownBadges
+            towns={towns}
+            temps={{ springfield: 10 }}
+            alerts={{ springfield: 'Severe' }}
+            panelHrefFor={(id) => `/?panel=${id}`}
+            onPanelOpen={onPanelOpen}
+            onAlertOpen={vi.fn()}
+          />
+        </MapContext.Provider>,
+      )
+      fireEvent.click(screen.getByTestId('alert-dot-springfield'), { button: 0 })
+      expect(onPanelOpen).not.toHaveBeenCalled()
+    })
+
+    it('without onAlertOpen the dot stays the S6 decorative span (unchanged)', () => {
+      render(
+        <MapContext.Provider value={stubMap(10)}>
+          <TownBadges
+            towns={towns}
+            temps={{ springfield: 10 }}
+            alerts={{ springfield: 'Severe' }}
+            panelHrefFor={(id) => `/?panel=${id}`}
+            onPanelOpen={vi.fn()}
+          />
+        </MapContext.Provider>,
+      )
+      const dot = screen.getByTestId('alert-dot-springfield')
+      expect(dot.tagName).toBe('SPAN')
+      expect(dot).toHaveAttribute('data-alert-severity', 'Severe')
+    })
+
+    it('badge click routes through onPanelOpen (plain click), modifiers pass through', () => {
+      const onPanelOpen = vi.fn()
+      render(
+        <MapContext.Provider value={stubMap(10)}>
+          <TownBadges
+            towns={towns}
+            temps={{ springfield: 10 }}
+            panelHrefFor={(id) => `/?panel=${id}`}
+            onPanelOpen={onPanelOpen}
+          />
+        </MapContext.Provider>,
+      )
+      const badge = screen.getByTestId('town-badge-springfield')
+      fireEvent.click(badge, { button: 0 })
+      expect(onPanelOpen).toHaveBeenCalledWith('springfield')
+      onPanelOpen.mockClear()
+      fireEvent.click(badge, { button: 0, ctrlKey: true })
+      expect(onPanelOpen).not.toHaveBeenCalled()
+    })
   })
 
   it('throws a clear seam error without map context', () => {

@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useState, type MouseEvent as ReactMouseEvent, type ReactNode } from 'react'
 import { useMap } from '../lib/map/map-context'
 import type { TownCoord } from '../lib/weather/openmeteo-batch'
 import { weathercodeToIcon } from '../lib/weather/weathercode'
@@ -21,6 +21,14 @@ import { weathercodeToIcon } from '../lib/weather/weathercode'
  *   town (session 2 decision 1+4). The badge is an <a> whose href carries
  *   `?panel=<townSlug>` (lib/panel.ts scheme); discoverability affordances
  *   (cursor, hover lift, alert pulse) live in CSS.
+ * - W3-B3 CLICK-TO-DETAIL (session 2 decision 4): the badge is an honest
+ *   accessible affordance — a real focusable link with an aria-label, so Tab
+ *   reaches badges at zoom >= 9 and Enter opens the panel (the overlay is NO
+ *   LONGER aria-hidden; decorative furniture that swallows keyboard focus
+ *   was the old lie). Clicking a badge's ALERT DOT (when present) goes
+ *   straight to /alerts — the deepest intent — instead of opening the panel.
+ *   The dot is a sibling link (anchors never nest), sized 44px+ via its
+ *   ::before hit area (R13).
  * - Determinism (R17): no Date.now / Math.random / new Date in render logic.
  *   Positioning recomputes purely from map state + render tick.
  */
@@ -58,6 +66,13 @@ export interface TownBadgesProps {
    * clicks pass through untouched.
    */
   onPanelOpen?: (townId: string) => void
+  /**
+   * W3-B3 CLICK-TO-DETAIL: when set, the badge's alert DOT renders as its
+   * own focusable link (href "/alerts") that calls this on plain click —
+   * deepest-intent navigation, bypassing the panel. Omitted (unit tests /
+   * pre-panel) => the dot stays the S6 decorative span inside the badge.
+   */
+  onAlertOpen?: (townId: string) => void
 }
 
 export function TownBadges({
@@ -68,6 +83,7 @@ export function TownBadges({
   minZoom = TOWN_BADGE_MIN_ZOOM,
   panelHrefFor,
   onPanelOpen,
+  onAlertOpen,
 }: TownBadgesProps) {
   const map = useMap()
   const [tick, setTick] = useState(0)
@@ -87,7 +103,7 @@ export function TownBadges({
   if (zoom < minZoom) return null
 
   return (
-    <div className="town-badges" data-testid="town-badges" aria-hidden="true">
+    <div className="town-badges" data-testid="town-badges">
       {towns.map((town) => {
         const p = map.project([town.lon, town.lat])
         const temp = temps[town.id]
@@ -105,6 +121,7 @@ export function TownBadges({
             `town-badge${isLive ? ' is-live' : ''}${panelHrefFor ? ' town-badge-clickable' : ''}`,
           style: { left: `${p.x}px`, top: `${p.y}px` },
         }
+        const anchorStyle = badgeProps.style
         const children: ReactNode = (
           <>
             {/* Data wrapper is ALWAYS mounted (opacity 0) so the class flip
@@ -125,47 +142,91 @@ export function TownBadges({
               {hasTemp ? <span className="town-badge-temp">{`${Math.round(temp)}°`}</span> : null}
             </span>
             {hasTemp ? null : <span className="town-badge-temp">awaiting feed</span>}
-            {alerts?.[town.id] ? (
-              <span
-                className="town-badge-alert-dot"
-                data-alert-severity={alerts[town.id] as string}
-                data-testid={`alert-dot-${town.id}`}
-                title={`Active alert: ${alerts[town.id]}`}
-              />
-            ) : null}
           </>
         )
+        // The severity dot (S6 consumer seam): decorative span inside the
+        // inert badge; the LINKED form (W3-B3) renders outside the anchor.
+        const dotSpan = alerts?.[town.id] ? (
+          <span
+            className="town-badge-alert-dot"
+            data-alert-severity={alerts[town.id] as string}
+            data-testid={`alert-dot-${town.id}`}
+            title={`Active alert: ${alerts[town.id]}`}
+          />
+        ) : null
         // W3-B2: badge click opens the town panel (discoverability law:
-        // cursor + hover + alert-pulse affordance live in CSS). The overlay
-        // container keeps aria-hidden (decorative map furniture); the panel
-        // itself is the accessible surface (role=dialog).
+        // cursor + hover + alert-pulse affordance live in CSS). W3-B3: the
+        // overlay is no longer aria-hidden — every rendered badge is a real
+        // link (keyboard-reachable, named by aria-label); the panel is the
+        // dialog surface, the map furniture is honest interactive chrome.
         if (!panelHrefFor) {
           return (
             <div key={town.id} {...badgeProps}>
               {children}
+              {dotSpan}
             </div>
           )
         }
-        return (
+        const badgeClick =
+          onPanelOpen &&
+          ((e: ReactMouseEvent<HTMLAnchorElement>) => {
+            // Plain left/tap click = in-app panel open (no reload, no view
+            // reset). Modifier clicks keep real-link power.
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
+            e.preventDefault()
+            onPanelOpen(town.id)
+          })
+        // W3-B3: with alert routing wired, the severity dot becomes its own
+        // link to /alerts (deepest intent) rendered OUTSIDE the badge anchor
+        // (no nested anchors) at the badge's top-right corner, with a 44px
+        // ::before hit area (R13).
+        const dotSev = alerts?.[town.id]
+        const dotLink =
+          dotSev && onAlertOpen ? (
+            <a
+              href="/alerts"
+              className="town-badge-alert-dot town-badge-alert-dot-link"
+              data-alert-severity={dotSev}
+              data-testid={`alert-dot-${town.id}`}
+              data-town-id={town.id}
+              title={`Active alert: ${dotSev} — view all alerts`}
+              aria-label={`${town.name}: active ${dotSev} alert — open alerts page`}
+              onClick={(e) => {
+                if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
+                e.preventDefault()
+                e.stopPropagation()
+                onAlertOpen(town.id)
+              }}
+            />
+          ) : null
+        const badge = (
           <a
             key={town.id}
             href={panelHrefFor(town.id)}
             {...badgeProps}
             data-panel="1"
-            onClick={
-              onPanelOpen
-                ? (e) => {
-                    // Plain left/tap click = in-app panel open (no reload,
-                    // no view reset). Modifier clicks keep real-link power.
-                    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
-                    e.preventDefault()
-                    onPanelOpen(town.id)
-                  }
-                : undefined
-            }
+            aria-label={`Open ${town.name} town panel`}
+            onClick={badgeClick}
           >
+            {dotSev && !dotLink ? dotSpan : null}
             {children}
           </a>
+        )
+        if (!dotLink) return badge
+        // Slot wrapper: the badge anchor goes STATIC inside a positioned
+        // slot carrying the badge's original placement (translate(-50%,-100%)),
+        // so the dot link sits at the badge's top-right corner (the old
+        // -7px/-7px offset) — no nested anchors, both links siblings.
+        return (
+          <span
+            key={town.id}
+            className="town-badge-slot"
+            style={anchorStyle}
+            data-town-id={town.id}
+          >
+            {badge}
+            {dotLink}
+          </span>
         )
       })}
     </div>

@@ -12,6 +12,8 @@ const fakeMap = {
   off: vi.fn(),
   addSource: vi.fn(),
   addLayer: vi.fn(),
+  // W3-B3: TownLabelTargets projects label/dot targets below zoom 9.
+  project: (lnglat: [number, number]) => ({ x: lnglat[0] * -10, y: lnglat[1] * 10 }),
   getCenter: vi.fn(() => ({ lat: 39.8, lng: -98.5 })),
   getZoom: vi.fn(() => 3),
   getBounds: vi.fn(() => ({
