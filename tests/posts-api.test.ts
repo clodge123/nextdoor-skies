@@ -34,11 +34,23 @@ function makeDb() {
       posts.set(row.id, { ...row });
     },
     async getPost(id) {
-      return posts.get(id) ?? false;
+      return posts.has(id);
     },
-    async updateSnapshot(id, snapshot) {
+    // W3-D3: full single-post row for GET /api/posts?path=<id> (detail page).
+    async getPostRow(id) {
       const p = posts.get(id);
-      if (p) p.snapshot = snapshot;
+      if (!p) return null;
+      const emojis = Object.fromEntries(REACTION_EMOJIS.map((e) => [e, 0]));
+      for (const [key, emoji] of reactions) {
+        if (key.startsWith(`${id}|`)) emojis[emoji] = (emojis[emoji] ?? 0) + 1;
+      }
+      return {
+        ...p,
+        commentsCount: comments.filter((c) => c.postId === id).length,
+        reactionCount: [...reactions.keys()].filter((k) => k.startsWith(`${id}|`)).length,
+        flagCount: [...flags.keys()].filter((k) => k.startsWith(`${id}|`)).length,
+        emojis,
+      };
     },
     async listPosts(town) {
       return [...posts.values()]
@@ -285,6 +297,79 @@ describe('CRUD', () => {
         await h.call(makeReq({ method: 'POST', url: '/api/posts/p_x/comments', body: { text: 'hi' } }))
       ).statusCode,
     ).toBe(401);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// W3-D3 single-post route — GET /api/posts?path=<id> (the /p/<id> detail page)
+// ---------------------------------------------------------------------------
+
+describe('single post by id (W3-D3 detail route)', () => {
+  it('GET ?path=<id> returns the contract-shaped post with reaction counts', async () => {
+    const h = harness();
+    seedPost(h, { id: 'p_detail', text: 'storm cell' });
+    await h.call(
+      makeReq({
+        method: 'POST',
+        url: '/api/posts/p_detail/reactions',
+        headers: { 'x-nds-session': session('bob') },
+        body: { emoji: '👍' },
+      }),
+    );
+    const res = await h.call(makeReq({ url: '/api/posts?path=p_detail' }));
+    expect(res.statusCode).toBe(200);
+    expect(res.body.post.id).toBe('p_detail');
+    expect(res.body.post.author).toBe('alice');
+    expect(res.body.post.text).toBe('storm cell');
+    expect(res.body.post.snapshot).toBeNull();
+    expect(res.body.post.reactions['👍']).toBe(1);
+    expect(res.body.post.commentsCount).toBe(0);
+    expect(res.body.post.myReaction).toBeNull();
+  });
+
+  it('GET ?path=<id> with a session echoes myReaction', async () => {
+    const h = harness();
+    seedPost(h, { id: 'p_mine' });
+    await h.call(
+      makeReq({
+        method: 'POST',
+        url: '/api/posts/p_mine/reactions',
+        headers: { 'x-nds-session': session('alice') },
+        body: { emoji: '❤️' },
+      }),
+    );
+    const res = await h.call(
+      makeReq({ url: '/api/posts?path=p_mine', headers: { 'x-nds-session': session('alice') } }),
+    );
+    expect(res.statusCode).toBe(200);
+    expect(res.body.post.myReaction).toBe('❤️');
+  });
+
+  it('unknown id -> 404 (honest deep-link law); flagged-out post reads as gone', async () => {
+    const h = harness();
+    expect((await h.call(makeReq({ url: '/api/posts?path=nope' }))).statusCode).toBe(404);
+    seedPost(h, { id: 'p_flagged' });
+    for (const who of ['aa', 'bb', 'cc']) {
+      await h.call(
+        makeReq({
+          method: 'POST',
+          url: '/api/posts/p_flagged/flag',
+          headers: { 'x-nds-session': session(who) },
+          body: {},
+        }),
+      );
+    }
+    const res = await h.call(makeReq({ url: '/api/posts?path=p_flagged' }));
+    expect(res.statusCode).toBe(404);
+  });
+
+  it('non-GET on the bare-id route stays 404 (no write surface invented)', async () => {
+    const h = harness();
+    seedPost(h, { id: 'p_ro' });
+    const res = await h.call(
+      makeReq({ method: 'POST', url: '/api/posts?path=p_ro', body: { text: 'nope' } }),
+    );
+    expect(res.statusCode).toBe(404);
   });
 });
 
@@ -564,47 +649,6 @@ describe('snapshot cap', () => {
 // ---------------------------------------------------------------------------
 // Determinism (R17) — api/posts.js keeps clock/RNG reads at the edge only
 // ---------------------------------------------------------------------------
-
-describe('admin snapshot patch (W3-D2, C7 re-seed)', () => {
-  const SNAP_OK = 'data:image/jpeg;base64,' + Buffer.from('realmaptiles').toString('base64');
-
-  it('503 honest-disabled when NDS_ADMIN_SECRET unset; 403 bad secret; 401 no session', async () => {
-    const h = harness();
-    seedPost(h, { id: 'p_old' });
-    const patch = (headers) =>
-      h.call(makeReq({ method: 'PATCH', url: '/api/posts?path=p_old', headers, body: { snapshot: SNAP_OK } }));
-
-    delete process.env.NDS_ADMIN_SECRET;
-    expect((await patch({ 'x-nds-session': session(), 'x-nds-admin': 's3cret' })).statusCode).toBe(503);
-
-    process.env.NDS_ADMIN_SECRET = 's3cret';
-    try {
-      expect((await patch({ 'x-nds-session': session(), 'x-nds-admin': 'wrong!' })).statusCode).toBe(403);
-      expect((await patch({ 'x-nds-admin': 's3cret' })).statusCode).toBe(401);
-      // valid session + secret -> patches in place (owner: keep posts, fix canvases)
-      const ok = await patch({ 'x-nds-session': session(), 'x-nds-admin': 's3cret' });
-      expect(ok.statusCode).toBe(200);
-      expect(h.db.posts.get('p_old').snapshot).toBe(SNAP_OK);
-      // shape gates
-      expect((await h.call(makeReq({ method: 'PATCH', url: '/api/posts?path=p_old',
-        headers: { 'x-nds-session': session(), 'x-nds-admin': 's3cret' }, body: { snapshot: 'not-a-data-url' } }))).statusCode).toBe(415);
-      expect((await h.call(makeReq({ method: 'PATCH', url: '/api/posts?path=p_missing',
-        headers: { 'x-nds-session': session(), 'x-nds-admin': 's3cret' }, body: { snapshot: SNAP_OK } }))).statusCode).toBe(404);
-      const big = 'data:image/jpeg;base64,' + 'A'.repeat(Math.ceil((SNAPSHOT_MAX_BYTES + 1) * (4 / 3)));
-      expect((await h.call(makeReq({ method: 'PATCH', url: '/api/posts?path=p_old',
-        headers: { 'x-nds-session': session(), 'x-nds-admin': 's3cret' }, body: { snapshot: big } }))).statusCode).toBe(413);
-      // rate limit: bucket 'snapshot' 30/hour/IP -> the 31st is 429
-      let last;
-      for (let i = 0; i < 31; i++) {
-        last = await h.call(makeReq({ method: 'PATCH', url: '/api/posts?path=p_old',
-          headers: { 'x-nds-session': session(), 'x-nds-admin': 's3cret' }, body: { snapshot: SNAP_OK } }));
-      }
-      expect(last.statusCode).toBe(429);
-    } finally {
-      delete process.env.NDS_ADMIN_SECRET;
-    }
-  });
-});
 
 describe('determinism', () => {
   it('api/posts.js has no Math.random / Date.now outside documented edge', async () => {
