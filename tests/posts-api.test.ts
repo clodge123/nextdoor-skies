@@ -34,7 +34,11 @@ function makeDb() {
       posts.set(row.id, { ...row });
     },
     async getPost(id) {
-      return posts.has(id);
+      return posts.get(id) ?? false;
+    },
+    async updateSnapshot(id, snapshot) {
+      const p = posts.get(id);
+      if (p) p.snapshot = snapshot;
     },
     async listPosts(town) {
       return [...posts.values()]
@@ -560,6 +564,47 @@ describe('snapshot cap', () => {
 // ---------------------------------------------------------------------------
 // Determinism (R17) — api/posts.js keeps clock/RNG reads at the edge only
 // ---------------------------------------------------------------------------
+
+describe('admin snapshot patch (W3-D2, C7 re-seed)', () => {
+  const SNAP_OK = 'data:image/jpeg;base64,' + Buffer.from('realmaptiles').toString('base64');
+
+  it('503 honest-disabled when NDS_ADMIN_SECRET unset; 403 bad secret; 401 no session', async () => {
+    const h = harness();
+    seedPost(h, { id: 'p_old' });
+    const patch = (headers) =>
+      h.call(makeReq({ method: 'PATCH', url: '/api/posts?path=p_old', headers, body: { snapshot: SNAP_OK } }));
+
+    delete process.env.NDS_ADMIN_SECRET;
+    expect((await patch({ 'x-nds-session': session(), 'x-nds-admin': 's3cret' })).statusCode).toBe(503);
+
+    process.env.NDS_ADMIN_SECRET = 's3cret';
+    try {
+      expect((await patch({ 'x-nds-session': session(), 'x-nds-admin': 'wrong!' })).statusCode).toBe(403);
+      expect((await patch({ 'x-nds-admin': 's3cret' })).statusCode).toBe(401);
+      // valid session + secret -> patches in place (owner: keep posts, fix canvases)
+      const ok = await patch({ 'x-nds-session': session(), 'x-nds-admin': 's3cret' });
+      expect(ok.statusCode).toBe(200);
+      expect(h.db.posts.get('p_old').snapshot).toBe(SNAP_OK);
+      // shape gates
+      expect((await h.call(makeReq({ method: 'PATCH', url: '/api/posts?path=p_old',
+        headers: { 'x-nds-session': session(), 'x-nds-admin': 's3cret' }, body: { snapshot: 'not-a-data-url' } }))).statusCode).toBe(415);
+      expect((await h.call(makeReq({ method: 'PATCH', url: '/api/posts?path=p_missing',
+        headers: { 'x-nds-session': session(), 'x-nds-admin': 's3cret' }, body: { snapshot: SNAP_OK } }))).statusCode).toBe(404);
+      const big = 'data:image/jpeg;base64,' + 'A'.repeat(Math.ceil((SNAPSHOT_MAX_BYTES + 1) * (4 / 3)));
+      expect((await h.call(makeReq({ method: 'PATCH', url: '/api/posts?path=p_old',
+        headers: { 'x-nds-session': session(), 'x-nds-admin': 's3cret' }, body: { snapshot: big } }))).statusCode).toBe(413);
+      // rate limit: bucket 'snapshot' 30/hour/IP -> the 31st is 429
+      let last;
+      for (let i = 0; i < 31; i++) {
+        last = await h.call(makeReq({ method: 'PATCH', url: '/api/posts?path=p_old',
+          headers: { 'x-nds-session': session(), 'x-nds-admin': 's3cret' }, body: { snapshot: SNAP_OK } }));
+      }
+      expect(last.statusCode).toBe(429);
+    } finally {
+      delete process.env.NDS_ADMIN_SECRET;
+    }
+  });
+});
 
 describe('determinism', () => {
   it('api/posts.js has no Math.random / Date.now outside documented edge', async () => {

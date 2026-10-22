@@ -86,4 +86,71 @@ describe('TownBadges', () => {
   it('throws a clear seam error without map context', () => {
     expect(() => render(<TownBadges towns={towns} temps={{}} />)).toThrow(/no map instance/)
   })
+
+  // -------------------------------------------------------------------------
+  // W3-A2: condition icons + fade-in law (wave-3 session 1, decision 2)
+  // -------------------------------------------------------------------------
+
+  it('renders a lucide condition icon beside the temp when a weathercode arrives', () => {
+    render(
+      <MapContext.Provider value={stubMap(10)}>
+        <TownBadges towns={towns} temps={{ springfield: 21.6 }} codes={{ springfield: 61 }} />
+      </MapContext.Provider>,
+    )
+    const icon = screen.getByTestId('weather-icon-springfield')
+    expect(icon.getAttribute('data-weathercode')).toBe('61')
+    expect(icon.getAttribute('data-weather-bucket')).toBe('rain')
+    // A real lucide <svg> is mounted inside the chip.
+    expect(icon.querySelector('svg')).not.toBeNull()
+    // Temp is still rendered next to the icon.
+    expect(screen.getByTestId('town-badge-springfield').textContent).toContain('22°')
+  })
+
+  it('renders NO icon for a town with no weathercode data (R19 honest)', () => {
+    render(
+      <MapContext.Provider value={stubMap(10)}>
+        <TownBadges towns={towns} temps={{ springfield: 21.6 }} />
+      </MapContext.Provider>,
+    )
+    expect(screen.queryByTestId('weather-icon-springfield')).toBeNull()
+    expect(screen.getByTestId('town-badge-springfield').textContent).toContain('22°')
+  })
+
+  it('renders the neutral unknown glyph for an out-of-table code', () => {
+    render(
+      <MapContext.Provider value={stubMap(10)}>
+        <TownBadges towns={towns} temps={{ springfield: 5 }} codes={{ springfield: 42 }} />
+      </MapContext.Provider>,
+    )
+    const icon = screen.getByTestId('weather-icon-springfield')
+    expect(icon.getAttribute('data-weather-bucket')).toBe('unknown')
+    expect(icon.querySelector('svg')).not.toBeNull()
+  })
+
+  it('fade-in law: chip carries is-live ONLY when data has arrived (CSS keyed on data, no JS timers)', () => {
+    const { rerender } = render(
+      <MapContext.Provider value={stubMap(10)}>
+        <TownBadges towns={towns} temps={{}} />
+      </MapContext.Provider>,
+    )
+    // No data yet: no is-live class, honest "awaiting feed" text visible.
+    const badge = screen.getByTestId('town-badge-springfield')
+    expect(badge.className).not.toContain('is-live')
+    expect(badge.textContent).toBe('awaiting feed')
+
+    // Data arrives: the class flips in the SAME render pass — the CSS
+    // transition (.town-badge.is-live .town-badge-data {opacity 0->1}) does
+    // the animating; the component schedules no timers.
+    rerender(
+      <MapContext.Provider value={stubMap(10)}>
+        <TownBadges towns={towns} temps={{ springfield: 10 }} codes={{ springfield: 0 }} />
+      </MapContext.Provider>,
+    )
+    const live = screen.getByTestId('town-badge-springfield')
+    expect(live.className).toContain('is-live')
+    expect(live.querySelector('.town-badge-data')).not.toBeNull()
+    expect(live.textContent).toContain('10°')
+    // "awaiting feed" is gone once real data exists.
+    expect(live.textContent).not.toContain('awaiting feed')
+  })
 })

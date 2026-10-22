@@ -54,6 +54,9 @@ function boundsOf(map: { getBounds(): { getSouthWest(): { lng: number; lat: numb
 function MapBadges() {
   const { map, ready } = useMapContext();
   const [temps, setTemps] = useState<Readonly<Record<string, number>>>({});
+  // W3-A2: last-data-wins WMO weathercodes per town (towns without real
+  // condition data are ABSENT — their badges render no icon, R19 honest).
+  const [codes, setCodes] = useState<Readonly<Record<string, number>>>({});
   const [tick, setTick] = useState(0);
   const refresherRef = useRef<ReturnType<typeof createWeatherRefresher> | null>(null);
   const visibleRef = useRef<TownCoord[]>([]);
@@ -102,12 +105,20 @@ function MapBadges() {
       getViewport: () => boundsOf(map),
       getZoom: () => map.getZoom(),
       fetchImpl: (input, init) => fetch(input, init),
-      onTemps: (batch: CurrentTemp[]) =>
+      onTemps: (batch: CurrentTemp[]) => {
         setTemps((prev) => {
           const next = { ...prev };
           for (const t of batch) next[t.townId] = t.temperatureC;
           return next;
-        }),
+        });
+        setCodes((prev) => {
+          const next = { ...prev };
+          for (const t of batch) {
+            if (typeof t.weathercode === 'number') next[t.townId] = t.weathercode;
+          }
+          return next;
+        });
+      },
     });
     refresherRef.current = refresher;
     refresher.start();
@@ -146,7 +157,7 @@ function MapBadges() {
       {/* W3-A3 MAP TINT: sky-tone wash by dominant condition over the MAP
           (below zoom 9 nothing renders — same gate as the badges). */}
       <MapTint towns={visible} temps={temps} />
-      <TownBadges towns={visible} temps={temps} alerts={alertsByTown} />
+      <TownBadges towns={visible} temps={temps} codes={codes} alerts={alertsByTown} />
       {/* W3-C1: the alert banner overlay is UNMOUNTED (alert center lands in
           C2); the refresher + state stay alive here because the badge dots
           read the SAME last-good payload — one poll per window drives both. */}
