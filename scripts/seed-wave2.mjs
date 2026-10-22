@@ -344,6 +344,48 @@ const SMALL = [
   ] },
 ];
 
+/** W3-E1 POLISH ROSTER (brainstorm session 5 — recruiter-demo polish).
+ *  Five demo towns the walkthrough leans on, 4 posts each: the FIRST post
+ *  carries a live map snapshot, the rest are text. Texts are authored per
+ *  region around real weather phenomena (storm chases, heat waves, snow,
+ *  fog) so the seeded feed tells a coherent story, index-rotated only —
+ *  zero Math.random/Date.now (R17). Engagement (3-8 reactions + 1-3
+ *  comments, session-4 law subset) guarantees every polish post scores
+ *  hot (comments*2 + reactions + decay >= 3) so the Hot view pins them.
+ *  Idempotency rides the same text-matching skip as the rest of the plan. */
+const POLISH = [
+  { name: 'Springfield', posts: [
+    'Storm chase report from the county line: the supercell east of town spun up a funnel over the farmland, radar painted red for two hours, everyone back safe by supper.',
+    'Fog in the Ozark hollows at dawn, the river bottoms disappeared and the bluffs floated above the white.',
+    'Heat wave third day running, the creek behind the park is down to a whisper, sprinkles on at dusk.',
+    'First ice storm of the season glazed the ridge roads, school closed, the oaks creaked all night.',
+  ] },
+  { name: 'Salina', posts: [
+    'Chasers parked the ridge road west of town at noon and watched a tornadic wedge parade across the wheat for forty minutes, nothing on the ground, pictures for days.',
+    'Prairie fog rolled off the smoky hills this morning, the interstate disappeared between Salina and Abilene.',
+    'Heat wave baked the wheat early, the combines are running after dark to beat the humidity.',
+    'First lake-effect band of the winter slid over the valley, two inches on the orchards, gone by lunch.',
+  ] },
+  { name: 'Amarillo', posts: [
+    'Hail core crossed the panhandle at rush hour, quarters in the parking lot, the sky went green and the sirens did their thing.',
+    'Haboob swallowed the horizon at dusk, a wall of dust ate the highway and the air smelled like iron.',
+    'Heat dome parked over the flatlands, triple digits five days straight, the only honest forecast is the AC unit.',
+    'Cold front dropped twenty degrees overnight, first frost on the mesquite, everyone remembered their coats.',
+  ] },
+  { name: 'Flagstaff', posts: [
+    'First snow of the season blanketed the ponderosas overnight, the Aspen Highlands road is chains-only by morning.',
+    'Monsoon cell broke over the valley, lightning on the ridge all evening and the washes running brown.',
+    'Dry cold under a blue you cannot get anywhere near sea level, the sun warm, the shade a freezer.',
+    'Fog bank sat on the pines all afternoon, the town lights glowing through it like lanterns.',
+  ] },
+  { name: 'Santa Fe', posts: [
+    'Snow dusted the plaza at dawn, adobes wearing white, the high desert went quiet and silver by midmorning.',
+    'Aspen gold on the canyon roads, morning fog filling the arroyos, the light turning everything to honey.',
+    'High desert wind kicked up out of the west, cottonwood flurries in the plaza, the fire risk climbing.',
+    'Heat wave broke with a monsoon thunderhead, rain drumming on the flat roofs, the arroyos singing again.',
+  ] },
+];
+
 /** Friendly nickname pool — index-rotated, no real people. */
 const NICKS = [
   'maple', 'junebug', 'prairie', 'sunny', 'river', 'dusty', 'willow', 'pepper',
@@ -539,8 +581,19 @@ async function visitTown(browser, town, session) {
 export function engagementTargets(i) {
   return { reactions: 3 + (i % 6), comments: i % 4 };
 }
-/** Reaction author nickname for (postIndex, reactionSlot) — fixed rotation. */
-function reactionNick(i, j) {
+/** W3-E1: polish posts never land on 0 comments — the demo towns must each
+ *  show visible comment threads, so their pattern is 1 + i%3 (a strict
+ *  subset of the session-4 0-3 law). Everything else keeps engagementTargets. */
+export function engagementTargetsFor(item) {
+  const base = engagementTargets(item.index);
+  if (!item.polish) return base;
+  return { reactions: base.reactions, comments: 1 + (item.index % 3) };
+}
+/** Reaction author nickname for (postIndex, reactionSlot) — fixed rotation.
+ *  Exported (W3-E1): the local-harness polisher reuses the exact same roster
+ *  so both paths produce byte-identical engagement. Reactions key on
+ *  (post, nickname) server-side, so unique nicknames per slot are load-bearing. */
+export function reactionNick(i, j) {
   return NICKS[(i * 7 + j * 5) % NICKS.length];
 }
 /** Reaction emoji for (postIndex, reactionSlot) — cycles 👍 ❤️ 😂. */
@@ -564,11 +617,21 @@ const COMMENT_POOL = [
 ];
 
 /** Flat engagement roster: every planned post with its global index. */
+/** Flat engagement roster: every planned post with its global index.
+ *  W3-E1: accepts any plan-shaped array (the local polisher passes the full
+ *  plan); attaches each item's deterministic engagement targets. */
+export function engagementRosterFor(thePlan) {
+  return thePlan.map((p, index) => ({
+    index, town: p.town, townName: p.townName, text: p.text,
+    polish: !!p.polish, targets: engagementTargetsFor({ index, polish: !!p.polish }),
+  }));
+}
+
 function engagementRoster() {
   const roster = [];
   for (let i = 0; i < plan.length; i++) {
     const p = plan[i];
-    roster.push({ index: i, town: p.town, townName: p.townName, text: p.text });
+    roster.push({ index: i, town: p.town, townName: p.townName, text: p.text, polish: !!p.polish });
   }
   return roster;
 }
@@ -610,7 +673,7 @@ async function runEngagement(shard) {
     for (const item of items) {
       const post = byText.get(item.text);
       if (!post) continue; // not seeded (this town not seeded in this env)
-      const { reactions: wantR, comments: wantC } = engagementTargets(item.index);
+      const { reactions: wantR, comments: wantC } = engagementTargetsFor(item);
       const sess = { nickname: 'meadowlark', townSlug: town, townName: item.townName };
       const currentR = Object.values(post.reactions ?? {}).reduce((a, b) => a + b, 0);
       const currentC = post.commentsCount ?? 0;
@@ -694,7 +757,10 @@ async function runReseed(shardTowns) {
 
 // --------------------------------------------------------------------- main ---
 
-const plan = [];
+/** The full seed plan (wave-2 roster + W3-E1 polish roster), built once at
+ *  module load — deterministic, index-stable, imported by vitest + the
+ *  local-harness polisher. */
+export const plan = [];
 for (const m of METROS) {
   const town = pickTown(m.name);
   const slug = townSlug(town);
@@ -711,6 +777,21 @@ for (const s of SMALL) {
     plan.push({ town: slug, townName: town.name, text: s.texts[i % s.texts.length],
       nickname: NICKS[(plan.length + i) % NICKS.length], snapshot: false });
   }
+}
+// W3-E1 polish roster: appended AFTER the wave-2 plan so every existing
+// post keeps its index (and its engagement pattern) byte-for-byte.
+for (const m of POLISH) {
+  const town = pickTown(m.name);
+  const slug = townSlug(town);
+  for (let i = 0; i < m.posts.length; i++) {
+    plan.push({ town: slug, townName: town.name, text: m.posts[i],
+      nickname: NICKS[(plan.length + i) % NICKS.length], snapshot: i === 0, polish: true });
+  }
+}
+
+/** The polish slice of the plan (deterministic; imported by vitest). */
+export function polishPlan() {
+  return plan.filter((p) => p.polish);
 }
 
 // --------------------------------------------------------------------- main ---
@@ -733,7 +814,7 @@ async function main() {
   if (RESEED_MODE) {
     // One capture per metro town (snapshots only exist on metros). Shard by
     // town so CI runners stay under the 30-patch/hour/IP admin budget.
-    const metroTowns = METROS.map((m) => ({ slug: townSlug(pickTown(m.name)), townName: m.name }));
+    const metroTowns = [...METROS, ...POLISH].map((m) => ({ slug: townSlug(pickTown(m.name)), townName: m.name }));
     await runReseed(metroTowns.slice(SHARD_OFFSET, COUNT === Infinity ? undefined : SHARD_OFFSET + COUNT));
   }
 
