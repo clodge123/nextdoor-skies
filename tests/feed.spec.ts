@@ -8,6 +8,7 @@
 import { expect, test, type Page } from '@playwright/test'
 import * as path from 'node:path'
 import { mkdirSync } from 'node:fs'
+import { markTourSeen } from './tour-seed';
 
 const SHOT_DIR = path.join(process.cwd(), 'docs', 'screenshots', 'W5')
 const TOWN_SLUG = 'springfield-37.22--93.3'
@@ -189,6 +190,7 @@ async function shot(page: Page, name: string): Promise<void> {
 test('feed renders hot-pinned then newest with real content', async ({ page }, testInfo) => {
   const errors = await setup(page)
   mockPostsApi(page, fixturePosts())
+  await markTourSeen(page);
   await page.goto('/feed', { waitUntil: 'domcontentloaded' })
 
   await expect(page.getByTestId('hot-pinned')).toBeVisible()
@@ -212,6 +214,7 @@ test('feed renders hot-pinned then newest with real content', async ({ page }, t
 test('sort toggle switches hot/new ordering', async ({ page }, testInfo) => {
   const errors = await setup(page)
   mockPostsApi(page, fixturePosts())
+  await markTourSeen(page);
   await page.goto('/feed', { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('post-p_hot')).toBeVisible()
 
@@ -227,6 +230,7 @@ test('sort toggle switches hot/new ordering', async ({ page }, testInfo) => {
 test('reaction toggle: optimistic count + highlight', async ({ page }, testInfo) => {
   const errors = await setup(page)
   mockPostsApi(page, fixturePosts())
+  await markTourSeen(page);
   await page.goto('/feed', { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('post-p_new')).toBeVisible()
 
@@ -248,6 +252,7 @@ test('reaction toggle: optimistic count + highlight', async ({ page }, testInfo)
 test('reply flow: flat list + composer, one level', async ({ page }, testInfo) => {
   const errors = await setup(page)
   mockPostsApi(page, fixturePosts())
+  await markTourSeen(page);
   await page.goto('/feed', { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('post-p_hot')).toBeVisible()
 
@@ -267,6 +272,7 @@ test('reply flow: flat list + composer, one level', async ({ page }, testInfo) =
 test('honest empty state when town has no posts', async ({ page }, testInfo) => {
   const errors = await setup(page)
   mockPostsApi(page, [])
+  await markTourSeen(page);
   await page.goto('/feed', { waitUntil: 'domcontentloaded' })
 
   await expect(page.getByTestId('feed-empty')).toContainText('No posts in Springfield yet.')
@@ -279,6 +285,7 @@ test('honest empty state when town has no posts', async ({ page }, testInfo) => 
 test('no session: identity picker gate, never a fake feed', async ({ page }, testInfo) => {
   const errors = await setup(page, { session: false })
   mockPostsApi(page, fixturePosts())
+  await markTourSeen(page);
   await page.goto('/feed', { waitUntil: 'domcontentloaded' })
 
   await expect(page.getByTestId('identity-picker')).toBeVisible()

@@ -1828,3 +1828,134 @@ body {
     display: none;
   }
 }
+
+/* ============================================================================
+   W3-E2 FIRST-VISIT TOUR (wave-3 brainstorm session 5).
+   Square geometry (R20: var(--radius) only), theme vars (L4), ~200ms
+   transitions (animation law), >=44px buttons, mobile-first placement
+   (bubble docks bottom <=480px). Portal on document.body, above every
+   surface (palette 60, lightbox 50). */
+
+.tour-root {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+}
+
+.tour-scrim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.tour-cut {
+  transition: x 200ms ease, y 200ms ease, width 200ms ease, height 200ms ease;
+}
+
+.tour-cut-ring {
+  transition: x 200ms ease, y 200ms ease, width 200ms ease, height 200ms ease;
+  pointer-events: none;
+}
+
+.tour-bubble {
+  position: fixed;
+  width: min(320px, calc(100vw - 32px));
+  padding: 16px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: inset 4px 0 0 var(--current-accent), 0 12px 24px rgb(0 0 0 / 0.35);
+  outline: none;
+  animation: tour-in 200ms ease-out;
+}
+
+@keyframes tour-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.tour-step-label {
+  margin: 0 0 4px;
+  font: 700 11px/1.2 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--current-accent);
+}
+
+.tour-title {
+  margin: 0 0 6px;
+  font: 700 16px/1.25 ui-sans-serif, system-ui, sans-serif;
+  color: var(--text);
+}
+
+.tour-body {
+  margin: 0;
+  font: 400 14px/1.45 ui-sans-serif, system-ui, sans-serif;
+  color: var(--text);
+}
+
+.tour-hint {
+  margin: 8px 0 0;
+  min-height: 18px;
+  font: 400 12px/1.4 ui-sans-serif, system-ui, sans-serif;
+  color: var(--text);
+  opacity: 0;
+  transition: opacity 200ms linear;
+}
+
+.tour-hint.is-shown {
+  opacity: 0.65;
+}
+
+.tour-dots {
+  display: flex;
+  gap: 6px;
+  margin: 10px 0 0;
+}
+
+.tour-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--border);
+  transition: background-color 200ms linear;
+}
+
+.tour-dot.is-active {
+  background: var(--current-accent);
+}
+
+.tour-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.tour-skip,
+.tour-next {
+  min-width: 88px;
+  min-height: 44px;
+  padding: 0 16px;
+  font: 600 14px/1 ui-sans-serif, system-ui, sans-serif;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color 200ms linear, border-color 200ms linear;
+}
+
+.tour-skip {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.tour-next {
+  background: var(--current-accent);
+  color: var(--bg);
+  border: 1px solid var(--current-accent);
+}

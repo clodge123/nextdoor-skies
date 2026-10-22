@@ -1,6 +1,7 @@
 import { expect, test, type Route } from '@playwright/test';
 import { buildSeedData } from '../server/lib/seed.js';
 import { FEED_HTML } from './fixtures/feed-page.js';
+import { markTourSeen } from './tour-seed';
 
 /**
  * W3-D2 CAPTURE-FRESHNESS GATE (C7): the exact capture sequence the seeder
@@ -48,6 +49,7 @@ test('map snapshot capture is fresh (non-black canvas, C7)', async ({ page }, te
   await page.route('**tiles.openfreemap.org/**', relayOfm);
 
   // Chicago-class landing: center on a real town at zoom 10 (seeder shape).
+  await markTourSeen(page);
   await page.goto('/?ndsCenter=-87.65,41.85', { waitUntil: 'domcontentloaded' });
   await page.waitForFunction(
     () => (window as { ndsMap?: { isStyleLoaded?: () => boolean } }).ndsMap?.isStyleLoaded?.() === true,

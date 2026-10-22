@@ -24,6 +24,7 @@
 import { expect, test, type Page, type Route } from '@playwright/test'
 import { readFileSync } from 'node:fs'
 import * as path from 'node:path'
+import { markTourSeen } from './tour-seed';
 
 const SHOT_DIR = path.join(process.cwd(), 'docs', 'screenshots', 'W3-B4')
 const SALINA_SLUG = 'salina-38.84--97.61'
@@ -174,6 +175,7 @@ async function searchInput(page: Page) {
 test('search "sal" -> dropdown -> Enter flies (animated) to Salina, panel opens, zoom>=9', async ({ page }, testInfo) => {
   test.setTimeout(120_000)
   const errors = await setup(page)
+  await markTourSeen(page);
   await page.goto('/', { waitUntil: 'domcontentloaded' })
   await mapReady(page)
 
@@ -229,6 +231,7 @@ test('search "sal" -> dropdown -> Enter flies (animated) to Salina, panel opens,
 test('deep link /?panel=<slug> opens the panel and flies (URL is the whole state)', async ({ page }) => {
   test.setTimeout(120_000)
   const errors = await setup(page)
+  await markTourSeen(page);
   await page.goto(`/?panel=${SALINA_SLUG}`, { waitUntil: 'domcontentloaded' })
   await mapReady(page)
   await expect(page.getByTestId('town-panel')).toBeVisible({ timeout: 15_000 })
@@ -244,6 +247,7 @@ test('deep link /?panel=<slug> opens the panel and flies (URL is the whole state
 test('empty query state: "No towns match"', async ({ page }, testInfo) => {
   test.setTimeout(60_000)
   const errors = await setup(page)
+  await markTourSeen(page);
   await page.goto('/', { waitUntil: 'domcontentloaded' })
   await mapReady(page)
   const input = await searchInput(page)
@@ -257,6 +261,7 @@ test('phone: drawer search is the surface, inline search hides <=480px', async (
   test.setTimeout(120_000)
   test.skip(!isPhone(page), 'phone-only: drawer search surface')
   const errors = await setup(page)
+  await markTourSeen(page);
   await page.goto('/', { waitUntil: 'domcontentloaded' })
   await mapReady(page)
 

@@ -11,6 +11,7 @@
 import { Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
 import CommandPalette, { usePaletteOpen } from './components/CommandPalette'
+import TourHost from './components/Tour'
 import FeedPage from './pages/FeedPage'
 import MapPage from './pages/MapPage'
 import TownPage from './pages/TownPage'
@@ -37,6 +38,11 @@ export default function App() {
         </Routes>
       </main>
       <CommandPalette open={palette.open} onClose={() => palette.setOpen(false)} />
+      {/* W3-E2 FIRST-VISIT TOUR (session 5): seen-once spotlight tour, replay
+          via palette 'Show tour' / drawer 'Take the tour'. Portal on body; 
+          never blocks first paint for returning users (unseen check is a
+          synchronous localStorage read, open is delayed past paint). */}
+      <TourHost />
     </div>
   )
 }

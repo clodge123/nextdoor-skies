@@ -1,6 +1,7 @@
 import { test, expect, type Page, type Route } from '@playwright/test'
 import * as path from 'node:path'
 import { mkdirSync } from 'node:fs'
+import { markTourSeen } from './tour-seed';
 
 /**
  * L6 Gate 1 browser test — L12 retarget: drives the REAL app (root vite
@@ -147,6 +148,7 @@ async function setup(page: Page): Promise<string[]> {
   await stubAlerts(page)
   // Center on Salina, KS: zoom-9 viewports are ~3.5deg wide and the default
   // center sits between baked towns, so badge temps would never resolve.
+  await markTourSeen(page);
   await page.goto('/?ndsCenter=-97.6114,38.8403', { waitUntil: 'domcontentloaded' })
   // Real map mounted (canvas exists, style loaded).
   await expect(page.getByTestId('map-view').locator('canvas')).toBeVisible({ timeout: 30_000 })

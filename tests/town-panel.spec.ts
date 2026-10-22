@@ -11,6 +11,7 @@
 import { expect, test, type Page, type Route } from '@playwright/test'
 import { readFileSync } from 'node:fs'
 import * as path from 'node:path'
+import { markTourSeen } from './tour-seed';
 
 const SHOT_DIR = path.join(process.cwd(), 'docs', 'screenshots', 'W3-B2')
 const SALINA_SLUG = 'salina-38.84--97.61'
@@ -150,6 +151,7 @@ async function setup(page: Page): Promise<string[]> {
 
 /** Land on Salina at zoom 3, then cross the zoom-9 badge gate (+3 x2). */
 async function gotoSalinaZoomed(page: Page): Promise<void> {
+  await markTourSeen(page);
   await page.goto(`/?ndsCenter=${SALINA_CENTER}`, { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('map-view').locator('canvas')).toBeVisible({ timeout: 30_000 })
   await page.waitForFunction(
@@ -213,6 +215,7 @@ test('badge click opens the town panel with real data, URL carries ?panel', asyn
 test('Esc key dismisses the panel', async ({ page }) => {
   test.setTimeout(120_000)
   const errors = await setup(page)
+  await markTourSeen(page);
   await page.goto(`/?ndsCenter=${SALINA_CENTER}&panel=${SALINA_SLUG}`, { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('town-panel')).toBeVisible({ timeout: 30_000 })
   await page.keyboard.press('Escape')
@@ -223,6 +226,7 @@ test('Esc key dismisses the panel', async ({ page }) => {
 test('click-outside dismisses the panel', async ({ page }) => {
   test.setTimeout(120_000)
   const errors = await setup(page)
+  await markTourSeen(page);
   await page.goto(`/?ndsCenter=${SALINA_CENTER}&panel=${SALINA_SLUG}`, { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('town-panel')).toBeVisible({ timeout: 30_000 })
   const vp = page.viewportSize()!
@@ -251,6 +255,7 @@ test('back button closes the panel (history law)', async ({ page }) => {
 test('deep link /?panel=<slug> opens the panel on hard load', async ({ page }) => {
   test.setTimeout(120_000)
   const errors = await setup(page)
+  await markTourSeen(page);
   await page.goto(`/?ndsCenter=${SALINA_CENTER}&panel=${SALINA_SLUG}`, { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('town-panel')).toBeVisible({ timeout: 30_000 })
   await expect(page.getByRole('heading', { name: 'Salina' })).toBeVisible()
@@ -262,6 +267,7 @@ test('mobile drag-to-dismiss closes the bottom sheet', async ({ page }) => {
   test.skip(!!page.viewportSize() && page.viewportSize()!.width > 480, 'phone-only: bottom sheet drag')
   test.setTimeout(120_000)
   const errors = await setup(page)
+  await markTourSeen(page);
   await page.goto(`/?ndsCenter=${SALINA_CENTER}&panel=${SALINA_SLUG}`, { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('town-panel')).toBeVisible({ timeout: 30_000 })
   const handle = page.getByTestId('town-panel-handle')
@@ -292,6 +298,7 @@ test('label click below zoom 9 opens the town panel (no dead zones)', async ({ p
   const errors = await setup(page)
   // Land on Wichita, zoom once (3 -> 6): STATE band, Wichita gets a real
   // clickable/focusable target over its canvas label. No badge exists here.
+  await markTourSeen(page);
   await page.goto(`/?ndsCenter=${WICHITA_CENTER}`, { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('map-view').locator('canvas')).toBeVisible({ timeout: 30_000 })
   await page.waitForFunction(

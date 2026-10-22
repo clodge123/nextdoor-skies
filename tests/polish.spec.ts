@@ -1,6 +1,7 @@
 import { test, expect, type Page, type Route } from '@playwright/test'
 import * as path from 'node:path'
 import { mkdirSync } from 'node:fs'
+import { markTourSeen } from './tour-seed';
 
 /**
  * W6 POLISH gate — owner field-test: "nav bar renders but has no CSS, tiny
@@ -129,6 +130,7 @@ async function setup(page: Page, tempsNull = false): Promise<string[]> {
   // Center on Salina, KS (same as badges.spec.ts): zoom-9 viewports are
   // ~11km wide, so the default center sits between towns and no badge would
   // ever resolve temps there.
+  await markTourSeen(page);
   await page.goto('/?ndsCenter=-97.6114,38.8403', { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('map-view').locator('canvas')).toBeVisible({ timeout: 30_000 })
   await page.waitForFunction(

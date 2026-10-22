@@ -42,6 +42,7 @@ describe('filterCommands', () => {
       'toggle-panel',
       'open-alerts-center',
       'go-town',
+      'show-tour',
     ])
   })
 })

@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom'
 import townsData from '../../data/towns/us-towns.json'
 import { rankTowns } from './IdentityPicker'
 import { requestPanelOpen, requestPanelToggle } from './SidePanel'
+import { requestTour } from './Tour'
 import { toggleTheme } from '../lib/theme'
 import { townSlug } from '../lib/session'
 import type { TownPoint } from '../lib/map/gazetteer'
@@ -172,6 +173,10 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
         setQuery('')
         setHi(0)
         return
+      case 'show-tour':
+        // W3-E2 replay seam: same requestTour() as the drawer item.
+        requestTour()
+        break
     }
     onClose()
   }
