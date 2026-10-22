@@ -6,6 +6,7 @@
 // Deep-link law: unknown id hard-loads the honest 404 page.
 // Run ONLY via scripts/e2e-gate.sh (fleet browser law).
 import { expect, test, type Page } from '@playwright/test'
+import { markTourSeen } from './tour-seed';
 
 const TOWN_SLUG = 'springfield-37.22--93.3'
 
@@ -118,6 +119,7 @@ async function setup(page: Page): Promise<string[]> {
 test('feed -> view post -> detail renders full post + comments', async ({ page }) => {
   const errors = await setup(page)
   mockPostsApi(page, fixturePosts())
+  await markTourSeen(page);
   await page.goto('/feed', { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('post-p_hot')).toBeVisible()
 
@@ -136,6 +138,7 @@ test('feed -> view post -> detail renders full post + comments', async ({ page }
 test('detail snapshot opens the lightbox; Esc and scrim close it', async ({ page }) => {
   const errors = await setup(page)
   mockPostsApi(page, fixturePosts())
+  await markTourSeen(page);
   await page.goto('/p/p_hot', { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('post-detail-text')).toBeVisible()
 
@@ -158,6 +161,7 @@ test('detail snapshot opens the lightbox; Esc and scrim close it', async ({ page
 test('copy-link writes the /p/<id> URL and shows Copied!', async ({ page, context }) => {
   const errors = await setup(page)
   mockPostsApi(page, fixturePosts())
+  await markTourSeen(page);
   await page.goto('/p/p_hot', { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('post-detail-text')).toBeVisible()
 
@@ -176,6 +180,7 @@ test('copy-link writes the /p/<id> URL and shows Copied!', async ({ page, contex
 test('deep-link unknown id -> honest 404 page', async ({ page }) => {
   const errors = await setup(page)
   mockPostsApi(page, fixturePosts())
+  await markTourSeen(page);
   await page.goto('/p/p_ghost', { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('not-found-page')).toBeVisible()
   expect(errors).toEqual([])

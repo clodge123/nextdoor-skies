@@ -4,6 +4,7 @@
 // plus popstate back-button behavior. Console-clean collector per the L2
 // harness law. Run ONLY via scripts/e2e-gate.sh (fleet browser law).
 import { expect, test, type Page, type Route } from '@playwright/test'
+import { markTourSeen } from './tour-seed';
 
 const SPRINGFIELD = 'springfield-37.22--93.3'
 
@@ -88,6 +89,7 @@ test('deep-link hard load of / renders the map with Map nav active', async ({ pa
   await page.route('**tiles.openfreemap.org/**', relayOfm)
   stubWeatherAndAlerts(page)
 
+  await markTourSeen(page);
   await page.goto('/', { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('map-view')).toBeVisible({ timeout: 30_000 })
   await expect(page.getByRole('link', { name: 'Map', exact: true })).toHaveAttribute('aria-current', 'page')
@@ -98,6 +100,7 @@ test('deep-link hard load of /feed renders the feed gate with Feed nav active', 
   const errors = attachConsoleCollector(page)
   stubWeatherAndAlerts(page)
 
+  await markTourSeen(page);
   await page.goto('/feed', { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('feed-page')).toBeVisible()
   await expect(page.getByTestId('identity-picker')).toBeVisible()
@@ -110,6 +113,7 @@ test('deep-link hard load of /t/<real-slug>/feed seeds THAT town, not the sessio
   stubWeatherAndAlerts(page)
   stubPostsApi(page)
 
+  await markTourSeen(page);
   await page.goto(`/t/${SPRINGFIELD}/feed`, { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('feed-page')).toBeVisible()
   await expect(page.getByTestId('feed-town')).toHaveText('Springfield')
@@ -122,6 +126,7 @@ test('unknown town slug hard-loads the honest 404 page with search', async ({ pa
   const errors = attachConsoleCollector(page)
   stubWeatherAndAlerts(page)
 
+  await markTourSeen(page);
   await page.goto('/t/no-such-town-0.0-0.0', { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('not-found-page')).toBeVisible()
   await expect(page.getByRole('heading', { name: /404/ })).toBeVisible()
@@ -135,6 +140,7 @@ test('back button (popstate) returns from /feed to the map', async ({ page }) =>
   await page.route('**tiles.openfreemap.org/**', relayOfm)
   stubWeatherAndAlerts(page)
 
+  await markTourSeen(page);
   await page.goto('/', { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('map-view')).toBeVisible({ timeout: 30_000 })
   await page.getByRole('link', { name: 'Feed', exact: true }).click()

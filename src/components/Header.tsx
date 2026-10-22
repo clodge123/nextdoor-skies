@@ -4,6 +4,7 @@ import { ThemeToggle } from './ThemeToggle'
 import { TownSearch } from './TownSearch'
 import { requestPanelOpen } from './SidePanel'
 import { requestPaletteOpen } from './CommandPalette'
+import { requestTour } from './Tour'
 
 /**
  * W6 POLISH — app header. Fully styled via src/index.css (.app-header /
@@ -163,6 +164,18 @@ export default function Header() {
         <div className="nav-drawer-search" data-drawer-item="search">
           <TownSearch variant="drawer" onNavigated={close} />
         </div>
+        {/* W3-E2 TOUR replay seam (phone surface of the palette command). */}
+        <button
+          type="button"
+          className="nav-drawer-link"
+          data-drawer-item="tour"
+          onClick={() => {
+            requestTour()
+            close()
+          }}
+        >
+          Take the tour
+        </button>
         <div className="nav-drawer-theme" data-drawer-item="theme">
           <span className="nav-drawer-theme-label">Theme</span>
           <ThemeToggle />

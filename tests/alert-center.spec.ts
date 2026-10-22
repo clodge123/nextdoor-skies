@@ -1,6 +1,7 @@
 import { test, expect, type Page, type Route } from '@playwright/test'
 import * as path from 'node:path'
 import { mkdirSync } from 'node:fs'
+import { markTourSeen } from './tour-seed';
 
 /**
  * W3-C2 ALERT CENTER — Gate 1 browser spec. Drives the REAL app (root vite
@@ -119,6 +120,7 @@ async function setupMap(page: Page, payload: unknown): Promise<string[]> {
   await page.route('**tiles.openfreemap.org/**', relayOfm)
   await stubWeather(page)
   await stubAlerts(page, payload)
+  await markTourSeen(page);
   await page.goto('/?ndsCenter=-97.6114,38.8403', { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('map-view').locator('canvas')).toBeVisible({ timeout: 30_000 })
   await page.waitForFunction(
@@ -206,6 +208,7 @@ test('/alerts page lists the same sorted alerts', async ({ page }, testInfo) => 
   mkdirSync(SHOT_DIR, { recursive: true })
   const errors = attachConsoleCollector(page)
   await stubAlerts(page, { alerts: STUB_ALERTS, stale: false })
+  await markTourSeen(page);
   await page.goto('/alerts', { waitUntil: 'domcontentloaded' })
 
   await expect(page.getByTestId('alerts-page')).toBeVisible()

@@ -17,6 +17,7 @@
 import { expect, test, type Page, type Route } from '@playwright/test';
 import * as path from 'node:path';
 import { mkdirSync } from 'node:fs';
+import { markTourSeen } from './tour-seed';
 
 const SHOT_DIR = path.join(process.cwd(), 'docs', 'screenshots', 'W3-C3');
 const IGNORED = /GL Driver Message|Expected value to be of type .*null/;
@@ -86,6 +87,7 @@ async function setup(page: Page): Promise<string[]> {
   await page.route('**tiles.openfreemap.org/**', relayOfm);
   await stubWeather(page);
   await stubAlerts(page);
+  await markTourSeen(page);
   await page.goto('/?ndsCenter=-97.6114,38.8403', { waitUntil: 'domcontentloaded' });
   await expect(page.getByTestId('map-view').locator('canvas')).toBeVisible({ timeout: 30_000 });
   return errors;

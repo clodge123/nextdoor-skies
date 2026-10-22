@@ -11,6 +11,7 @@
 // flag. Determinism (R17): no Math.random / Date.now in assertions; unique
 // text is derived from the test title.
 import { expect, test } from '@playwright/test'
+import { markTourSeen } from './tour-seed';
 
 const API_PORT = Number(process.env.E2E_API_PORT ?? 43118)
 const API = `http://127.0.0.1:${API_PORT}`
@@ -112,6 +113,8 @@ test.describe('real API round-trip (no mocks)', () => {
       ([key, value]: string[]) => localStorage.setItem(key, value),
       ['nds-session', SESSION],
     )
+    // W3-E2: returning-visitor seed so the first-visit tour never overlays.
+    await markTourSeen(page);
     await page.goto(`${API}/feed`, { waitUntil: 'domcontentloaded' })
     await expect(page.getByTestId('feed-page')).toBeVisible({ timeout: 15_000 })
     await expect(page.getByText(seedText)).toBeVisible({ timeout: 10_000 })

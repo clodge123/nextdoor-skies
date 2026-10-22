@@ -8,6 +8,7 @@
 // CORS headers added. The app itself is unmodified and uses the real style URL.
 import { expect, test, type Page, type Route } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
+import { markTourSeen } from './tour-seed';
 
 const OUT = 'docs/screenshots/L5-map';
 
@@ -96,6 +97,7 @@ test('map renders + zoom-in shows town label', async ({ page, browserName }, tes
   await page.route('**tiles.openfreemap.org/**', relayOfm);
   await stubOpenMeteo(page);
 
+  await markTourSeen(page);
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   const canvas = page.getByTestId('map-view').locator('canvas');
   await expect(canvas).toBeVisible({ timeout: 30_000 });

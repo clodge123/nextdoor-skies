@@ -28,6 +28,8 @@ export const COMMANDS: readonly PaletteCommand[] = [
   { id: 'toggle-panel', label: 'Toggle side panel', hint: 'P', keywords: ['panel', 'side', 'alerts'] },
   { id: 'open-alerts-center', label: 'Open alerts center', keywords: ['alerts', 'center', 'panel'] },
   { id: 'go-town', label: 'Go to town…', keywords: ['town', 'jump', 'fly', 'gazetteer'] },
+  // W3-E2 TOUR replay seam (session 5: "discreet replay" — owner law).
+  { id: 'show-tour', label: 'Show tour', keywords: ['tour', 'onboarding', 'demo', 'help', 'guide'] },
 ];
 
 /**
