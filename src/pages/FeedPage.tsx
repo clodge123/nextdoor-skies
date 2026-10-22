@@ -23,22 +23,32 @@ type Sort = 'hot' | 'new'
 export interface FeedPageProps {
   /** Injectable fetch seam (mirrors the weather refresher law); defaults to window.fetch. */
   fetchImpl?: FetchLike
+  /**
+   * W3-B1 ROUTING: when set (e.g. /t/<slug>/feed), the feed is seeded with
+   * THIS town, not the session town. Session 2 law: town feeds deep-link
+   * independently of identity; posting still uses the session identity.
+   */
+  townSlug?: string
+  townName?: string
 }
 
-export default function FeedPage({ fetchImpl }: FeedPageProps) {
+export default function FeedPage({ fetchImpl, townSlug, townName: townNameProp }: FeedPageProps = {}) {
   const [session, setSession] = useState<Session | null>(() => getSession())
   const [sort, setSort] = useState<Sort>('hot')
   const [posts, setPosts] = useState<Post[]>([])
   const [status, setStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>('idle')
   const [error, setError] = useState('')
 
-  const townName = session?.townName ?? ''
+  // Routing override: /t/<slug>/feed shows that town's feed regardless of
+  // the session town. Falls back to the session town (plain /feed).
+  const feedTown = townSlug ?? session?.townSlug ?? ''
+  const townName = townSlug ? (townNameProp ?? townSlug) : (session?.townName ?? '')
 
   const load = useCallback(async () => {
-    if (!session) return
+    if (!feedTown) return
     setStatus('loading')
     setError('')
-    const res = await fetchPosts({ town: session.townSlug, sort, fetchImpl })
+    const res = await fetchPosts({ town: feedTown, sort, fetchImpl })
     if (res.ok) {
       setPosts(res.data)
       setStatus('ready')
@@ -47,14 +57,14 @@ export default function FeedPage({ fetchImpl }: FeedPageProps) {
       setError(res.error)
       setStatus('error')
     }
-  }, [session, sort, fetchImpl])
+  }, [feedTown, sort, fetchImpl])
 
   useEffect(() => {
-    if (!session) return
+    if (!feedTown) return
     let ignore = false
     setStatus('loading')
     setError('')
-    void fetchPosts({ town: session.townSlug, sort, fetchImpl }).then((res) => {
+    void fetchPosts({ town: feedTown, sort, fetchImpl }).then((res) => {
       if (ignore) return
       if (res.ok) {
         setPosts(res.data)
@@ -68,9 +78,9 @@ export default function FeedPage({ fetchImpl }: FeedPageProps) {
     return () => {
       ignore = true
     }
-  }, [session, sort, fetchImpl])
+  }, [feedTown, sort, fetchImpl])
 
-  if (!session) {
+  if (!session && !feedTown) {
     return (
       <section className="feed-page" aria-labelledby="feed-heading" data-testid="feed-page">
         <h1 id="feed-heading">Feed</h1>
@@ -109,7 +119,9 @@ export default function FeedPage({ fetchImpl }: FeedPageProps) {
         </div>
       </div>
 
-      <FeedComposer session={session} fetchImpl={fetchImpl} onPosted={() => void load()} />
+      {session && (
+        <FeedComposer session={session} fetchImpl={fetchImpl} onPosted={() => void load()} />
+      )}
 
       {status === 'loading' && (
         <p className="feed-status" data-testid="feed-loading">
