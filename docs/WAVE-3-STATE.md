@@ -5,8 +5,8 @@ Laws: deploy-once-at-wave-end · closeout sweep every lane · browser
 serialization (e2e-gate.sh) · live-egress · commit author clodge123 ·
 survival commit ≤15 min · branch push via REST (python3 /tmp/push_tree.py).
 
-Tip at kickoff: `231ad9a` (wave-3 briefs merged). Current main tip: `51acf64`
-(= remote `8db2a1c`).
+Tip at kickoff: `231ad9a` (wave-3 briefs merged). Current main tip: `009a15b`
+(= remote `eb64a5e`).
 
 ## Round 1
 | Lane | Branch | Status | Next step |
@@ -23,11 +23,13 @@ Tip at kickoff: `231ad9a` (wave-3 briefs merged). Current main tip: `51acf64`
 | Lane | Status | Next step |
 | --- | --- | --- |
 | W3-B2 town panel | ✅ MERGED `51acf64` — ?panel=<slug> URL state, slide-over/bottom sheet, badge-click SPA nav, shared last-good data; vitest 321/321, gated Playwright full surface 46 passed/0 failed (2 viewport skips), build+determinism clean. Reconciled with C1/C2 shell (lane forked pre-C1: MapPage rebuilt keeping panel slot + alert center + MapTint + A2 codes) | closed |
-| W3-B3 click-to-detail | SPAWNED (B2 dep satisfied) | click→detail wiring → gates → merge |
-| W3-B4 search+fly-to | QUEUED behind B2/B3 (MapPage serialization) | spawn when B3 merges |
+| W3-B3 click-to-detail | ✅ MERGED `009a15b` — TownLabelTargets (zoom<9 focusable label/dot links, ?panel scheme), badge overlay loses aria-hidden lie, alert dot routes to /alerts, keyboard Tab+Enter+Esc; vitest 334/334, gated e2e 67/69 (2 phone skips); CSS restoration included (map-tint + C1 shell blocks dropped by C2 merge, B2 brace chain) | closed |
+| W3-B4 search+fly-to | SPAWNED (B3 dep satisfied) | type-ahead search + ~1.5-2s fly-to → gates → merge |
+| W3-C3 command palette | SPAWNED (C2 dep satisfied) | Ctrl/Cmd+K palette → gates → merge |
 | W3-C2 alert center | ✅ MERGED `3def7ce` — severity-sorted panel list + /alerts page, one-poll law (refresher lifted to MapPage), fly-to seam (`src/lib/map/fly-to.ts`, reusable by B4), honest empty/stale states; vitest 298/298, alert-center+shell+badges 14/14 gated. Reconciliation note: the D3 merge had silently reverted 9 A2 files + MapTint render (discovered during C2 merge, restored) | closed |
 | W3-C3 command palette | SPAWNED (C2 dep satisfied) | palette → gates → merge |
 | W3-D3 post-detail+lightbox+share | ✅ MERGED `303084a` — real /p/<id> detail + Lightbox (focus trap, scrim/Esc) + copy-link/native share + bare-id GET route + feed view-post links; vitest 273/273, post-detail 12/12 gated | closed |
+| W3-C3 command palette | SPAWNED (C2 dep satisfied) | Ctrl/Cmd+K palette → gates → merge |
 
 Round 3: E1 polish seeds · E2 tour · F QA harness. Wave 4 (polish pass): GAP
 — after owner plays with wave 3.
