@@ -5,8 +5,8 @@ Laws: deploy-once-at-wave-end · closeout sweep every lane · browser
 serialization (e2e-gate.sh) · live-egress · commit author clodge123 ·
 survival commit ≤15 min · branch push via REST (python3 /tmp/push_tree.py).
 
-Tip at kickoff: `231ad9a` (wave-3 briefs merged). Current main tip: `303084a`
-(= remote `203c3e2`).
+Tip at kickoff: `231ad9a` (wave-3 briefs merged). Current main tip: `3def7ce`
+(= remote `708a04d`).
 
 ## Round 1
 | Lane | Branch | Status | Next step |
@@ -25,8 +25,8 @@ Tip at kickoff: `231ad9a` (wave-3 briefs merged). Current main tip: `303084a`
 | W3-B2 town panel | RUNNING (B1 dep satisfied) | panel → gates → merge |
 | W3-B3 click-to-detail | QUEUED behind B2 (MapPage serialization) | spawn when B2 merges |
 | W3-B4 search+fly-to | QUEUED behind B2/B3 (MapPage serialization) | spawn when B3 merges |
-| W3-C2 alert center | RUNNING (C1 dep satisfied) | fill panel slot → gates → merge |
-| W3-C3 command palette | QUEUED behind C2 (panel slot serialization) | spawn when C2 merges |
+| W3-C2 alert center | ✅ MERGED `3def7ce` — severity-sorted panel list + /alerts page, one-poll law (refresher lifted to MapPage), fly-to seam (`src/lib/map/fly-to.ts`, reusable by B4), honest empty/stale states; vitest 298/298, alert-center+shell+badges 14/14 gated. Reconciliation note: the D3 merge had silently reverted 9 A2 files + MapTint render (discovered during C2 merge, restored) | closed |
+| W3-C3 command palette | SPAWNED (C2 dep satisfied) | palette → gates → merge |
 | W3-D3 post-detail+lightbox+share | ✅ MERGED `303084a` — real /p/<id> detail + Lightbox (focus trap, scrim/Esc) + copy-link/native share + bare-id GET route + feed view-post links; vitest 273/273, post-detail 12/12 gated | closed |
 
 Round 3: E1 polish seeds · E2 tour · F QA harness. Wave 4 (polish pass): GAP
