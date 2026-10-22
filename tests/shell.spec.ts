@@ -113,6 +113,11 @@ async function tapOrClick(page: Page, locator: ReturnType<Page['locator']>): Pro
 
 test.describe('W3-C1 layout shell', () => {
   test('side panel: default state, geometry, P toggle, honest empty state', async ({ page }, testInfo) => {
+    // Map-style settle inside setup() is budgeted up to 45s (tile relay); the
+    // default 30s test timeout can expire mid-settle under host load. This
+    // is a harness budget, not a product gate — every other map spec runs
+    // 60s+ for the same reason.
+    test.setTimeout(90_000)
     const errors = await setup(page);
     const panel = page.getByTestId('side-panel');
 
@@ -169,6 +174,7 @@ test.describe('W3-C1 layout shell', () => {
   });
 
   test('alert banner overlay is gone from the map page', async ({ page }) => {
+    test.setTimeout(90_000)
     const errors = await setup(page);
     // Banner unmounted (alert center lands in C2); the refresher keeps
     // polling for badge dots, so no banner element may exist in any viewport.
@@ -179,6 +185,7 @@ test.describe('W3-C1 layout shell', () => {
   });
 
   test('phone header drawer: hamburger -> Map/Feed/Alerts/Theme, 44px, nav works', async ({ page }, testInfo) => {
+    test.setTimeout(90_000)
     const errors = await setup(page);
     const drawer = page.getByTestId('nav-drawer');
     const burger = page.getByTestId('nav-menu-button');
