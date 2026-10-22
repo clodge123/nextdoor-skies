@@ -29,7 +29,14 @@ decision 4 ("Command palette (Ctrl+K) + keyboard shortcuts: YES").
 
 - vitest: 354/354 (was 334; +20 palette unit/component tests).
 - tsc -b: clean. npm run build: clean. check:all: clean.
-- Playwright: ONE gated run via scripts/e2e-gate.sh (see ledger for counts).
+- Playwright (gated, scripts/e2e-gate.sh): palette.spec.ts 6/6 green across
+  phone/tablet/desktop (Ctrl+K opens, theme filter+Enter flips theme,
+  Esc/scrim close, ArrowDown nav, chip/drawer discoverability, town
+  typeahead -> town page, recents round-trip). Full suite: 132 passed /
+  8 skipped (real-api needs REAL_API=1) / 1 flake — polish.spec.ts desktop
+  timed out on `ndsMap.isStyleLoaded` under host load (map style settle);
+  re-run standalone 3/3 PASS, unrelated to the palette (header assertions
+  all pass in every other project). No existing spec regressed.
 
 ## Deviations / notes
 
@@ -39,4 +46,9 @@ decision 4 ("Command palette (Ctrl+K) + keyboard shortcuts: YES").
   dir symlink; sibling lanes carry the node_modules symlink too).
 - Ctrl+K (not literal Meta+K) drives the e2e keyboard gesture — Chromium on
   Linux maps `Control+k`; the app accepts both modifiers.
-- No deploy (wave law).
+- Keyboard-nav assertion honors recents ordering (last-run command is
+  highlighted first when recents exist — spec asserts the real law).
+- Town-typeahead entry uses ArrowUp (go-town is last in registry order).
+- No deploy (wave law). Closeout sweep: 122 zombie chrome-headless reaped
+  (leaked service-child-group-anchor parents killed), 1 live chrome-headless
+  (sibling lane) untouched.
