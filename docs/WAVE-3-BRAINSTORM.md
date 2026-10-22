@@ -106,7 +106,10 @@ page `/p/<id>`.
 - QA bar: click-every-button manual pass + production-shaped local harness
   (vercel dev), no mocked routes.
 
-## Session 5 — Acceptance criteria & wave scoping (IN PROPOSED)
+## Session 5 — Acceptance criteria & wave scoping ✅ DECIDED (2026-10-21 23:08 CDT)
+Owner rulings: (1) split into smaller lanes, orchestrator parallelizes; (2)
+wave 4 = GAP after owner feedback; (3) demo script approved as acceptance
+test + tour first-visit-only with header replay. Final breakdown below.
 
 ### Per-feature "done" gates (every lane, all viewports)
 - First-glance test: layer teaches itself in ~2s, no clicks needed.
@@ -126,29 +129,33 @@ page `/p/<id>`.
 6. Phone viewport: bottom sheet, pull-to-refresh, Web Share sheet.
 Total < 90 seconds, zero console errors, zero dead clicks.
 
-### Lane sketch (wave 3 = features, wave 4 = polish pass per owner)
-- W3-A WEATHER-CORE: 60-min server cache + SWR + neighbor prefetch + fade-in
-  + lucide condition icons + map tint (live-egress lane).
-- W3-B NAV-DETAIL: routing (`/t/<slug>`, `/p/<id>`, `/alerts`), town panel +
-  page, click-to-detail (badges, labels, low-zoom dots), search box, my-town
-  chip, fly-to animations, "View on map".
-- W3-C LAYOUT-SHELL: side panel (open desktop/bottom-sheet mobile), alert
-  center (severity-grouped, mute), command palette + shortcuts, banner
-  removal, mobile drawer.
-- W3-D FEED-FIX: `?path=` routing fix, real-API local harness, capture fix +
-  re-seed, engagement seed, post detail page, lightbox, share, pull-to-refresh.
-- W3-E POLISH-SEEDS: skeletons, micro-interactions, identicons, typography
-  scale, 3-step tour (full polish pass deferred to wave 4).
-- W3-F QA-HARNESS: click-every-button spec suite, demo-script e2e, production-
-  shaped smoke additions (reaction round-trip, snapshot render).
-Dependencies: A → B (card needed by panel); C parallel; D independent; E
-after B/C; F last. Browser runs serialized (traffic law). ONE deploy at wave
-end (deploy law). Closeout sweep every lane.
+### final lane breakdown (owner: split smaller — 16 lanes, one topic each)
+| Lane | Topic | Depends |
+| --- | --- | --- |
+| W3-A1 | Weather cache: 60-min server cache + SWR + neighbor prefetch (live-egress) | — |
+| W3-A2 | Lucide condition icons (theme-neutral, both themes) + fade-in | A1 |
+| W3-A3 | Weather-driven map tint (dominant-condition wash) | A1 |
+| W3-B1 | Routing: `/t/<slug>`, `/t/<slug>/feed`, `/p/<id>`, `/alerts`; deep links | — |
+| W3-B2 | Town panel + town page: weather card, alerts, recent posts, "Open feed" | A2,B1 |
+| W3-B3 | Click-to-detail: badges + labels + low-zoom dots (no dead zones) | B2 |
+| W3-B4 | Search box, my-town chip, fly-to animation law, "View on map" | B1 |
+| W3-C1 | Layout shell: side panel (desktop open / mobile bottom sheet), banner removal, drawer | — |
+| W3-C2 | Alert center: severity-grouped, color-coded borders, mute town | C1 |
+| W3-C3 | Command palette `Ctrl+K` + keyboard shortcuts | C1 |
+| W3-D1 | Feed routing fix (`?path=`) + real-API local harness + smoke round-trips | — |
+| W3-D2 | Seeder capture fix + re-seed + engagement seed (deterministic) | D1 |
+| W3-D3 | Post detail page, lightbox, share (copy-link + Web Share), pull-to-refresh | B1,D1 |
+| W3-E1 | Polish seeds: skeletons, micro-interactions, identicons, typography scale | B2,C1 |
+| W3-E2 | Onboarding tour: 3-step, FIRST-VISIT-ONLY (localStorage + IP/userId seen-flag), header "▶ Demo" replay button | B3,C3 |
+| W3-F | QA harness: click-every-button suite, demo-script e2e, prod smoke additions | all |
 
-### Open Q for owner
-1. Lane count/split above OK, or merge/polish differently?
-2. Wave-4 polish pass: schedule right after wave 3, or gap for feedback?
-3. Demo script as the wave-3 acceptance test — sign off?
+Wave 4 (polish pass): scheduled as a GAP — owner plays with wave 3, gives
+feedback, then wave 4. Not started with wave 3.
+
+### Tour visibility law (owner)
+First visit only — seen flag keyed on localStorage (+ IP/userId where
+available); never repeats. Discreet "▶ Demo" replay in header. Must not
+block first paint for returning users.
 
 ## Standing constraints (non-negotiable, from owner history)
 No silent fallbacks / honest empty states · fetch-per-window · determinism
