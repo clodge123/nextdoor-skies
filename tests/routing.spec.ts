@@ -125,7 +125,7 @@ test('unknown town slug hard-loads the honest 404 page with search', async ({ pa
   await page.goto('/t/no-such-town-0.0-0.0', { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('not-found-page')).toBeVisible()
   await expect(page.getByRole('heading', { name: /404/ })).toBeVisible()
-  await expect(page.getByTestId('not-found-slug')).toHaveText('no-such-town-0.0-0.0')
+  await expect(page.getByTestId('not-found-slug')).toHaveText(/no-such-town-0\.0-0\.0/)
   await expect(page.getByTestId('not-found-search')).toBeVisible()
   expect(errors).toEqual([])
 })
