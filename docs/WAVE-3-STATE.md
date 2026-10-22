@@ -119,3 +119,32 @@ palette = Ctrl/Cmd+K with discoverable chip (owner first-try law).
    credential on this host. Needs owner token/login for the single deploy.
 2. seed-wave3.yml: needs repo secret `NDS_ADMIN_SECRET` set (gh token here
    returns 404 on secrets endpoints -> cannot verify) + deploy landed first.
+
+## Heartbeat checks (cont.)
+- 16:42 CDT — hourly sweep. Ledger vs sessions: all 16 lanes MERGED/closed,
+  zero running subagents (sessions_list confirms only heartbeat session).
+  Nothing to merge → no gates. Process sweep BLOCKED: exec spawn broker
+  request capacity exceeded (3 retries over ~2 min, same error; matches
+  02:19 saturation pattern). Load unreadable this tick; last clean sweep
+  15:57 (load trending idle), no new lanes/processes spawned since →
+  low leak risk. Wave remains gate-clean (192/0) awaiting owner-side
+  deploy credentials. Nothing needs owner attention.
+
+- 15:57 CDT — hourly sweep. Ledger vs sessions: ALL 16 lanes MERGED/closed
+  (rounds 1–3); zero running subagents; final wave gate CLEAN 192/0 (16:25
+  entry). Process hygiene: >1h anchors killed; remaining anchors <33min
+  (live lane work), chrome zombies defunct/resource-free. Load 1.08/2.62/4.75
+  trending idle. No merges since last check → no gates. NO deploys (wave-end
+  deploy awaits owner Vercel credential + NDS_ADMIN_SECRET, per blockers).
+  Nothing needs owner attention.
+
+## Heartbeat checks (cont.)
+- 16:54 CDT — **WAVE-END DEPLOY DONE** (owner logged the host into Vercel as
+  `gwl123`; VERCEL_TOKEN env was a broken secret-ref string -> unset per
+  shell). `vercel --prod` -> production Ready:
+  https://nextdoor-skies-run2.vercel.app (dpl_HtrxrCyYzP79CaedJnRBA97gxe2S).
+  Live smoke: app HTML serves (title "NextDoor Skies"), /api/posts answers
+  with the contract-shaped response. NOTE: Vercel Deployment Protection is
+  ON for the project — owner demo needs it disabled (Settings -> Deployment
+  Protection) or bypass tokens. seed-wave3.yml still queued (NDS_ADMIN_SECRET
+  unset).
