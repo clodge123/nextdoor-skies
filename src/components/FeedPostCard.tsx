@@ -12,6 +12,7 @@ import {
   fetchComments,
   flagPost,
   formatStamp,
+  noteOptimisticReaction,
   setReaction,
   type Comment,
   type FetchLike,
@@ -43,7 +44,9 @@ export function FeedPostCard({ post, session, fetchImpl }: FeedPostCardProps) {
 
   async function react(emoji: ReactionEmoji) {
     const prev = view
-    setView(applyReaction(prev, emoji)) // optimistic mirror of the S4 toggle
+    const next = applyReaction(prev, emoji) // optimistic mirror of the S4 toggle
+    setView(next)
+    noteOptimisticReaction(post.id, next) // server response reconciles against this
     setReactionError('')
     const res = await setReaction(post.id, emoji, session, fetchImpl)
     if (res.ok) setView(res.data)

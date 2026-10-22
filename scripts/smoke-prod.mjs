@@ -162,6 +162,56 @@ async function checkTheme(page, shots) {
   return { bgBefore, bgAfter, themeAttr };
 }
 
+/** 5 (W3-D1 / C6): real API round-trip — create -> react -> verify -> flag.
+ *  Node-side fetch (no browser) against the deployed api/posts.js. Proves the
+ *  production routing (query-param `?path=` form) works end-to-end; the old
+ *  subpath form 404s in production, so this check IS the regression gate. */
+const SMOKE_TOWN = 'springfield-37.22--93.3';
+const SMOKE_SESSION = JSON.stringify({ nickname: 'smoke', townSlug: SMOKE_TOWN, townName: 'Springfield' });
+
+async function checkApiRoundTrip() {
+  const headers = { 'content-type': 'application/json', 'x-nds-session': SMOKE_SESSION };
+  // R17: no clock/RNG here. Text is static; the SERVER's createdAt makes the
+  // content-hashed id unique per run (identical text + different ms = new id).
+  const text = 'smoke round-trip post';
+  const created = await fetch(`${BASE}/api/posts`, {
+    method: 'POST', headers, body: JSON.stringify({ town: SMOKE_TOWN, text }),
+  });
+  if (created.status !== 201) throw new Error(`create post -> HTTP ${created.status}: ${(await created.text()).slice(0, 120)}`);
+  const post = (await created.json()).post;
+  if (!post?.id) throw new Error('create post: no id in response');
+  const reacted = await fetch(`${BASE}/api/posts?path=${encodeURIComponent(`${post.id}/reactions`)}`, {
+    method: 'POST', headers, body: JSON.stringify({ emoji: '👍' }),
+  });
+  if (reacted.status !== 200) throw new Error(`react -> HTTP ${reacted.status} (C6 routing regression)`);
+  if ((await reacted.json()).myReaction !== '👍') throw new Error('react: server did not confirm myReaction');
+  const listed = await fetch(`${BASE}/api/posts?town=${SMOKE_TOWN}&sort=new`, { headers });
+  if (listed.status !== 200) throw new Error(`list -> HTTP ${listed.status}`);
+  const row = (await listed.json()).posts.find((x) => x.id === post.id);
+  if (!row) throw new Error('list: created post missing');
+  if (row.reactions?.['👍'] !== 1 || row.myReaction !== '👍') {
+    throw new Error(`list: reaction not visible (${JSON.stringify(row.reactions)} my=${row.myReaction})`);
+  }
+  const flagged = await fetch(`${BASE}/api/posts?path=${encodeURIComponent(`${post.id}/flag`)}`, {
+    method: 'POST', headers, body: JSON.stringify({}),
+  });
+  if (flagged.status !== 200) throw new Error(`flag -> HTTP ${flagged.status}`);
+  // Hidden after 3 DISTINCT flags (S2): two more smoke nicknames hide it.
+  for (const nick of ['smoke-b', 'smoke-c']) {
+    const h2 = { ...headers, 'x-nds-session': JSON.stringify({ nickname: nick, townSlug: SMOKE_TOWN, townName: 'Springfield' }) };
+    const f2 = await fetch(`${BASE}/api/posts?path=${encodeURIComponent(`${post.id}/flag`)}`, {
+      method: 'POST', headers: h2, body: JSON.stringify({}),
+    });
+    if (f2.status !== 200) throw new Error(`flag(${nick}) -> HTTP ${f2.status}`);
+  }
+  const hidden = await fetch(`${BASE}/api/posts?town=${SMOKE_TOWN}&sort=new`, { headers });
+  if (hidden.status !== 200) throw new Error(`hidden-list -> HTTP ${hidden.status}`);
+  if ((await hidden.json()).posts.some((x) => x.id === post.id)) {
+    throw new Error('flag-hide: post still visible after 3 flags');
+  }
+  return { id: post.id, roundTrip: true, hidden: true };
+}
+
 /** 4: /feed loads with the honest state (wave-1 placeholder, no fake posts). */
 async function checkFeed(page, shots) {
   await page.goto(`${BASE}/feed`, { waitUntil: 'domcontentloaded', timeout: 30_000 });
@@ -182,6 +232,18 @@ mkdirSync(OUT, { recursive: true });
 const browser = await chromium.launch({ headless: true, args: ['--no-proxy-server'] });
 const results = [];
 let failures = 0;
+
+// API round-trip runs ONCE (node-side, not per viewport) — W3-D1 C6 gate.
+{
+  const rec = { viewport: 'api-roundtrip', checks: {}, consoleErrors: [] };
+  try {
+    rec.checks.apiRoundTrip = await checkApiRoundTrip();
+  } catch (e) {
+    rec.checks.apiRoundTrip = { error: String(e?.message ?? e).slice(0, 300) };
+    failures += 1;
+  }
+  results.push(rec);
+}
 
 for (const vp of VIEWPORTS) {
   const context = await browser.newContext({

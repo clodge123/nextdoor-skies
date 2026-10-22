@@ -2,19 +2,24 @@
 // honest states (docs/WAVE-2-CONTRACTS.md §S2–S4). No clock/RNG dependence.
 import { describe, expect, it, vi } from 'vitest'
 import {
+  addComment,
   applyReaction,
+  fetchComments,
   fetchPosts,
+  flagPost,
   formatStamp,
   getSession,
   normalizePost,
   parseComments,
   parsePosts,
   partitionHot,
+  setReaction,
   sortByNewest,
   pickTownSlug,
   sanitizeNickname,
   type FetchLike,
   type Post,
+  type Session,
 } from './feed'
 
 function post(overrides: Partial<Post> = {}): Post {
@@ -207,5 +212,56 @@ describe('normalizePost guards', () => {
     expect(normalizePost(null)).toBeNull()
     expect(normalizePost([])).toBeNull()
     expect(normalizePost({ text: 'x' })).toBeNull()
+  })
+})
+
+describe('per-post URLs use the ?path= query-param route (C6 fix)', () => {
+  // Production (Vercel) filesystem routing 404s the subpath form; every
+  // per-post call must go through /api/posts?path=<id>/<action>.
+  const session: Session = { nickname: 'jordan', townSlug: 'springfield-37.22--93.3', townName: 'Springfield' }
+
+  function captureFetch(): { urls: string[]; methods: string[]; fetchImpl: FetchLike } {
+    const urls: string[] = []
+    const methods: string[] = []
+    const fetchImpl: FetchLike = vi.fn(async (input, init) => {
+      urls.push(String(input))
+      methods.push((init?.method ?? 'GET').toUpperCase())
+      return new Response(JSON.stringify({ posts: [], ok: true }), { status: 200 })
+    })
+    return { urls, methods, fetchImpl }
+  }
+
+  it('fetchComments GETs /api/posts?path=<id>/comments', async () => {
+    const { urls, methods, fetchImpl } = captureFetch()
+    await fetchComments('p_1', fetchImpl)
+    expect(urls).toEqual(['/api/posts?path=p_1%2Fcomments'])
+    expect(methods).toEqual(['GET'])
+  })
+
+  it('addComment POSTs /api/posts?path=<id>/comments', async () => {
+    const { urls, methods, fetchImpl } = captureFetch()
+    await addComment('p_1', 'hi', session, fetchImpl)
+    expect(urls).toEqual(['/api/posts?path=p_1%2Fcomments'])
+    expect(methods).toEqual(['POST'])
+  })
+
+  it('setReaction POSTs /api/posts?path=<id>/reactions', async () => {
+    const { urls, methods, fetchImpl } = captureFetch()
+    await setReaction('p_1', '👍', session, fetchImpl)
+    expect(urls).toEqual(['/api/posts?path=p_1%2Freactions'])
+    expect(methods).toEqual(['POST'])
+  })
+
+  it('flagPost POSTs /api/posts?path=<id>/flag', async () => {
+    const { urls, methods, fetchImpl } = captureFetch()
+    await flagPost('p_1', session, fetchImpl)
+    expect(urls).toEqual(['/api/posts?path=p_1%2Fflag'])
+    expect(methods).toEqual(['POST'])
+  })
+
+  it('ids with special chars stay safely encoded in the path param', async () => {
+    const { urls, fetchImpl } = captureFetch()
+    await fetchComments('p 1/2', fetchImpl)
+    expect(urls).toEqual(['/api/posts?path=p%201%2F2%2Fcomments'])
   })
 })
