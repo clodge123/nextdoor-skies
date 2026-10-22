@@ -5,8 +5,8 @@ Laws: deploy-once-at-wave-end · closeout sweep every lane · browser
 serialization (e2e-gate.sh) · live-egress · commit author clodge123 ·
 survival commit ≤15 min · branch push via REST (python3 /tmp/push_tree.py).
 
-Tip at kickoff: `231ad9a` (wave-3 briefs merged). Current main tip: `da5b9f7`
-(= remote `9f98e8a`).
+Tip at kickoff: `231ad9a` (wave-3 briefs merged). Current main tip: `303084a`
+(= remote `203c3e2`).
 
 ## Round 1
 | Lane | Branch | Status | Next step |
@@ -27,7 +27,7 @@ Tip at kickoff: `231ad9a` (wave-3 briefs merged). Current main tip: `da5b9f7`
 | W3-B4 search+fly-to | QUEUED behind B2/B3 (MapPage serialization) | spawn when B3 merges |
 | W3-C2 alert center | RUNNING (C1 dep satisfied) | fill panel slot → gates → merge |
 | W3-C3 command palette | QUEUED behind C2 (panel slot serialization) | spawn when C2 merges |
-| W3-D3 post-detail+lightbox+share | RUNNING (B1+D1 deps satisfied) | /p/<id> page → gates → merge |
+| W3-D3 post-detail+lightbox+share | ✅ MERGED `303084a` — real /p/<id> detail + Lightbox (focus trap, scrim/Esc) + copy-link/native share + bare-id GET route + feed view-post links; vitest 273/273, post-detail 12/12 gated | closed |
 
 Round 3: E1 polish seeds · E2 tour · F QA harness. Wave 4 (polish pass): GAP
 — after owner plays with wave 3.
