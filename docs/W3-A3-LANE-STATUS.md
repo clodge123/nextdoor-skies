@@ -1,4 +1,14 @@
-# W3-A3 MAP TINT — lane status (mid-flight)
+# W3-A3 MAP TINT — lane status: DONE (gates green, branch pushed)
+
+Final state (2026-10-22): checkpoint e86532d + fixes aa5d9c6 (author
+clodge123). Gates: vitest 202/202 (21 files), tsc -b clean, vite build
+ok, check:determinism exit 0, ONE gated Playwright run of
+badges.spec.ts = 6/6 passed (phone/tablet/desktop; tint absent < zoom 9,
+present+stable+console-clean at zoom 9). Pushed via GitHub REST to
+r3w3/A3-tint (tip 138611f, 214 files, all tint files verified on remote).
+No deploy. Original mid-flight notes below.
+
+## (history) mid-flight
 
 Host spawn broker saturated; exec calls rejected ("Spawn broker request
 capacity exceeded") since lane start. **All lane files are written to the
@@ -38,10 +48,9 @@ worktree tree; NOTHING committed, NO gates run, branch NOT pushed.**
 
 ## Orchestrator continuation 2 (2nd attempt)
 Repeated single batched exec probes (yieldMs up to 900s) all returned
-`Spawn broker request capacity exceeded` INSTANTLY — the broker is not
-queuing, it is rejecting every spawn. Lane remains code-complete,
-uncommitted, gates unrun. This status file IS the checkpoint (tree state,
-self-explanatory). No commits, no push, no gates claimed.
+`Spawn broker request capacity exceeded` INSTANTLY. Resolved by gateway
+restart; orchestrator checkpoint-committed the tree as e86532d, then the
+lane finished its own gates + push (see top of file).
 
 ## Deviations so far
 - Tint consumes the **temperature-band fallback** (A2 condition codes not
