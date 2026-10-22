@@ -18,21 +18,28 @@ the session, this doc is the agenda.
 | Identity | picker + geolocation | no profile chip/menu, no town switcher in header, no multi-town following |
 | Polish | tokens, dark/light, square geometry | skeletons not spinners, motion/micro-interactions, typography scale, empty-state art, onboarding first-run tour |
 
-## Session 1 — Weather UX (recommend first: shapes the card + map lanes)
-- **Cache model**: hourly town cache (owner suggestion) vs tile-region cache;
-  shared server-side (Redis/Vercel KV?) vs in-memory + stale-while-revalidate.
-  Recommendation: 60-min TTL + SWR + neighbor-ring prefetch (pan lands show
-  last-known temps instantly, refresh quietly).
-- **Fade-in law**: badge enters at 0% opacity, animates in when data arrives
-  (CSS transition, deterministic). "Awaiting feed" only for genuinely cold
-  towns; never a wall.
-- **Rich weather card** (the centerpiece): temp + condition icon + wind/humidity
-  strip, square geometry, same card renders on map badge-expanded, town page,
-  AND inside feed posts (the "social card"). Open Q: card size tiers (chip →
-  card on hover/click)?
-- Open Q: hourly is NWS-accurate enough? Cache key per town vs per tile?
+## Session 1 — Weather UX ✅ DECIDED (2026-10-21 20:48 CDT)
 
-## Session 2 — Navigation & information architecture
+All five decisions locked, plus the map-tint extra:
+1. **Cache: 60-minute town cache, server-side, stale-while-revalidate.**
+   Cache warms by gathering everything in view; users scrolling pull from the
+   cache, the next ring prefetches quietly. No visible "awaiting feed" for
+   seen towns. (Demo app — 60 min is plenty; fresher not needed.)
+2. **Condition icons: lucide icon set, theme-neutral** — must read cleanly on
+   BOTH dark and light themes (owner requirement; contrast verified in gates).
+3. **Card tier trigger: tap/click** the small chip to expand into the detail
+   card (mobile-safe).
+4. **Full card**: temp big + condition icon + feels-like + wind + humidity
+   ("like a real weather app"). Same card on map-expand, town page, feed posts.
+5. **Alerts**: severity dots + pulsing ring on badges; browser-based alerts
+   (current shape fine).
+6. **Weather-driven map tint**: YES — subtle sky-tone wash by dominant
+   condition in view.
+
+Fade-in law (~200ms CSS) confirmed as part of the model. Source stays
+Open-Meteo via proxy, ≤50 towns/request, live-egress proof required.
+
+## Session 2 — Navigation & information architecture (IN PROGRESS)
 - **Click-to-detail**: tap any badge/map label → town slide-over panel
   (conditions card + alerts + recent posts + "open town feed"). Tap post →
   post detail page. This fixes "click on a temperature nothing happens."
@@ -53,8 +60,8 @@ the session, this doc is the agenda.
   skeleton shimmer.
 - Skeleton loaders everywhere (no spinner walls); first-glance 2-second rule
   per layer; micro-interactions (reaction pop, badge pulse on alert).
-- Open Q: R20 waiver? Font pairing? Icon set (lucide)? Avatar generation for
-  nicknames?
+- Open Q: R20 waiver? Font pairing? Avatar generation for nicknames?
+  (Icon set DECIDED session 1: lucide, theme-neutral.)
 
 ## Session 4 — Feed correctness & demo liveliness
 - Fix production routing bug (subpath → `?path=` form + real-API local harness
