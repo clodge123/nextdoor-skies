@@ -1721,3 +1721,110 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius);
 }
+/* ---- W3-B4 SEARCH section follows ---- */
+/* ============================================================================
+   W3-B4 SEARCH — header town combobox (session 2 decision 3).
+   Inline on tablet/desktop; the drawer instance is the phone surface
+   (the inline box hides <=480px). Square geometry (R20: var(--radius)
+   only), >=44px targets (R13), 200ms transitions (animation law).
+   ========================================================================== */
+
+.app-header-search {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.town-search {
+  position: relative;
+  display: flex;
+}
+
+.town-search-input {
+  min-height: 44px;
+  min-width: 160px;
+  padding: 0 12px;
+  font: 500 14px/1 ui-sans-serif, system-ui, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.town-search-input:focus-visible {
+  outline: 2px solid var(--current-accent);
+  outline-offset: 1px;
+  border-color: var(--current-accent);
+}
+
+.town-search-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 30;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 24px rgb(0 0 0 / 0.3);
+}
+
+.town-search-option {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.town-search-option.is-active {
+  background: var(--bg);
+  box-shadow: inset 4px 0 0 var(--current-accent);
+}
+
+.town-search-option-name {
+  font: 600 14px/1.2 ui-sans-serif, system-ui, sans-serif;
+  color: var(--text);
+}
+
+.town-search-option-meta {
+  font: 500 12px/1.2 ui-sans-serif, system-ui, sans-serif;
+  color: var(--text);
+  opacity: 0.7;
+}
+
+.town-search-empty {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 10px;
+  font: 500 14px/1.2 ui-sans-serif, system-ui, sans-serif;
+  color: var(--text);
+  opacity: 0.7;
+}
+
+/* Phone: the drawer carries the search (data-drawer-item="search"), the
+   inline header instance hides with the rest of the inline nav. */
+.nav-drawer-search {
+  display: flex;
+}
+
+.nav-drawer-search .town-search {
+  flex: 1 1 auto;
+}
+
+.nav-drawer-search .town-search-input {
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+  .app-header-search {
+    display: none;
+  }
+}

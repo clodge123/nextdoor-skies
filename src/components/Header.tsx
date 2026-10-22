@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { ThemeToggle } from './ThemeToggle'
+import { TownSearch } from './TownSearch'
 import { requestPanelOpen } from './SidePanel'
 import { requestPaletteOpen } from './CommandPalette'
 
@@ -84,6 +85,13 @@ export default function Header() {
           Alerts
         </NavLink>
       </nav>
+      {/* W3-B4 SEARCH (session 2 decision 3): inline town combobox on
+          tablet/desktop; CSS hides it <=480px where the drawer instance
+          below is the phone surface. Navigates to /?panel=<slug> — flying
+          is MapPage's panel effect (fly seam), not this component's. */}
+      <div className="app-header-search">
+        <TownSearch />
+      </div>
       <div className="app-header-actions">
         {/* W3-C3 discoverability (owner law: controls clickable on first
             try): the ⌘K chip is the visible face of the keyboard gesture.
@@ -151,6 +159,10 @@ export default function Header() {
         >
           Command palette <kbd className="palette-chip-kbd">⌘K</kbd>
         </button>
+        {/* W3-B4: town search in the drawer (phone surface). */}
+        <div className="nav-drawer-search" data-drawer-item="search">
+          <TownSearch variant="drawer" onNavigated={close} />
+        </div>
         <div className="nav-drawer-theme" data-drawer-item="theme">
           <span className="nav-drawer-theme-label">Theme</span>
           <ThemeToggle />

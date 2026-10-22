@@ -26,6 +26,7 @@ import { useMapContext } from '../lib/map/map-context';
 import { townsInBbox, type TownsFile } from '../lib/map/gazetteer';
 import { resolveTown } from '../lib/routing';
 import { panelCloseHref, panelOpenHref, panelSlugFromSearch } from '../lib/panel';
+import { requestFlyTo } from '../lib/map/fly-to';
 import {
   createWeatherRefresher,
   type CurrentTemp,
@@ -264,6 +265,25 @@ export default function MapPage() {
   const location = useLocation();
   const panelSlug = panelSlugFromSearch(location.search);
   const panelTown = panelSlug ? resolveTown(panelSlug) : null;
+
+  // W3-B4 SEARCH + FLY-TO (session 2 decision 3, animation law): opening the
+  // panel FLIES the map to the town — every panel open flies, whatever the
+  // surface that opened it (search select, badge tap, deep link). One seam
+  // (src/lib/map/fly-to.ts), one rule: panelSlug transitions null->slug (or
+  // slug->slug) fire requestFlyTo at zoom 9; closing (slug->null) never
+  // flies. URL honesty: flying writes NOTHING to the URL — ?ndsCenter is
+  // the e2e center hook only; `?panel=<slug>` is the whole state, so deep
+  // links open the panel (map animates once mounted; a hard load before
+  // style-load is a documented no-op — the seam is inert until MapView
+  // subscribes).
+  const lastPanelSlugRef = useRef<string | null>(null);
+  useEffect(() => {
+    const prev = lastPanelSlugRef.current;
+    lastPanelSlugRef.current = panelSlug;
+    if (!panelSlug || panelSlug === prev) return;
+    const town = resolveTown(panelSlug);
+    if (town) requestFlyTo({ lon: town.lon, lat: town.lat, zoom: 9 });
+  }, [panelSlug]);
 
   // W3-C2: ONE viewport-bounded alerts refresher per 5-min window lives HERE
   // (fetch-per-window law, same cadence as weather). It feeds the badge

@@ -24,7 +24,7 @@ Tip at kickoff: `231ad9a` (wave-3 briefs merged). Current main tip: `579281d`
 | W3-A2 icons+fade-in | ✅ MERGED `69fe761` — lucide WMO icons, fade-in law, weather_code passthrough {temps,codes,stale}; 251→258, badges 12/12 | closed |
 | W3-B2 town panel | ✅ MERGED `51acf64` — ?panel=<slug> URL state, slide-over/bottom sheet, badge-click SPA nav, shared last-good data; 321/321, gated 46/0. Reconciled with C1/C2 shell (MapPage rebuilt keeping panel slot + alert center + MapTint + A2 codes) | closed |
 | W3-B3 click-to-detail | ✅ MERGED `009a15b` — TownLabelTargets (zoom<9 focusable label/dot links), badge overlay keyboard-accessible, alert dot → /alerts, Tab+Enter+Esc; 334/334, gated 67/0 (2 phone skips); CSS restoration included (map-tint + C1 blocks dropped by C2 merge, B2 brace chain) | closed |
-| W3-B4 search+fly-to | RUNNING (B3 dep satisfied) — type-ahead town search + ~1.5-2s animated fly-to (fly-to.ts seam) → panel opens | gates → merge |
+| W3-B4 search+fly-to | ✅ MERGED `a5439ad` — header town combobox (inline desktop/tablet + phone drawer, keyboard arrows+Enter, ≥44px, "No towns match") + animated fly-to on EVERY panel open via the C2 fly seam (flyTo 1800ms easeInOut, zoom ≥9; deep-link opens fly too); URL honesty: flying writes nothing, selection navigates `/?panel=<slug>`; vitest 351/351, gated e2e search+map 13/13 all viewports. Merge resolved C3↔B4 overlap: palette drawer item + search drawer box kept side by side in Header/drawer CSS | closed |
 | W3-C3 command palette | ✅ MERGED `579281d` — Ctrl/Cmd+K overlay (portal, focus trap, scrim/Esc), nav/theme/panel/alerts commands, town typeahead (rankTowns), recents (sessionStorage), ⌘K chip + drawer item; vitest 354/354, palette 6/6 gated (orchestrator run palette+polish 15/15); lane flagged 1 polish desktop flake under load — re-run clean | closed |
 | W3-C2 alert center | ✅ MERGED `3def7ce` — severity-sorted panel list + /alerts page, one-poll law (refresher lifted to MapPage), fly-to seam, honest empty/stale states; 298/298, 14/14. Note: D3 merge had silently reverted 9 A2 files + MapTint render (restored during C2 merge) | closed |
 | W3-D3 post-detail+lightbox+share | ✅ MERGED `303084a` — real /p/<id> detail + Lightbox (focus trap, scrim/Esc) + copy-link/native share + bare-id GET route + feed view-post links; 273/273, 12/12 | closed |
@@ -57,6 +57,10 @@ Closeout sweeps per lane + hourly heartbeat.
 - 07:40 CDT — B2 merged (321/321, gated 46/0); B3 spawned.
 - 09:15 CDT — B3 merged (334/334, gated 67/0); B4+C3 spawned.
 - 09:30 CDT — C3 merged (354/354, palette 6/6); B4 running.
+- 11:45 CDT — B4 merged (vitest 371/371 on merged main, tsc+build clean);
+  C3↔B4 Header/drawer overlap resolved (palette item + search box coexist);
+  merge-disease diff vs `3861a70` clean (palette/MapTint/CSS blocks intact).
+  Full gated Playwright suite running on merged main; round-3 spawn after gate.
 
 ## Decisions carried
 60-min in-memory server cache + SWR + neighbor prefetch · lucide icons
