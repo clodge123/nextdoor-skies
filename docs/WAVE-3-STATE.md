@@ -34,7 +34,7 @@ Tip at kickoff: `231ad9a` (wave-3 briefs merged). Current main tip: `579281d`
 | --- | --- | --- |
 | W3-E1 polish seeds | ✅ MERGED `f13f5bd` — 5 demo towns × 4 authored weather posts (storm chases/heat/snow/fog, 1 snapshot each, index-stable 177→197), engagement top-up so every polish post pins Hot, scripts/polish-seeds.mjs, CI seed matrices extended, docs/DEMO-SCRIPT.md recruiter walkthrough; lane gates vitest 377/377, gated seed Playwright 9/9 | closed |
 | W3-F QA harness | ✅ MERGED `5689edb` — click-every-button sweep (production-shaped, zero mocks) over /, /feed, /t/<slug>{,/feed}, /p/<id>, /alerts + keyboard/a11y pass + QA-REPORT.md; e2e-gate QA=1 opt-in mode. Harness found+fixed api-serve req.query C6-class blind spot (alerts 400 local vs 200 prod). Lane gates vitest 380/380, gated qa.spec 30/30 (13.0m) all viewports | closed |
-| W3-E2 first-visit tour | ▶️ running | merge on completion report |
+| W3-E2 first-visit tour | ✅ MERGED `b11bd64` — 3-step spotlight tour (badges → search fly-to → panel+palette), seen-once `nds-tour-seen` (honest private-mode fallback), palette "Show tour" + drawer "Take the tour" replay seams, non-blocking (scrim advances, Esc skips, no focus trap), mobile-first ≤480px; vitest 401/401, gated tour.spec 10/10. Non-tour specs seed the seen-flag (tests/tour-seed.ts) so the scrim can't hijack other lanes | closed |
 Wave 4 (polish pass): GAP — after owner plays with wave 3.
 
 ## Post-wave action items (queued)
@@ -91,3 +91,11 @@ palette = Ctrl/Cmd+K with discoverable chip (owner first-try law).
   TownPanel, TownLabelTargets, alert center, weather_code, map-tint/C1 CSS
   blocks all intact). REST push retry after 502 → remote tip `92f8828`.
   E2 tour running; wave-end gates after E2 merges.
+
+## Heartbeat checks (cont.)
+- 13:48 CDT — E2 merged (`b11bd64`, remote `3351c28`). Round 3 CLOSED: E1+F+E2
+  all in main. Merged-tree gates: vitest **401/401** (39 files), tsc/build
+  clean, determinism OK (46 files), merge-disease spot-check clean (MapTint,
+  TownSearch, TownPanel, TownLabelTargets, AlertCenter, weathercode, map-tint
+  CSS, QA=1 gate mode, polish roster all intact). Final wave gate (full
+  Playwright suite, host quiet) next → wave-end deploy.
