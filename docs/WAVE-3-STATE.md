@@ -29,7 +29,12 @@ Tip at kickoff: `231ad9a` (wave-3 briefs merged). Current main tip: `579281d`
 | W3-C2 alert center | ✅ MERGED `3def7ce` — severity-sorted panel list + /alerts page, one-poll law (refresher lifted to MapPage), fly-to seam, honest empty/stale states; 298/298, 14/14. Note: D3 merge had silently reverted 9 A2 files + MapTint render (restored during C2 merge) | closed |
 | W3-D3 post-detail+lightbox+share | ✅ MERGED `303084a` — real /p/<id> detail + Lightbox (focus trap, scrim/Esc) + copy-link/native share + bare-id GET route + feed view-post links; 273/273, 12/12 | closed |
 
-Round 3: E1 polish seeds · E2 tour · F QA harness — spawn after B4 merges.
+## Round 3
+| Lane | Status | Next step |
+| --- | --- | --- |
+| W3-E1 polish seeds | ✅ MERGED `f13f5bd` — 5 demo towns × 4 authored weather posts (storm chases/heat/snow/fog, 1 snapshot each, index-stable 177→197), engagement top-up so every polish post pins Hot, scripts/polish-seeds.mjs, CI seed matrices extended, docs/DEMO-SCRIPT.md recruiter walkthrough; lane gates vitest 377/377, gated seed Playwright 9/9 | closed |
+| W3-F QA harness | ✅ MERGED `5689edb` — click-every-button sweep (production-shaped, zero mocks) over /, /feed, /t/<slug>{,/feed}, /p/<id>, /alerts + keyboard/a11y pass + QA-REPORT.md; e2e-gate QA=1 opt-in mode. Harness found+fixed api-serve req.query C6-class blind spot (alerts 400 local vs 200 prod). Lane gates vitest 380/380, gated qa.spec 30/30 (13.0m) all viewports | closed |
+| W3-E2 first-visit tour | ▶️ running | merge on completion report |
 Wave 4 (polish pass): GAP — after owner plays with wave 3.
 
 ## Post-wave action items (queued)
@@ -78,3 +83,11 @@ palette = Ctrl/Cmd+K with discoverable chip (owner first-try law).
 - Rule going forward: after each merge, diff the merged tree against the
   PREVIOUS main tip for every lane-touched file; lane files must never
   silently regress.
+
+## Heartbeat checks (cont.)
+- 13:40 CDT — E1 + F merged (`f13f5bd`, `5689edb`); merged-tree gates: vitest
+  **386/386**, tsc -b clean, build clean, determinism scan OK (44 files),
+  merge-disease diff vs `fe57636` clean (MapTint, palette, TownSearch,
+  TownPanel, TownLabelTargets, alert center, weather_code, map-tint/C1 CSS
+  blocks all intact). REST push retry after 502 → remote tip `92f8828`.
+  E2 tour running; wave-end gates after E2 merges.
