@@ -24,12 +24,21 @@ function isTestFile(file) {
 
 const files = walk(ROOT).filter((f) => !isTestFile(f))
 const hits = []
+// R17 scans CODE only: comment lines (doc blocks that quote the law, e.g.
+// "no Math.random / Date.now") must not trip the scanner. Strip line
+// comments and jsdoc body lines before matching.
+function codeOnly(line) {
+  const t = line.trimStart()
+  if (t.startsWith('//') || t.startsWith('*') || t.startsWith('/*')) return ''
+  return line.replace(/\/\/.*$/, '')
+}
 for (const file of files) {
   const lines = readFileSync(file, 'utf8').split('\n')
   lines.forEach((line, i) => {
+    const code = codeOnly(line)
     for (const re of FORBIDDEN) {
       re.lastIndex = 0
-      if (re.test(line)) hits.push(`${file}:${i + 1}: ${line.trim()}`)
+      if (re.test(code)) hits.push(`${file}:${i + 1}: ${line.trim()}`)
     }
   })
 }

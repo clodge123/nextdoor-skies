@@ -8,6 +8,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import townsData from '../../data/towns/us-towns.json';
 import MapView from '../components/MapView';
 import { TownBadges, TOWN_BADGE_MIN_ZOOM } from '../components/TownBadges';
+import { MapTint } from '../components/MapTint';
 import { AlertBanner, useAlerts } from '../components/AlertBanner';
 import { alertDotForTown } from '../lib/weather/alerts';
 import { useMapContext } from '../lib/map/map-context';
@@ -141,6 +142,9 @@ function MapBadges() {
   for (const t of visible) alertsByTown[t.id] = alertDotForTown(alertState.alerts, t.id);
   return (
     <>
+      {/* W3-A3 MAP TINT: sky-tone wash by dominant condition over the MAP
+          (below zoom 9 nothing renders — same gate as the badges). */}
+      <MapTint towns={visible} temps={temps} />
       <TownBadges towns={visible} temps={temps} alerts={alertsByTown} />
       <AlertBanner state={alertState} />
     </>
