@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { ThemeToggle } from './ThemeToggle'
 import { requestPanelOpen } from './SidePanel'
+import { requestPaletteOpen } from './CommandPalette'
 
 /**
  * W6 POLISH — app header. Fully styled via src/index.css (.app-header /
@@ -84,6 +85,18 @@ export default function Header() {
         </NavLink>
       </nav>
       <div className="app-header-actions">
+        {/* W3-C3 discoverability (owner law: controls clickable on first
+            try): the ⌘K chip is the visible face of the keyboard gesture.
+            Hidden on phone by CSS (<=480px), where the drawer item covers it. */}
+        <button
+          type="button"
+          className="palette-chip"
+          data-testid="palette-chip"
+          aria-label="Open command palette (Ctrl+K)"
+          onClick={requestPaletteOpen}
+        >
+          <span aria-hidden="true">⌘K</span>
+        </button>
         <ThemeToggle />
       </div>
 
@@ -125,6 +138,18 @@ export default function Header() {
           }}
         >
           Alerts
+        </button>
+        {/* W3-C3: palette entry point on phone (chip is desktop-only). */}
+        <button
+          type="button"
+          className="nav-drawer-link"
+          data-drawer-item="palette"
+          onClick={() => {
+            requestPaletteOpen()
+            close()
+          }}
+        >
+          Command palette <kbd className="palette-chip-kbd">⌘K</kbd>
         </button>
         <div className="nav-drawer-theme" data-drawer-item="theme">
           <span className="nav-drawer-theme-label">Theme</span>
