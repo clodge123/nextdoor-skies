@@ -197,11 +197,11 @@ test('badge shows temp number over a town when zoomed', async ({ page }, testInf
   await page.waitForTimeout(700)
   await expect(tint).toHaveAttribute('data-condition', conditionBefore!)
 
-  // S6 integration: alert banner lists the stubbed alert, and the Salina
-  // badge carries a severity dot (contract consumer seam alertDotForTown).
-  const banner = page.getByTestId('alert-banner')
-  await expect(banner).toBeVisible({ timeout: 10_000 })
-  await expect(banner).toContainText('Flood Warning (Severe)')
+  // S6 integration: the Salina badge carries a severity dot (contract
+  // consumer seam alertDotForTown). W3-C1: the banner OVERLAY is unmounted
+  // (alert center lands in C2) — the refresher keeps polling per window, so
+  // the dot must still light up; assert the banner is GONE from the map.
+  await expect(page.getByTestId('alert-banner')).toHaveCount(0)
   const dot = page.getByTestId(`alert-dot-${SALINA_SLUG}`)
   await expect(dot).toBeVisible({ timeout: 10_000 })
   await expect(dot).toHaveAttribute('data-alert-severity', 'Severe')
