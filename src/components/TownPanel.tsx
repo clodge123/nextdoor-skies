@@ -21,6 +21,8 @@ import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPoi
 import { Link } from 'react-router-dom';
 import { ArrowRight, Bell, MapPin, X } from 'lucide-react';
 import { weathercodeToIcon } from '../lib/weather/weathercode';
+import { formatTemp } from '../lib/weather/units';
+import { useUnits } from '../lib/weather/useUnits';
 import { fetchPosts, formatStamp, type FetchLike, type Post } from '../lib/feed';
 import type { Alert } from '../lib/weather/alerts';
 
@@ -119,6 +121,7 @@ export function TownPanel({ slug, name, onClose, tempC, weathercode, alerts, fet
   const mapped = weathercode === undefined ? null : weathercodeToIcon(weathercode);
   const Icon = mapped?.icon;
   const hasTemp = typeof tempC === 'number' && Number.isFinite(tempC);
+  const unit = useUnits();
   const alertCount = alerts?.length ?? 0;
 
   return (
@@ -156,7 +159,7 @@ export function TownPanel({ slug, name, onClose, tempC, weathercode, alerts, fet
         </header>
 
         <div className="town-panel-weather" data-testid="town-panel-weather">
-          <span className="town-panel-temp" data-testid="town-panel-temp">{hasTemp ? `${Math.round(tempC as number)}°` : 'awaiting feed'}</span>
+          <span className="town-panel-temp" data-testid="town-panel-temp">{hasTemp ? formatTemp(tempC as number, unit) : 'awaiting feed'}</span>
           {mapped && Icon ? (
             <span
               className="town-panel-icon"
