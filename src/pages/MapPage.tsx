@@ -27,6 +27,7 @@ import { townsInBbox, type TownsFile } from '../lib/map/gazetteer';
 import { resolveTown } from '../lib/routing';
 import { panelCloseHref, panelOpenHref, panelSlugFromSearch } from '../lib/panel';
 import { requestFlyTo } from '../lib/map/fly-to';
+import { prefetchTownPosts } from '../lib/feed-prefetch';
 import {
   createWeatherRefresher,
   type CurrentTemp,
@@ -76,6 +77,7 @@ function MapBadges({
   panelHrefFor,
   onPanelOpen,
   onAlertOpen,
+  onTownFocus,
   onTemps,
   onCodes,
 }: {
@@ -87,6 +89,8 @@ function MapBadges({
   onPanelOpen?: (townId: string) => void;
   /** W3-B3: badge alert-dot click -> /alerts (deepest intent). */
   onAlertOpen?: (townId: string) => void;
+  /** W4-C2: hover/focus prefetch seam (ring law -> posts, LRU-capped). */
+  onTownFocus?: (townId: string) => void;
   onTemps: (townId: string, tempC: number) => void;
   onCodes: (townId: string, code: number) => void;
 }) {
@@ -207,6 +211,7 @@ function MapBadges({
         panelHrefFor={panelHrefFor}
         onPanelOpen={onPanelOpen}
         onAlertOpen={onAlertOpen}
+        onTownFocus={onTownFocus}
       />
       {/* W3-C1/C2: the alert banner overlay stays UNMOUNTED; the alert center
           renders in the side panel (fed by the SAME payload MapPage owns).
@@ -224,14 +229,23 @@ function MapTargets({
   towns,
   panelHrefFor,
   onPanelOpen,
+  onTownFocus,
 }: {
   towns: readonly TownTargetCoord[]
   panelHrefFor?: (townId: string) => string
   onPanelOpen?: (townId: string) => void
+  onTownFocus?: (townId: string) => void
 }) {
   const { ready } = useMapContext()
   if (!ready) return null
-  return <TownLabelTargets towns={towns} panelHrefFor={panelHrefFor} onPanelOpen={onPanelOpen} />
+  return (
+    <TownLabelTargets
+      towns={towns}
+      panelHrefFor={panelHrefFor}
+      onPanelOpen={onPanelOpen}
+      onTownFocus={onTownFocus}
+    />
+  )
 }
 
 /**
@@ -315,6 +329,15 @@ export default function MapPage() {
   // DOT goes straight to /alerts — deepest intent, no intermediate panel.
   const openAlerts = () => navigate('/alerts');
 
+  // W4-C2 FEED-LOAD PREFETCH (ring law -> posts, session 2 law 3): hovering/
+  // focusing any badge/label target prefetches that town's posts page 1.
+  // The prefetch layer dedupes per key + LRU-caps to 3 towns, so this is a
+  // fire-and-forget seam; prefetch keys (`prefetch:posts:*`) can never abort
+  // a user request (`posts:*`) — the C1 supersession contract holds.
+  const prefetchTown = useCallback((slug: string) => {
+    prefetchTownPosts(slug)
+  }, []);
+
   // Badge ids ARE canonical gazetteer slugs (townId === session.townSlug —
   // same slugify + 2dp rule), so one key feeds routing, feed, and alerts.
   const panelAlerts = panelSlug ? alertState.alerts.filter((a) => a.town === panelSlug) : [];
@@ -332,6 +355,7 @@ export default function MapPage() {
             panelHrefFor={(id) => panelOpenHref(location.search, id)}
             onPanelOpen={openPanel}
             onAlertOpen={openAlerts}
+            onTownFocus={prefetchTown}
             onTemps={handleTemps}
             onCodes={handleCodes}
           />
@@ -349,6 +373,7 @@ export default function MapPage() {
             }))}
             panelHrefFor={(id) => panelOpenHref(location.search, id)}
             onPanelOpen={openPanel}
+            onTownFocus={prefetchTown}
           />
         </MapView>
         <button

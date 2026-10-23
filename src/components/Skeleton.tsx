@@ -48,9 +48,12 @@ export function postsLoadingState(cachedCount: number): 'empty-cache' | 'revalid
 }
 
 /** Stable key for the posts cache (SWR pattern, extends the weather
- *  last-data-wins law to posts — session 2 law 3). */
-export function postsCacheKey(town: string, sort: 'hot' | 'new'): string {
-  return `${town}|${sort}`
+ *  last-data-wins law to posts — session 2 law 3).
+ *  W4-C2 FEED-LOAD: per-page keys. Page 1 keeps the LEGACY shape
+ *  (`<town>|<sort>`) so TownPanel's cached-first read is byte-identical;
+ *  pages >= 2 get the explicit `<town>|<sort>|<page>` form. */
+export function postsCacheKey(town: string, sort: 'hot' | 'new', page = 1): string {
+  return page > 1 ? `${town}|${sort}|${page}` : `${town}|${sort}`
 }
 
 /** In-memory last-good posts (module-level; survives route changes, dies

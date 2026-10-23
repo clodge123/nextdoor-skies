@@ -12,6 +12,14 @@
 #   scripts/e2e-gate.sh npx playwright test
 #   scripts/e2e-gate.sh npm run smoke:prod
 #
+# WAVE4=1 mode (W4-G1 qa-gates, optional — default OFF, behavior unchanged):
+#   WAVE4=1 scripts/e2e-gate.sh
+# ONE gated run of ALL five wave-4 acceptance specs (units, badge-above-label,
+# loading/fetch-hygiene, snapshot overlay, all-feed) against the REAL api
+# handlers (REAL_API=1, api-serve serves dist + api/*.js). Desktop project
+# only — the fleet browser law. The snapshot-compositor MATH lives in
+# tests/snapshot-compositor.test.ts (vitest, runs in the unit suite).
+#
 # QA=1 mode (W3-F, optional — default OFF, existing behavior unchanged):
 #   QA=1 scripts/e2e-gate.sh                      # click-every-button sweep
 #   QA=1 scripts/e2e-gate.sh <cmd...>             # gate any command in QA mode
@@ -36,6 +44,18 @@ DIR="${E2E_LOCK_DIR:-/tmp}"
 # documented above; unset QA leaves the usage check exactly as before).
 if [ "${QA:-0}" = "1" ] && [ "$#" -eq 0 ]; then
   set -- node scripts/qa-harness.mjs
+fi
+
+# WAVE4=1 + no command: the canonical wave-4 QA gate (one invocation, 5 specs).
+if [ "${WAVE4:-0}" = "1" ] && [ "$#" -eq 0 ]; then
+  export REAL_API=1
+  set -- npx playwright test --project=desktop \
+    tests/units.spec.ts \
+    tests/badge-label-bbox.spec.ts \
+    tests/loading.spec.ts \
+    tests/snapshot-overlay.spec.ts \
+    tests/snapshot.spec.ts \
+    tests/feed-all.spec.ts
 fi
 
 if [ "$#" -eq 0 ]; then

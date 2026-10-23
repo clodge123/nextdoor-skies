@@ -151,3 +151,54 @@ test('badges + town panel render °F with no stored unit (F default law)', async
 
   expect(errors).toEqual([])
 })
+
+// W4-G1 matrix completion (session 6 law 1): "toggle persists (nds-units)"
+// was only proven by the A2 lane spec — the wave-4 gate re-proves it inside
+// the units matrix: F -> C flips every badge, storage lands, reload keeps C
+// WITHOUT interaction, and the storage-cleared reload returns to the honest
+// F default (private-mode law).
+test('toggle persists: C survives reload via nds-units; cleared storage returns to F', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop', 'one gated desktop run (browser-traffic law)')
+  test.setTimeout(150_000)
+  const errors = await setup(page)
+
+  await page.getByRole('button', { name: 'zoom in' }).click()
+  await page.getByRole('button', { name: 'zoom in' }).click()
+  const badgeTemp = page.locator('.town-badge-temp').first()
+  await expect(badgeTemp).toBeVisible({ timeout: 10_000 })
+  await expect(badgeTemp).toContainText(/°F$/, { timeout: 10_000 })
+
+  // Flip to C — badges follow live, the storage key lands.
+  await page.getByRole('button', { name: 'Show temperatures in Celsius' }).click()
+  await expect(badgeTemp).toContainText(/°C$/, { timeout: 10_000 })
+  expect(await page.evaluate(() => localStorage.getItem('nds-units'))).toBe('C')
+
+  // Reload: persistence WITHOUT any interaction (the nds-units seam).
+  await page.reload({ waitUntil: 'domcontentloaded' })
+  await expect(page.getByTestId('map-view').locator('canvas')).toBeVisible({ timeout: 30_000 })
+  await page.waitForFunction(
+    () => (window as { ndsMap?: { isStyleLoaded?: () => boolean } }).ndsMap?.isStyleLoaded?.() === true,
+    null,
+    { timeout: 45_000 },
+  )
+  await page.getByRole('button', { name: 'zoom in' }).click()
+  await page.getByRole('button', { name: 'zoom in' }).click()
+  const badgeAfter = page.locator('.town-badge-temp').first()
+  await expect(badgeAfter).toBeVisible({ timeout: 10_000 })
+  await expect(badgeAfter).toContainText(/°C$/, { timeout: 10_000 })
+
+  // Private-mode honesty: clearing storage restores the F default on load.
+  await page.evaluate(() => localStorage.removeItem('nds-units'))
+  await page.reload({ waitUntil: 'domcontentloaded' })
+  await expect(page.getByTestId('map-view').locator('canvas')).toBeVisible({ timeout: 30_000 })
+  await page.waitForFunction(
+    () => (window as { ndsMap?: { isStyleLoaded?: () => boolean } }).ndsMap?.isStyleLoaded?.() === true,
+    null,
+    { timeout: 45_000 },
+  )
+  await page.getByRole('button', { name: 'zoom in' }).click()
+  await page.getByRole('button', { name: 'zoom in' }).click()
+  await expect(page.locator('.town-badge-temp').first()).toContainText(/°F$/, { timeout: 10_000 })
+
+  expect(errors).toEqual([])
+})
