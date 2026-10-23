@@ -26,8 +26,8 @@ symlinked). Merge each on completion report + merge-disease diff vs
 previous main tip.
 
 ## Round 2 — features (spawn after round 1 merges)
-W4-B3 de-cluster ▶️ · W4-C2 feed-load (prefetch/infinite scroll/
-content-visibility) ⏳ waits on C1 net.ts · W4-D2 snapshot-overlay ✅ MERGED `3517f7f` (remote `0a34ff3`) — composer CAPTURE via /api/snapshot (zoom 11, server clamps z6), V1 bottom-bar burn-in client-side once at upload (town·time·°F·glyph, units-law, R17 epoch math), inline burned JPEG + snapshotId provenance, C-03 author/time BELOW image, loud 502/401 + RETRY/POST-WITHOUT-IMAGE; vitest 518/518, gated PW 6/6, burn variance 2720
+W4-B3 de-cluster ✅ MERGED `1345a99` (remote `f783f2b`) — cluster.ts pure same-temp 96px-radius grouping (R17 id tie-break, NaN never merges), "Moore +N" badge below z9 composing after B2 gate, zoom-in/tap-fly-to expand (zero sticky state), cluster = real button ≥44px square; vitest 554/554. Merged via 3-way blob merge (lane branch base 631c84b, git transport dead on remote ref) · W4-C2 feed-load (prefetch/infinite scroll/
+content-visibility) ✅ SPAWNED 07:35 @ 1345a99 (net.ts landed) · W4-D2 snapshot-overlay ✅ MERGED `3517f7f` (remote `0a34ff3`) — composer CAPTURE via /api/snapshot (zoom 11, server clamps z6), V1 bottom-bar burn-in client-side once at upload (town·time·°F·glyph, units-law, R17 epoch math), inline burned JPEG + snapshotId provenance, C-03 author/time BELOW image, loud 502/401 + RETRY/POST-WITHOUT-IMAGE; vitest 518/518, gated PW 6/6, burn variance 2720
 
 burn-in, composer, author/time below image) ▶️ · W4-E1 all-feed (Hot|Latest
 tabs, ?scope=, town chips) ▶️ · W4-E2 alerts-whole-row (whole-row fly-to)
@@ -201,3 +201,14 @@ stays ON.
   upload (assigned by D1's contract deviation) — deterministic. Round 2:
   E2 ✅ E1 ✅ D2 ✅; B3 running; C2 queued behind C1 (11 commits, in
   timeout-fixture tuning).
+
+## Heartbeat checks (cont.)
+- 07:40 CDT — **C1 merged** (`7377848`+fix, remote `2a5bd6b`): net.ts timeout/
+  retry/abort-supersede, Skeleton shimmer, cached-first SWR, honest error card.
+  FeedPage/feed.ts resolved to E1 tabs + town-optional global stream; merge-
+  disease check caught LOST D2 snapshot fields (snapshotId/lat/lon/zoom) in
+  the C1-base resolution — restored (`vitest 525/525`). **B3 merged**
+  (`1345a99`, remote `f783f2b`) via 3-way blob merge (lane's REST branch
+  unfetchable over git transport; files pulled via GitHub blobs API, merged
+  clean, gates 554/554). **C2 spawned** from `1345a99` — round 2 now 6/6
+  active/closed. Round 3 (F1/G1) queues behind C2.
