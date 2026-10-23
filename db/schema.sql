@@ -67,6 +67,14 @@ CREATE TABLE IF NOT EXISTS posts (
 );
 CREATE INDEX IF NOT EXISTS posts_town_created_at_idx ON posts (town, created_at DESC);
 
+-- W4-D1 (wave 4): server-composited snapshot wiring on the post row.
+-- snapshot_id references snapshots(id); lat/lon/zoom record the poster's
+-- view (S3#1). Idempotent additions for pre-existing posts tables.
+ALTER TABLE posts ADD COLUMN IF NOT EXISTS snapshot_id text;
+ALTER TABLE posts ADD COLUMN IF NOT EXISTS lat double precision;
+ALTER TABLE posts ADD COLUMN IF NOT EXISTS lon double precision;
+ALTER TABLE posts ADD COLUMN IF NOT EXISTS zoom integer;
+
 -- post_comments: one level only (post -> replies; no nested threads).
 -- Distinct from run-1 `comments` (which keys on reports.id).
 
@@ -103,3 +111,18 @@ CREATE TABLE IF NOT EXISTS post_flags (
   UNIQUE (post_id, nickname)
 );
 CREATE INDEX IF NOT EXISTS post_flags_post_id_idx ON post_flags (post_id);
+
+-- W4 SNAPSHOT-COMPOSITOR (wave 4, lane D1; docs/WAVE-4-BRAINSTORM.md S7#5):
+-- server-composited map JPEGs stored in the DB (regeneration rejected —
+-- feeds stay fast). jpeg is the raw bytes (bytea); lat/lon/zoom record the
+-- poster's normalized view. Deterministic ids (content-hashed, api/snapshot.js).
+
+CREATE TABLE IF NOT EXISTS snapshots (
+  id         text PRIMARY KEY,
+  jpeg       bytea NOT NULL,
+  lat        double precision NOT NULL,
+  lon        double precision NOT NULL,
+  zoom       integer NOT NULL,
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS snapshots_created_at_idx ON snapshots (created_at DESC);
