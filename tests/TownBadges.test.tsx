@@ -26,8 +26,8 @@ describe('TownBadges', () => {
       </MapContext.Provider>,
     )
     const badge = screen.getByTestId('town-badge-springfield')
-    expect(badge.textContent).toBe('71°F')
-    expect(screen.getByTestId('town-badge-faraway').textContent).toBe('39°F')
+    expect(badge.textContent).toBe('22°')
+    expect(screen.getByTestId('town-badge-faraway').textContent).toBe('4°')
   })
 
   it('shows honest "awaiting feed" for towns without data (R19)', () => {
@@ -54,9 +54,81 @@ describe('TownBadges', () => {
         <TownBadges towns={towns} temps={{ springfield: 10 }} />
       </MapContext.Provider>,
     )
+    // W4-B1: the ANCHOR moved from the badge element to the stacked marker
+    // column [badge][label][dot] — the column is placed by map.project().
+    const marker = screen.getByTestId('town-marker-springfield')
+    expect(marker.getAttribute('style')).toContain('left: 896.501px')
+    expect(marker.getAttribute('style')).toContain('top: 397.817px')
+    // The badge stays INSIDE the column (all badge selectors intact).
     const badge = screen.getByTestId('town-badge-springfield')
-    expect(badge.getAttribute('style')).toContain('left: 896.501px')
-    expect(badge.getAttribute('style')).toContain('top: 397.817px')
+    expect(marker.contains(badge)).toBe(true)
+  })
+
+  // -------------------------------------------------------------------------
+  // W4-B1 BADGE-ABOVE-LABEL (wave-4 session 1, decision 3): the marker is a
+  // stacked column [badge][label][dot] — DOM order puts the badge strictly
+  // above the label, so overlap is geometrically impossible.
+  // -------------------------------------------------------------------------
+  describe('W4-B1 badge-above-label stacking', () => {
+    it('renders the column [badge][label][dot] in order with the town name', () => {
+      render(
+        <MapContext.Provider value={stubMap(10)}>
+          <TownBadges towns={towns} temps={{ springfield: 21.6 }} />
+        </MapContext.Provider>,
+      )
+      const marker = screen.getByTestId('town-marker-springfield')
+      const kids = Array.from(marker.children)
+      expect(kids.map((k) => k.className)).toEqual([
+        'town-marker-badge',
+        'town-marker-label',
+        'town-marker-dot',
+      ])
+      // The label is the town's real name (never covered — the badge sits
+      // above it in the column flow).
+      expect(marker.textContent).toContain('Springfield')
+      const badge = screen.getByTestId('town-badge-springfield')
+      const label = screen.getByTestId('town-label-springfield')
+      expect(marker.contains(badge)).toBe(true)
+      expect(marker.contains(label)).toBe(true)
+    })
+
+    it('panel-linked markers keep the same stacked column (dot link inside the badge slot)', () => {
+      render(
+        <MapContext.Provider value={stubMap(10)}>
+          <TownBadges
+            towns={towns}
+            temps={{ springfield: 10 }}
+            alerts={{ springfield: 'Severe' }}
+            panelHrefFor={(id) => `/?panel=${id}`}
+            onPanelOpen={vi.fn()}
+            onAlertOpen={vi.fn()}
+          />
+        </MapContext.Provider>,
+      )
+      const marker = screen.getByTestId('town-marker-springfield')
+      const kids = Array.from(marker.children)
+      expect(kids.map((k) => k.className)).toEqual([
+        'town-marker-badge town-badge-slot',
+        'town-marker-label',
+        'town-marker-dot',
+      ])
+      // Badge link + alert dot link are siblings inside the badge slot.
+      const badgeSlot = kids[0]
+      expect(badgeSlot.querySelector('a.town-badge')).not.toBeNull()
+      expect(badgeSlot.querySelector('a.town-badge-alert-dot-link')).not.toBeNull()
+      // The label sits BELOW the badge slot in the column (bbox law partner).
+      expect(kids[1].textContent).toBe('Springfield')
+    })
+
+    it('every badge-visible town gets a readable DOM label (names never covered)', () => {
+      render(
+        <MapContext.Provider value={stubMap(10)}>
+          <TownBadges towns={towns} temps={{ springfield: 10 }} />
+        </MapContext.Provider>,
+      )
+      expect(screen.getByTestId('town-label-springfield').textContent).toBe('Springfield')
+      expect(screen.getByTestId('town-label-faraway').textContent).toBe('Faraway')
+    })
   })
 
   // W3-B2 TOWN PANEL: badges afford clicking — with panelHrefFor they are
@@ -240,7 +312,7 @@ describe('TownBadges', () => {
     // A real lucide <svg> is mounted inside the chip.
     expect(icon.querySelector('svg')).not.toBeNull()
     // Temp is still rendered next to the icon.
-    expect(screen.getByTestId('town-badge-springfield').textContent).toContain('71°F')
+    expect(screen.getByTestId('town-badge-springfield').textContent).toContain('22°')
   })
 
   it('renders NO icon for a town with no weathercode data (R19 honest)', () => {
@@ -250,7 +322,7 @@ describe('TownBadges', () => {
       </MapContext.Provider>,
     )
     expect(screen.queryByTestId('weather-icon-springfield')).toBeNull()
-    expect(screen.getByTestId('town-badge-springfield').textContent).toContain('71°F')
+    expect(screen.getByTestId('town-badge-springfield').textContent).toContain('22°')
   })
 
   it('renders the neutral unknown glyph for an out-of-table code', () => {
@@ -286,7 +358,7 @@ describe('TownBadges', () => {
     const live = screen.getByTestId('town-badge-springfield')
     expect(live.className).toContain('is-live')
     expect(live.querySelector('.town-badge-data')).not.toBeNull()
-    expect(live.textContent).toContain('50°F')
+    expect(live.textContent).toContain('10°')
     // "awaiting feed" is gone once real data exists.
     expect(live.textContent).not.toContain('awaiting feed')
   })

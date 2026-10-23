@@ -114,21 +114,46 @@ test('map renders + zoom-in shows town label', async ({ page, browserName }, tes
   // label (Anderson Mill) exactly on the phone viewport's top edge, where
   // maplibre collision-culls it — phone saw labels=0 forever. Centering ON
   // a town-tier feature keeps the assertion viewport-independent.
+  //
+  // W4-B1 BADGE-ABOVE-LABEL (honest retarget): canvas gazetteer labels are
+  // SUPPRESSED at badge zoom (>= 9) — every badge-visible town carries its
+  // name in the DOM marker column [badge][label][dot], so canvas text would
+  // render a second name for the same town. The canvas-label law is proven
+  // BELOW the badge gate (zoom 8.5, city tier visible over Austin, TX);
+  // above the gate the DOM labels own the surface and are asserted here.
+  await page.evaluate(() => {
+    (window as { ndsMap: { jumpTo: (o: object) => void } }).ndsMap.jumpTo({ center: [-97.5569, 30.3408], zoom: 8.5 });
+  });
+  await page.waitForFunction(() => (window as { ndsMap: { getZoom: () => number } }).ndsMap.getZoom() >= 8);
+  // let tiles + symbol labels settle (narrow viewports need more render time)
+  await page.waitForFunction(() => {
+    const m = (window as { ndsMap: { areTilesLoaded: () => boolean; queryRenderedFeatures: (b?: object, o?: object) => unknown[] } }).ndsMap;
+    return m.areTilesLoaded() === true && m.queryRenderedFeatures(undefined, { layers: ['nds-labels-city', 'nds-labels-state'] }).length > 0;
+  }, null, { timeout: 60_000 });
+  await page.waitForTimeout(1000);
+
+  const canvasLabels = await page.evaluate(() =>
+    (window as { ndsMap: { queryRenderedFeatures: (b?: object, o?: object) => unknown[] } }).ndsMap.queryRenderedFeatures(undefined, { layers: ['nds-labels-city', 'nds-labels-state'] }).length,
+  );
+  expect(canvasLabels).toBeGreaterThan(0);
+
+  // Above the badge gate (zoom 12.5): canvas labels are hidden (suppression
+  // law) and DOM marker labels carry every town name. No town loses its
+  // name across the gate.
   await page.evaluate(() => {
     (window as { ndsMap: { jumpTo: (o: object) => void } }).ndsMap.jumpTo({ center: [-97.5569, 30.3408], zoom: 12.5 });
   });
   await page.waitForFunction(() => (window as { ndsMap: { getZoom: () => number } }).ndsMap.getZoom() >= 12);
-  // let tiles + symbol labels settle (narrow viewports need more render time)
   await page.waitForFunction(() => {
-    const m = (window as { ndsMap: { areTilesLoaded: () => boolean; queryRenderedFeatures: (b?: object, o?: object) => unknown[] } }).ndsMap;
-    return m.areTilesLoaded() === true && m.queryRenderedFeatures(undefined, { layers: ['nds-labels-town'] }).length > 0;
+    const m = (window as { ndsMap: { areTilesLoaded: () => boolean } }).ndsMap;
+    return m.areTilesLoaded() === true;
   }, null, { timeout: 60_000 });
-  await page.waitForTimeout(1000);
-
-  const townLabels = await page.evaluate(() =>
-    (window as { ndsMap: { queryRenderedFeatures: (b?: object, o?: object) => unknown[] } }).ndsMap.queryRenderedFeatures(undefined, { layers: ['nds-labels-town'] }).length,
+  const canvasSuppressed = await page.evaluate(() =>
+    (window as { ndsMap: { queryRenderedFeatures: (b?: object, o?: object) => unknown[] } }).ndsMap.queryRenderedFeatures(undefined, { layers: ['nds-labels-town', 'nds-labels-city', 'nds-labels-state'] }).length,
   );
-  expect(townLabels).toBeGreaterThan(0);
+  expect(canvasSuppressed).toBe(0);
+  const domLabels = await page.locator('.town-marker-label').count();
+  expect(domLabels).toBeGreaterThan(0);
 
   const glyphs = await page.evaluate(() =>
     JSON.stringify((window as { ndsMap: { getStyle: () => { glyphs?: string } } }).ndsMap.getStyle().glyphs ?? ''),

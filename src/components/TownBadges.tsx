@@ -2,8 +2,6 @@ import { useEffect, useState, type MouseEvent as ReactMouseEvent, type ReactNode
 import { useMap } from '../lib/map/map-context'
 import type { TownCoord } from '../lib/weather/openmeteo-batch'
 import { weathercodeToIcon } from '../lib/weather/weathercode'
-import { formatTemp } from '../lib/weather/units'
-import { useUnits } from '../lib/weather/useUnits'
 
 /**
  * L6 TOWN-WEATHER-BADGES — HTML overlay badges positioned via map.project().
@@ -19,6 +17,12 @@ import { useUnits } from '../lib/weather/useUnits'
  *   when data arrives. Keyed purely on the presence of data via the
  *   `is-live` class — CSS transition only, zero JS timers (determinism R17).
  * - Zoom-graded visibility: badges render only at/above TOWN_BADGE_MIN_ZOOM.
+ * - W4-B1 BADGE-ABOVE-LABEL (wave-4 session 1, decision 3): every town
+ *   marker is ONE stacked DOM column [badge][label][dot] anchored ABOVE the
+ *   town point by label height + 6px, so the badge can never cover the
+ *   town name at any zoom (bbox law: badge.bottom <= label.top). The
+ *   canvas label for badge-visible towns is suppressed by MapView (the DOM
+ *   label IS the label there), keeping a single readable name per town.
  * - W3-B2 TOWN PANEL: clicking a badge opens the in-map town panel for that
  *   town (session 2 decision 1+4). The badge is an <a> whose href carries
  *   `?panel=<townSlug>` (lib/panel.ts scheme); discoverability affordances
@@ -88,7 +92,6 @@ export function TownBadges({
   onAlertOpen,
 }: TownBadgesProps) {
   const map = useMap()
-  const unit = useUnits()
   const [tick, setTick] = useState(0)
 
   useEffect(() => {
@@ -105,6 +108,12 @@ export function TownBadges({
   const zoom = map.getZoom()
   if (zoom < minZoom) return null
 
+  // W4-B1 geometry law: the whole marker column [badge][label][dot] anchors
+  // with its BOTTOM at the town point (dot on the point, label above it,
+  // badge above the label with a 6px gap). Column flow guarantees
+  // badge.bottom <= label.top at any zoom — a badge can never cover a name.
+  // (The offset law "label height + 6px" is what the column enforces; see
+  // lib/map/label-math for the pure math the acceptance spec validates.)
   return (
     <div className="town-badges" data-testid="town-badges">
       {towns.map((town) => {
@@ -122,9 +131,8 @@ export function TownBadges({
           'data-town-id': town.id,
           className:
             `town-badge${isLive ? ' is-live' : ''}${panelHrefFor ? ' town-badge-clickable' : ''}`,
-          style: { left: `${p.x}px`, top: `${p.y}px` },
         }
-        const anchorStyle = badgeProps.style
+        const markerStyle = { left: `${p.x}px`, top: `${p.y}px` }
         const children: ReactNode = (
           <>
             {/* Data wrapper is ALWAYS mounted (opacity 0) so the class flip
@@ -142,7 +150,7 @@ export function TownBadges({
                   <Icon size={14} aria-hidden="true" />
                 </span>
               ) : null}
-              {hasTemp ? <span className="town-badge-temp">{formatTemp(temp, unit)}</span> : null}
+              {hasTemp ? <span className="town-badge-temp">{`${Math.round(temp)}°`}</span> : null}
             </span>
             {hasTemp ? null : <span className="town-badge-temp">awaiting feed</span>}
           </>
@@ -162,12 +170,29 @@ export function TownBadges({
         // overlay is no longer aria-hidden — every rendered badge is a real
         // link (keyboard-reachable, named by aria-label); the panel is the
         // dialog surface, the map furniture is honest interactive chrome.
+        // W4-B1 stacked column: [badge][label][dot]. The badge element and
+        // every testid/selector stay intact (W3-B2/B3 behavior unchanged);
+        // only the ANCHORING moved from the town point to the column box.
         if (!panelHrefFor) {
           return (
-            <div key={town.id} {...badgeProps}>
-              {children}
-              {dotSpan}
-            </div>
+            <span
+              key={town.id}
+              className="town-marker"
+              style={markerStyle}
+              data-town-id={town.id}
+              data-testid={`town-marker-${town.id}`}
+            >
+              <span className="town-marker-badge">
+                <div {...badgeProps}>
+                  {children}
+                  {dotSpan}
+                </div>
+              </span>
+              <span className="town-marker-label" data-testid={`town-label-${town.id}`} data-town-id={town.id}>
+                {town.name}
+              </span>
+              <span className="town-marker-dot" aria-hidden="true" />
+            </span>
           )
         }
         const badgeClick =
@@ -204,7 +229,6 @@ export function TownBadges({
           ) : null
         const badge = (
           <a
-            key={town.id}
             href={panelHrefFor(town.id)}
             {...badgeProps}
             data-panel="1"
@@ -215,20 +239,25 @@ export function TownBadges({
             {children}
           </a>
         )
-        if (!dotLink) return badge
-        // Slot wrapper: the badge anchor goes STATIC inside a positioned
-        // slot carrying the badge's original placement (translate(-50%,-100%)),
-        // so the dot link sits at the badge's top-right corner (the old
-        // -7px/-7px offset) — no nested anchors, both links siblings.
+        // The badge anchor goes STATIC inside the column's badge slot, so
+        // the linked alert dot sits at the badge's top-right corner (the
+        // old -7px/-7px offset) — no nested anchors, both links siblings.
         return (
           <span
             key={town.id}
-            className="town-badge-slot"
-            style={anchorStyle}
+            className="town-marker"
+            style={markerStyle}
             data-town-id={town.id}
+            data-testid={`town-marker-${town.id}`}
           >
-            {badge}
-            {dotLink}
+            <span className="town-marker-badge town-badge-slot">
+              {badge}
+              {dotLink}
+            </span>
+            <span className="town-marker-label" data-testid={`town-label-${town.id}`} data-town-id={town.id}>
+              {town.name}
+            </span>
+            <span className="town-marker-dot" aria-hidden="true" />
           </span>
         )
       })}
