@@ -235,3 +235,18 @@ stays ON.
   build/determinism clean, radius + neon-token scans OK. **Round 4 closeout
   begins**: full-suite gate → merge-disease diff → ledger → ONE deploy →
   seed run (owner NDS_ADMIN_SECRET) → demo.
+
+## Round 4 — closeout (orchestrator)
+- 09:35 CDT — full-suite unit gate: vitest **584/584** (50 files), tsc/build/
+  determinism/radius/neon-token all clean. Merge-disease diff `f08d33b..main`
+  (49 files, +5662): spot-checks all PASS — formatTemp on badges/panel/burn-
+  in, useUnits canonical, netFetch wired feed+alerts, snapshotId on client+
+  server, placeBubble tour seam, C-03 author-below DOM law intact.
+- Full Playwright suite (REAL_API=1) running on quiet host (~25 min so far,
+  3-viewport matrix).
+- **BLOCKED on owner (2):** (1) ONE deploy — Vercel CLI token expired
+  (`invalidToken`); owner logged host in as gwl123 for wave-3 deploy, same
+  step needed now. Production currently 500s `/api/posts?town=` (deployed
+  build is pre-wave-4; app shell + /api/alerts healthy). (2) seed-wave3.yml
+  — repo secrets list is EMPTY; needs `openssl rand -hex 32` → GitHub repo
+  secret `NDS_ADMIN_SECRET` + same value in Vercel Production env vars.
