@@ -8,15 +8,23 @@
 // useAlerts (one poller per page, page-scoped — a page is one window-owner).
 //
 // Sorting: severity Extreme > Severe > Moderate > Minor (sortAlertsBySeverity,
-// deterministic tie-break by id). Rows expand on click (headline/summary);
-// the town line flies the map (requestFlyTo seam).
+// deterministic tie-break by id).
+//
+// W4-E2 WHOLE-ROW FLY-TO (session 5 decisions 1+2): the ENTIRE row is one
+// button — the fly-to target. Click / Enter / Space anywhere on the row
+// flies the map (requestFlyTo seam, same 1800ms ease law) AND expands the
+// headline (the old separate expand button and the tiny town fly-button are
+// gone: ONE Tab stop per row, keyboard flow is clean). Page mode (no map
+// mounted) routes the click to the app's canonical town opener — the same
+// `?panel=<slug>` deep-link scheme MapPage flies on (src/lib/panel.ts) —
+// so /alerts rows fly via the map route instead of being inert.
 //
 // Honest states (R19): "No active alerts" only after a SUCCESSFUL poll with
 // zero rows; pre-first-poll says "Checking alerts…"; a stale feed shows
 // "Feed unavailable — showing last known" over the last data (law 3).
 // Determinism (R17): no Math.random / Date.now / new Date; stamps render via
 // formatStamp-style pure slicing.
-import { useState, type ReactNode } from 'react'
+import { useState } from 'react'
 import { formatStamp } from '../lib/feed'
 import { sortAlertsBySeverity, type Alert } from '../lib/weather/alerts'
 import { requestFlyTo } from '../lib/map/fly-to'
@@ -50,26 +58,30 @@ export function stamp(iso: string | null | undefined): string {
 
 export interface AlertRowProps {
   alert: Alert
-  /** Rendered inside the row's town line (panel: fly button; page: link). */
-  townAction?: ReactNode
   expanded: boolean
-  onToggle: () => void
+  /** Whole-row activation: fly (panel) / open town (page) + expand. Fires on
+   *  click, Enter, and Space — native button semantics, ONE Tab stop. */
+  onActivate: () => void
 }
 
-/** One alert row: severity badge, event, area/town, truncated headline that
- *  expands on click, deterministic effective/expiry stamps. */
-export function AlertRow({ alert, townAction, expanded, onToggle }: AlertRowProps) {
+/** One alert row (W4-E2): the whole row is ONE accessible button — severity
+ *  badge, event, truncated headline, stamps, and the town line all live
+ *  inside it. Clicking/activating ANYWHERE flies the map to the alert's town
+ *  and expands the headline. No nested links (one Tab stop per row). */
+export function AlertRow({ alert, expanded, onActivate }: AlertRowProps) {
   const headline = alert.headline ?? alert.summary ?? ''
   const summary = alert.summary ?? ''
   const preview = headline || summary
+  const town = townLabel(alert.town)
   return (
     <li className={`alert-row${expanded ? ' is-expanded' : ''}`} data-testid="alert-row">
       <button
         type="button"
-        className="alert-row-head"
+        className="alert-row-control"
         aria-expanded={expanded}
-        data-testid="alert-row-toggle"
-        onClick={onToggle}
+        aria-label={`Fly map to ${town}: ${alert.severity} ${alert.event}`}
+        data-testid="alert-row-control"
+        onClick={onActivate}
       >
         <span className={`alert-sev ${severityClass(alert.severity)}`} data-testid="alert-severity">
           {alert.severity}
@@ -87,32 +99,45 @@ export function AlertRow({ alert, townAction, expanded, onToggle }: AlertRowProp
             {!alert.effective && !alert.expires ? <>expires —</> : null}
           </span>
         </span>
+        <span className="alert-row-town" data-testid="alert-row-town">
+          {town}
+        </span>
       </button>
-      <span className="alert-row-town">
-        {townAction ?? townLabel(alert.town)}
-      </span>
     </li>
   )
 }
 
 export interface AlertCenterProps {
   state: BannerState
-  /** Panel mode (default): fly-to on town click. Page mode: no map mounted,
-   *  rows stay inert (the /alerts page renders the same list full-page). */
+  /** Panel mode (default): whole-row click flies the mounted map. Page mode:
+   *  no map is mounted, so whole-row click asks `onOpenTown` (the app's
+   *  canonical town opener — the ?panel=<slug> route that flies on mount). */
   mode?: 'panel' | 'page'
+  /** Page-mode row activation: open the town (map route + panel + fly). */
+  onOpenTown?: (slug: string) => void
 }
 
 /**
  * Shared alert list (panel + /alerts page render the SAME sorted list).
  * `state` is the last-good payload from the ONE per-window refresher.
  */
-export function AlertCenter({ state, mode = 'panel' }: AlertCenterProps) {
+export function AlertCenter({ state, mode = 'panel', onOpenTown }: AlertCenterProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const sorted = sortAlertsBySeverity(state.alerts)
 
-  const flyTo = (alert: Alert) => {
-    const town = resolveTown(alert.town)
-    if (town) requestFlyTo({ lon: town.lon, lat: town.lat })
+  // W4-E2 whole-row activation: expand the headline AND fly. Panel mode
+  // drives the fly seam directly (the map is mounted); page mode hands the
+  // slug to the app router (the map route flies on panel open — one fly law
+  // across every surface, W3-B4). No silent fallbacks: page mode without an
+  // opener is a wiring bug, not a UI state — the row still expands.
+  const activate = (alert: Alert) => {
+    setExpandedId((id) => (id === alert.id ? null : alert.id))
+    if (mode === 'panel') {
+      const town = resolveTown(alert.town)
+      if (town) requestFlyTo({ lon: town.lon, lat: town.lat })
+    } else {
+      onOpenTown?.(alert.town)
+    }
   }
 
   return (
@@ -137,22 +162,7 @@ export function AlertCenter({ state, mode = 'panel' }: AlertCenterProps) {
               key={alert.id}
               alert={alert}
               expanded={expandedId === alert.id}
-              onToggle={() => setExpandedId((id) => (id === alert.id ? null : alert.id))}
-              townAction={
-                mode === 'panel' ? (
-                  <button
-                    type="button"
-                    className="alert-row-fly"
-                    data-testid="alert-row-fly"
-                    onClick={() => flyTo(alert)}
-                    aria-label={`Fly map to ${townLabel(alert.town)}`}
-                  >
-                    {townLabel(alert.town)}
-                  </button>
-                ) : (
-                  townLabel(alert.town)
-                )
-              }
+              onActivate={() => activate(alert)}
             />
           ))}
         </ul>
