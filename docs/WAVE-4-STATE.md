@@ -87,3 +87,8 @@ stays ON.
   Round 1 status: A1 ✅ A2 ✅ B1 ✅ B2 ✅ D1 ✅ — C1 implementation follow-up
   running. Round 2 spawn (B3/C2/D2/E1/E2) waits on C1 landing (C2 builds on
   net.ts).
+
+## Heartbeat checks (cont.)
+- 02:58 CDT — **Round 2 spawned** (B3, D2, E1, E2 from `0615b69`). C2
+  feed-load stays queued until C1's net.ts lands (builds on it). Round 1:
+  A1/A2/B1/B2/D1 closed; C1 implementation follow-up running.
