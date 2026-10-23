@@ -14,11 +14,11 @@ Tip at kickoff: `f08d33b` (wave-4 lane plan merged). Remote tip at spawn:
 ## Round 1 — foundations (spawned 2026-10-22 23:26 CDT)
 | Lane | Branch | Status | Next step |
 | --- | --- | --- | --- |
-| W4-A1 units-core | r4w4/A1-units | ▶️ spawned | units lib + all surfaces F; vitest matrix |
+| W4-A1 units-core | r4w4/A1-units @ 8b73fcd | ✅ MERGED `40b9d31` — units.ts + useUnits hook; badges/panel/tour F by default; vitest 417/417, tsc/build/determinism clean; remote tip `6f9aad1` | closed |
 | W4-A2 unit-toggle | r4w4/A2-toggle | ▶️ spawned | header pill + persistence; Playwright toggle |
 | W4-B1 badge-above-label | r4w4/B1-badge-pos | ▶️ spawned | bbox law badge.bottom ≤ label.top |
 | W4-B2 zoom-match | r4w4/B2-zoom-match | ▶️ spawned | per-town label zoom from tiers.ts |
-| W4-C1 fetch-hygiene | r4w4/C1-fetch | ▶️ spawned | timeout/retry/abort + skeletons |
+| W4-C1 fetch-hygiene | r4w4/C1-fetch @ f08d33b | ⚠️ RECON ONLY — lane session ended after read-only pass (no code/gates/push). Root cause + seams verified (TownPanel:78 fetchPosts no timeout/abort; alerts refresher lacks abort; feed apiJson seam clean). Locked plan recorded in lane report; follow-up dispatched to the kept child session | follow-up running |
 | W4-D1 snapshot-compositor | r4w4/D1-compositor | ▶️ spawned | api/snapshot.js 3×3 stitch, variance gate |
 
 Worktrees: `~/.openclaw/worktrees/r4/w4-<lane>` (node_modules + .e2e
@@ -58,3 +58,10 @@ stored JPEGs (S7) · author/time BELOW image (C-03) · Hot|Latest tabs (S4) ·
 whole-row alert fly-to (S5) · tour desktop fix (owner 23:11) · neon-green
 (C-01) + square corners (C-02) · seed roster YES · Deployment Protection
 stays ON.
+
+## Heartbeat checks (cont.)
+- 00:25 CDT — **A1 merged** (`40b9d31`, remote `6f9aad1`): vitest 417/417,
+  tsc/build/determinism clean, merge-disease spot-check clean (MapTint,
+  TownSearch, TownPanel, AlertCenter, palette blocks intact). C1 recon-only
+  report reviewed — plan sound, implementation follow-up sent to the kept
+  lane session. A2/B1/B2/D1 running.
