@@ -123,10 +123,12 @@ async function checkMap(page, shots) {
     throw new Error(`basemap law violated: glyphs=${glyphs}`);
   }
 
-  // Zoom into Manor, TX (real baked town; Austin's town label collision-culls
-  // on the 390px phone edge — same probe-verified retarget as tests/map.spec.ts).
-  await page.evaluate(() => window.ndsMap.jumpTo({ center: [-97.5569, 30.3408], zoom: 12.5 }));
-  await page.waitForFunction(() => window.ndsMap.getZoom() >= 12, null, { timeout: 30_000 });
+  // Zoom into the Austin, TX area. W4-B1 BADGE-ABOVE-LABEL (honest retarget):
+  // canvas gazetteer labels are SUPPRESSED at badge zoom (>= 9) — DOM marker
+  // columns [badge][label][dot] carry the names there. Canvas labels are
+  // proven below the gate (zoom 8.5, city tier); DOM labels above it.
+  await page.evaluate(() => window.ndsMap.jumpTo({ center: [-97.5569, 30.3408], zoom: 8.5 }));
+  await page.waitForFunction(() => window.ndsMap.getZoom() >= 8, null, { timeout: 30_000 });
   await page.waitForFunction(
     () => window.ndsMap.areTilesLoaded() === true, null, { timeout: 60_000 },
   );
@@ -135,13 +137,21 @@ async function checkMap(page, shots) {
     LABEL_LAYERS,
     { timeout: 30_000 },
   );
-  const townLabels = await page.evaluate(
+  const canvasLabels = await page.evaluate(
     (layers) => window.ndsMap.queryRenderedFeatures(undefined, { layers }).length,
     LABEL_LAYERS,
   );
-  if (townLabels === 0) throw new Error('town labels: queryRenderedFeatures returned 0');
+  if (canvasLabels === 0) throw new Error('town labels: queryRenderedFeatures returned 0');
+  // Above the badge gate: canvas labels hidden, DOM marker labels present.
+  await page.evaluate(() => window.ndsMap.jumpTo({ center: [-97.5569, 30.3408], zoom: 12.5 }));
+  await page.waitForFunction(() => window.ndsMap.getZoom() >= 12, null, { timeout: 30_000 });
+  await page.waitForFunction(
+    () => window.ndsMap.areTilesLoaded() === true, null, { timeout: 60_000 },
+  );
+  const domLabels = await page.locator('.town-marker-label').count();
+  if (domLabels === 0) throw new Error('badge-zoom DOM town labels: 0 markers rendered');
   await page.screenshot({ path: shots.mapZoom });
-  return { townLabels };
+  return { townLabels: canvasLabels + domLabels };
 }
 
 /** 3: theme toggle flips the page background. */

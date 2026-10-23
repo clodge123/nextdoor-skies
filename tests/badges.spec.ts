@@ -166,15 +166,18 @@ test('badge shows temp number over a town when zoomed', async ({ page }, testInf
   test.setTimeout(120_000)
   const errors = await setup(page)
 
-  // Zoomed out (initial zoom 3, below TOWN_BADGE_MIN_ZOOM=6): no badges.
-  await expect(page.getByTestId('town-badges')).toHaveCount(0)
+  // Zoomed out (initial zoom 3): W4-B2 ZOOM-MATCH — no GLOBAL gate. Country-
+  // tier badges (label band z1-3) render; the Salina badge (city tier, band
+  // z7-9) is NOT rendered because the map shows no Salina label at z3.
+  await expect(page.getByTestId(`town-badge-${SALINA_SLUG}`)).toHaveCount(0)
 
   // W3-A3 MAP TINT gate (session-1 decision 6): below zoom 9 there is
   // nothing to summarize, so the tint overlay must NOT exist in the DOM.
   await expect(page.getByTestId('map-tint')).toHaveCount(0)
 
-  // TWO clicks of 'zoom in' (3 -> 6 -> 9) cross the wave-2 zoom-9 badge grade
-  // (TOWN_BADGE_MIN_ZOOM=9 on main; MapView steps +3 per click).
+  // TWO clicks of 'zoom in' (3 -> 6 -> 9) land inside the CITY tier band
+  // (z7-9): the Salina label renders on the map, so its badge renders too
+  // (W4-B2 zoom-match — badge visibility == map label visibility, per town).
   await tapOrClick(page, page.getByRole('button', { name: 'zoom in' }))
   await tapOrClick(page, page.getByRole('button', { name: 'zoom in' }))
 
@@ -208,10 +211,11 @@ test('badge shows temp number over a town when zoomed', async ({ page }, testInf
   await expect(dot).toBeVisible({ timeout: 10_000 })
   await expect(dot).toHaveAttribute('data-alert-severity', 'Severe')
 
-  // Zoom back out (9 -> 6 -> 3): zoom-graded visibility hides badges.
+  // Zoom back out (9 -> 6 -> 3): the Salina label vanishes below z7, so the
+  // Salina badge vanishes with it (zoom-match, not a global cutoff).
   await tapOrClick(page, page.getByRole('button', { name: 'zoom out' }))
   await tapOrClick(page, page.getByRole('button', { name: 'zoom out' }))
-  await expect(page.getByTestId('town-badges')).toHaveCount(0)
+  await expect(page.getByTestId(`town-badge-${SALINA_SLUG}`)).toHaveCount(0)
 
   // W3-A3: zooming back below 9 removes the tint overlay entirely.
   await expect(page.getByTestId('map-tint')).toHaveCount(0)

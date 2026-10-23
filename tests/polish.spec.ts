@@ -28,6 +28,8 @@ const SHOT_DIR = path.join(process.cwd(), 'docs', 'screenshots', 'W6')
 // api.open-meteo.com/v1/batch endpoint never existed. Stub the proxy the
 // same way badges.spec.ts does (deterministic temps keyed by town slug).
 const WEATHER_URL = /\/api\/weather\?.*/
+// Salina, KS (city tier, pop 47,813) — badge id mirrors MapPage.townId.
+const SALINA_SLUG = 'salina-38.84--97.61'
 
 import { readFileSync } from 'node:fs'
 const TOWNS_PATH = path.join(process.cwd(), 'data', 'towns', 'us-towns.json')
@@ -212,7 +214,7 @@ test('header: visible, >=44px nav hit boxes, active-route highlight, theme toggl
   expect(errors).toEqual([])
 })
 
-test('zoom controls tappable >=44px and badge tier rule (zoom-9, no badges below)', async ({ page }, testInfo) => {
+test('zoom controls tappable >=44px and badge zoom-match rule (badge follows the map label)', async ({ page }, testInfo) => {
   const errors = await setup(page)
 
   const zoomIn = page.getByRole('button', { name: 'zoom in' })
@@ -224,16 +226,20 @@ test('zoom controls tappable >=44px and badge tier rule (zoom-9, no badges below
     expect(box!.height).toBeGreaterThanOrEqual(44)
   }
 
-  // Below grade: zoom 3 < 9 -> no badges at all.
-  await expect(page.getByTestId('town-badges')).toHaveCount(0)
+  // W4-B2 ZOOM-MATCH (session-1 law #4): the Salina badge (CITY tier, label
+  // band z7-9) renders exactly while the map renders Salina's label. At
+  // zoom 3 (country band) the city label is not on the map -> no Salina badge.
+  const salina = page.getByTestId(`town-badge-${SALINA_SLUG}`)
+  await expect(salina).toHaveCount(0)
 
-  // ONE zoom-in click (3 -> 6): 6 < 9, badges must STILL not render
-  // (guards the old =6 constant regression).
+  // ONE zoom-in click (3 -> 6): state band — Salina's label is still not on
+  // the map, so its badge must STILL not render (guards the global-gate law).
   await tapOrClick(page, zoomIn)
   await expect.poll(() => mapZoom(page), { timeout: 10_000 }).toBeGreaterThanOrEqual(6)
-  await expect(page.getByTestId('town-badges')).toHaveCount(0)
+  await expect(salina).toHaveCount(0)
 
-  // Second click (6 -> 9): crosses TOWN_BADGE_MIN_ZOOM=9, badges appear.
+  // Second click (6 -> 9): city band (z7-9) — the map shows Salina's label,
+  // so the badge appears in the SAME zoom step (zoom-match, measured bands).
   await tapOrClick(page, zoomIn)
   await expect.poll(() => mapZoom(page), { timeout: 10_000 }).toBeGreaterThanOrEqual(9)
   const badge = page.locator('.town-badge').first()
@@ -249,10 +255,11 @@ test('zoom controls tappable >=44px and badge tier rule (zoom-9, no badges below
   expect(bstyle.h).toBeGreaterThanOrEqual(40)
   await expect(badge.locator('.town-badge-temp')).toContainText(/-?\d+°/, { timeout: 10_000 })
 
-  // Zoom back out below 9 (9 -> 6): overlay disappears again.
+  // Zoom back out (9 -> 6): Salina's label leaves the map below z7, so its
+  // badge leaves with it (zoom-match — per-town, not a global cutoff).
   await tapOrClick(page, zoomOut)
   await expect.poll(() => mapZoom(page), { timeout: 10_000 }).toBeLessThan(9)
-  await expect(page.getByTestId('town-badges')).toHaveCount(0)
+  await expect(salina).toHaveCount(0)
 
   expect(errors).toEqual([])
   void testInfo

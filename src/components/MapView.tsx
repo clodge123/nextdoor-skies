@@ -13,6 +13,8 @@ import type { TownsFile } from '../lib/map/gazetteer';
 import { MapProvider } from '../lib/map/map-context';
 import { subscribeFlyTo } from '../lib/map/fly-to';
 import { coordKey, tierForZoom, TIER_RULES, type Tier } from '../lib/map/tiers';
+import { LABEL_TEXT_OFFSET_EM, LABEL_SIZE_BY_TIER } from '../lib/map/label-math';
+import { TOWN_BADGE_MIN_ZOOM } from './TownBadges';
 
 const STYLE_URL = 'https://tiles.openfreemap.org/styles/bright';
 const TOWNS: TownsFile = townsData as TownsFile;
@@ -24,7 +26,10 @@ function tierLayers(tier: Tier): { id: string; minzoom: number; maxzoom: number;
     id: `nds-labels-${tier}`,
     minzoom: rule.minzoom,
     maxzoom: rule.maxzoom,
-    size: tier === 'town' ? [12, 16] : tier === 'city' ? [13, 17] : tier === 'state' ? [12, 15] : [11, 13],
+    // W4-B1 geometry law: labels render BELOW the town point (1.1em offset)
+    // so weather badges anchored above the point can never cover a name.
+    // The size ladder is the single source of truth in lib/map/label-math.
+    size: [...LABEL_SIZE_BY_TIER[tier]] as [number, number],
   };
 }
 
@@ -33,6 +38,30 @@ export interface MapViewProps {
   center?: [number, number];
   zoom?: number;
   children?: ReactNode;
+}
+
+/** All gazetteer canvas label layers (names per tier). */
+const LABEL_LAYER_IDS = ['country', 'state', 'city', 'town'].map((t) => `nds-labels-${t}`);
+
+/**
+ * W4-B1 BADGE-ABOVE-LABEL: at badge zoom (>= TOWN_BADGE_MIN_ZOOM) every
+ * visible town already carries its name in the DOM marker column
+ * [badge][label][dot] (TownBadges) — canvas labels would render a SECOND
+ * name for the same town. One readable name per town is the law, so the
+ * canvas label layers hide above the badge gate and return below it (where
+ * canvas text + TownLabelTargets own the surface). Deterministic: pure
+ * function of zoom, no timers.
+ */
+function syncLabelVisibility(m: maplibregl.Map): void {
+  const vis = m.getZoom() >= TOWN_BADGE_MIN_ZOOM ? 'none' : 'visible';
+  for (const id of LABEL_LAYER_IDS) {
+    try {
+      if (typeof m.getLayer !== 'function' || !m.getLayer(id)) continue;
+      m.setLayoutProperty(id, 'visibility', vis);
+    } catch {
+      /* style not fully parsed yet — the next zoom/load pass retires this */
+    }
+  }
 }
 
 export default function MapView({ center = [-98.5, 39.8], zoom = 3, children }: MapViewProps) {
@@ -97,6 +126,8 @@ export default function MapView({ center = [-98.5, 39.8], zoom = 3, children }: 
             'text-field': ['get', 'name'],
             'text-font': ['Noto Sans Regular'],
             'text-size': ['interpolate', ['linear'], ['zoom'], minzoom, size[0], minzoom + 4, size[1]],
+            // W4-B1: label box renders below the town point (see label-math).
+            'text-offset': [0, LABEL_TEXT_OFFSET_EM],
             'text-allow-overlap': false,
             'text-max-width': 8,
             'icon-allow-overlap': false,
@@ -104,6 +135,7 @@ export default function MapView({ center = [-98.5, 39.8], zoom = 3, children }: 
           paint: { 'text-color': '#101014', 'text-halo-color': '#ffffff', 'text-halo-width': 1.5 },
         });
       }
+      syncLabelVisibility(m);
       setReady(true);
     });
 
@@ -116,7 +148,10 @@ export default function MapView({ center = [-98.5, 39.8], zoom = 3, children }: 
         m.getContainer().dataset.ndsCoordKey = key;
       }
     });
-    m.on('zoomend', () => setTier(tierForZoom(m.getZoom())));
+    m.on('zoomend', () => {
+      setTier(tierForZoom(m.getZoom()));
+      syncLabelVisibility(m);
+    });
 
     // W3-C2 FLY-TO SEAM (documented): alert-center rows (and W3-B4 search)
     // call requestFlyTo; the mounted map answers with maplibre flyTo, ~1.8s

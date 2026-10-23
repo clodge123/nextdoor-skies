@@ -127,14 +127,55 @@ body {
 }
 
 .town-badge {
-  position: absolute;
-  transform: translate(-50%, -100%);
   padding: 2px 6px;
   background: #101014;
   color: #f5f5f5;
   font: 600 12px/1.2 ui-monospace, monospace;
   border: 2px solid var(--current-accent);
   border-radius: var(--radius); /* R20 square geometry law */
+}
+
+/* W4-B1 BADGE-ABOVE-LABEL (wave-4 session 1, decision 3): every badge-visible
+   town is ONE stacked column anchored with its BOTTOM at the town point:
+   [badge][label][dot] bottom-up. Column flow makes badge/label overlap
+   geometrically impossible at any zoom; the 6px gap law lives on the badge
+   slot. Square corners throughout (R20). */
+.town-marker {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+.town-marker-badge {
+  position: relative;
+  margin-bottom: 6px; /* W4-B1 gap law: badge.bottom = label.top - 6px */
+  pointer-events: auto;
+}
+.town-marker-badge .town-badge {
+  position: static;
+  transform: none;
+  pointer-events: auto;
+}
+.town-marker-badge .town-badge-clickable:hover {
+  transform: scale(1.08);
+}
+.town-marker-label {
+  font: 500 12px/1.2 system-ui, sans-serif;
+  color: var(--text);
+  text-shadow: 0 0 3px #fff, 0 0 3px #fff;
+  white-space: nowrap;
+  pointer-events: auto;
+}
+.town-marker-dot {
+  width: 8px;
+  height: 8px;
+  margin-top: 2px;
+  flex: none;
+  background: var(--current-accent);
+  border: 1px solid var(--bg);
+  border-radius: var(--radius);
 }
 
 .town-badge-temp {
@@ -1159,7 +1200,7 @@ body {
    cursor: pointer;
  }
  .town-badge-clickable:hover {
-   transform: translate(-50%, -100%) scale(1.08);
+   transform: scale(1.08);
    border-color: var(--current-accent);
  }
  .town-badge-clickable:focus-visible {
@@ -1168,13 +1209,14 @@ body {
  }
  
  /* W3-B3 CLICK-TO-DETAIL: the badge's alert dot is its OWN link to /alerts
-    (deepest intent) rendered as a sibling of the badge anchor inside a
-    positioned slot (no nested anchors). Visual stays the 12px severity
+    (deepest intent) rendered as a sibling of the badge anchor inside the
+    marker's badge slot (no nested anchors). Visual stays the 12px severity
     square at the badge's top-right corner; the ::before extends the hit
-    area to 44x44px (R13 tap-target law). */
+    area to 44x44px (R13 tap-target law).
+    W4-B1: the old .town-badge-slot wrapper is now the marker column's
+    badge slot (.town-marker-badge) — same anchoring contract. */
  .town-badge-slot {
-   position: absolute;
-   transform: translate(-50%, -100%);
+   position: relative;
    pointer-events: none;
  }
  .town-badge-slot .town-badge {
