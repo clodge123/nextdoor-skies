@@ -190,6 +190,12 @@ export function createHandler({ db, gazetteer, now = () => new Date(), ipOf = cl
       // W4-D1: server-composited snapshot reference. snapshotId (from
       // POST /api/snapshot) must exist in the snapshots table — loud 400,
       // never a silent drop. lat/lon/zoom record the poster's view.
+      // W4-D2: when the client ALSO ships an inline burned-strip JPEG
+      // (wave-2 data-URL seam), that image is the render source — the
+      // stored snapshot stays linked as provenance (the strip is burned
+      // client-side ONCE at upload; the stored JPEG is the clean map).
+      // snapshotId-only posts (API clients, seeds) render the stored
+      // snapshot via GET /api/snapshots?path=<id>.
       let snapshotRef = body.json?.snapshot ?? null;
       let snapshotId = null;
       let lat = null;
@@ -203,7 +209,7 @@ export function createHandler({ db, gazetteer, now = () => new Date(), ipOf = cl
         const stored = await db.getSnapshot(rawSnapId);
         if (!stored) return json(400, { error: 'unknown snapshotId' });
         snapshotId = rawSnapId;
-        snapshotRef = `/api/snapshots?path=${encodeURIComponent(rawSnapId)}`;
+        if (snapshotRef === null) snapshotRef = `/api/snapshots?path=${encodeURIComponent(rawSnapId)}`;
         lat = Number.isFinite(Number(body.json?.lat)) ? Number(body.json.lat) : null;
         lon = Number.isFinite(Number(body.json?.lon)) ? Number(body.json.lon) : null;
         zoom = Number.isFinite(Number(body.json?.zoom)) ? Number(body.json.zoom) : null;

@@ -16,6 +16,12 @@ export interface Post {
   town: string
   text: string
   snapshot: string | null
+  /** W4-D2: stored snapshot id (api/snapshot.js) when the post carries one. */
+  snapshotId: string | null
+  /** Poster's captured view (null on legacy rows). */
+  lat: number | null
+  lon: number | null
+  zoom: number | null
   createdAt: string
   reactions: Record<ReactionEmoji, number>
   myReaction: ReactionEmoji | null
@@ -123,6 +129,11 @@ export function normalizePost(raw: unknown): Post | null {
   const town = typeof raw.town === 'string' ? raw.town : ''
   const createdAt = typeof raw.createdAt === 'string' ? raw.createdAt : ''
   const snapshot = typeof raw.snapshot === 'string' && raw.snapshot ? raw.snapshot : null
+  const snapshotId = typeof raw.snapshotId === 'string' && raw.snapshotId ? raw.snapshotId : null
+  const num = (v: unknown): number | null => (typeof v === 'number' && Number.isFinite(v) ? v : null)
+  const lat = num(raw.lat)
+  const lon = num(raw.lon)
+  const zoom = num(raw.zoom)
   const myReaction = REACTION_EMOJIS.includes(raw.myReaction as ReactionEmoji)
     ? (raw.myReaction as ReactionEmoji)
     : null
@@ -136,6 +147,10 @@ export function normalizePost(raw: unknown): Post | null {
     town,
     text: raw.text,
     snapshot,
+    snapshotId,
+    lat,
+    lon,
+    zoom,
     createdAt,
     reactions: reactionCounts(raw.reactions),
     myReaction,
@@ -185,9 +200,19 @@ export async function fetchPosts(
   return { ok: true, data: parsePosts(res.data) }
 }
 
-/** S2: POST /api/posts (session header required by contract). */
+/** S2: POST /api/posts (session header required by contract). W4-D2: the
+ *  snapshotId/lat/lon/zoom fields carry the server-composited snapshot
+ *  reference (docs/SNAPSHOT-API.md) — validated loudly server-side. */
 export async function createPost(
-  payload: { town: string; text: string; snapshot?: string },
+  payload: {
+    town: string
+    text: string
+    snapshot?: string
+    snapshotId?: string
+    lat?: number
+    lon?: number
+    zoom?: number
+  },
   session: Session | null,
   fetchImpl?: FetchLike,
 ): Promise<ApiResult<Post>> {
@@ -304,7 +329,7 @@ function reconcileReaction(postId: string, serverMy: ReactionEmoji | null): Post
     // No optimistic view tracked (direct call): synthesize a minimal view
     // reflecting the server truth for this emoji only.
     return {
-      id: postId, author: '', town: '', text: '', snapshot: null, createdAt: '',
+      id: postId, author: '', town: '', text: '', snapshot: null, snapshotId: null, lat: null, lon: null, zoom: null, createdAt: '',
       reactions: { '👍': 0, '❤️': 0, '😂': 0, ...(serverMy ? { [serverMy]: 1 } : {}) },
       myReaction: serverMy, commentsCount: 0, hot: false,
     }

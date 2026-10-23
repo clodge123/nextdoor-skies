@@ -375,8 +375,26 @@ describe('POST /api/posts snapshotId wiring', () => {
     expect(row.lat).toBe(37.22);
   });
 
+  it('inline burned snapshot + snapshotId: inline JPEG wins the render ref, id stays provenance (W4-D2)', async () => {
+    const id = 'snap_burn123';
+    const h = postsHarness(new Map([[id, { id, jpeg: Buffer.from([1]), lat: 37.22, lon: -93.3, zoom: 6 }]]));
+    const burned = 'data:image/jpeg;base64,' + 'A'.repeat(100);
+    const res = await h.call({
+      method: 'POST',
+      url: '/api/posts',
+      headers: { 'x-nds-session': session() },
+      body: { town: 'springfield-il-39.78--89.65', text: 'burned strip', snapshotId: id, snapshot: burned, lat: 37.22, lon: -93.3, zoom: 6 },
+    });
+    expect(res.statusCode).toBe(201);
+    expect(res.body.post.snapshot).toBe(burned); // strip-burned image renders
+    expect(res.body.post.snapshotId).toBe(id); // provenance link stays
+    const row = h.posts.get(res.body.post.id);
+    expect(row.snapshot).toBe(burned);
+    expect(row.snapshotId).toBe(id);
+  });
+
   it('unknown snapshotId -> loud 400 (never a silent text-only post)', async () => {
-    const h = postsHarness(new Map());
+    const h = postsHarness(new Map());;
     const res = await h.call({
       method: 'POST',
       url: '/api/posts',

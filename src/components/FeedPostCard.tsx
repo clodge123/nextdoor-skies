@@ -1,6 +1,7 @@
-// W5-FEED post card — author/town/text, snapshot <img> when present,
-// reaction buttons (optimistic toggle, S4), flat one-level replies (S3),
-// flag (S2). Square geometry (R20): no raw border-radius; the global
+// W5-FEED post card — W4-D2 C-03 law: author + timestamp render BELOW the
+// image in feed chrome (never burned into the snapshot). Text, reaction
+// buttons (optimistic toggle, S4), flat one-level replies (S3), flag (S2).
+// Square geometry (R20): no raw border-radius; the global
 // `* { border-radius: var(--radius) }` rule keeps every corner square.
 // R17: clock/RNG-free — timestamps render via
 // formatStamp (pure string slicing).
@@ -52,6 +53,7 @@ export function FeedPostCard({ post, session, fetchImpl }: FeedPostCardProps) {
   const [flagged, setFlagged] = useState(false)
   const [reactionError, setReactionError] = useState('')
   const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [snapshotFailed, setSnapshotFailed] = useState(false)
   const localIdRef = useRef(0)
   const loadedRef = useRef(false)
 
@@ -111,7 +113,39 @@ export function FeedPostCard({ post, session, fetchImpl }: FeedPostCardProps) {
 
   return (
     <article className="feed-card" data-testid={`post-${post.id}`} data-post-id={post.id}>
-      <div className="feed-card-meta">
+      <p className="feed-card-text">{view.text}</p>
+      {view.snapshot && !snapshotFailed && (
+        <button
+          type="button"
+          className="feed-snapshot-button"
+          data-testid={`snapshot-button-${post.id}`}
+          aria-label="Open map snapshot full screen"
+          onClick={() => setLightboxOpen(true)}
+        >
+          <img
+            className="feed-snapshot"
+            data-testid={`snapshot-${post.id}`}
+            src={view.snapshot}
+            alt={`Map snapshot from ${view.author}`}
+            onError={() => setSnapshotFailed(true)}
+          />
+        </button>
+      )}
+      {view.snapshot && snapshotFailed && (
+        <p className="feed-error" role="alert" data-testid={`snapshot-error-${post.id}`}>
+          Map snapshot unavailable — the image failed to load. (Author/time below stay honest.)
+        </p>
+      )}
+      {lightboxOpen && view.snapshot && (
+        <Lightbox
+          src={view.snapshot}
+          alt={`Map snapshot from ${view.author}`}
+          onClose={() => setLightboxOpen(false)}
+        />
+      )}
+      {/* C-03 law: author name + timestamp live BELOW the image in feed
+          chrome, never burned into the snapshot. */}
+      <div className="feed-card-meta feed-card-meta-below" data-testid={`meta-${post.id}`}>
         {/* W3-D3 discoverability: author/timestamp click into /p/<id> so the
             full detail page (comments, share) is one tap from the feed. */}
         <Link className="feed-view-post" data-testid={`view-post-${post.id}`} to={`/p/${post.id}`}>
@@ -136,30 +170,6 @@ export function FeedPostCard({ post, session, fetchImpl }: FeedPostCardProps) {
           </span>
         )}
       </div>
-      <p className="feed-card-text">{view.text}</p>
-      {view.snapshot && (
-        <button
-          type="button"
-          className="feed-snapshot-button"
-          data-testid={`snapshot-button-${post.id}`}
-          aria-label="Open map snapshot full screen"
-          onClick={() => setLightboxOpen(true)}
-        >
-          <img
-            className="feed-snapshot"
-            data-testid={`snapshot-${post.id}`}
-            src={view.snapshot}
-            alt={`Map snapshot from ${view.author}`}
-          />
-        </button>
-      )}
-      {lightboxOpen && view.snapshot && (
-        <Lightbox
-          src={view.snapshot}
-          alt={`Map snapshot from ${view.author}`}
-          onClose={() => setLightboxOpen(false)}
-        />
-      )}
       <div className="feed-reactions">
         {REACTION_EMOJIS.map((emoji) => (
           <button

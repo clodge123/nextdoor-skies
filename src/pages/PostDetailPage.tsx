@@ -40,6 +40,7 @@ export default function PostDetailPage({ fetchImpl }: PostDetailPageProps = {}) 
   const [commentsError, setCommentsError] = useState('')
   const [reactionError, setReactionError] = useState('')
   const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [snapshotFailed, setSnapshotFailed] = useState(false)
   const [replyText, setReplyText] = useState('')
   const [replyError, setReplyError] = useState('')
   const [shareState, setShareState] = useState<'idle' | 'copied' | 'shared' | 'failed'>('idle')
@@ -211,18 +212,6 @@ export default function PostDetailPage({ fetchImpl }: PostDetailPageProps = {}) 
       )}
 
       <article className="feed-card post-detail-post" data-testid={`post-${post.id}`} data-post-id={post.id}>
-        <div className="feed-card-meta">
-          <strong className="feed-author">{post.author}</strong>
-          <span className="feed-town">{post.town}</span>
-          <span className="feed-stamp" data-testid="post-detail-stamp">
-            {formatStamp(post.createdAt)}
-          </span>
-          {post.hot && (
-            <span className="feed-hot-badge" title="Hot in this town">
-              hot
-            </span>
-          )}
-        </div>
         <p className="feed-card-text" data-testid="post-detail-text">
           {post.text}
         </p>
@@ -234,12 +223,30 @@ export default function PostDetailPage({ fetchImpl }: PostDetailPageProps = {}) 
             aria-label="Open map snapshot full screen"
             onClick={() => setLightboxOpen(true)}
           >
-            <img className="feed-snapshot" data-testid={`snapshot-${post.id}`} src={post.snapshot} alt={`Map snapshot from ${post.author}`} />
+            <img className="feed-snapshot" data-testid={`snapshot-${post.id}`} src={post.snapshot} alt={`Map snapshot from ${post.author}`} onError={() => setSnapshotFailed(true)} />
           </button>
+        )}
+        {post.snapshot && snapshotFailed && (
+          <p className="feed-error" role="alert" data-testid={`snapshot-error-${post.id}`}>
+            Map snapshot unavailable — the image failed to load.
+          </p>
         )}
         {lightboxOpen && post.snapshot && (
           <Lightbox src={post.snapshot} alt={`Map snapshot from ${post.author}`} onClose={() => setLightboxOpen(false)} />
         )}
+        {/* C-03 law: author + timestamp BELOW the image (detail page parity). */}
+        <div className="feed-card-meta feed-card-meta-below" data-testid="post-detail-meta">
+          <strong className="feed-author">{post.author}</strong>
+          <span className="feed-town">{post.town}</span>
+          <span className="feed-stamp" data-testid="post-detail-stamp">
+            {formatStamp(post.createdAt)}
+          </span>
+          {post.hot && (
+            <span className="feed-hot-badge" title="Hot in this town">
+              hot
+            </span>
+          )}
+        </div>
         <div className="feed-reactions">
           {REACTION_EMOJIS.map((emoji) => (
             <button

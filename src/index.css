@@ -541,6 +541,90 @@ body {
   cursor: default;
 }
 
+/* W4-D2 SNAPSHOT COMPOSER — town chip, capture button, preview, loud error
+   card (S7#4). Neon-green + square corners (C-01/C-02), ≥44px targets. */
+.composer-town-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--current-accent);
+  color: var(--current-accent);
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  min-height: 32px;
+}
+
+.composer-capture {
+  min-height: 44px;
+  border: 1px solid var(--current-accent);
+  background: var(--surface);
+  color: var(--current-accent);
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.composer-capture:hover:not(:disabled) {
+  background: var(--current-accent);
+  color: var(--bg);
+}
+
+.composer-preview {
+  margin-top: 8px;
+  border: 1px solid var(--border);
+  padding: 8px;
+}
+
+.composer-preview-img {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+}
+
+.composer-hint {
+  font-size: 0.7rem;
+  opacity: 0.7;
+  font-family: ui-monospace, monospace;
+}
+
+.composer-snapshot-error {
+  margin-top: 8px;
+  border: 2px solid var(--warn);
+  padding: 8px 12px;
+}
+
+.composer-error-detail {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  margin: 4px 0 0;
+}
+
+.composer-error-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.composer-error-actions button {
+  min-height: 44px;
+  padding: 6px 12px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.composer-error-actions button[data-testid="composer-retry"] {
+  border-color: var(--current-accent);
+  color: var(--current-accent);
+}
+
+/* C-03 law: author + timestamp render BELOW the image in feed chrome. */
+.feed-card-meta-below {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
 .feed-section {
   margin-bottom: 16px;
 }
