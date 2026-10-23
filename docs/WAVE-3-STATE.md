@@ -172,3 +172,20 @@ palette = Ctrl/Cmd+K with discoverable chip (owner first-try law).
   /api/posts?town= 200. NO deploys (wave-end deploy live). seed-wave3.yml
   still queued (NDS_ADMIN_SECRET unset — known owner-side item). Nothing
   needs owner attention.
+
+- 20:43 CDT — hourly sweep. Ledger vs sessions: all 16 lanes MERGED/closed,
+  zero running subagents (sessions_list: all W3 lanes done; only heartbeat
+  running). No merges → no gates. Process hygiene: no anchors >1h, no
+  chrome-headless zombies; load 0.94/0.74/0.73 idle. Production smoke
+  healthy: app 200, /api/posts?town= 200, /api/alerts?bbox= 200. NO deploys
+  (wave-end deploy live). seed-wave3.yml still queued (NDS_ADMIN_SECRET
+  unset — known owner-side item). Nothing needs owner attention.
+
+- 22:05 CDT — hourly sweep. Ledger vs sessions: all 16 lanes MERGED/closed
+  (rounds 1–3); zero running subagents (sessions_list: heartbeat only; all
+  W3 lane sessions done). No merges → no gates. Process hygiene: anchors all
+  <14min (none >1h), chrome zombies defunct/resource-free; load
+  1.79/1.47/1.09 trending idle. Production smoke healthy: app 200,
+  /api/posts?town= 200, /api/alerts?bbox= 200. NO deploys (wave-end deploy
+  live). seed-wave3.yml still queued (NDS_ADMIN_SECRET unset — known
+  owner-side item). Nothing needs owner attention.

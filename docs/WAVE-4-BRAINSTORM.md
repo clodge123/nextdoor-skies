@@ -227,6 +227,27 @@ continues across sessions; moodboard frames (real-engine captures) render
 on request and get numbered critique rulings (C-NN) in the next session.
 Nothing in wave 4 spawns worktrees/lanes before greenlight.
 
+## Moodboard critique (2026-10-22 22:14 CDT) — ✅ APPROVED WITH RULES
+
+Frames rendered: A1–A4 real-engine (current app), M1–M5 target mockups
+(`lanes/wave4/moodboards/`). Owner: "these mock ups look really good… I
+like these mock ups."
+
+Rulings:
+- **C-01** — Design language: keep the **thin neon green** accent (the
+  terminal-green we already use). No new palettes; all wave-4 surfaces
+  (badges, panels, tabs, snapshot overlays, skeletons) inherit the neon-
+  terminal theme tokens. Mockups approved as design targets.
+- **C-02** — **No rounded corners anywhere** (reaffirms R20 square-
+  geometry law against the mockup CSS drift: the mockups used 2px radii
+  on skeleton lines/chips — shipped code uses `var(--radius)` = 0px).
+- No other changes requested — M1 badge-above-label, M2 loading law, M3
+  snapshot overlay, M4 all-feed, M5 alerts whole-row all accepted as-is.
+
+Consequence: wave-4 lane briefs reference these frames as acceptance
+visuals; G6 QA adds a no-rounded-corners scan (computed border-radius =
+0px on all interactive chrome) and neon-accent token audit.
+
 ## Session 4 — FEED STRUCTURE: ALL FEED (queued)
 Global /feed-all (or /feed?scope=all) — newest-first infinite scroll across
 every town, town chip per card (click → town panel). Hot view stays.
