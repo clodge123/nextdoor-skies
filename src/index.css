@@ -452,44 +452,17 @@ body {
   gap: 0;
 }
 
-/* W4-E1 ALL-FEED tabs (Hot | Latest). Square geometry (R20/C-02): border-
-   radius ONLY var(--radius). >=44px per tab (R13). Active tab painted
-   neon-green via var(--current-accent) (C-01); ~200ms transition. */
-.feed-tabs {
-  margin-left: auto;
-  display: inline-flex;
-  align-items: stretch;
-  height: 46px; /* 44px content + 2px border frame (unit-toggle law) */
+.feed-sort button {
+  padding: 6px 14px;
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-
-.feed-tab {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 44px;
-  padding: 0 14px;
-  font: 700 14px/1 ui-sans-serif, system-ui, sans-serif;
-  letter-spacing: 0.04em;
-  background: transparent;
   color: var(--text);
-  border: 0;
-  border-radius: var(--radius);
+  border: 1px solid var(--border);
   cursor: pointer;
-  transition: background-color 200ms linear, color 200ms linear;
 }
 
-.feed-tab:focus-visible {
-  outline: 2px solid var(--current-accent);
-  outline-offset: -2px;
-}
-
-.feed-tab[data-active="true"] {
-  background: var(--current-accent);
-  color: var(--bg);
+.feed-sort button[aria-pressed="true"] {
+  border-color: var(--current-accent);
+  color: var(--current-accent);
 }
 
 .feed-composer {
@@ -541,6 +514,90 @@ body {
   cursor: default;
 }
 
+/* W4-D2 SNAPSHOT COMPOSER — town chip, capture button, preview, loud error
+   card (S7#4). Neon-green + square corners (C-01/C-02), ≥44px targets. */
+.composer-town-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--current-accent);
+  color: var(--current-accent);
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  min-height: 32px;
+}
+
+.composer-capture {
+  min-height: 44px;
+  border: 1px solid var(--current-accent);
+  background: var(--surface);
+  color: var(--current-accent);
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.composer-capture:hover:not(:disabled) {
+  background: var(--current-accent);
+  color: var(--bg);
+}
+
+.composer-preview {
+  margin-top: 8px;
+  border: 1px solid var(--border);
+  padding: 8px;
+}
+
+.composer-preview-img {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+}
+
+.composer-hint {
+  font-size: 0.7rem;
+  opacity: 0.7;
+  font-family: ui-monospace, monospace;
+}
+
+.composer-snapshot-error {
+  margin-top: 8px;
+  border: 2px solid var(--warn);
+  padding: 8px 12px;
+}
+
+.composer-error-detail {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  margin: 4px 0 0;
+}
+
+.composer-error-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.composer-error-actions button {
+  min-height: 44px;
+  padding: 6px 12px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.composer-error-actions button[data-testid="composer-retry"] {
+  border-color: var(--current-accent);
+  color: var(--current-accent);
+}
+
+/* C-03 law: author + timestamp render BELOW the image in feed chrome. */
+.feed-card-meta-below {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
 .feed-section {
   margin-bottom: 16px;
 }
@@ -574,33 +631,6 @@ body {
 
 .feed-town {
   opacity: 0.7;
-}
-
-/* W4-E1 ALL-FEED town chip (S4: "each post row carries a town chip that
-   opens that town's panel"). Square geometry (R20), neon border (C-01),
-   >=44px tall tap target (R13). */
-.feed-town-chip {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  padding: 0 10px;
-  font: 600 12px/1 ui-monospace, monospace;
-  color: var(--text);
-  text-decoration: none;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  opacity: 0.85;
-  transition: border-color 200ms linear, color 200ms linear;
-}
-
-.feed-town-chip:hover {
-  border-color: var(--current-accent);
-  color: var(--current-accent);
-}
-
-.feed-town-chip:focus-visible {
-  outline: 2px solid var(--current-accent);
-  outline-offset: -1px;
 }
 
 .feed-stamp {
@@ -952,39 +982,29 @@ body {
  }
  
  .alert-row {
-   display: block;
+   display: flex;
+   align-items: flex-start;
+   justify-content: space-between;
+   gap: 8px;
+   padding: 8px 10px;
    background: var(--surface);
    border: 1px solid var(--border);
    border-radius: var(--radius);
  }
  
- /* W4-E2 WHOLE-ROW FLY-TO (session 5): the ENTIRE row is one button — the
-    fly-to target. ≥44px tall (R13), square (R20), pointer cursor + neon
-    hover highlight + neon focus ring (C-01). ONE Tab stop per row: no
-    nested links/controls inside the button. */
- .alert-row-control {
+ .alert-row-head {
    display: flex;
-   align-items: center;
+   align-items: flex-start;
    gap: 8px;
-   width: 100%;
-   min-height: 44px;
-   padding: 10px 12px;
+   flex: 1 1 auto;
+   min-width: 0;
+   padding: 0;
    background: none;
    border: 0;
    color: inherit;
    font: inherit;
    text-align: left;
    cursor: pointer;
-   border-radius: var(--radius);
- }
- .alert-row-control:hover {
-   background: rgb(0 255 157 / 8%);
-   box-shadow: inset 0 0 0 1px var(--current-accent);
- }
- .alert-row-control:focus-visible {
-   outline: 2px solid var(--current-accent);
-   outline-offset: -2px;
-   box-shadow: inset 0 0 0 1px var(--current-accent);
  }
  
  .alert-sev {
@@ -1040,13 +1060,20 @@ body {
  .alert-row-town {
    flex: 0 0 auto;
    max-width: 110px;
-   margin-left: auto;
-   font: 600 12px/1.3 ui-sans-serif, system-ui, sans-serif;
-   color: var(--current-accent);
  }
  
- /* Full-page /alerts variant: roomier rows; whole-row click routes to the
-    map route (?panel=<slug>) which flies on mount (W4-E2). */
+ .alert-row-fly {
+   min-height: 32px;
+   padding: 4px 8px;
+   font: 600 12px/1.3 ui-sans-serif, system-ui, sans-serif;
+   background: var(--bg);
+   color: var(--text);
+   border: 1px solid var(--current-accent);
+   border-radius: var(--radius);
+   cursor: pointer;
+ }
+ 
+ /* Full-page /alerts variant: roomier rows, no map fly seam (documented). */
  .alerts-page .alert-center {
    max-width: 720px;
    margin: 0 auto;

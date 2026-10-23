@@ -16,6 +16,12 @@ export interface Post {
   town: string
   text: string
   snapshot: string | null
+  /** W4-D2: stored snapshot id (api/snapshot.js) when the post carries one. */
+  snapshotId: string | null
+  /** Poster's captured view (null on legacy rows). */
+  lat: number | null
+  lon: number | null
+  zoom: number | null
   createdAt: string
   reactions: Record<ReactionEmoji, number>
   myReaction: ReactionEmoji | null
@@ -123,6 +129,11 @@ export function normalizePost(raw: unknown): Post | null {
   const town = typeof raw.town === 'string' ? raw.town : ''
   const createdAt = typeof raw.createdAt === 'string' ? raw.createdAt : ''
   const snapshot = typeof raw.snapshot === 'string' && raw.snapshot ? raw.snapshot : null
+  const snapshotId = typeof raw.snapshotId === 'string' && raw.snapshotId ? raw.snapshotId : null
+  const num = (v: unknown): number | null => (typeof v === 'number' && Number.isFinite(v) ? v : null)
+  const lat = num(raw.lat)
+  const lon = num(raw.lon)
+  const zoom = num(raw.zoom)
   const myReaction = REACTION_EMOJIS.includes(raw.myReaction as ReactionEmoji)
     ? (raw.myReaction as ReactionEmoji)
     : null
@@ -136,6 +147,10 @@ export function normalizePost(raw: unknown): Post | null {
     town,
     text: raw.text,
     snapshot,
+    snapshotId,
+    lat,
+    lon,
+    zoom,
     createdAt,
     reactions: reactionCounts(raw.reactions),
     myReaction,
@@ -171,23 +186,30 @@ export function parseComments(body: unknown): Comment[] {
   return out
 }
 
-/** S2: GET /api/posts?town=<slug>&sort=hot|new.
- *  W4-E1 ALL-FEED: town is OPTIONAL — omit it for the global stream
- *  (all towns; the API lists every town when town is absent). */
+/** S2: GET /api/posts?town=<slug>&sort=hot|new */
 export async function fetchPosts(
-  params: { town?: string; sort: 'hot' | 'new'; fetchImpl?: FetchLike },
+  params: { town: string; sort: 'hot' | 'new'; fetchImpl?: FetchLike },
 ): Promise<ApiResult<Post[]>> {
   const fetchImpl = params.fetchImpl ?? defaultFetch
-  const townQ = params.town ? `town=${encodeURIComponent(params.town)}&` : ''
-  const url = `/api/posts?${townQ}sort=${params.sort}`
+  const url = `/api/posts?town=${encodeURIComponent(params.town)}&sort=${params.sort}`
   const res = await apiJson<unknown>(url, { method: 'GET' }, fetchImpl)
   if (!res.ok) return res
   return { ok: true, data: parsePosts(res.data) }
 }
 
-/** S2: POST /api/posts (session header required by contract). */
+/** S2: POST /api/posts (session header required by contract). W4-D2: the
+ *  snapshotId/lat/lon/zoom fields carry the server-composited snapshot
+ *  reference (docs/SNAPSHOT-API.md) — validated loudly server-side. */
 export async function createPost(
-  payload: { town: string; text: string; snapshot?: string },
+  payload: {
+    town: string
+    text: string
+    snapshot?: string
+    snapshotId?: string
+    lat?: number
+    lon?: number
+    zoom?: number
+  },
   session: Session | null,
   fetchImpl?: FetchLike,
 ): Promise<ApiResult<Post>> {
@@ -304,7 +326,7 @@ function reconcileReaction(postId: string, serverMy: ReactionEmoji | null): Post
     // No optimistic view tracked (direct call): synthesize a minimal view
     // reflecting the server truth for this emoji only.
     return {
-      id: postId, author: '', town: '', text: '', snapshot: null, createdAt: '',
+      id: postId, author: '', town: '', text: '', snapshot: null, snapshotId: null, lat: null, lon: null, zoom: null, createdAt: '',
       reactions: { '👍': 0, '❤️': 0, '😂': 0, ...(serverMy ? { [serverMy]: 1 } : {}) },
       myReaction: serverMy, commentsCount: 0, hot: false,
     }
@@ -359,12 +381,9 @@ export function partitionHot(posts: readonly Post[]): { pinned: Post[]; rest: Po
   return { pinned, rest }
 }
 
-/** Newest view: pure ISO-string sort, descending, tie-break by id ascending
- *  (determinism law — equal timestamps never inherit row order). R17. */
+/** Newest view: pure ISO-string sort, descending. Deterministic (R17). */
 export function sortByNewest(posts: readonly Post[]): Post[] {
-  return [...posts].sort((a, b) =>
-    b.createdAt.localeCompare(a.createdAt) || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0),
-  )
+  return [...posts].sort((a, b) => b.createdAt.localeCompare(a.createdAt))
 }
 
 /** Deterministic stamp from an ISO-8601 string: "2026-10-21 15:04". */

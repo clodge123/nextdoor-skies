@@ -1,6 +1,7 @@
-// W5-FEED post card — author/town/text, snapshot <img> when present,
-// reaction buttons (optimistic toggle, S4), flat one-level replies (S3),
-// flag (S2). Square geometry (R20): no raw border-radius; the global
+// W5-FEED post card — W4-D2 C-03 law: author + timestamp render BELOW the
+// image in feed chrome (never burned into the snapshot). Text, reaction
+// buttons (optimistic toggle, S4), flat one-level replies (S3), flag (S2).
+// Square geometry (R20): no raw border-radius; the global
 // `* { border-radius: var(--radius) }` rule keeps every corner square.
 // R17: clock/RNG-free — timestamps render via
 // formatStamp (pure string slicing).
@@ -21,7 +22,6 @@ import {
   type ReactionEmoji,
   type Session,
 } from '../lib/feed'
-import { panelOpenHref } from '../lib/panel'
 import { Lightbox } from './Lightbox'
 
 export interface FeedPostCardProps {
@@ -35,14 +35,6 @@ export function FeedPostCard({ post, session, fetchImpl }: FeedPostCardProps) {
   const [view, setView] = useState<Post>(post)
   useEffect(() => setView(post), [post])
 
-  // W4-E1 ALL-FEED: the town chip opens that town's panel via the existing
-  // ?panel=<slug> scheme (src/lib/panel.ts) — same key (canonical gazetteer
-  // slug) the badges/search use, so chip -> panel -> fly-to all just work.
-  // The href is built from an EMPTY search: the feed's own query params
-  // (?scope=) belong to the feed route, not the map — the panel URL stays
-  // canonical (`/?panel=<slug>`).
-  const panelHref = (slug: string) => panelOpenHref('', slug)
-
   const [replyOpen, setReplyOpen] = useState(false)
   const [comments, setComments] = useState<Comment[]>([])
   const [commentsStatus, setCommentsStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>('idle')
@@ -52,6 +44,7 @@ export function FeedPostCard({ post, session, fetchImpl }: FeedPostCardProps) {
   const [flagged, setFlagged] = useState(false)
   const [reactionError, setReactionError] = useState('')
   const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [snapshotFailed, setSnapshotFailed] = useState(false)
   const localIdRef = useRef(0)
   const loadedRef = useRef(false)
 
@@ -111,33 +104,8 @@ export function FeedPostCard({ post, session, fetchImpl }: FeedPostCardProps) {
 
   return (
     <article className="feed-card" data-testid={`post-${post.id}`} data-post-id={post.id}>
-      <div className="feed-card-meta">
-        {/* W3-D3 discoverability: author/timestamp click into /p/<id> so the
-            full detail page (comments, share) is one tap from the feed. */}
-        <Link className="feed-view-post" data-testid={`view-post-${post.id}`} to={`/p/${post.id}`}>
-          <strong className="feed-author">{view.author}</strong>
-          <span className="feed-stamp">{formatStamp(view.createdAt)}</span>
-        </Link>
-        {view.town ? (
-          <Link
-            className="feed-town-chip"
-            data-testid={`town-chip-${post.id}`}
-            to={panelHref(view.town)}
-            title={`Open ${view.town} panel`}
-          >
-            {view.town}
-          </Link>
-        ) : (
-          <span className="feed-town">(no town)</span>
-        )}
-        {view.hot && (
-          <span className="feed-hot-badge" title="Hot in this town">
-            hot
-          </span>
-        )}
-      </div>
       <p className="feed-card-text">{view.text}</p>
-      {view.snapshot && (
+      {view.snapshot && !snapshotFailed && (
         <button
           type="button"
           className="feed-snapshot-button"
@@ -150,8 +118,14 @@ export function FeedPostCard({ post, session, fetchImpl }: FeedPostCardProps) {
             data-testid={`snapshot-${post.id}`}
             src={view.snapshot}
             alt={`Map snapshot from ${view.author}`}
+            onError={() => setSnapshotFailed(true)}
           />
         </button>
+      )}
+      {view.snapshot && snapshotFailed && (
+        <p className="feed-error" role="alert" data-testid={`snapshot-error-${post.id}`}>
+          Map snapshot unavailable — the image failed to load. (Author/time below stay honest.)
+        </p>
       )}
       {lightboxOpen && view.snapshot && (
         <Lightbox
@@ -160,6 +134,22 @@ export function FeedPostCard({ post, session, fetchImpl }: FeedPostCardProps) {
           onClose={() => setLightboxOpen(false)}
         />
       )}
+      {/* C-03 law: author name + timestamp live BELOW the image in feed
+          chrome, never burned into the snapshot. */}
+      <div className="feed-card-meta feed-card-meta-below" data-testid={`meta-${post.id}`}>
+        {/* W3-D3 discoverability: author/timestamp click into /p/<id> so the
+            full detail page (comments, share) is one tap from the feed. */}
+        <Link className="feed-view-post" data-testid={`view-post-${post.id}`} to={`/p/${post.id}`}>
+          <strong className="feed-author">{view.author}</strong>
+          <span className="feed-stamp">{formatStamp(view.createdAt)}</span>
+        </Link>
+        <span className="feed-town">{view.town}</span>
+        {view.hot && (
+          <span className="feed-hot-badge" title="Hot in this town">
+            hot
+          </span>
+        )}
+      </div>
       <div className="feed-reactions">
         {REACTION_EMOJIS.map((emoji) => (
           <button
