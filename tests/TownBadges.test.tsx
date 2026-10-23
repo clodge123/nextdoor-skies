@@ -26,8 +26,8 @@ describe('TownBadges', () => {
       </MapContext.Provider>,
     )
     const badge = screen.getByTestId('town-badge-springfield')
-    expect(badge.textContent).toBe('71°F')
-    expect(screen.getByTestId('town-badge-faraway').textContent).toBe('39°F')
+    expect(badge.textContent).toBe('71°F') // 21.6C -> 71F (W4-A2 F default)
+    expect(screen.getByTestId('town-badge-faraway').textContent).toBe('39°F') // 4C -> 39F (W4-A2 F default)
   })
 
   it('shows honest "awaiting feed" for towns without data (R19)', () => {
