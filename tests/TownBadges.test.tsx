@@ -4,6 +4,7 @@ import { fireEvent, render, screen, cleanup } from '@testing-library/react'
 import { MapContext, type MapLike } from '../src/lib/map/map-context'
 import { TownBadges, badgesForZoom, visibleBadges, type TownBadgeCoord } from '../src/components/TownBadges'
 import { labelVisibleAtZoom } from '../src/lib/map/tiers'
+import { subscribeFlyTo } from '../src/lib/map/fly-to'
 import type { TownCoord } from '../src/lib/weather/openmeteo-batch'
 
 const towns: TownCoord[] = [
@@ -447,5 +448,175 @@ describe('TownBadges', () => {
     expect(live.textContent).toContain('50°F')
     // "awaiting feed" is gone once real data exists.
     expect(live.textContent).not.toContain('awaiting feed')
+  })
+
+  // -------------------------------------------------------------------------
+  // W4-B3 DE-CLUSTER (wave-4 session 1, decision 5): same-temp neighbors
+  // collapse to ONE badge ("Moore +2") below CLUSTER_MAX_ZOOM (=9); the
+  // cluster expands on zoom-in and on tap (fly-to law).
+  // -------------------------------------------------------------------------
+  describe('W4-B3 same-temp de-clustering', () => {
+    // Metro trio: all show 70°F, projected points within 96px (stubMap
+    // projects x=-lon*10, y=lat*10 -> ~1 deg lon = 10px; towns here are
+    // close-set by construction so distances land well inside radius).
+    // tier:'city' => badge-visible z7-9 (W4-B2 zoom-match); z8 exercises
+    // the clustering zone (below CLUSTER_MAX_ZOOM=9).
+    const metro: TownBadgeCoord[] = [
+      { id: 'moore', name: 'Moore', lat: 35.34, lon: -97.49, tier: 'city' },
+      { id: 'mustang', name: 'Mustang', lat: 35.38, lon: -97.72, tier: 'city' },
+      { id: 'okc', name: 'Oklahoma City', lat: 35.47, lon: -97.51, tier: 'city' },
+    ]
+    const metroTemps = { moore: 21, mustang: 21.1, okc: 20.9 } // all -> 70°F
+
+    it('low zoom: ONE cluster badge per same-temp group, labeled "Moore +2"', () => {
+      render(
+        <MapContext.Provider value={stubMap(8)}>
+          <TownBadges towns={metro} temps={metroTemps} />
+        </MapContext.Provider>,
+      )
+      const cluster = screen.getByTestId('town-badge-cluster-moore')
+      expect(cluster.tagName).toBe('BUTTON') // real focusable affordance (R13)
+      expect(cluster.getAttribute('data-cluster-size')).toBe('3')
+      expect(cluster.textContent).toContain('Moore +2')
+      expect(cluster.textContent).toContain('70°F')
+      // ONE badge per group: no individual badges leak alongside it.
+      expect(screen.queryByTestId('town-badge-mustang')).toBeNull()
+      expect(screen.queryByTestId('town-badge-okc')).toBeNull()
+      expect(screen.queryByTestId('town-badge-moore')).toBeNull()
+      const markers = screen.getAllByTestId(/town-marker/)
+      expect(markers).toHaveLength(1) // one collapsed column, not three
+      cleanup()
+    })
+
+    it('zoom-in (>= CLUSTER_MAX_ZOOM): cluster expands to individual badges', () => {
+      render(
+        <MapContext.Provider value={stubMap(9)}>
+          <TownBadges towns={metro} temps={metroTemps} />
+        </MapContext.Provider>,
+      )
+      expect(screen.queryByTestId(/town-badge-cluster-/)).toBeNull()
+      expect(screen.getByTestId('town-badge-moore')).toBeTruthy()
+      expect(screen.getByTestId('town-badge-mustang')).toBeTruthy()
+      expect(screen.getByTestId('town-badge-okc')).toBeTruthy()
+      cleanup()
+    })
+
+    it('tap of the cluster badge = fly-to law: flies to centroid + zoom bump', () => {
+      const flies: { lon: number; lat: number; zoom?: number }[] = []
+      const off = subscribeFlyTo((r) => flies.push(r))
+      render(
+        <MapContext.Provider value={stubMap(8)}>
+          <TownBadges towns={metro} temps={metroTemps} />
+        </MapContext.Provider>,
+      )
+      fireEvent.click(screen.getByTestId('town-badge-cluster-moore'), { button: 0 })
+      off()
+      expect(flies).toHaveLength(1)
+      // Centroid of the three members (mean lat/lon), zoom bumped to the
+      // expand threshold (9) so the map lands on fully-expanded badges.
+      const cLon = (metro[0].lon + metro[1].lon + metro[2].lon) / 3
+      const cLat = (metro[0].lat + metro[1].lat + metro[2].lat) / 3
+      expect(flies[0].lon).toBeCloseTo(cLon, 10)
+      expect(flies[0].lat).toBeCloseTo(cLat, 10)
+      expect(flies[0].zoom).toBe(9)
+      cleanup()
+    })
+
+    it('mixed temps: only SAME-temp neighbors merge; odd one out stays solo', () => {
+      render(
+        <MapContext.Provider value={stubMap(8)}>
+          <TownBadges
+            towns={metro}
+            temps={{ moore: 21, mustang: 21.1, okc: 4 }} // okc shows 39°F
+          />
+        </MapContext.Provider>,
+      )
+      const cluster = screen.getByTestId('town-badge-cluster-moore')
+      expect(cluster.getAttribute('data-cluster-size')).toBe('2')
+      expect(cluster.textContent).toContain('Moore +1')
+      // Oklahoma City keeps its own badge (different shown temp).
+      expect(screen.getByTestId('town-badge-okc')).toBeTruthy()
+      expect(screen.queryByTestId('town-badge-mustang')).toBeNull()
+      cleanup()
+    })
+
+    it('tier gating composes BEFORE clustering: gated-out towns never join', () => {
+      // z8: city tier visible (z7-9), town tier NOT yet (z10+). The hidden
+      // hamlet shares Moore's temp and sits 0.1 deg away — it must NOT
+      // inflate the cluster (clustering composes after badgesForZoom).
+      const gated: TownBadgeCoord[] = [
+        { id: 'moore', name: 'Moore', lat: 35.34, lon: -97.49, tier: 'city' },
+        { id: 'hamlet', name: 'Hamlet', lat: 35.35, lon: -97.48, tier: 'town' },
+      ]
+      render(
+        <MapContext.Provider value={stubMap(8)}>
+          <TownBadges towns={gated} temps={{ moore: 21, hamlet: 21 }} />
+        </MapContext.Provider>,
+      )
+      // Moore renders SOLO (no partner visible) — not a "+1" cluster.
+      expect(screen.getByTestId('town-badge-moore')).toBeTruthy()
+      expect(screen.queryByTestId(/town-badge-cluster-/)).toBeNull()
+      expect(screen.queryByTestId('town-badge-hamlet')).toBeNull()
+      cleanup()
+    })
+
+    it('awaiting-feed towns never cluster (NaN key, R19 honest)', () => {
+      render(
+        <MapContext.Provider value={stubMap(8)}>
+          <TownBadges towns={metro} temps={{}} />
+        </MapContext.Provider>,
+      )
+      expect(screen.queryByTestId(/town-badge-cluster-/)).toBeNull()
+      expect(screen.getByTestId('town-badge-moore')).toBeTruthy()
+      expect(screen.getByTestId('town-badge-moore').textContent).toBe('awaiting feed')
+      cleanup()
+    })
+
+    it('cluster badge is keyboard-reachable with an honest aria-label', () => {
+      render(
+        <MapContext.Provider value={stubMap(8)}>
+          <TownBadges towns={metro} temps={metroTemps} />
+        </MapContext.Provider>,
+      )
+      const cluster = screen.getByTestId('town-badge-cluster-moore')
+      expect(cluster.getAttribute('aria-label')).toBe(
+        'Moore +2: 70°F — expand 3 same-temp towns',
+      )
+      fireEvent.keyDown(cluster, { key: 'Enter' })
+      cleanup()
+    })
+
+    it('cluster marker is a stacked column with the badge above the dot (B1 law)', () => {
+      render(
+        <MapContext.Provider value={stubMap(8)}>
+          <TownBadges towns={metro} temps={metroTemps} />
+        </MapContext.Provider>,
+      )
+      const marker = screen.getByTestId('town-marker-cluster-moore')
+      const kids = Array.from(marker.children)
+      expect(kids.map((k) => k.className)).toEqual([
+        'town-marker-badge town-badge-slot',
+        'town-marker-dot',
+      ])
+      // No DOM label span: below zoom 9 the CANVAS owns town names (one
+      // readable name per town) — the badge itself carries the cluster name.
+      const badge = screen.getByTestId('town-badge-cluster-moore')
+      expect(marker.contains(badge)).toBe(true)
+      cleanup()
+    })
+
+    it('determinism: identical inputs render identical DOM (R17)', () => {
+      const tree = () => {
+        const { unmount } = render(
+          <MapContext.Provider value={stubMap(8)}>
+            <TownBadges towns={metro} temps={metroTemps} />
+          </MapContext.Provider>,
+        )
+        const html = screen.getByTestId('town-badges').outerHTML
+        unmount()
+        return html
+      }
+      expect(tree()).toBe(tree())
+    })
   })
 })
