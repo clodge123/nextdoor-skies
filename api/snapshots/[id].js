@@ -7,8 +7,8 @@
 // ../snapshot.js — './snapshot.js' resolved to api/snapshots/snapshot.js
 // (nonexistent) and every GET on this route threw MODULE_NOT_FOUND (prod
 // 500 FUNCTION_INVOCATION_FAILED). The posts pool seam is ../posts.js.
-import { createHandler, loadGazetteer } from '../snapshot.js';
-import { createPgDb } from '../posts.js';
+import { createHandler } from '../snapshot.js';
+import { loadGazetteer, createPgDb } from '../posts.js';
 
 export default async function handler(req, res) {
   const gazetteer = await loadGazetteer();
