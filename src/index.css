@@ -161,9 +161,14 @@ body {
 .town-marker-badge .town-badge-clickable:hover {
   transform: scale(1.08);
 }
+/* W4-BF MAP LABEL INK (owner bug-fix round): the basemap is the SAME light
+   OpenFreeMap bright style in both themes — it does NOT go dark. Theme text
+   (var(--text)) flips white in dark mode and vanishes against the light map.
+   Map labels pin to ink (#101014 + white halo), byte-matching the canvas
+   label layers in MapView ('text-color': '#101014'). Theming is UI-only. */
 .town-marker-label {
   font: 500 12px/1.2 system-ui, sans-serif;
-  color: var(--text);
+  color: #101014;
   text-shadow: 0 0 3px #fff, 0 0 3px #fff;
   white-space: nowrap;
   pointer-events: auto;
@@ -1011,6 +1016,34 @@ button.town-badge-cluster:focus-visible {
    border-radius: var(--radius);
  }
  
+ /* W4-BF ALERT ROW CONTROL (owner bug-fix round): the whole row IS the
+    button. Without an explicit reset the UA paints a WHITE box with black
+    text, the child spans (color: var(--text)) render white-on-white in dark
+    mode — invisible — and each row shrinks to content width, so rows land
+    ragged instead of filling the alert center. Transparent, full-width,
+    inherit-color: text sits on var(--surface) in BOTH themes. */
+ .alert-row-control {
+   display: flex;
+   align-items: flex-start;
+   justify-content: space-between;
+   gap: 8px;
+   width: 100%;
+   min-width: 0;
+   padding: 0;
+   margin: 0;
+   background: none;
+   border: 0;
+   color: inherit;
+   font: inherit;
+   text-align: left;
+   cursor: pointer;
+ }
+
+ .alert-row-control:focus-visible {
+   outline: 2px solid var(--current-accent);
+   outline-offset: 2px;
+ }
+
  .alert-row-head {
    display: flex;
    align-items: flex-start;

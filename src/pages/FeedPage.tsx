@@ -93,11 +93,13 @@ export default function FeedPage({ fetchImpl, townSlug, townName: townNameProp }
   const [moreError, setMoreError] = useState('')
   const sentinelRef = useRef<HTMLDivElement | null>(null)
 
-  // Routing override: /t/<slug>/feed shows that town's feed regardless of
-  // the session town. Plain /feed: Hot = session town when one exists
-  // (existing W5 curation), Latest = the GLOBAL stream (W4-E1: all towns,
-  // newest-first — "Latest IS the all feed", S4 brainstorm).
-  const feedTown = townSlug ?? (scope === 'latest' ? '' : session?.townSlug ?? '')
+  // Routing override: /t/<slug>/feed shows that town's Hot feed.
+  // W4-BF (owner bug-fix round): LATEST IS THE ALL FEED EVERYWHERE — the
+  // E1 law was town-scoped on /t/<slug>/feed, so the town page's Latest tab
+  // showed one town and the owner could not reach the global stream from
+  // there ("we don't have no navigation there"). Latest now ignores the
+  // town slug entirely: it is the newest-first stream across every town.
+  const feedTown = scope === 'latest' ? '' : (townSlug ?? session?.townSlug ?? '')
   const globalFeed = !feedTown
   const townName = townSlug
     ? (townNameProp ?? townSlug)

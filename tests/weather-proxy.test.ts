@@ -416,14 +416,17 @@ describe('W3-A1 cache laws', () => {
       return { ok: true, json: async () => omPayload(15) }
     })
     const bg: Promise<unknown>[] = []
-    await handleWeather(
+    const out = await handleWeather(
       { west: -74.1, south: 40.6, east: -73.9, north: 40.8, zoom: 10 },
       { fetchImpl, now, schedule: (p) => bg.push(p) },
     )
     await Promise.all(bg)
+    // W4-BF batching: calls are per CHUNK (<=50 towns), not per town. One
+    // served chunk + one ring chunk = 2 upstream calls for <=100 towns.
     const total = fetchImpl.mock.calls.length
-    expect(total).toBeLessThanOrEqual(MAX_TOWNS_PER_REQUEST + MAX_PREFETCH_TOWNS)
-    expect(total).toBeGreaterThan(MAX_TOWNS_PER_REQUEST) // ring really fired
+    expect(total).toBeLessThanOrEqual(2) // 1 served chunk + 1 ring chunk
+    expect(total).toBeGreaterThan(1) // ring really fired (separate batch)
+    expect(Object.keys(out.temps).length).toBeLessThanOrEqual(MAX_TOWNS_PER_REQUEST)
     expect(peak).toBeLessThanOrEqual(MAX_UPSTREAM_CONCURRENCY)
   })
 
@@ -443,7 +446,9 @@ describe('W3-A1 cache laws', () => {
     const p2 = prefetchTowns(towns, fetchImpl, now) // second wave sees them in flight
     release()
     await Promise.all([p1, p2])
-    expect(fetchImpl.mock.calls.length).toBe(2) // not 4
+    // W4-BF batching: A+B ride ONE batch call; the second wave dedupes every
+    // slug before building its batch and fires nothing (law: never double-fetch).
+    expect(fetchImpl.mock.calls.length).toBe(1) // not 4
   })
 
   it('ring prefetch skips towns with a FRESH cache entry (no pointless churn)', async () => {

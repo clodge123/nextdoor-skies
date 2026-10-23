@@ -227,11 +227,59 @@ export function normalizeWeatherCode(payload) {
 }
 
 /**
+ * W4-BF WEATHER BATCHING (owner bug-fix round: "why is the temperature so
+ * slow? it's always awaiting feed"). Open-Meteo accepts COMMA-SEPARATED
+ * latitude/longitude lists — one call answers a whole chunk of towns. The
+ * per-town fan-out (50 towns x ~1-2s / concurrency 10 = 5-10s cold start,
+ * minutes across a wide view) collapses to ONE upstream call per 50-town
+ * chunk (~1s). Cache/SWR/ring-prefetch laws unchanged; only the fan-out
+ * shape changes. Response rows come back in request order (documented
+ * upstream behavior) — index mapping, deterministic.
+ */
+export function forecastUrlBatch(towns) {
+  const lats = towns.map((t) => t.lat.toFixed(4)).join(',')
+  const lons = towns.map((t) => t.lon.toFixed(4)).join(',')
+  return (
+    `${UPSTREAM_FORECAST_URL}?latitude=${lats}&longitude=${lons}` +
+    '&current=temperature_2m,weather_code'
+  )
+}
+
+/**
+ * Parse a batch response into per-town { tempF, code } aligned to the input
+ * order. Tolerates BOTH upstream shapes: an ARRAY (multi-location) and a
+ * bare OBJECT (single-location, legacy mocks/tests) — wrapped as a 1-row
+ * batch. A row that fails any check degrades to { undefined, undefined }
+ * (R19: absent, never faked).
+ */
+export function parseBatchResponse(payload, towns) {
+  const rows = Array.isArray(payload) ? payload : [payload]
+  return towns.map((t, i) => {
+    const p = rows[i]
+    if (!p || typeof p !== 'object') return { tempF: undefined, code: undefined }
+    return { tempF: normalizeTempF(p), code: normalizeWeatherCode(p) }
+  })
+}
+
+/** One batched upstream call for <=50 towns. Never throws: every failure
+ *  degrades the WHOLE chunk to absent (the cache/SWR layers keep last-known
+ *  values on screen — law 3). */
+export async function fetchConditionsBatch(towns, fetchImpl, signal) {
+  try {
+    const res = await fetchImpl(forecastUrlBatch(towns), { method: 'GET', signal })
+    if (!res.ok) return towns.map(() => ({ tempF: undefined, code: undefined }))
+    return parseBatchResponse(await res.json(), towns)
+  } catch {
+    return towns.map(() => ({ tempF: undefined, code: undefined }))
+  }
+}
+
+/**
  * Fetch one town's current temp (Fahrenheit) + WMO weathercode. Returns
  * { tempF, code } where tempF is a finite number (undefined on ANY failure —
  * the degradation path) and code is the parsed weathercode (undefined when
  * absent/malformed — the badge shows no icon, never a fake). No fake values,
- * ever (R19).
+ * ever (R19). Kept for single-town callers/tests; the served path batches.
  */
 export async function fetchTownConditions(town, fetchImpl, signal) {
   try {
@@ -280,21 +328,37 @@ export async function mapWithConcurrency(jobs, concurrency) {
  * simply leaves the town uncached for the next request.
  */
 export async function prefetchTowns(towns, fetchImpl, now) {
-  const targets = towns.slice(0, MAX_PREFETCH_TOWNS)
-    const jobs = targets
+  const targets = towns
+    .slice(0, MAX_PREFETCH_TOWNS)
     .filter((t) => !inFlight.has(townId(t.name, t.lat, t.lon)))
-    .map((t) => async () => {
+  // W4-BF: batched — one upstream call per <=50-town chunk (dedupe law kept:
+  // slugs already in flight are dropped before the batch is built).
+  const jobs = chunkArray(targets, MAX_TOWNS_PER_REQUEST).map((chunk) => async () => {
+    const mine = []
+    for (const t of chunk) {
       const slug = townId(t.name, t.lat, t.lon)
-      if (inFlight.has(slug)) return false
+      if (inFlight.has(slug)) continue
       inFlight.add(slug)
-      try {
-        const { tempF, code } = await fetchTownConditions(t, fetchImpl, AbortSignal.timeout(UPSTREAM_TIMEOUT_MS))
-        if (tempF !== undefined) cacheSet(slug, tempF, now, code)
-        return tempF !== undefined
-      } finally {
-        inFlight.delete(slug)
-      }
-    })
+      mine.push({ slug, town: t })
+    }
+    if (mine.length === 0) return false
+    try {
+      const results = await fetchConditionsBatch(
+        mine.map((m) => m.town),
+        fetchImpl,
+        AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
+      )
+      let any = false
+      results.forEach((r, i) => {
+        if (r.tempF === undefined) return
+        cacheSet(mine[i].slug, r.tempF, now, r.code)
+        any = true
+      })
+      return any
+    } finally {
+      mine.forEach((m) => inFlight.delete(m.slug))
+    }
+  })
   return mapWithConcurrency(jobs, MAX_UPSTREAM_CONCURRENCY)
 }
 
@@ -351,22 +415,37 @@ export async function handleWeather(query, opts = {}) {
     }
   }
 
-  const jobs = misses.map(({ slug, town }) => async () => {
-    if (inFlight.has(slug)) return false
-    inFlight.add(slug)
+  // W4-BF: misses resolve as BATCHED upstream calls (<=50 towns per call),
+  // not per-town fan-out. Per-slug inFlight dedupe preserved: a slug being
+  // fetched by a concurrent request/prefetch is dropped from the batch.
+  const missJobs = chunkArray(misses, MAX_TOWNS_PER_REQUEST).map((chunk) => async () => {
+    const mine = []
+    for (const { slug, town } of chunk) {
+      if (inFlight.has(slug)) continue
+      inFlight.add(slug)
+      mine.push({ slug, town })
+    }
+    if (mine.length === 0) return false
     try {
-      const { tempF, code } = await fetchTownConditions(town, fetchImpl, AbortSignal.timeout(UPSTREAM_TIMEOUT_MS))
-      if (tempF !== undefined) {
-        cacheSet(slug, tempF, now, code)
-        temps[slug] = tempF
-        if (code !== undefined) codes[slug] = code
-      }
-      return tempF !== undefined
+      const results = await fetchConditionsBatch(
+        mine.map((m) => m.town),
+        fetchImpl,
+        AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
+      )
+      let any = false
+      results.forEach((r, i) => {
+        if (r.tempF === undefined) return
+        cacheSet(mine[i].slug, r.tempF, now, r.code)
+        temps[mine[i].slug] = r.tempF
+        if (r.code !== undefined) codes[mine[i].slug] = r.code
+        any = true
+      })
+      return any
     } finally {
-      inFlight.delete(slug)
+      mine.forEach((m) => inFlight.delete(m.slug))
     }
   })
-  await mapWithConcurrency(jobs, concurrency)
+  await mapWithConcurrency(missJobs, concurrency)
 
   // SWR background refresh: stale entries were served instantly; re-fetch
   // them quietly so the next request is fresh. Fire-and-forget.
@@ -395,17 +474,31 @@ export async function handleWeather(query, opts = {}) {
   return { temps, codes, stale }
 }
 
-/** SWR revalidation: refetch stale entries, update cache, never block. */
+/** SWR revalidation: refetch stale entries (batched), update cache, never block. */
 async function refreshEntries(entries, fetchImpl, now) {
-  const jobs = entries.map(({ slug, town }) => async () => {
-    if (inFlight.has(slug)) return false
-    inFlight.add(slug)
+  const jobs = chunkArray(entries, MAX_TOWNS_PER_REQUEST).map((chunk) => async () => {
+    const mine = []
+    for (const { slug, town } of chunk) {
+      if (inFlight.has(slug)) continue
+      inFlight.add(slug)
+      mine.push({ slug, town })
+    }
+    if (mine.length === 0) return false
     try {
-      const { tempF, code } = await fetchTownConditions(town, fetchImpl, AbortSignal.timeout(UPSTREAM_TIMEOUT_MS))
-      if (tempF !== undefined) cacheSet(slug, tempF, now, code)
-      return tempF !== undefined
+      const results = await fetchConditionsBatch(
+        mine.map((m) => m.town),
+        fetchImpl,
+        AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
+      )
+      let any = false
+      results.forEach((r, i) => {
+        if (r.tempF === undefined) return
+        cacheSet(mine[i].slug, r.tempF, now, r.code)
+        any = true
+      })
+      return any
     } finally {
-      inFlight.delete(slug)
+      mine.forEach((m) => inFlight.delete(m.slug))
     }
   })
   return mapWithConcurrency(jobs, MAX_UPSTREAM_CONCURRENCY)

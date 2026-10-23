@@ -3,7 +3,11 @@
 // shared GET logic in api/snapshot.js via the ?path= query-param form (the
 // harness/proxy shape); this file exists so the literal path route works on
 // Vercel filesystem routing (C6 law: exact files dispatch, subpaths don't).
-import { createHandler, loadGazetteer } from './snapshot.js';
+// W4-BF FIX: this file lives in api/snapshots/, so the shared module is
+// ../snapshot.js — './snapshot.js' resolved to api/snapshots/snapshot.js
+// (nonexistent) and every GET on this route threw MODULE_NOT_FOUND (prod
+// 500 FUNCTION_INVOCATION_FAILED). The posts pool seam is ../posts.js.
+import { createHandler, loadGazetteer } from '../snapshot.js';
 import { createPgDb } from '../posts.js';
 
 export default async function handler(req, res) {
