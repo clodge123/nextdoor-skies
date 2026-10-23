@@ -39,10 +39,8 @@ parity; vitest 467/467, gated Playwright 9/9. Deviation: ?alert= param
 never existed on main (verified), real scheme ?panel= kept.
 
 ## Round 3 — polish + proof (spawn after round 2 merges)
-W4-F1 tour-fixes ▶️ SPAWNED 07:52 @ 988504a (step 1 °F copy + toggle target, desktop spotlight viewport-clamped placement, replay seams intact)
-
-owner: hides/too high/too low, not viewport-responsive) · W4-G1 qa-gates ▶️ SPAWNED 07:52 @ 988504a (5 wave-4 specs in ONE gated run, no-rounded-corners scan, neon-token audit)
-
+W4-F1 tour-fixes (step 1 copy °F+toggle; desktop spotlight placement —
+owner: hides/too high/too low, not viewport-responsive) · W4-G1 qa-gates
 (5 new specs + harness routes + no-rounded-corners scan + neon-token audit).
 
 ## Round 4 — closeout (orchestrator)
@@ -214,11 +212,3 @@ stays ON.
   unfetchable over git transport; files pulled via GitHub blobs API, merged
   clean, gates 554/554). **C2 spawned** from `1345a99` — round 2 now 6/6
   active/closed. Round 3 (F1/G1) queues behind C2.
-
-## Heartbeat checks (cont.)
-- 07:52 CDT — **Round 3 spawned** (F1 tour-fixes, G1 qa-gates from `988504a`).
-  Batch-settle reviewed: round-1/2 lane reports (A1/A2/C1-recon/B3/D2/E1/E2)
-  all match merged state — nothing owed. Stale wave-1 L4/L5/L8/L11 delivery
-  records ignored (closed runs, months old). B3's closeout sweep reaped
-  166 fleet-wide zombie chrome-headless + 105 stale anchors — host clean.
-  Round 2: C2 running. Round 3: F1/G1 running.
