@@ -898,29 +898,39 @@ body {
  }
  
  .alert-row {
-   display: flex;
-   align-items: flex-start;
-   justify-content: space-between;
-   gap: 8px;
-   padding: 8px 10px;
+   display: block;
    background: var(--surface);
    border: 1px solid var(--border);
    border-radius: var(--radius);
  }
  
- .alert-row-head {
+ /* W4-E2 WHOLE-ROW FLY-TO (session 5): the ENTIRE row is one button — the
+    fly-to target. ≥44px tall (R13), square (R20), pointer cursor + neon
+    hover highlight + neon focus ring (C-01). ONE Tab stop per row: no
+    nested links/controls inside the button. */
+ .alert-row-control {
    display: flex;
-   align-items: flex-start;
+   align-items: center;
    gap: 8px;
-   flex: 1 1 auto;
-   min-width: 0;
-   padding: 0;
+   width: 100%;
+   min-height: 44px;
+   padding: 10px 12px;
    background: none;
    border: 0;
    color: inherit;
    font: inherit;
    text-align: left;
    cursor: pointer;
+   border-radius: var(--radius);
+ }
+ .alert-row-control:hover {
+   background: rgb(0 255 157 / 8%);
+   box-shadow: inset 0 0 0 1px var(--current-accent);
+ }
+ .alert-row-control:focus-visible {
+   outline: 2px solid var(--current-accent);
+   outline-offset: -2px;
+   box-shadow: inset 0 0 0 1px var(--current-accent);
  }
  
  .alert-sev {
@@ -976,20 +986,13 @@ body {
  .alert-row-town {
    flex: 0 0 auto;
    max-width: 110px;
- }
- 
- .alert-row-fly {
-   min-height: 32px;
-   padding: 4px 8px;
+   margin-left: auto;
    font: 600 12px/1.3 ui-sans-serif, system-ui, sans-serif;
-   background: var(--bg);
-   color: var(--text);
-   border: 1px solid var(--current-accent);
-   border-radius: var(--radius);
-   cursor: pointer;
+   color: var(--current-accent);
  }
  
- /* Full-page /alerts variant: roomier rows, no map fly seam (documented). */
+ /* Full-page /alerts variant: roomier rows; whole-row click routes to the
+    map route (?panel=<slug>) which flies on mount (W4-E2). */
  .alerts-page .alert-center {
    max-width: 720px;
    margin: 0 auto;

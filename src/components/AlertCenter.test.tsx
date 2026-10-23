@@ -1,7 +1,7 @@
 // W3-C2 ALERT CENTER — unit tests (Gate 0): severity sort law, honest
 // empty/stale/checking states, row expand, fly-to seam wiring.
 // @vitest-environment jsdom
-import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import AlertCenter, { AlertRow, townLabel } from './AlertCenter'
 import { sortAlertsBySeverity, type Alert } from '../lib/weather/alerts'
@@ -100,7 +100,7 @@ describe('AlertCenter rendering', () => {
     expect(row.textContent).toContain('2026-10-21 19:00')
   })
 
-  it('expands the headline on row click (truncated -> full)', () => {
+  it('expands the headline on whole-row click (truncated -> full)', () => {
     render(
       <AlertCenter
         state={state({
@@ -114,20 +114,20 @@ describe('AlertCenter rendering', () => {
         })}
       />,
     )
-    const toggle = screen.getByTestId('alert-row-toggle')
-    expect(toggle).toHaveAttribute('aria-expanded', 'false')
-    fireEvent.click(toggle)
-    expect(toggle).toHaveAttribute('aria-expanded', 'true')
+    const row = screen.getByTestId('alert-row-control')
+    expect(row).toHaveAttribute('aria-expanded', 'false')
+    fireEvent.click(row)
+    expect(row).toHaveAttribute('aria-expanded', 'true')
     const expanded = screen.getByTestId('alert-row').querySelector('.alert-row-headline')
     expect(expanded!.className).toContain('is-expanded')
     // Click again collapses.
-    fireEvent.click(toggle)
-    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    fireEvent.click(row)
+    expect(row).toHaveAttribute('aria-expanded', 'false')
   })
 
   it('shows the town label from the gazetteer (Salina, KS — no fake towns)', () => {
     render(<AlertCenter state={state({ alerts: [alert()] })} />)
-    expect(screen.getByTestId('alert-row-fly')).toHaveTextContent('Salina')
+    expect(screen.getByTestId('alert-row-town')).toHaveTextContent('Salina')
     expect(townLabel('no-such-0.0-0.0')).toBe('no-such-0.0-0.0')
   })
 })
@@ -165,21 +165,75 @@ describe('honest states (R19)', () => {
   })
 })
 
-describe('fly-to seam (panel mode)', () => {
-  it('row town click requests a fly to the gazetteer coordinates', () => {
+describe('whole-row fly-to (W4-E2, panel mode)', () => {
+  it('clicking ANYWHERE on the row requests a fly to the gazetteer coordinates', () => {
     const seen: Array<{ lon: number; lat: number }> = []
     const off = subscribeFlyTo((req) => seen.push({ lon: req.lon, lat: req.lat }))
     render(<AlertCenter state={state({ alerts: [alert()] })} mode="panel" />)
-    fireEvent.click(screen.getByTestId('alert-row-fly'))
+    fireEvent.click(screen.getByTestId('alert-row-control'))
     off()
     // Salina, KS gazetteer coords (deterministic, from baked data).
     expect(seen).toEqual([{ lon: -97.6114, lat: 38.8403 }])
   })
 
-  it('page mode renders the town as inert text (no map mounted)', () => {
+  it('keyboard Enter on the row flies (native button semantics, one Tab stop)', () => {
+    const seen: Array<{ lon: number; lat: number }> = []
+    const off = subscribeFlyTo((req) => seen.push({ lon: req.lon, lat: req.lat }))
+    render(<AlertCenter state={state({ alerts: [alert()] })} mode="panel" />)
+    const row = screen.getByTestId('alert-row-control')
+    // The row IS a native <button type="button"> — Enter/Space activate it
+    // natively (no custom key handler to rot). Assert that contract, then
+    // fire the activation the keyboard produces.
+    expect(row.tagName).toBe('BUTTON')
+    expect(row).toHaveAttribute('type', 'button')
+    fireEvent.keyDown(row, { key: 'Enter' })
+    fireEvent.click(row) // jsdom: Enter activation == click on a button
+    off()
+    expect(seen).toEqual([{ lon: -97.6114, lat: 38.8403 }])
+  })
+
+  it('the row is ONE focusable control — no nested links/buttons', () => {
+    render(
+      <AlertCenter
+        state={state({ alerts: [alert({ id: 'a' }), alert({ id: 'b', severity: 'Minor' })] })}
+        mode="panel"
+      />,
+    )
+    const rows = screen.getAllByTestId('alert-row')
+    expect(rows).toHaveLength(2)
+    // Row order is severity-sorted: Severe first, Minor second; both name
+    // their town + alert type in the accessible label.
+    const names = rows.map((row) => within(row).getByRole('button').getAttribute('aria-label'))
+    expect(names[0]).toMatch(/Salina/)
+    expect(names[0]).toMatch(/Severe Flood Warning/)
+    expect(names[1]).toMatch(/Salina/)
+    expect(names[1]).toMatch(/Minor Flood Warning/)
+    for (const row of rows) {
+      // One Tab stop per row: exactly one button/link inside.
+      const focusables = row.querySelectorAll('button, a, [tabindex]:not([tabindex="-1"])')
+      expect(focusables).toHaveLength(1)
+    }
+  })
+
+  it('page mode routes row activation to the app town opener (fly via map route)', () => {
+    const opened: string[] = []
+    render(
+      <AlertCenter
+        state={state({ alerts: [alert()] })}
+        mode="page"
+        onOpenTown={(slug) => opened.push(slug)}
+      />,
+    )
+    fireEvent.click(screen.getByTestId('alert-row-control'))
+    expect(opened).toEqual(['salina-38.84--97.61'])
+    // The row expands in place too (headline preview -> full, same law).
+    expect(screen.getByTestId('alert-row-control')).toHaveAttribute('aria-expanded', 'true')
+  })
+
+  it('page mode renders the town label inside the row (no inert island)', () => {
     render(<AlertCenter state={state({ alerts: [alert()] })} mode="page" />)
-    expect(screen.queryByTestId('alert-row-fly')).toBeNull()
-    expect(screen.getByTestId('alert-row').textContent).toContain('Salina')
+    expect(screen.getByTestId('alert-row-town')).toHaveTextContent('Salina')
+    expect(screen.getByTestId('alert-row-control')).toBeInTheDocument()
   })
 })
 
@@ -189,7 +243,7 @@ describe('AlertRow standalone', () => {
       <AlertRow
         alert={alert({ headline: undefined, summary: undefined })}
         expanded={false}
-        onToggle={() => {}}
+        onActivate={() => {}}
       />,
     )
     expect(screen.getByTestId('alert-severity')).toHaveTextContent('Severe')

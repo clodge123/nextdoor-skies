@@ -14,10 +14,13 @@ import { markTourSeen } from './tour-seed';
  *
  * Console exclusions (documented, same family as badges/shell specs): GL
  * driver + third-party style-spec chatter. Tiles relayed node-side.
+ * W4-E2: also the documented transient OFM tile-502 exclusion (zoom-match
+ * law #4 — relay retries exhaust, maplibre logs the failed THIRD-PARTY
+ * tile resource; app-origin output stays gated).
  */
 
 const SHOT_DIR = path.join(process.cwd(), 'docs', 'screenshots', 'W3-C2')
-const IGNORED = /GL Driver Message|Expected value to be of type .*null/
+const IGNORED = /GL Driver Message|Expected value to be of type .*null|Failed to load resource.*502/
 const SALINA_SLUG = 'salina-38.84--97.61'
 const HAYS_SLUG = 'hays-38.88--99.33'
 const BEND_SLUG = 'great-bend-38.36--98.76'
@@ -164,16 +167,20 @@ test('panel alert center: sorted rows, expand, fly-to, banner gone', async ({ pa
   await expect(rows.nth(0)).toContainText('2026-10-21 15:04')
   await expect(rows.nth(0)).toContainText('2026-10-21 15:45')
 
-  // Expand-on-click: row 1 headline grows from truncated preview to full.
-  const toggle0 = rows.nth(0).getByTestId('alert-row-toggle')
-  await expect(toggle0).toHaveAttribute('aria-expanded', 'false')
-  await tapOrClick(page, toggle0)
-  await expect(toggle0).toHaveAttribute('aria-expanded', 'true')
-  await expect(rows.nth(0).locator('.alert-row-headline')).toHaveClass(/is-expanded/)
+  // W4-E2 WHOLE-ROW FLY-TO: expanding AND flying happen on the SAME click —
+  // the whole row is one button (session 5 law). Click row 0's center.
+  const row0 = rows.nth(0)
+  const ctl0 = row0.getByTestId('alert-row-control')
+  await expect(ctl0).toHaveAttribute('aria-expanded', 'false')
+  await tapOrClick(page, ctl0)
+  await expect(ctl0).toHaveAttribute('aria-expanded', 'true')
+  await expect(row0.locator('.alert-row-headline')).toHaveClass(/is-expanded/)
 
-  // Fly-to seam: click the Hays town line -> map center lands on Hays.
-  const flyHays = rows.nth(1).getByTestId('alert-row-fly')
-  await expect(flyHays).toHaveText('Hays')
+  // Fly-to law: click ANYWHERE on the Hays row (row center, not a tiny
+  // link) -> map center lands on Hays. Row 1 sits over Hays, far from the
+  // Salina-centered start view, so the fly is unambiguous.
+  const flyHays = rows.nth(1).getByTestId('alert-row-control')
+  await expect(flyHays).toContainText('Hays')
   await tapOrClick(page, flyHays)
   await page.waitForFunction(
     () => {
@@ -183,6 +190,38 @@ test('panel alert center: sorted rows, expand, fly-to, banner gone', async ({ pa
     null,
     { timeout: 15_000 },
   )
+
+  // Hover affordance (W4-E2): hovering the row paints the neon highlight
+  // (inset ring) — the whole row is visibly the fly target.
+  await rows.nth(2).hover()
+  const ring = await rows.nth(2).getByTestId('alert-row-control').evaluate((el) =>
+    getComputedStyle(el).boxShadow,
+  )
+  expect(ring).toContain('rgb(0, 255, 157)')
+
+  // Keyboard law (W4-E2): row is ONE Tab stop; Enter flies. Focus the Minor
+  // row's control directly (keyboard flow into the panel is header-dependent
+  // — the invariant tested is one-stop + activation), press Enter -> the map
+  // flies to Great Bend; then Tab moves OUT of the row (never lands on a
+  // nested second stop).
+  const bendCtl = rows.nth(2).getByTestId('alert-row-control')
+  await expect(bendCtl).toHaveAccessibleName(/Great Bend/)
+  await bendCtl.focus()
+  await page.keyboard.press('Enter')
+  await page.waitForFunction(
+    () => {
+      const c = (window as { ndsMap?: { getCenter(): { lng: number; lat: number } } }).ndsMap?.getCenter()
+      return !!c && Math.abs(c.lng - -98.7648) < 0.05 && Math.abs(c.lat - 38.3645) < 0.05
+    },
+    null,
+    { timeout: 15_000 },
+  )
+  await page.keyboard.press('Tab')
+  const outside = await page.evaluate(() => {
+    const row = document.querySelectorAll('[data-testid="alert-row"]')[2]
+    return !!row && !row.contains(document.activeElement)
+  })
+  expect(outside).toBe(true)
 
   // Banner law (inherited from C1): the overlay must stay GONE.
   await expect(page.getByTestId('alert-banner')).toHaveCount(0)
@@ -203,10 +242,12 @@ test('stale feed: honest "Feed unavailable — showing last known"', async ({ pa
   expect(errors).toEqual([])
 })
 
-test('/alerts page lists the same sorted alerts', async ({ page }, testInfo) => {
-  test.setTimeout(90_000)
+test('/alerts page lists the same sorted alerts; whole-row click flies via the map route', async ({ page }, testInfo) => {
+  test.setTimeout(120_000)
   mkdirSync(SHOT_DIR, { recursive: true })
   const errors = attachConsoleCollector(page)
+  await page.route('**tiles.openfreemap.org/**', relayOfm)
+  await stubWeather(page)
   await stubAlerts(page, { alerts: STUB_ALERTS, stale: false })
   await markTourSeen(page);
   await page.goto('/alerts', { waitUntil: 'domcontentloaded' })
@@ -218,8 +259,24 @@ test('/alerts page lists the same sorted alerts', async ({ page }, testInfo) => 
   await expect(rows.nth(1)).toContainText('Flood Warning')
   await expect(rows.nth(2)).toContainText('Heat Advisory')
 
-  // Page mode: no map mounted -> town lines are inert text (documented).
-  await expect(page.getByTestId('alert-row-fly')).toHaveCount(0)
+  // W4-E2: rows are NOT inert. Clicking the Salina row routes to the map
+  // route with the canonical ?panel=<slug> scheme — the map mounts, opens
+  // the town panel, and flies (W3-B4 fly law: every panel open flies).
+  const salinaRow = rows.nth(0).getByTestId('alert-row-control')
+  await expect(salinaRow).toHaveAccessibleName(/Salina/)
+  await salinaRow.click()
+  await expect(page).toHaveURL(/\?panel=salina-/, { timeout: 15_000 })
+  await expect(page.getByTestId('map-view').locator('canvas')).toBeVisible({ timeout: 30_000 })
+  await page.waitForFunction(
+    () => {
+      const m = (window as { ndsMap?: { getCenter(): { lng: number; lat: number }; isStyleLoaded?: () => boolean } }).ndsMap
+      if (!m?.isStyleLoaded?.()) return false
+      const c = m.getCenter()
+      return Math.abs(c.lng - -97.6114) < 0.05 && Math.abs(c.lat - 38.8403) < 0.05
+    },
+    null,
+    { timeout: 30_000 },
+  )
 
   await page.screenshot({ path: path.join(SHOT_DIR, `alerts-page-${testInfo.project.name}.png`) })
   expect(errors).toEqual([])
