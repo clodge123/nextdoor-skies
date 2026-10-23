@@ -277,3 +277,25 @@ stays ON.
 - **Ordering law**: seed-wave3 MUST run AFTER the deploy (the PATCH route has
   to be live in production). Deploy is blocked on owner Vercel login
   (`vercel login` as gwl123; CLI token expired, `invalidToken`).
+
+## Heartbeat checks (cont.)
+- 10:59 CDT — ops sweep: all 12 lanes merged into main (every r4w4/* branch
+  is an ancestor of `main`; nothing new to merge, merge-disease diff clean).
+  Host: load ~2.6 steady, ports 431xx clean. Leaked anchors >1h killed
+  (10 swept; live gate ancestry + fresh <1h anchors kept), 60 chrome-headless
+  zombies reaped → 0. Closeout unchanged: deploy + seed-wave3 still blocked
+  on owner Vercel login (`vercel login` as gwl123); production /api/* 404s
+  until the single deploy lands. NO deploy during the wave.
+
+## Heartbeat checks (cont.)
+- 11:09 CDT — ops sweep: ledger's "all 12 lanes merged" confirmed by
+  content diff (the 4 branch tips `B3/C2/F1/G1` are not strict HEAD
+  ancestors — lane-branch pointers kept after blob/cherry-pick merges —
+  every lane file verified present on main: cluster.ts+tests,
+  feed-prefetch.ts/postsCacheKey, tour placeBubble seam, WAVE4 gate +
+  neon-token audit, E1 CSS restore). Merge-disease spot-check clean.
+  Host: load ~1.3–3.0, ports 431xx clean, zombies 0; leaked anchor
+  >1h (pid 1369308, 77min) killed, 3 live anchors kept. Closeout
+  unchanged: single deploy + seed-wave3 blocked on owner Vercel login
+  (`vercel login` as gwl123); production /api/* 404 until deploy.
+  NO deploy during the wave.
