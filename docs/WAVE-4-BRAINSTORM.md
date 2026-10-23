@@ -187,6 +187,45 @@ Decisions (locked):
    tap (44px law already met).
 3. No other panel nitpicks queued — owner flagged only this one.
 
+## Session 7 — SNAPSHOT METHOD DEEP-DIVE ✅ DECIDED (2026-10-22 22:36 CDT)
+
+Owner answers (all five, "take your recommendation"):
+1. **Compositor home: serverless** `api/snapshot.js` (session-gated) — zero
+   infra; upgrade to a dedicated worker only if latency hurts.
+2. **Capture moment: YOUR view, normalized size** — snapshot the map as the
+   poster sees it (center + zoom), composited to a fixed 16:9 canvas size.
+   Personal, consistent.
+3. **Weather strip: bottom bar** (M3 layout accepted).
+4. **Failure surface: loud honest error** — composer shows "snapshot
+   failed — post without image, or retry"; test runs can tell working vs
+   broken instantly. It shouldn't fail; when it does, it says so. No
+   silent no-image posts (no-fallback law).
+5. **Retention: stored** in the DB (regeneration rejected — feeds stay fast).
+
+Locked method: server-side 3×3 tile-grid compositor at zoom ~12 (poster's
+center), stitch → burn weather strip (town · °F · condition icon, fetched
+live) → variance gate (≥16) → store JPEG. Deterministic, no browser, no
+cross-origin canvas, no fallbacks.
+
+## Session 8 — SNAPSHOT CARD ART DIRECTION 🟡 OPEN (2026-10-22 22:36 CDT)
+
+Opening position: three overlay treatments, all neon-green terminal theme,
+all square corners (C-01/C-02). The bottom bar is locked (S7#3) — these
+differ in how much data lives on the card. Rendered frames:
+`lanes/wave4/moodboards/S8-*.png`. Pick one, rank, or mix.
+
+1. **V1 Data-strip** (M3 baseline): bottom bar with town · time · weather
+   readout. Minimal, image-forward. My lean for feed density.
+2. **V2 Terminal readout**: bottom bar + top-right weather chip (big °F +
+   icon) + top-left location pin. More data at a glance, busier.
+3. **V3 Full HUD**: V2 plus a thin scanline/grid texture + corner brackets
+   (radar-scope feel). Strongest identity, heaviest overlay — test on
+   dense urban maps where it could fight the imagery.
+
+Open Q: does the author name/time go ON the image (burned) or below it
+(feed chrome)? My lean: below — burned-in text ages badly when posts get
+edited/reactions-bumped.
+
 ## Session 6 — QA GATES FOR WAVE 4 ✅ DECIDED (2026-10-22 21:26 CDT)
 
 Decisions (locked) — new gated specs, all production-shaped (REAL_API=1):
@@ -248,15 +287,3 @@ Consequence: wave-4 lane briefs reference these frames as acceptance
 visuals; G6 QA adds a no-rounded-corners scan (computed border-radius =
 0px on all interactive chrome) and neon-accent token audit.
 
-## Session 4 — FEED STRUCTURE: ALL FEED (queued)
-Global /feed-all (or /feed?scope=all) — newest-first infinite scroll across
-every town, town chip per card (click → town panel). Hot view stays.
-Open Q: infinite scroll vs paged?
-
-## Session 5 — ALERTS PANEL NITS (queued)
-Whole alert card = fly-to target (not just town name); consistent hover.
-Open Q: any other panel nitpicks from owner?
-
-## Session 6 — QA GATES FOR WAVE 4 (queued)
-Specs for unit toggle, all-feed, user-post image non-black, badge-above-
-label, zoom-match visibility; extend QA harness routes.
