@@ -257,21 +257,50 @@ Decisions (locked) — new gated specs, all production-shaped (REAL_API=1):
 
 ---
 
-## Lane sketch (wave 4, 6 lanes)
+## Lane plan (wave 4, 12 small lanes × 3 rounds) — owner law: smaller chunks
 
-| Lane | Cluster | Acceptance |
+Owner ruling 2026-10-22 23:11 CDT: break the wave into MORE, SMALLER lanes
+("smaller chunks work better"). Six-lane sketch superseded.
+
+### Round 1 — foundations (no cross-deps)
+| Lane | Scope (small) | Acceptance gate |
 | --- | --- | --- |
-| G1 units-law | F default, header toggle, all surfaces, tour copy | first-glance: badge shows 75° not 24° |
-| G2 badge-placement | label-above geometry, zoom-match per-town, de-cluster | no name ever covered; badge appears with label |
-| G3 loading-hygiene | skeletons, timeout/retry/cancel, prefetch, infinite scroll, content-visibility | Jeffersonville-class stall impossible; honest error on failure |
-| G4 snapshot-pipeline | server compositor, weather burn-in, location capture, composer flow | user post shows real map image, never black |
-| G5 feed-alerts | Latest/all feed tabs, town chips, whole-card alert fly-to | global scroll, whole row flies |
-| G6 qa-gates | session-6 specs + harness routes, closeout sweeps | all new specs green in one gated run |
+| W4-A1 units-core | F conversion lib (`src/lib/weather/units.ts`), `nds-units` storage, ALL surfaces read it (badges, panels, feed, detail, alerts) | vitest F/C matrix; no surface renders raw C |
+| W4-A2 unit-toggle | header pill (neon, square, ≥44px), private-mode honest F default | Playwright: toggle persists, both states correct |
+| W4-B1 badge-above-label | badge offset = label height + gap; never covers the name | bbox law: badge.bottom ≤ label.top, all zooms |
+| W4-B2 zoom-match | per-town label zoom from `tiers.ts`, replaces global zoom-9 gate | badge visible iff map label visible |
+| W4-C1 fetch-hygiene | shared fetch wrapper: 10s timeout, 1 retry w/ backoff, ABORT superseded; skeleton shimmer component | Jeffersonville-class stall impossible; fast pan cancels stale |
+| W4-D1 snapshot-compositor | `api/snapshot.js`: 3×3 tile stitch at poster view, variance gate (≥16), store JPEG | POST → real map JPEG, deterministic, zero fallbacks |
+
+### Round 2 — features (build on round 1)
+| Lane | Scope (small) | Acceptance gate |
+| --- | --- | --- |
+| W4-B3 de-cluster | same-temp neighbors collapse to ONE badge ("Moore +2"), expand on zoom/tap | cluster badge = 1 per same-temp group at low zoom |
+| W4-C2 feed-load | prefetch (ring law → posts), infinite scroll (`page`, ≤3 prefetched), `content-visibility: auto`, cached-first | page 2 appends on scroll; off-screen rows skip paint |
+| W4-D2 snapshot-overlay | V1 bottom-bar burn-in (town · time · °F · icon), author/time BELOW image (C-03), composer flow + town chip + loud error | user post = real map image, never black, neon/square |
+| W4-E1 all-feed | Feed tabs Hot \| Latest (global stream), `?scope=` deep link, town chip → panel | global newest-first scroll, chip opens panel |
+| W4-E2 alerts-whole-row | entire alert row = fly-to target, hover/focus affordance, one Tab stop | row-level click flies; keyboard Enter flies |
+
+### Round 3 — polish + proof
+| Lane | Scope (small) | Acceptance gate |
+| --- | --- | --- |
+| W4-F1 tour-fixes | step 1 copy → °F + toggle; desktop spotlight placement fixed (owner: hides/too high/too low on desktop), responsive to viewport size; replay seams intact | tour.spec: desktop + mobile geometry, step copy, seen-once, replay |
+| W4-G1 qa-gates | 5 new specs (units, badge, loading, snapshot, feed-all) + harness routes + no-rounded-corners scan + neon-token audit | all new specs green in ONE gated run |
+
+### Round 4 — closeout (orchestrator, no lane)
+full-suite gate (host quiet) → merge-disease diff → ledger → **single
+deploy** → `seed-wave3.yml` run (owner setting `NDS_ADMIN_SECRET` — seed
+roster confirmed YES 2026-10-22) → owner demo.
 
 Laws carried: deploy-once-at-wave-end · honest states · fly-to law · square
-geometry · ≥44px · determinism · REST push · closeout sweeps · research-
-before-build. Wave-end: single deploy + seed-wave3.yml (needs
-NDS_ADMIN_SECRET — still unset as of 2026-10-22).
+geometry (C-02) · neon-green terminal theme (C-01) · ≥44px · determinism ·
+REST push · closeout sweeps · research-before-build · author/time below
+image (C-03).
+
+Owner decisions logged 2026-10-22 23:11 CDT: seed roster YES · Deployment
+Protection stays ON for now (flip at real public launch) · tour desktop
+placement/responsiveness added to W4-F1 · greenlight PENDING owner review
+of this lane plan.
 
 ## Kickoff gate (owner law, 2026-10-22 21:41 CDT)
 **No wave kickoff until the owner says "greenlight."** Brainstorming
