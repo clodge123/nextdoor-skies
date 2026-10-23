@@ -56,7 +56,10 @@ browser specs.
 - tsc -b: clean.
 - vite build: clean.
 - Playwright (ONE gated run, scripts/e2e-gate.sh, tour.spec.ts desktop +
-  phone): see result below (run recorded honestly).
+  phone): **7 passed, 1 skipped** (the drawer-replay test skips on desktop
+  by design) — ~1.2m. All geometry/copy assertions green on both faces.
+  (First gated run failed on a spec-side phone-target assumption; fixed in
+  b774ea9 — second run is the recorded one above.)
 
 ## Deviations / notes
 
