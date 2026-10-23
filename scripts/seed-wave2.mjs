@@ -729,21 +729,37 @@ async function runReseed(shardTowns) {
     if (!snap) { failures.push(`${slug}: capture failed freshness gate — posts left untouched (honest)`); continue; }
     let patched = 0;
     for (const post of snapPosts) {
-      try {
-        const res = await fetch(`${BASE}/api/posts?path=${encodeURIComponent(post.id)}`, {
-          method: 'PATCH',
-          headers: {
-            'content-type': 'application/json',
-            'x-nds-session': JSON.stringify({ nickname: 'maple', townSlug: slug, townName }),
-            ...(adminSecret ? { 'x-nds-admin': adminSecret } : {}),
-          },
-          body: JSON.stringify({ snapshot: snap.dataUrl }),
-        });
-        if (!res.ok) throw new Error(`PATCH ${post.id} -> ${res.status} ${JSON.stringify(await res.json().catch(() => ({})))}`);
-        patched += 1;
-      } catch (err) {
-        failures.push(`${post.id}: ${err.message}`);
+      // 429 retry (same sanctioned pattern as the POST path): the admin PATCH
+      // bucket is per-IP hourly (30) and CI-sharded runners share NAT egress,
+      // so a patient window-sliding retry recovers. Deterministic snapshot =
+      // safe to repeat; the server patch is idempotent.
+      let last;
+      for (let attempt = 0; attempt < 3; attempt++) {
+        try {
+          const res = await fetch(`${BASE}/api/posts?path=${encodeURIComponent(post.id)}`, {
+            method: 'PATCH',
+            headers: {
+              'content-type': 'application/json',
+              'x-nds-session': JSON.stringify({ nickname: 'maple', townSlug: slug, townName }),
+              ...(adminSecret ? { 'x-nds-admin': adminSecret } : {}),
+            },
+            body: JSON.stringify({ snapshot: snap.dataUrl }),
+          });
+          if (res.status === 429 && attempt < 2) {
+            console.log(`  429 on ${post.id}, retry in 65s (attempt ${attempt + 2}/3)`);
+            await new Promise((r) => setTimeout(r, 65000));
+            continue;
+          }
+          if (!res.ok) throw new Error(`PATCH ${post.id} -> ${res.status} ${JSON.stringify(await res.json().catch(() => ({})))}`);
+          last = null;
+          break;
+        } catch (err) {
+          last = err;
+          if (attempt < 2) await new Promise((r) => setTimeout(r, 65000));
+        }
       }
+      if (last) { failures.push(`${post.id}: ${last.message}`); continue; }
+      patched += 1;
     }
     proof.push({ town: slug, patched, variance: Math.round(snap.variance), delta: snap.delta, bytes: snap.bytes });
     console.log(`  ${slug}: patched ${patched}/${snapPosts.length} (variance=${Math.round(snap.variance)} delta=${snap.delta} bytes=${snap.bytes})`);
