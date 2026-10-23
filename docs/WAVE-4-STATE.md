@@ -242,11 +242,21 @@ stays ON.
   (49 files, +5662): spot-checks all PASS — formatTemp on badges/panel/burn-
   in, useUnits canonical, netFetch wired feed+alerts, snapshotId on client+
   server, placeBubble tour seam, C-03 author-below DOM law intact.
-- Full Playwright suite (REAL_API=1) running on quiet host (~25 min so far,
-  3-viewport matrix).
+- 10:05 CDT — **FULL PLAYWRIGHT SUITE GREEN**: 220 passed / 0 failed /
+  20 skipped (46.4 min, REAL_API=1, phone+tablet+desktop). All 12 lanes' gated
+  specs pass in the full-suite run. Wave-4 gate COMPLETE.
 - **BLOCKED on owner (2):** (1) ONE deploy — Vercel CLI token expired
   (`invalidToken`); owner logged host in as gwl123 for wave-3 deploy, same
   step needed now. Production currently 500s `/api/posts?town=` (deployed
   build is pre-wave-4; app shell + /api/alerts healthy). (2) seed-wave3.yml
   — repo secrets list is EMPTY; needs `openssl rand -hex 32` → GitHub repo
   secret `NDS_ADMIN_SECRET` + same value in Vercel Production env vars.
+- 10:00 CDT — heartbeat sweep: all 12 lanes merged (sessions done); full
+  Playwright suite still running (~40 min, 3-viewport matrix, api-serve
+  43118 = live gate, kept). Anchors swept 52→12 (all >1h killed, gate
+  ancestry protected), chrome zombies reaped, load 12→7 trending idle.
+  **PRODUCTION REGRESSION**: ALL /api/* endpoints now 404 on
+  nextdoor-skies.vercel.app (was 500 on /api/posts?town=, healthy
+  /api/alerts per 09:35 note) — app shell 200. Deploy still blocked on
+  owner: Vercel CLI token (`invalidToken`) + empty repo secrets
+  (`NDS_ADMIN_SECRET`). NO deploy during wave (round 4 owns it).
