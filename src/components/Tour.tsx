@@ -16,10 +16,10 @@
 //
 // R17 clean: the only timers are (a) a short open delay so the map paints
 // first, and (b) the 2s "no rush" hint. NO timer advances a step.
-import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
 import { createPortal } from 'react-dom';
 import { useLocation } from 'react-router-dom';
-import { TOUR_EVENT, TOUR_STEPS, markTourSeen, nextStepIndex, placeBubble, shouldShowTour } from '../lib/tour';
+import { TOUR_EVENT, TOUR_STEPS, markTourSeen, nextStepIndex, shouldShowTour } from '../lib/tour';
 
 /** Open delay: let the map paint before the spotlight lands (not an
  *  auto-advance — the tour itself stays fully user-driven). */
@@ -28,10 +28,6 @@ const OPEN_DELAY_MS = 600;
 const HINT_AFTER_MS = 2000;
 /** Scrim padding around the spotlighted element. */
 const CUTOUT_PAD = 6;
-/** Fallback bubble height before it is measured (used once, first paint). */
-const BUBBLE_H_ESTIMATE = 190;
-/** Viewport insets — the bubble clamps inside these at EVERY size. */
-const VIEWPORT_INSET = 16;
 
 interface Rect {
   x: number;
@@ -116,7 +112,6 @@ export interface TourProps {
 export function Tour({ open, step, setStep, onClose }: TourProps) {
   const [rect, setRect] = useState<Rect | null>(null);
   const [hint, setHint] = useState(false);
-  const [bubbleBox, setBubbleBox] = useState<{ w: number; h: number } | null>(null);
   const bubbleRef = useRef<HTMLDivElement>(null);
 
   const finish = useCallback(() => {
@@ -154,23 +149,6 @@ export function Tour({ open, step, setStep, onClose }: TourProps) {
     if (open) bubbleRef.current?.focus();
   }, [open, step]);
 
-  // Measure the REAL bubble box every render (content wraps change its
-  // height). W4-F1 law: placement must be viewport-responsive — the fixed
-  // 150px estimate clipped the bubble off-screen on desktop (owner: tour
-  // hides / sits too high / too low). Equality-guarded so this never loops.
-  useLayoutEffect(() => {
-    if (!open) return;
-    const el = bubbleRef.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    if (r.width <= 0 || r.height <= 0) return;
-    setBubbleBox((prev) =>
-      prev && Math.abs(prev.w - r.width) < 0.5 && Math.abs(prev.h - r.height) < 0.5
-        ? prev
-        : { w: r.width, h: r.height },
-    );
-  });
-
   // The 2s "no rush" hint (hint only — never advances the tour).
   useEffect(() => {
     if (!open) return;
@@ -198,34 +176,22 @@ export function Tour({ open, step, setStep, onClose }: TourProps) {
   if (!current) return null;
   const last = step === TOUR_STEPS.length - 1;
 
-  // Bubble placement (W4-F1): viewport-responsive flip + clamp. Dock bottom
-  // <=480px (mobile-first law); above that, measure the target, prefer the
-  // bubble BELOW it, flip ABOVE when below would clip, and CLAMP both axes
-  // inside the viewport with 16px insets at every size — the bubble can
-  // never sit off-screen (owner-reported desktop bug) and never covers a
-  // target that has room beside it.
+  // Bubble placement: dock bottom <=480px (mobile-first), else float beside
+  // the target — below when there's room, above when there isn't.
   const vw = window.innerWidth;
   const vh = window.innerHeight;
   const mobile = vw <= 480;
-  const BUBBLE_W = Math.min(320, vw - VIEWPORT_INSET * 2);
+  const BUBBLE_W = Math.min(320, vw - 32);
   let bubbleStyle: CSSProperties;
   if (mobile) {
     // Mobile-first law: bottom-docked bubble (thumb reach) <=480px.
-    // W4-F1: flip to TOP docking when the target sits in the bottom band
-    // (e.g. the collapsed side panel) — the bubble must never cover it.
-    const bh = bubbleBox?.h ?? BUBBLE_H_ESTIMATE;
-    const targetInBottomBand =
-      !!rect &&
-      rect.y < vh - VIEWPORT_INSET &&
-      rect.y + rect.h > vh - VIEWPORT_INSET - bh;
-    bubbleStyle = targetInBottomBand
-      ? { left: VIEWPORT_INSET, right: VIEWPORT_INSET, top: VIEWPORT_INSET }
-      : { left: VIEWPORT_INSET, right: VIEWPORT_INSET, bottom: VIEWPORT_INSET };
+    bubbleStyle = { left: 16, right: 16, bottom: 16 };
   } else if (rect) {
-    const bw = bubbleBox?.w ?? BUBBLE_W;
-    const bh = bubbleBox?.h ?? BUBBLE_H_ESTIMATE;
-    const { left, top } = placeBubble(rect, vw, vh, bw, bh);
-    bubbleStyle = { left, top };
+    const below = rect.y + rect.h + 150 < vh;
+    const left = Math.max(16, Math.min(rect.x + rect.w / 2 - BUBBLE_W / 2, vw - BUBBLE_W - 16));
+    bubbleStyle = below
+      ? { left, top: rect.y + rect.h + 16 }
+      : { left, top: Math.max(16, rect.y - 16), transform: 'translateY(-100%)' };
   } else {
     bubbleStyle = { left: vw / 2, top: vh / 2, transform: 'translate(-50%, -50%)' };
   }
@@ -292,7 +258,7 @@ export function Tour({ open, step, setStep, onClose }: TourProps) {
           {step + 1} / {TOUR_STEPS.length}
         </p>
         <h2 className="tour-title">{current.title}</h2>
-        <p className="tour-body" data-testid="tour-body">{current.body}</p>
+        <p className="tour-body">{current.body}</p>
         <p className={`tour-hint${hint ? ' is-shown' : ''}`} data-testid="tour-hint">
           No rush — press Next when you're ready.
         </p>

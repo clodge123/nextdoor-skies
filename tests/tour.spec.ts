@@ -102,43 +102,6 @@ async function tapOrClick(page: Page, locator: ReturnType<Page['locator']>): Pro
 
 const tour = (page: Page) => page.getByTestId('tour');
 
-/** W4-F1 geometry law: the tour box is fully inside the viewport (no clip). */
-async function expectInsideViewport(page: Page): Promise<void> {
-  const box = await page.getByTestId('tour-bubble').boundingBox();
-  expect(box, 'tour bubble has a box').not.toBeNull();
-  const vp = page.viewportSize()!;
-  expect(box!.x).toBeGreaterThanOrEqual(0);
-  expect(box!.y).toBeGreaterThanOrEqual(0);
-  expect(box!.x + box!.width).toBeLessThanOrEqual(vp.width);
-  expect(box!.y + box!.height).toBeLessThanOrEqual(vp.height);
-}
-
-/** W4-F1 geometry law: the bubble must not cover the targeted element. */
-async function expectNotCovering(page: Page, selectors: readonly string[]): Promise<void> {
-  // Resolve the target the SAME way the app does (first visible selector),
-  // in-page — viewport-agnostic, no hasTouch assumptions.
-  const target = await page.evaluate((sels) => {
-    for (const sel of sels) {
-      const el = document.querySelector<HTMLElement>(sel);
-      if (!el) continue;
-      const r = el.getBoundingClientRect();
-      if (r.width > 0 && r.height > 0) {
-        return { x: r.left, y: r.top, width: r.width, height: r.height };
-      }
-    }
-    return null;
-  }, selectors as string[]);
-  if (!target) return; // no visible target at this size — nothing to cover
-  const bubble = await page.getByTestId('tour-bubble').boundingBox();
-  expect(bubble, 'bubble box').not.toBeNull();
-  const overlap =
-    bubble!.x < target.x + target.width &&
-    target.x < bubble!.x + bubble!.width &&
-    bubble!.y < target.y + target.height &&
-    target.y < bubble!.y + bubble!.height;
-  expect(overlap, `bubble must not cover ${selectors.join(' / ')}`).toBe(false);
-}
-
 test.describe('W3-E2 first-visit tour', () => {
   test('fresh visitor: tour appears; Next x2 -> Done; reload -> gone', async ({ page }, testInfo) => {
     const errors = await setup(page);
@@ -147,19 +110,6 @@ test.describe('W3-E2 first-visit tour', () => {
     // First visit: the spotlight tour lands (~600ms after paint).
     await expect(tour(page)).toBeVisible({ timeout: 10_000 });
     await expect(tour(page)).toHaveAttribute('data-step-id', 'welcome-map');
-
-    // W4-F1 copy law: step 1 references Fahrenheit BY DEFAULT + names the
-    // header °F/°C toggle pill (the UnitToggle seam).
-    const body1 = (await page.getByTestId('tour-body').textContent()) ?? '';
-    expect(body1).toContain('°F');
-    expect(body1).toContain('°C');
-    expect(body1.toLowerCase()).toContain('pill');
-
-    // W4-F1 geometry law (all viewports): box fully inside the viewport.
-    // Step 1's target is the map (full-viewport) — last-resort placement
-    // keeps the bubble visible; non-overlap is asserted on steps 2 + 3.
-    await expectInsideViewport(page);
-
     // Bubble exposes honest step progress + >=44px controls.
     await expect(page.getByTestId('tour-hint')).toBeVisible();
     for (const id of ['tour-next', 'tour-skip']) {
@@ -172,21 +122,8 @@ test.describe('W3-E2 first-visit tour', () => {
     // Step order: Next -> search -> panel-palette (last step swaps to Done).
     await tapOrClick(page, page.getByTestId('tour-next'));
     await expect(tour(page)).toHaveAttribute('data-step-id', 'search');
-    // W4-F1 geometry: inside the viewport AND not covering the search box
-    // (phone face = drawer button, same fallback law as the step itself).
-    await expectInsideViewport(page);
-    await expectNotCovering(page, [
-      '[data-testid="town-search"]',
-      '[data-testid="nav-menu-button"]',
-    ]);
     await tapOrClick(page, page.getByTestId('tour-next'));
     await expect(tour(page)).toHaveAttribute('data-step-id', 'panel-palette');
-    // W4-F1 geometry: not covering the panel (phone face = drawer button).
-    await expectInsideViewport(page);
-    await expectNotCovering(page, [
-      '[data-testid="side-panel"]',
-      '[data-testid="nav-menu-button"]',
-    ]);
     await expect(page.getByTestId('tour-done')).toBeVisible();
     await page.screenshot({ path: path.join(SHOT_DIR, `tour-last-${testInfo.project.name}.png`) });
 

@@ -498,6 +498,76 @@ button.town-badge-cluster:focus-visible {
   color: var(--current-accent);
 }
 
+/* W4-E1 ALL-FEED tabs (Hot | Latest). Square geometry (R20/C-02): border-
+   radius ONLY var(--radius). >=44px per tab (R13). Active tab painted
+   neon-green via var(--current-accent) (C-01); ~200ms transition.
+   RESTORED by W4-G1: these blocks shipped in ec071d0 and were dropped by the
+   B3 merge's index.css resolution (merge-disease) — the Hot|Latest tabs
+   rendered unstyled (21px tall) and failed the gated feed-all spec. */
+.feed-tabs {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: stretch;
+  height: 46px; /* 44px content + 2px border frame (unit-toggle law) */
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.feed-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  padding: 0 14px;
+  font: 700 14px/1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.04em;
+  background: transparent;
+  color: var(--text);
+  border: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color 200ms linear, color 200ms linear;
+}
+
+.feed-tab:focus-visible {
+  outline: 2px solid var(--current-accent);
+  outline-offset: -2px;
+}
+
+.feed-tab[data-active="true"] {
+  background: var(--current-accent);
+  color: var(--bg);
+}
+
+/* W4-E1 town chips ("a post row's town chip opens that town's panel").
+   Square geometry (R20), neon border (C-01), >=44px tall tap target (R13).
+   RESTORED by W4-G1 (same merge-disease drop as .feed-tabs above). */
+.feed-town-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 10px;
+  font: 600 12px/1 ui-monospace, monospace;
+  color: var(--text);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  opacity: 0.85;
+  transition: border-color 200ms linear, color 200ms linear;
+}
+
+.feed-town-chip:hover {
+  border-color: var(--current-accent);
+  color: var(--current-accent);
+}
+
+.feed-town-chip:focus-visible {
+  outline: 2px solid var(--current-accent);
+  outline-offset: -1px;
+}
+
 .feed-composer {
   border: 1px solid var(--border);
   background: var(--surface);

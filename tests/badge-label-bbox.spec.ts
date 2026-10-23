@@ -14,10 +14,10 @@ import { markTourSeen } from './tour-seed'
  * structural — this spec proves it in a real browser with real layout at
  * three zoom levels, not in theory.
  *
- * Zoom-8 note: the badge zoom gate (TOWN_BADGE_MIN_ZOOM = 9) is lane B2's
- * law and stays untouched — below zoom 9 no badges render, canvas labels
- * own the surface, and the law is vacuously true (asserted honestly: zero
- * badges, zero pairs, zero overlaps).
+ * Zoom-8 note: superseded by lane B2's merged ZOOM-MATCH law — tier bands
+ * (not the legacy z9 global gate) drive badge visibility, so city-tier
+ * badges may render below z9. The binding invariant is the bbox law itself:
+ * measured pairs at zoom 8 must show ZERO overlaps (asserted).
  *
  * Stubbing mirrors tests/badges.spec.ts (OpenFreeMap relayed node-side,
  * /api/weather stubbed with deterministic temps) — no live network.
@@ -161,10 +161,10 @@ async function measurePairs(page: Page): Promise<{ pairs: number; overlaps: numb
   })
 }
 
-async function jumpTo(page: Page, zoom: number): Promise<void> {
-  await page.evaluate((z) => {
-    ;(window as { ndsMap: { jumpTo: (o: object) => void } }).ndsMap.jumpTo({ center: [-97.6114, 38.8403], zoom: z })
-  }, zoom)
+async function jumpTo(page: Page, zoom: number, center: [number, number] = [-97.6114, 38.8403]): Promise<void> {
+  await page.evaluate(([c, z]) => {
+    ;(window as { ndsMap: { jumpTo: (o: object) => void } }).ndsMap.jumpTo({ center: c, zoom: z })
+  }, [center, zoom] as [number[], number])
   await page.waitForFunction(
     (z) => (window as { ndsMap: { getZoom: () => number } }).ndsMap.getZoom() >= z - 0.01,
     zoom,
@@ -181,19 +181,25 @@ test('bbox law: badge.bottom <= label.top for every visible town at zoom 8/10/12
   test.setTimeout(180_000)
   const errors = await setup(page)
 
-  // --- zoom 8: below the badge gate (lane B2 law, untouched) — no badges
-  // render, so no badge can cover a name. Assert the vacuous case honestly.
+  // --- zoom 8: city-tier band (z7-9) — Salina's label+badge render here
+  // (zoom-match law), so the bbox law binds on a REAL named pair.
   await jumpTo(page, 8)
-  await expect(page.getByTestId('town-badges')).toHaveCount(0)
   const z8 = await measurePairs(page)
-  expect(z8).toEqual({ pairs: 0, overlaps: 0 })
+  expect(z8.overlaps, 'zoom 8: ZERO badge/label overlaps allowed').toBe(0)
+  const salina8 = page.locator('.town-marker-label').filter({ hasText: /Salina/i }).first()
+  await expect(salina8, 'zoom 8: city-tier Salina label renders (zoom-match)').toBeVisible({ timeout: 15_000 })
 
-  // --- zoom 10 + 12: badges render; measure every on-screen pair.
+  // --- zoom 10 + 12: town-tier band (z10-24). Centered on Cross Lanes, WV
+  // — the town-tier sample zoom-match.spec.ts probes (label visible z10-14,
+  // pop ~2k), so a town-tier marker pair is deterministic here. (Salina is
+  // city-tier: under the merged B2 zoom-match law its label leaves the
+  // surface above z9, so centering on Salina made "badges visible at z10"
+  // depend on which smaller towns happened to fall in the window — flaky.)
+  const TOWN_TIER_CENTER: [number, number] = [-81.7907, 38.4204]
   for (const zoom of [10, 12]) {
-    await jumpTo(page, zoom)
+    await jumpTo(page, zoom, TOWN_TIER_CENTER)
     const badges = page.locator('.town-badge')
     await expect(badges.first()).toBeVisible({ timeout: 15_000 })
-    // Salina (center) is a baked town — at zoom 12 its marker is in view.
     const markerCount = await page.locator('.town-marker').count()
     expect(markerCount).toBeGreaterThan(0)
 
@@ -201,10 +207,11 @@ test('bbox law: badge.bottom <= label.top for every visible town at zoom 8/10/12
     expect(pairs, `zoom ${zoom}: at least one fully-visible pair expected`).toBeGreaterThan(0)
     expect(overlaps, `zoom ${zoom}: ZERO badge/label overlaps allowed`).toBe(0)
 
-    // The label text is the town's real name (names are never hidden).
-    const salina = page.locator('.town-marker-label').filter({ hasText: /Salina/i }).first()
+    // The label text is a real town name (names are never hidden).
     if (zoom >= 10) {
-      await expect(salina).toBeVisible({ timeout: 10_000 })
+      const anyLabel = page.locator('.town-marker-label').first()
+      await expect(anyLabel).toBeVisible({ timeout: 10_000 })
+      expect((await anyLabel.textContent())?.trim().length).toBeGreaterThan(1)
     }
 
     await page.screenshot({

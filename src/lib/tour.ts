@@ -39,7 +39,7 @@ export const TOUR_STEPS: readonly TourStep[] = [
   {
     id: 'welcome-map',
     title: 'Welcome to NextDoor Skies',
-    body: 'The map is home: every town badge shows its current temperature (°F by default) and condition icon. Switch between °F and °C anytime with the units pill in the header. Tap a badge to open that town\u2019s panel.',
+    body: 'The map is home: every town badge shows its current temperature (°F by default — flip to °C with the units pill) and condition icon. Tap a badge to open that town\u2019s panel.',
     targets: ['[data-testid="map-view"]'],
   },
   {
@@ -79,87 +79,4 @@ export function markTourSeen(): void {
 /** Next step index, or null when the tour is done. Pure. */
 export function nextStepIndex(index: number): number | null {
   return index + 1 < TOUR_STEPS.length ? index + 1 : null;
-}
-
-// ---------------------------------------------------------------------------
-// W4-F1 DESKTOP SPOTLIGHT PLACEMENT — pure, viewport-responsive geometry.
-// Owner report: on desktop the tour box hid / sat too high / sat too low.
-// Root cause: the old heuristic reserved a fixed 150px for the bubble and
-// never clamped the result — any target near a viewport edge pushed the box
-// off-screen. Law: the bubble clamps INSIDE the viewport with 16px insets at
-// ALL sizes (phone/tablet/desktop) and never covers a targeted element that
-// has room beside it (flip below -> above -> last-resort clamp).
-// ---------------------------------------------------------------------------
-
-export interface TargetRect {
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-}
-
-export interface BubblePlacement {
-  left: number;
-  top: number;
-}
-
-/** Gap between target and bubble. */
-export const BUBBLE_GAP = 16;
-/** Viewport insets — the bubble clamps inside these at every size. */
-export const VIEWPORT_INSET = 16;
-
-const clamp = (value: number, min: number, max: number): number =>
-  Math.max(min, Math.min(value, Math.max(min, max)));
-
-/**
- * Place a bubble of size (bubbleW x bubbleH) beside a target rect inside a
- * viewport (vw x vh). Deterministic + pure — no DOM, no clock (R17).
- * - Horizontal: centered on the target, clamped inside the insets.
- * - Vertical: prefer BELOW the target (gap BUBBLE_GAP); flip ABOVE when below
- *   would clip; then try BESIDE (the roomier side) for tall targets; last
- *   resort clamp fully inside (visible beats unobstructed, e.g. the
- *   full-viewport map target). The bubble is fully inside the viewport for
- *   every input (asserted by tests) and never overlaps a target that has
- *   any room beside it.
- */
-export function placeBubble(
-  target: TargetRect,
-  vw: number,
-  vh: number,
-  bubbleW: number,
-  bubbleH: number,
-): BubblePlacement {
-  const left = clamp(
-    target.x + target.w / 2 - bubbleW / 2,
-    VIEWPORT_INSET,
-    vw - bubbleW - VIEWPORT_INSET,
-  );
-  const belowTop = target.y + target.h + BUBBLE_GAP;
-  const aboveTop = target.y - BUBBLE_GAP - bubbleH;
-  if (belowTop + bubbleH <= vh - VIEWPORT_INSET) {
-    return { left, top: belowTop };
-  }
-  if (aboveTop >= VIEWPORT_INSET) {
-    return { left, top: aboveTop };
-  }
-  // Tall target (no room above/below): slide BESIDE it, on the roomier side.
-  const sideLeft =
-    target.x >= vw - (target.x + target.w)
-      ? clamp(target.x - bubbleW - BUBBLE_GAP, VIEWPORT_INSET, vw - bubbleW - VIEWPORT_INSET)
-      : clamp(
-          target.x + target.w + BUBBLE_GAP,
-          VIEWPORT_INSET,
-          vw - bubbleW - VIEWPORT_INSET,
-        );
-  const sideTop = clamp(target.y + target.h / 2 - bubbleH / 2, VIEWPORT_INSET, vh - bubbleH - VIEWPORT_INSET);
-  const overlaps =
-    sideLeft < target.x + target.w &&
-    target.x < sideLeft + bubbleW &&
-    sideTop < target.y + target.h &&
-    target.y < sideTop + bubbleH;
-  if (!overlaps) {
-    return { left: sideLeft, top: sideTop };
-  }
-  // Last resort (full-viewport target, e.g. the map): fully inside, visible.
-  return { left, top: clamp(belowTop, VIEWPORT_INSET, vh - bubbleH - VIEWPORT_INSET) };
 }
