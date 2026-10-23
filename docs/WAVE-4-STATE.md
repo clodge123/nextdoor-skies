@@ -39,7 +39,7 @@ parity; vitest 467/467, gated Playwright 9/9. Deviation: ?alert= param
 never existed on main (verified), real scheme ?panel= kept.
 
 ## Round 3 — polish + proof (spawn after round 2 merges)
-W4-F1 tour-fixes ▶️ SPAWNED 07:52 @ 988504a (step 1 °F copy + toggle target, desktop spotlight viewport-clamped placement, replay seams intact)
+W4-F1 tour-fixes ✅ MERGED (remote `8a2db93`) — step 1 copy "°F by default … units pill in the header" (copy-law test), placeBubble() pure seam (measure rect → below/flip-above/slide-beside → clamp 16px insets; mobile bottom→top dock flip) fixes desktop hides/too-high/too-low, replay seams intact, zero CSS changes; vitest 562/562, gated tour PW 7 pass/1 skip
 
 owner: hides/too high/too low, not viewport-responsive) · W4-G1 qa-gates ▶️ SPAWNED 07:52 @ 988504a (5 wave-4 specs in ONE gated run, no-rounded-corners scan, neon-token audit)
 
@@ -222,3 +222,9 @@ stays ON.
   records ignored (closed runs, months old). B3's closeout sweep reaped
   166 fleet-wide zombie chrome-headless + 105 stale anchors — host clean.
   Round 2: C2 running. Round 3: F1/G1 running.
+
+## Heartbeat checks (cont.)
+- 08:50 CDT — **F1 merged** (remote `8a2db93`): lane report reconciles with
+  merged state (placeBubble seam, °F copy, replay intact). Root cause of the
+  owner's desktop complaint: fixed 150px bubble reservation, never clamped.
+  Round 3: F1 ✅ · G1 running. Round 2: C2 running.
