@@ -207,7 +207,22 @@ center), stitch → burn weather strip (town · °F · condition icon, fetched
 live) → variance gate (≥16) → store JPEG. Deterministic, no browser, no
 cross-origin canvas, no fallbacks.
 
-## Session 8 — SNAPSHOT CARD ART DIRECTION 🟡 OPEN (2026-10-22 22:36 CDT)
+## Session 8 — SNAPSHOT CARD ART DIRECTION ✅ DECIDED (2026-10-22 23:05 CDT)
+
+Owner rulings:
+- **C-03** — Author name + timestamp live BELOW the image in feed chrome,
+  never burned into the snapshot (burned text ages badly on edits).
+- Frames approved as-is ("these mock ups look good") — V1 data-strip is
+  the feed baseline (image-forward, best density); V2/V3 elements stay in
+  the design language for detail pages. Neon-green terminal theme + square
+  corners reaffirmed (C-01/C-02).
+- Burned-in overlay = bottom bar only (S7#3): town · time · weather
+  readout. Everything else is feed chrome.
+
+---
+
+(Original opening position below)
+
 
 Opening position: three overlay treatments, all neon-green terminal theme,
 all square corners (C-01/C-02). The bottom bar is locked (S7#3) — these
@@ -222,9 +237,7 @@ differ in how much data lives on the card. Rendered frames:
    (radar-scope feel). Strongest identity, heaviest overlay — test on
    dense urban maps where it could fight the imagery.
 
-Open Q: does the author name/time go ON the image (burned) or below it
-(feed chrome)? My lean: below — burned-in text ages badly when posts get
-edited/reactions-bumped.
+Open Q (RESOLVED → C-03: below).
 
 ## Session 6 — QA GATES FOR WAVE 4 ✅ DECIDED (2026-10-22 21:26 CDT)
 
