@@ -146,13 +146,15 @@ export function createHandler({ db, gazetteer, now = () => new Date(), ipOf = cl
     });
 
     // ---- GET /api/posts?town=&sort= ----------------------------------------
+    // W4-E1 ALL-FEED: town is OPTIONAL. Omitting it lists EVERY town (the
+    // global stream, S4 brainstorm: "Latest IS the all feed"). Same sort,
+    // flag-hide, and session myReaction paths either way — no second route.
     if (!seg.length && method === 'GET') {
       const town = url.searchParams.get('town');
       const sort = url.searchParams.get('sort') ?? 'new';
-      if (!town) return json(400, { error: 'town query param required' });
       if (sort !== 'new' && sort !== 'hot') return json(400, { error: 'sort must be hot|new' });
       const { session } = parseSession(req, gazetteer); // optional: myReaction only
-      const rows = (await db.listPosts(town)).filter((r) => r.flagCount < FLAG_HIDE_COUNT);
+      const rows = (await db.listPosts(town || null)).filter((r) => r.flagCount < FLAG_HIDE_COUNT);
       const mine = session ? await db.myReactions(rows.map((r) => r.id), session.nickname) : new Map();
       const stamp = now();
       const posts = rows.map((r) => {
@@ -292,7 +294,11 @@ export function createHandler({ db, gazetteer, now = () => new Date(), ipOf = cl
 // ---------------------------------------------------------------------------
 
 function cmpNewest(a, b) {
-  return Date.parse(isoOf(b.createdAt)) - Date.parse(isoOf(a.createdAt));
+  const d = Date.parse(isoOf(b.createdAt)) - Date.parse(isoOf(a.createdAt));
+  // Determinism law: equal timestamps tie-break by id (ascending) so the
+  // order is stable regardless of db row order.
+  if (d !== 0) return d;
+  return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
 }
 
 function isoOf(v) {
@@ -382,13 +388,18 @@ export function createPgDb(pool) {
       };
     },
     async listPosts(town) {
+      // W4-E1: town=null/undefined -> global list (every town). Same
+      // aggregate columns; newest-first, id tie-break applied by the
+      // handler's sort (determinism law).
+      const where = town ? 'where p.town = $1' : '';
+      const params = town ? [town] : [];
       const r = await q(
         `select p.id, p.town, p.author, p.text, p.snapshot, p.snapshot_id, p.lat, p.lon, p.zoom, p.created_at,
                 (select count(*) from post_comments c where c.post_id = p.id)::int as "commentsCount",
                 (select count(*) from post_reactions x where x.post_id = p.id)::int as "reactionCount",
                 (select count(distinct f.nickname) from post_flags f where f.post_id = p.id)::int as "flagCount"
-         from posts p where p.town = $1 order by p.created_at desc`,
-        [town],
+         from posts p ${where} order by p.created_at desc`,
+        params,
       );
       const ids = r.rows.map((x) => x.id);
       const emo = ids.length

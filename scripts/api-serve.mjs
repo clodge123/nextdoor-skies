@@ -75,8 +75,9 @@ function makeDb() {
       };
     },
     async listPosts(town) {
+      // W4-E1: town=null/undefined -> every town (global stream).
       return [...posts.values()]
-        .filter((p) => p.town === town)
+        .filter((p) => !town || p.town === town)
         .map((p) => {
           const emojis = Object.fromEntries(REACTION_EMOJIS.map((e) => [e, 0]));
           for (const [key, emoji] of reactions) {

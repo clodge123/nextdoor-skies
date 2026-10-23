@@ -171,12 +171,15 @@ export function parseComments(body: unknown): Comment[] {
   return out
 }
 
-/** S2: GET /api/posts?town=<slug>&sort=hot|new */
+/** S2: GET /api/posts?town=<slug>&sort=hot|new.
+ *  W4-E1 ALL-FEED: town is OPTIONAL — omit it for the global stream
+ *  (all towns; the API lists every town when town is absent). */
 export async function fetchPosts(
-  params: { town: string; sort: 'hot' | 'new'; fetchImpl?: FetchLike },
+  params: { town?: string; sort: 'hot' | 'new'; fetchImpl?: FetchLike },
 ): Promise<ApiResult<Post[]>> {
   const fetchImpl = params.fetchImpl ?? defaultFetch
-  const url = `/api/posts?town=${encodeURIComponent(params.town)}&sort=${params.sort}`
+  const townQ = params.town ? `town=${encodeURIComponent(params.town)}&` : ''
+  const url = `/api/posts?${townQ}sort=${params.sort}`
   const res = await apiJson<unknown>(url, { method: 'GET' }, fetchImpl)
   if (!res.ok) return res
   return { ok: true, data: parsePosts(res.data) }
@@ -356,9 +359,12 @@ export function partitionHot(posts: readonly Post[]): { pinned: Post[]; rest: Po
   return { pinned, rest }
 }
 
-/** Newest view: pure ISO-string sort, descending. Deterministic (R17). */
+/** Newest view: pure ISO-string sort, descending, tie-break by id ascending
+ *  (determinism law — equal timestamps never inherit row order). R17. */
 export function sortByNewest(posts: readonly Post[]): Post[] {
-  return [...posts].sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+  return [...posts].sort((a, b) =>
+    b.createdAt.localeCompare(a.createdAt) || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0),
+  )
 }
 
 /** Deterministic stamp from an ISO-8601 string: "2026-10-21 15:04". */

@@ -26,16 +26,10 @@ symlinked). Merge each on completion report + merge-disease diff vs
 previous main tip.
 
 ## Round 2 — features (spawn after round 1 merges)
-W4-B3 de-cluster ▶️ · W4-C2 feed-load (prefetch/infinite scroll/
-content-visibility) ⏳ waits on C1 net.ts · W4-D2 snapshot-overlay (V1 strip
-burn-in, composer, author/time below image) ▶️ · W4-E1 all-feed (Hot|Latest
-tabs, ?scope=, town chips) ▶️ · W4-E2 alerts-whole-row (whole-row fly-to)
-✅ MERGED `09e6e5a` (remote `c3f132a`) — AlertRow = ONE fly-to button
-(badge/headline/stamps/town inside), click/Enter/Space flies+expands, zero
-nested controls (one Tab stop asserted), neon hover ring (computed
-rgb(0,255,157)) + 44px (measured 64px), /alerts rows route ?panel= for fly
-parity; vitest 467/467, gated Playwright 9/9. Deviation: ?alert= param
-never existed on main (verified), real scheme ?panel= kept.
+W4-B3 de-cluster · W4-C2 feed-load (prefetch/infinite scroll/
+content-visibility) · W4-D2 snapshot-overlay (V1 strip burn-in, composer,
+author/time below image) · W4-E1 all-feed (Hot|Latest tabs, ?scope=, town
+chips) · W4-E2 alerts-whole-row (whole-row fly-to).
 
 ## Round 3 — polish + proof (spawn after round 2 merges)
 W4-F1 tour-fixes (step 1 copy °F+toggle; desktop spotlight placement —
@@ -93,12 +87,3 @@ stays ON.
   Round 1 status: A1 ✅ A2 ✅ B1 ✅ B2 ✅ D1 ✅ — C1 implementation follow-up
   running. Round 2 spawn (B3/C2/D2/E1/E2) waits on C1 landing (C2 builds on
   net.ts).
-
-## Heartbeat checks (cont.)
-- 02:58 CDT — **Round 2 spawned** (B3, D2, E1, E2 from `0615b69`). C2
-  feed-load stays queued until C1's net.ts lands (builds on it). Round 1:
-  A1/A2/B1/B2/D1 closed; C1 implementation follow-up running.
-
-## Heartbeat checks (cont.)
-- 03:35 CDT — **E2 merged** (`09e6e5a`, remote `c3f132a`): merged-tree vitest
-  467/467 (43 files), tsc clean. B3/D2/E1 running; C2 queued behind C1.
