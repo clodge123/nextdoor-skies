@@ -79,3 +79,11 @@ stays ON.
   pngjs/jpeg-js into shared node_modules (declared in package.json, absent
   from the tree — lane ran in its own worktree install). B1/B2 running;
   C1 implementation follow-up running.
+
+## Heartbeat checks (cont.)
+- 02:55 CDT — **B1 + B2 merged** (`7ded72d`, `9f071d7`; remote `2bdf874`):
+  merged-tree vitest 464/464 (43 files), tsc clean. B2 doc-comment conflict
+  resolved keeping both laws (zoom-match gate + badge-above-label stacking).
+  Round 1 status: A1 ✅ A2 ✅ B1 ✅ B2 ✅ D1 ✅ — C1 implementation follow-up
+  running. Round 2 spawn (B3/C2/D2/E1/E2) waits on C1 landing (C2 builds on
+  net.ts).
