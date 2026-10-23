@@ -88,19 +88,123 @@ Decisions (locked):
 
 Wave-4 consequence: tour step 1 copy updated to reference °F + the toggle.
 
-## Session 2 — LOADING EXPERIENCE (queued)
-Research-first: how do Google Maps / Apple Maps / X handle map-adjacent
-loading (tile prefetch, skeleton shimmer, request cancellation, SWR). Fix
-the stuck "awaiting feed" (Jeffersonville) — diagnose the panel fetch path
-(timeout/retry/empty-honest), add skeletons, prefetch neighbor towns.
-Open Q: skeleton shimmer vs progressive fade?
+## Session 2 — LOADING EXPERIENCE ✅ DECIDED (2026-10-22 21:15 CDT)
 
-## Session 3 — USER-POST IMAGE PIPELINE (queued)
-Research-first: static map image APIs / tile compositing (the way other
-apps burn a real map render into the post). Capture map center → town
-(geocode/gazetteer nearest), render real tiles + weather badge into the
-snapshot, guarantee never-black (variance gate + honest text fallback).
-Open Q: server-side tile compositor vs client canvas?
+Research (owner law: follow existing apps, don't reinvent):
+- **Google Maps**: prefetches tiles/data for the current viewport + a ring
+  beyond it; cancels requests for off-screen content; progressive tile
+  draw-in (no white-box stalls).
+- **X / social timelines**: skeleton shimmer placeholders while fetching,
+  SWR (show cached data instantly, revalidate in background), infinite
+  scroll with cached pagination.
+- **web.dev `content-visibility: auto`**: browser skips layout/paint of
+  off-screen list rows until needed (~7x render boost on long chunks).
+- Root cause of stuck "awaiting feed" (Jeffersonville): panel fetch has no
+  timeout, no retry, and no cancellation of superseded requests — a slow/
+  dropped request hangs the card forever; scrolling away/back remounts and
+  retries, which is why it "loads when you leave."
+
+Decisions (locked):
+1. **Skeleton shimmer** (X-style) replaces the static "awaiting feed" text
+   while fetching — real card shapes, animated, ~300ms fade to content.
+2. **Request hygiene**: every feed/panel fetch gets a 10s timeout + 1
+   retry with backoff; pan/zoom fast ABORTS superseded requests (Google
+   Maps rule — never let an old request block a new one). After retry
+   fails: honest error card "Feed unavailable — [Try again]", never a
+   lookalike render (silent-fallback law).
+3. **Feed prefetch**: extend the A1 neighbor-ring prefetch law to posts —
+   on idle, prefetch the visible town's feed + ring neighbors, SWR-cached
+   so the next tap shows data instantly. Cached-first render (show last-good
+   immediately, revalidate in background).
+4. **Infinite scroll** on feed lists with cached pagination (`page` param,
+   IntersectionObserver sentinel, ≤3 pages prefetched); long lists use
+   `content-visibility: auto` so off-screen rows cost nothing.
+5. **Honest empty**: "No posts in <town> — be the first" + composer CTA.
+   Zero posts renders as a real zero, never blanks.
+
+Queued leftovers: map tile cluster density tuning moves to session 4 (feed
+structure) since the zoom-match law from session 1 covers badge density.
+
+## Session 3 — USER-POST IMAGE PIPELINE ✅ DECIDED (2026-10-22 21:22 CDT)
+
+Research: social apps with map posts use **server-side static-map
+compositing** (Mapbox Static Images API pattern) — the client sends
+lat/lng/zoom, the server stitches the 3×3 tile grid into one JPEG. Client
+canvas capture is NOT viable: openfreemap tiles are cross-origin, so
+canvas.toDataURL() taints and throws (the current black-image root cause —
+the seeder's C7 fix already learned this and moved server-side).
+
+Decisions (locked):
+1. **Location capture**: composer reads the map center and resolves the
+   nearest gazetteer town (Florissant → shows as "Florissant"); shown as an
+   editable town chip. Post row stores lat/lng + town slug.
+2. **Server-side snapshot compositor** `POST /api/snapshot` (session-gated):
+   fetches the 3×3 tile grid at zoom 11-12, stitches, burns in the weather
+   badge strip (town name + °F + condition icon, fetched live), returns
+   JPEG. Same paint-fixed capture law as the seeder (style-load → idle →
+   two rAF frames → encode).
+3. **Never black**: variance gate (≥16) + 3 repaint retries; final fallback
+   is an honest "Map snapshot unavailable" text card — never a lookalike.
+4. **Composer flow**: pick map location (defaults to current view) → town
+   chip → text → optional snapshot auto-attached → post. Mobile parity:
+   bottom-sheet composer reusing the map center.
+5. Seeded demo posts keep existing snapshots; user posts use this pipeline.
+
+## Session 4 — FEED STRUCTURE: ALL FEED ✅ DECIDED (2026-10-22 21:24 CDT)
+
+Decisions (locked):
+1. **Feed header tabs: Hot | Latest.** Latest IS the all feed — global
+   newest-first stream across every town, infinite scroll. Hot stays the
+   curated view. Town feeds (`/t/<slug>/feed`) keep both tabs scoped.
+2. **Infinite scroll** (IntersectionObserver sentinel, ≤3 pages prefetched,
+   cached pages, `page` param) per session-2 loading law; off-screen rows
+   get `content-visibility: auto`.
+3. **Town chip per card** (post's town) → click opens the town panel
+   (`?panel=<slug>` scheme). Deep-link `?scope=` for shareable tab state.
+
+## Session 5 — ALERTS PANEL NITS ✅ DECIDED (2026-10-22 21:25 CDT)
+
+Decisions (locked):
+1. **Whole alert card is the fly-to target** (row-level click, not just the
+   town name) — same seam, same 1800ms ease animation.
+2. Hover/focus affordance on the whole row (cursor + subtle highlight),
+   keyboard: row is one button, Tab to it, Enter flies. Mobile: whole row
+   tap (44px law already met).
+3. No other panel nitpicks queued — owner flagged only this one.
+
+## Session 6 — QA GATES FOR WAVE 4 ✅ DECIDED (2026-10-22 21:26 CDT)
+
+Decisions (locked) — new gated specs, all production-shaped (REAL_API=1):
+1. `units.spec.ts` — F default everywhere, toggle persists (`nds-units`),
+   private-mode honest F default, badge/panel/feed/detail all follow unit.
+2. `badge-placement.spec.ts` — badge ABOVE label (bbox: badge.bottom ≤
+   label.top), zoom-match: badge visible iff map label visible (per-town
+   tier), cluster badge = 1 per same-temp group at low zoom.
+3. `loading.spec.ts` — skeleton shimmer present during fetch, 10s timeout
+   + retry fires honest error card, fast pan aborts superseded requests,
+   infinite scroll appends page 2, `content-visibility` rows skip paint.
+4. `snapshot.spec.ts` — user-created post (real API, real session) snapshot
+   variance ≥16, weather strip burned in, town chip matches map center.
+5. `feed-all.spec.ts` — Latest tab streams global posts, town chip → panel.
+6. Extend QA harness routes: /feed tabs, composer surface, /alerts rows.
+
+---
+
+## Lane sketch (wave 4, 6 lanes)
+
+| Lane | Cluster | Acceptance |
+| --- | --- | --- |
+| G1 units-law | F default, header toggle, all surfaces, tour copy | first-glance: badge shows 75° not 24° |
+| G2 badge-placement | label-above geometry, zoom-match per-town, de-cluster | no name ever covered; badge appears with label |
+| G3 loading-hygiene | skeletons, timeout/retry/cancel, prefetch, infinite scroll, content-visibility | Jeffersonville-class stall impossible; honest error on failure |
+| G4 snapshot-pipeline | server compositor, weather burn-in, location capture, composer flow | user post shows real map image, never black |
+| G5 feed-alerts | Latest/all feed tabs, town chips, whole-card alert fly-to | global scroll, whole row flies |
+| G6 qa-gates | session-6 specs + harness routes, closeout sweeps | all new specs green in one gated run |
+
+Laws carried: deploy-once-at-wave-end · honest states · fly-to law · square
+geometry · ≥44px · determinism · REST push · closeout sweeps · research-
+before-build. Wave-end: single deploy + seed-wave3.yml (needs
+NDS_ADMIN_SECRET — still unset as of 2026-10-22).
 
 ## Session 4 — FEED STRUCTURE: ALL FEED (queued)
 Global /feed-all (or /feed?scope=all) — newest-first infinite scroll across
