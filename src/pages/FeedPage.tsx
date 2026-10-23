@@ -25,6 +25,7 @@ import {
   type Session,
 } from '../lib/feed'
 import { parseScope, scopeHref, type FeedScope } from '../lib/scope'
+import { SkeletonFeed, postsCacheKey, readPostsCache, writePostsCache } from '../components/Skeleton'
 import { FeedPostCard } from '../components/FeedPostCard'
 import { FeedComposer } from '../components/FeedComposer'
 import { IdentityPicker } from '../components/IdentityPicker'
@@ -67,29 +68,46 @@ export default function FeedPage({ fetchImpl, townSlug, townName: townNameProp }
       : (session?.townName ?? '')
 
   const load = useCallback(async () => {
-    setStatus('loading')
+    // W4-C1 cached-first (SWR law 3): last-good posts stay on screen while
+    // revalidating; skeletons only when NOTHING is cached.
+    const cacheKey = postsCacheKey(feedTown, sort)
+    const cached = readPostsCache(cacheKey)
+    if (!cached) setStatus('loading')
     setError('')
     const res = await fetchPosts({ town: feedTown || undefined, sort, fetchImpl })
+    if (!res.ok && res.aborted) return // superseded: keep current state, no noise.
     if (res.ok) {
+      writePostsCache(cacheKey, res.data)
       setPosts(res.data)
       setStatus('ready')
-    } else {
+    } else if (!cached) {
       setPosts([])
       setError(res.error)
       setStatus('error')
     }
+    // Cached + failed revalidation: last-good stays (weather last-data-wins
+    // law) — the next window revalidates; never silently fabricate.
   }, [feedTown, sort, fetchImpl])
 
   useEffect(() => {
     let ignore = false
-    setStatus('loading')
+    const cacheKey = postsCacheKey(feedTown, sort)
+    const cached = readPostsCache(cacheKey)
+    if (cached) {
+      setPosts(cached)
+      setStatus('ready') // cached-first: show last-good NOW, revalidate below.
+    } else {
+      setStatus('loading')
+    }
     setError('')
     void fetchPosts({ town: feedTown || undefined, sort, fetchImpl }).then((res) => {
       if (ignore) return
+      if (!res.ok && res.aborted) return // superseded by a newer request: keep state.
       if (res.ok) {
+        writePostsCache(cacheKey, res.data)
         setPosts(res.data)
         setStatus('ready')
-      } else {
+      } else if (!cached) {
         setPosts([])
         setError(res.error)
         setStatus('error')
@@ -262,19 +280,15 @@ function FeedList({
 
   return (
     <>
-      {status === 'loading' && (
-        <p className="feed-status" data-testid="feed-loading">
-          Loading {globalFeed ? 'the global feed' : `${townName} feed`}…
-        </p>
-      )}
+      {status === 'loading' && <SkeletonFeed />}
 
       {status === 'error' && (
-        <p className="feed-error" role="alert" data-testid="feed-error">
-          Couldn't load the feed ({error}).{' '}
+        <div className="feed-error" role="alert" data-testid="feed-error" title={error}>
+          Feed unavailable — {globalFeed ? 'all towns' : townName}
           <button type="button" data-testid="feed-retry" onClick={onRetry}>
-            Retry
+            Try again
           </button>
-        </p>
+        </div>
       )}
 
       {status === 'ready' && posts.length === 0 && (

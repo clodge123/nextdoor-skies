@@ -8,7 +8,12 @@
  *
  * Determinism (R17): no Math.random / Date.now / new Date in this module.
  * Timing comes from the injected scheduler; the fetch is injectable for tests.
+ *
+ * W4-C1 FETCH-HYGIENE: fetches route through lib/net.netFetch (10s timeout,
+ * 1 retry, per-key 'alerts' abort of superseded windows — wave-4 session 2
+ * law 2). Last-data-wins unchanged: failures/aborts never flip the UI.
  */
+import { netFetch } from '../net'
 
 export const ALERTS_REFRESH_INTERVAL_MS = 5 * 60_000
 
@@ -56,7 +61,14 @@ export async function fetchAlerts(
   bounds: AlertBounds,
   fetchImpl: AlertsFetch,
 ): Promise<AlertsResponse> {
-  const res = await fetchImpl(alertsUrl(bounds))
+  // W4-C1 FETCH-HYGIENE: route through netFetch (10s timeout, 1 retry,
+  // per-key abort of superseded windows — Google Maps rule). A failed window
+  // throws so the refresher keeps last data (law 3); an aborted window
+  // rejects via AbortError (the refresher discards it).
+  const res = await netFetch(alertsUrl(bounds), {
+    key: 'alerts',
+    fetchImpl: fetchImpl as unknown as (input: string, init?: RequestInit) => Promise<Response>,
+  })
   if (!res.ok) throw new Error(`alerts fetch failed: HTTP ${res.status}`)
   const payload = await res.json()
   if (!Array.isArray(payload?.alerts)) throw new Error('alerts fetch failed: bad payload')

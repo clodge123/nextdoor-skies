@@ -20,7 +20,11 @@
  * Determinism law (R17): no RNG and no wall-clock reads anywhere in this
  * module. Timing comes from the injected scheduler; the fetch itself is
  * a pure request/response with an injectable fetchImpl for tests.
+ *
+ * W4-C1 FETCH-HYGIENE: requests route through lib/net.netFetch (10s
+ * timeout, 1 retry, per-key abort of superseded windows).
  */
+import { netFetch } from '../net'
 
 /** Same-origin weather proxy (api/weather.js). Never a third-party origin. */
 export const WEATHER_PROXY_PATH = '/api/weather'
@@ -152,6 +156,11 @@ export function parseProxyResponse(
  * Fetch current temps for ALL given towns via the proxy, chunked into
  * <=50-town GETs (contract §S5). One request per chunk, order preserved.
  * An aborted fetch (superseded window) rejects — the caller discards.
+ *
+ * W4-C1 FETCH-HYGIENE: each chunk GET routes through lib/net.netFetch
+ * (10s timeout, 1 retry, per-key abort of superseded windows — Google
+ * Maps rule). The refresher's own window signal aborts instantly (no
+ * retry) when a newer window supersedes it, preserving last-data-wins.
  */
 export async function fetchCurrentTemps(
   towns: readonly TownCoord[],
@@ -162,7 +171,11 @@ export async function fetchCurrentTemps(
   const results: CurrentTemp[] = []
   for (const chunk of chunkTowns(towns)) {
     const url = buildProxyUrl(chunkBounds(chunk), zoom)
-    const res = await fetchImpl(url, { method: 'GET', signal })
+    const res = await netFetch(url, {
+      key: `weather:${url}`,
+      signal,
+      fetchImpl: fetchImpl as unknown as (input: string, init?: RequestInit) => Promise<Response>,
+    })
     if (!res.ok) {
       throw new Error(`weather proxy failed: HTTP ${res.status}`)
     }

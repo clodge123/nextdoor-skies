@@ -6,6 +6,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { MemoryRouter } from 'react-router-dom'
 import FeedPage from './FeedPage'
 import { SESSION_STORAGE_KEY, type FetchLike } from '../lib/feed'
+import { resetPostsCache } from '../components/Skeleton'
 
 function jsonResponse(body: unknown, status = 200): Response {
   return { ok: status >= 200 && status < 300, status, json: async () => body } as Response
@@ -45,7 +46,10 @@ function setSession() {
   )
 }
 
-beforeEach(() => localStorage.clear())
+beforeEach(() => {
+  localStorage.clear()
+  resetPostsCache() // W4-C1: module-level SWR cache must not leak across tests
+})
 
 describe('FeedPage session gate (S1)', () => {
   it('shows the identity picker first-click when no session exists', () => {

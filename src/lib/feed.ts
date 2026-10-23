@@ -2,8 +2,15 @@
 // Honest states: every call returns a discriminated result — never throws at
 // the caller, never fabricates data. R17: clock/RNG-free; ISO timestamps are
 // treated as opaque strings (formatting is pure string slicing).
+//
+// W4-C1 FETCH-HYGIENE: every request routes through lib/net.netFetch —
+// 10s timeout, 1 retry (GETs), per-key abort of superseded requests
+// (wave-4 session 2 law 2). A superseded/aborted request resolves as
+// { ok:false, aborted:true } so panels can ignore it silently (the caller's
+// ignore-flag pattern keeps working) without leaking console noise.
 import townsData from '../../data/towns/us-towns.json'
 import type { TownsFile } from './map/gazetteer'
+import { netFetch } from './net'
 
 const TOWNS: TownsFile = townsData as TownsFile
 
@@ -71,7 +78,9 @@ export function writeSession(session: Session): void {
 /** Injectable fetch (mirrors the weather refresher's seam for tests). */
 export type FetchLike = (input: string, init?: RequestInit) => Promise<Response>
 
-export type ApiResult<T> = { ok: true; data: T } | { ok: false; status: number; error: string }
+export type ApiResult<T> =
+  | { ok: true; data: T }
+  | { ok: false; status: number; error: string; aborted?: boolean }
 
 const defaultFetch: FetchLike = (input, init) => window.fetch(input, init)
 
@@ -85,9 +94,16 @@ async function apiJson<T>(
   url: string,
   init: RequestInit,
   fetchImpl: FetchLike,
+  key?: string,
 ): Promise<ApiResult<T>> {
   try {
-    const res = await fetchImpl(url, init)
+    const res = await netFetch(url, {
+      key,
+      method: init.method ?? 'GET',
+      headers: (init.headers ?? undefined) as Record<string, string> | undefined,
+      body: init.body ?? null,
+      fetchImpl,
+    })
     if (!res.ok) {
       let message = `HTTP ${res.status}`
       try {
@@ -101,6 +117,11 @@ async function apiJson<T>(
     const data = (await res.json()) as T
     return { ok: true, data }
   } catch (err) {
+    // Superseded/externally aborted: honest "aborted" result, no console
+    // noise, no fabricated data (callers ignore it via their ignore-flag).
+    if (err instanceof Error && err.name === 'AbortError') {
+      return { ok: false, status: 0, error: 'aborted', aborted: true }
+    }
     return { ok: false, status: 0, error: err instanceof Error ? err.message : 'network error' }
   }
 }
@@ -187,15 +208,24 @@ export function parseComments(body: unknown): Comment[] {
 }
 
 /** S2: GET /api/posts?town=<slug>&sort=hot|new.
- *  W4-E1 ALL-FEED: town is OPTIONAL — omit it for the global stream
- *  (all towns; the API lists every town when town is absent). */
+ *  Optional `key` overrides the supersession key (panel uses one shared
+ *  'panel-posts' key so fast pans between towns cancel the previous town's
+ *  request — Google Maps rule). */
 export async function fetchPosts(
-  params: { town?: string; sort: 'hot' | 'new'; fetchImpl?: FetchLike },
+  params: { town?: string; sort: 'hot' | 'new'; fetchImpl?: FetchLike; key?: string },
 ): Promise<ApiResult<Post[]>> {
   const fetchImpl = params.fetchImpl ?? defaultFetch
+  // W4-E1 ALL-FEED: omit `town` for the global stream (API lists every town).
   const townQ = params.town ? `town=${encodeURIComponent(params.town)}&` : ''
   const url = `/api/posts?${townQ}sort=${params.sort}`
-  const res = await apiJson<unknown>(url, { method: 'GET' }, fetchImpl)
+  // Supersession key: a fast pan (panel slug change / sort toggle) cancels
+  // the older in-flight posts request — Google Maps rule.
+  const res = await apiJson<unknown>(
+    url,
+    { method: 'GET' },
+    fetchImpl,
+    params.key ?? `posts:${params.town ?? 'all'}:${params.sort}`,
+  )
   if (!res.ok) return res
   return { ok: true, data: parsePosts(res.data) }
 }
@@ -329,7 +359,8 @@ function reconcileReaction(postId: string, serverMy: ReactionEmoji | null): Post
     // No optimistic view tracked (direct call): synthesize a minimal view
     // reflecting the server truth for this emoji only.
     return {
-      id: postId, author: '', town: '', text: '', snapshot: null, snapshotId: null, lat: null, lon: null, zoom: null, createdAt: '',
+      id: postId, author: '', town: '', text: '', snapshot: null, snapshotId: null,
+      lat: null, lon: null, zoom: null, createdAt: '',
       reactions: { '👍': 0, '❤️': 0, '😂': 0, ...(serverMy ? { [serverMy]: 1 } : {}) },
       myReaction: serverMy, commentsCount: 0, hot: false,
     }
@@ -384,12 +415,9 @@ export function partitionHot(posts: readonly Post[]): { pinned: Post[]; rest: Po
   return { pinned, rest }
 }
 
-/** Newest view: pure ISO-string sort, descending, tie-break by id ascending
- *  (determinism law — equal timestamps never inherit row order). R17. */
+/** Newest view: pure ISO-string sort, descending. Deterministic (R17). */
 export function sortByNewest(posts: readonly Post[]): Post[] {
-  return [...posts].sort((a, b) =>
-    b.createdAt.localeCompare(a.createdAt) || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0),
-  )
+  return [...posts].sort((a, b) => b.createdAt.localeCompare(a.createdAt))
 }
 
 /** Deterministic stamp from an ISO-8601 string: "2026-10-21 15:04". */

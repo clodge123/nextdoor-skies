@@ -6,9 +6,16 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it, vi } from 'vitest';
 import { TownPanel } from './TownPanel';
+import { resetPostsCache } from './Skeleton';
 import type { Alert } from '../lib/weather/alerts';
 
 const SALINA = 'salina-38.84--97.61';
+
+// W4-C1: module-level SWR posts cache must not leak across panel tests.
+vi.mock('./Skeleton', async (importOriginal) => {
+  const mod = await importOriginal<typeof import('./Skeleton')>();
+  return { ...mod, readPostsCache: () => undefined };
+});
 
 function jsonResponse(body: unknown): Response {
   return { ok: true, status: 200, json: async () => body } as Response;

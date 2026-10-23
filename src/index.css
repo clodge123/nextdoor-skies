@@ -2192,3 +2192,129 @@ body {
   color: var(--bg);
   border: 1px solid var(--current-accent);
 }
+
+/* W4-C1 SKELETON SHIMMER (wave-4 session 2 law 1: X-style placeholders,
+   real card shapes, ~300ms fade to content). Square geometry (R20): the
+   global * rule applies var(--radius) everywhere; nothing here sets
+   border-radius. Neon tokens only (--surface/--border/--accent). */
+.nds-skeleton-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nds-skeleton-card {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.nds-skeleton-avatar {
+  width: 36px;
+  height: 36px;
+  flex: none;
+  position: relative;
+  overflow: hidden;
+  background: var(--border);
+}
+
+.nds-skeleton-lines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nds-skeleton-line,
+.nds-skeleton-meta {
+  height: 10px;
+  position: relative;
+  overflow: hidden;
+  background: var(--border);
+}
+
+.nds-skeleton-meta {
+  height: 8px;
+  width: 30%;
+}
+
+.nds-skeleton-line-long {
+  width: 70%;
+}
+
+.nds-skeleton-line-short {
+  width: 45%;
+}
+
+/* shimmer sweep: neon-green highlight across the grey blocks */
+.nds-skeleton-avatar::after,
+.nds-skeleton-line::after,
+.nds-skeleton-meta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--accent) 22%, transparent),
+    transparent
+  );
+  animation: nds-shimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes nds-shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* ~300ms fade skeleton -> content (session 2 law 1) */
+.nds-fade-in {
+  animation: nds-fade 300ms linear;
+}
+
+@keyframes nds-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nds-skeleton-avatar::after,
+  .nds-skeleton-line::after,
+  .nds-skeleton-meta::after {
+    animation: none;
+  }
+  .nds-fade-in {
+    animation: none;
+  }
+}
+
+/* W4-C1 honest error card (feed + panel share the shape) */
+.feed-error,
+.town-panel-posts-error {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--surface);
+  border: 1px solid var(--warn);
+  color: var(--text);
+}
+
+.feed-error [data-testid="feed-retry"],
+.town-panel-posts-retry {
+  min-height: 36px;
+  padding: 0 14px;
+  font: 600 13px/1 ui-sans-serif, system-ui, sans-serif;
+  background: var(--current-accent);
+  color: var(--bg);
+  border: 1px solid var(--current-accent);
+  cursor: pointer;
+}

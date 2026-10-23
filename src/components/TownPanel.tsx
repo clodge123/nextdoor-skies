@@ -24,6 +24,7 @@ import { weathercodeToIcon } from '../lib/weather/weathercode';
 import { formatTemp } from '../lib/weather/units';
 import { useUnits } from '../lib/weather/useUnits';
 import { fetchPosts, formatStamp, type FetchLike, type Post } from '../lib/feed';
+import { SkeletonPanel, postsCacheKey, readPostsCache, writePostsCache } from './Skeleton';
 import type { Alert } from '../lib/weather/alerts';
 
 /** Session 2: "3-5 recent feed posts" — cap the list at 5. */
@@ -53,9 +54,6 @@ export interface TownPanelProps {
 }
 
 export function TownPanel({ slug, name, onClose, tempC, weathercode, alerts, fetchImpl }: TownPanelProps) {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
-
   // Entrance: closed -> open on the next frame so the CSS transition fires
   // (animation law: ~200ms slide, nothing snaps).
   const [open, setOpen] = useState(false);
@@ -74,23 +72,43 @@ export function TownPanel({ slug, name, onClose, tempC, weathercode, alerts, fet
   }, [onClose]);
 
   // Recent posts (sort=new; server returns newest first).
+  // W4-C1 FETCH-HYGIENE (session 2 laws 1–3):
+  //   - Cached-first (SWR, extends the weather last-data-wins law to posts):
+  //     last-good posts render IMMEDIATELY, revalidation runs in background.
+  //   - Skeleton shimmer (X-style) replaces static "Loading posts…" text
+  //     while fetching — real card shapes, ~300ms fade to content.
+  //   - fetchPosts routes through lib/net: 10s timeout, 1 retry, and the
+  //     key 'panel-posts' ABORTS a superseded request (fast pan between
+  //     towns — Google Maps rule). An aborted fetch keeps last state.
+  //   - After retry fails: honest "Feed unavailable — <town>" + Try again.
+  const [posts, setPosts] = useState<Post[]>(() => readPostsCache(postsCacheKey(slug, 'new')) ?? []);
+  const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
+  const [reload, setReload] = useState(0);
   useEffect(() => {
     let ignore = false;
-    setStatus('loading');
-    void fetchPosts({ town: slug, sort: 'new', fetchImpl }).then((res) => {
+    const cacheKey = postsCacheKey(slug, 'new');
+    const cached = readPostsCache(cacheKey);
+    if (cached) {
+      setPosts(cached.slice(0, TOWN_PANEL_POST_COUNT));
+      setStatus('ready'); // cached-first: show last-good NOW, revalidate below.
+    } else {
+      setStatus('loading');
+    }
+    void fetchPosts({ town: slug, sort: 'new', fetchImpl, key: 'panel-posts' }).then((res) => {
       if (ignore) return;
+      if (!res.ok && res.aborted) return // superseded: keep current state, no noise.
       if (res.ok) {
+        writePostsCache(cacheKey, res.data);
         setPosts(res.data.slice(0, TOWN_PANEL_POST_COUNT));
         setStatus('ready');
       } else {
-        setPosts([]);
         setStatus('error');
       }
     });
     return () => {
       ignore = true;
     };
-  }, [slug, fetchImpl]);
+  }, [slug, fetchImpl, reload]);
 
   // Mobile bottom-sheet drag-to-dismiss: pointer tracking on the handle,
   // only in sheet viewports (<=480px). Desktop side panel ignores drags.
@@ -180,11 +198,23 @@ export function TownPanel({ slug, name, onClose, tempC, weathercode, alerts, fet
         </Link>
 
         <div className="town-panel-feed" data-testid="town-panel-feed">
-          {status === 'loading' ? <p data-testid="town-panel-posts-loading">Loading posts…</p> : null}
-          {status === 'error' ? <p data-testid="town-panel-posts-error">Feed unavailable.</p> : null}
+          {status === 'loading' ? <SkeletonPanel /> : null}
+          {status === 'error' ? (
+            <div className="town-panel-posts-error" role="alert" data-testid="town-panel-posts-error">
+              Feed unavailable — {name}
+              <button
+                type="button"
+                className="town-panel-posts-retry"
+                data-testid="town-panel-posts-retry"
+                onClick={() => setReload((n) => n + 1)}
+              >
+                Try again
+              </button>
+            </div>
+          ) : null}
           {status === 'ready' && posts.length === 0 ? <p data-testid="town-panel-posts-empty">No posts here yet.</p> : null}
           {posts.length > 0 ? (
-            <ul className="town-panel-posts" data-testid="town-panel-posts">
+            <ul className="town-panel-posts nds-fade-in" data-testid="town-panel-posts">
               {posts.map((p) => (
                 <li key={p.id}>
                   <Link to={`/p/${p.id}`} data-testid={`panel-post-${p.id}`}>

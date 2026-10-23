@@ -126,7 +126,12 @@ describe('createAlertsRefresher (fetch-per-window law)', () => {
     timer.fire()
     await flush()
     expect(fetchImpl).toHaveBeenCalledTimes(2)
-    expect(fetchImpl).toHaveBeenLastCalledWith('/api/alerts?bbox=10,10,11,11')
+    // W4-C1: fetches route through lib/net.netFetch, which passes a
+    // RequestInit (method GET) alongside the URL — same URL, richer init.
+    expect(fetchImpl).toHaveBeenLastCalledWith(
+      '/api/alerts?bbox=10,10,11,11',
+      expect.objectContaining({ method: 'GET' }),
+    )
     refresher.stop()
     timer.fire()
     await flush()

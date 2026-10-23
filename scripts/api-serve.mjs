@@ -37,6 +37,16 @@ if (!Number.isInteger(port) || port <= 0) {
   process.exit(1);
 }
 
+// W4-C1 SLOW-SERVER FIXTURE (loading.spec.ts): NDS_API_DELAY=<ms> slows
+// GET /api/posts responses by that many ms — proves skeleton -> content and
+// timeout -> error+retry against the REAL handler (no page.route mocks).
+// Unset = zero delay (all existing specs unchanged).
+// Per-request override: the test-only `?__delay=<ms>` query param (added by
+// the loading spec via route.continue url rewrite) wins over the env flag.
+// The app itself never sends it — it's a harness seam, not app surface.
+const POSTS_DELAY_MS = Number(process.env.NDS_API_DELAY ?? 0);
+const sleep = (ms) => (ms > 0 ? new Promise((r) => setTimeout(r, ms)) : Promise.resolve());
+
 // ---------------------------------------------------------------------------
 // In-memory db stub — mirrors createPgDb surface (all methods async), same
 // shape as tests/posts-api.test.ts. No Neon (wave-1 law).
@@ -292,6 +302,11 @@ const server = createServer(async (req, res) => {
     // without this the harness 400s where production 200s (a harness
     // blind spot of the C6 class — exactly what this server exists to kill).
     req.query = Object.fromEntries(url.searchParams);
+    if ((req.method ?? 'GET') === 'GET' && url.pathname === '/api/posts') {
+      const qDelay = Number(url.searchParams.get('__delay') ?? '')
+      const delay = Number.isFinite(qDelay) && qDelay > 0 ? qDelay : POSTS_DELAY_MS
+      if (delay > 0) await sleep(delay)
+    }
     await handler(req, adapt(res));
   } catch (err) {
     if (!res.headersSent) {
