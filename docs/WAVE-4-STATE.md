@@ -102,3 +102,11 @@ stays ON.
 ## Heartbeat checks (cont.)
 - 03:35 CDT — **E2 merged** (`09e6e5a`, remote `c3f132a`): merged-tree vitest
   467/467 (43 files), tsc clean. B3/D2/E1 running; C2 queued behind C1.
+
+## Heartbeat checks (cont.)
+- 06:10 CDT — **E1 merged** (`f1f3641`, remote `6297ae4`): merged-tree vitest
+  478/478 (44 files), tsc clean. Lane's first cut had a real scoping bug the
+  e2e gate caught (session town forced for both tabs) — fixed per S4 law.
+  Keyboard assertion cap fixed honestly (real DOM has 18 focusables before
+  the tab; law asserted via DOM-order focusables, not weakened). B3/D2
+  running; C1 implementation in flight; C2 queued behind C1.
