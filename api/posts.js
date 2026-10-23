@@ -279,8 +279,8 @@ export function createHandler({ db, gazetteer, now = () => new Date(), ipOf = cl
       if (!timingSafeEqualStr(String(req.headers?.['x-nds-admin'] ?? ''), secret)) {
         return json(403, { error: 'bad admin secret' });
       }
-      const rate = await db.bumpRate(`ip:${ipOf(req)}`, 'snapshot', now());
-      if (!rate.allowed || rate.count > SNAPSHOT_PATCH_RATE_MAX) return json(429, { error: 'rate limited: 30 patches/hour' });
+      const rate = await db.bumpRate(`ip:${ipOf(req)}`, 'snapshot', now(), SNAPSHOT_PATCH_RATE_MAX);
+      if (!rate.allowed) return json(429, { error: `rate limited: ${SNAPSHOT_PATCH_RATE_MAX} patches/hour` });
       if (!(await db.getPost(postId))) return json(404, { error: 'post not found' });
       const body = await readJson(req);
       if (body.error) return json(body.code ?? 400, { error: body.error });
@@ -547,9 +547,12 @@ export function createPgDb(pool) {
       const r = await q(`select count(distinct nickname)::int as n from post_flags where post_id = $1`, [postId]);
       return r.rows[0].n;
     },
-    async bumpRate(key, bucket, nowDate) {
+    async bumpRate(key, bucket, nowDate, max = RATE_LIMIT_MAX) {
       // run-1 rate_limit table pattern; key = 'ip:<ip>', bucket = 'posts'.
       // Window reset uses SQL now() (server clock, not app logic).
+      // W4 fix: `allowed` must compare against the BUCKET's cap, not the
+      // posts constant — the snapshot PATCH route passing SNAPSHOT_PATCH_RATE_MAX
+      // was silently capped at RATE_LIMIT_MAX=5 (wave-3 reseed starved at 5/6).
       const r = await q(
         `insert into rate_limit (id, author_token_hash, bucket, count, window_start)
          values ($1,$2,$3,1,$4)
@@ -561,7 +564,7 @@ export function createPgDb(pool) {
          returning count`,
         [hashId('rl', key, bucket), key, bucket, nowDate.toISOString()],
       );
-      return { allowed: r.rows[0].count <= RATE_LIMIT_MAX, count: r.rows[0].count };
+      return { allowed: r.rows[0].count <= max, count: r.rows[0].count };
     },
   };
 }

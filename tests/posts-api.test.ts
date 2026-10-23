@@ -107,7 +107,7 @@ function makeDb() {
     async flagCount(postId) {
       return [...flags.keys()].filter((k) => k.startsWith(`${postId}|`)).length;
     },
-    async bumpRate(key, _bucket, nowDate) {
+    async bumpRate(key, _bucket, nowDate, max = RATE_LIMIT_MAX) {
       const t = nowDate.getTime();
       let e = rates.get(key);
       if (!e || t - e.windowStartMs > HOUR) {
@@ -115,7 +115,7 @@ function makeDb() {
       }
       e.count += 1;
       rates.set(key, e);
-      return { allowed: e.count <= RATE_LIMIT_MAX, count: e.count };
+      return { allowed: e.count <= max, count: e.count };
     },
   };
 }
