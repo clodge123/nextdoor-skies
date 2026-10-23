@@ -12,6 +12,7 @@ import {
   hashId,
   FLAG_HIDE_COUNT,
   RATE_LIMIT_MAX,
+  SNAPSHOT_PATCH_RATE_MAX,
   SNAPSHOT_MAX_BYTES,
   REACTION_EMOJIS,
 } from '../api/posts.js';
@@ -415,9 +416,10 @@ describe('single post by id (W3-D3 detail route)', () => {
         const big = 'data:image/jpeg;base64,' + 'A'.repeat(Math.ceil((SNAPSHOT_MAX_BYTES + 1) * (4 / 3)));
         expect((await h.call(makeReq({ method: 'PATCH', url: '/api/posts?path=p_old',
           headers: { 'x-nds-session': session(), 'x-nds-admin': 's3cret' }, body: { snapshot: big } }))).statusCode).toBe(413);
-        // rate limit: bucket 'snapshot' 30/hour/IP -> the 31st is 429
+        // rate limit: bucket 'snapshot' SNAPSHOT_PATCH_RATE_MAX/hour/IP -> the
+        // (max+1)th is 429 (loop bound is the constant, not a magic 31)
         let last;
-        for (let i = 0; i < 31; i++) {
+        for (let i = 0; i < SNAPSHOT_PATCH_RATE_MAX + 1; i++) {
           last = await h.call(makeReq({ method: 'PATCH', url: '/api/posts?path=p_old',
             headers: { 'x-nds-session': session(), 'x-nds-admin': 's3cret' }, body: { snapshot: SNAP_OK } }));
         }

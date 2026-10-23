@@ -25,7 +25,11 @@ import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 
 export const RATE_LIMIT_MAX = 5; // posts per IP per hour (run-1 rate_limit table)
-export const SNAPSHOT_PATCH_RATE_MAX = 30; // W3-D2 admin patches per IP per hour
+export const SNAPSHOT_PATCH_RATE_MAX = 500; // W3-D2 admin patches per IP per hour
+// (raised from 30 at wave-4 closeout: CI reseed shards all share one NAT
+// egress IP, so the per-IP bucket starved 16/25 shards on run 40000714465.
+// The route stays triple-gated: admin secret env + session + constant-time
+// compare; the cap is abuse insurance, not the auth boundary.)
 export const SNAPSHOT_MAX_BYTES = 120 * 1024; // S7: data URL <= 120 KB
 export const TEXT_MAX = 1000;
 export const COMMENT_TEXT_MAX = 500;
