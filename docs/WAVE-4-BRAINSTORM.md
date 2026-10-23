@@ -125,7 +125,15 @@ Decisions (locked):
 Queued leftovers: map tile cluster density tuning moves to session 4 (feed
 structure) since the zoom-match law from session 1 covers badge density.
 
-## Session 3 — USER-POST IMAGE PIPELINE ✅ DECIDED (2026-10-22 21:22 CDT)
+## Session 3 — USER-POST IMAGE PIPELINE 🔶 REVISED (owner ruling 2026-10-22 21:41 CDT)
+
+Owner ruling overrides the "honest text fallback" decision (#3): **NO
+fallbacks.** A lookalike/text card because the capture failed is banned.
+The method must work every time — when the owner does it, when any user
+does it. If cross-origin is the blocker, change the method entirely until
+it works. Snapshot cards carry burned-in weather data (temperature,
+condition type, town, date) styled as a data overlay; card art direction
+is creative-freedom. Deeper method brainstorm continues next session.
 
 Research: social apps with map posts use **server-side static-map
 compositing** (Mapbox Static Images API pattern) — the client sends
@@ -143,12 +151,19 @@ Decisions (locked):
    badge strip (town name + °F + condition icon, fetched live), returns
    JPEG. Same paint-fixed capture law as the seeder (style-load → idle →
    two rAF frames → encode).
-3. **Never black**: variance gate (≥16) + 3 repaint retries; final fallback
-   is an honest "Map snapshot unavailable" text card — never a lookalike.
-4. **Composer flow**: pick map location (defaults to current view) → town
+3. **No-fallback law (revised)**: variance gate (≥16) + repaint retries
+   until success; the pipeline must be reliable by construction (deterministic
+   tile fetch, no WebGL dependency, no cross-origin canvas). A post with a
+   snapshot request either gets a real map image or the POST fails loudly —
+   never a black box, never a text stand-in. Method deep-dive continues
+   next session (owner: brainstorm more on exactly how we fix this).
+4. **Data overlay on the card (creative freedom)**: burned-in weather strip
+   (town, °F, condition icon) + date + author overlay, styled like a data
+   overlay on the image; card art direction open (moodboard frames).
+5. **Composer flow**: pick map location (defaults to current view) → town
    chip → text → optional snapshot auto-attached → post. Mobile parity:
    bottom-sheet composer reusing the map center.
-5. Seeded demo posts keep existing snapshots; user posts use this pipeline.
+6. Seeded demo posts keep existing snapshots; user posts use this pipeline.
 
 ## Session 4 — FEED STRUCTURE: ALL FEED ✅ DECIDED (2026-10-22 21:24 CDT)
 
@@ -205,6 +220,12 @@ Laws carried: deploy-once-at-wave-end · honest states · fly-to law · square
 geometry · ≥44px · determinism · REST push · closeout sweeps · research-
 before-build. Wave-end: single deploy + seed-wave3.yml (needs
 NDS_ADMIN_SECRET — still unset as of 2026-10-22).
+
+## Kickoff gate (owner law, 2026-10-22 21:41 CDT)
+**No wave kickoff until the owner says "greenlight."** Brainstorming
+continues across sessions; moodboard frames (real-engine captures) render
+on request and get numbered critique rulings (C-NN) in the next session.
+Nothing in wave 4 spawns worktrees/lanes before greenlight.
 
 ## Session 4 — FEED STRUCTURE: ALL FEED (queued)
 Global /feed-all (or /feed?scope=all) — newest-first infinite scroll across
