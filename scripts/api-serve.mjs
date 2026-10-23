@@ -48,6 +48,7 @@ function makeDb() {
   const reactions = new Map(); // `${postId}|${nickname}` -> emoji
   const flags = new Map(); // `${postId}|${nickname}` -> true
   const rates = new Map(); // key -> { count, windowStartMs }
+  const snapshots = new Map(); // id -> { id, jpeg, lat, lon, zoom } (W4-D1)
   const HOUR = 3_600_000;
   return {
     posts,
@@ -133,6 +134,13 @@ function makeDb() {
       rates.set(key, e);
       return { allowed: e.count <= 1000, count: e.count };
     },
+    // W4-D1: stored snapshot JPEGs (in-memory bytea).
+    async insertSnapshot({ id, jpeg, lat, lon, zoom }) {
+      snapshots.set(id, { id, jpeg, lat, lon, zoom });
+    },
+    async getSnapshot(id) {
+      return snapshots.get(id) ?? null;
+    },
   };
 }
 
@@ -141,7 +149,9 @@ function makeDb() {
 // ---------------------------------------------------------------------------
 
 const gazetteer = await loadGazetteer();
-const postsHandler = createHandler({ db: makeDb(), gazetteer, now: () => new Date() });
+const postsDb = makeDb();
+const postsHandler = createHandler({ db: postsDb, gazetteer, now: () => new Date() });
+const snapshotHandler = createSnapshotHandler({ db: postsDb, gazetteer });
 
 async function loadDefault(name) {
   const mod = await import(`../api/${name}.js`);
@@ -151,13 +161,19 @@ async function loadDefault(name) {
 const weatherHandler = await loadDefault('weather');
 const alertsHandler = await loadDefault('alerts');
 const probeHandler = await loadDefault('probe');
+// W4-D1: POST /api/snapshot + GET /api/snapshots?path=<id> (query-param
+// routing law; the Vercel /api/snapshots/<id> path-param file is the
+// production-only twin of the same handler).
+import { createHandler as createSnapshotHandler } from '../api/snapshot.js';
 
 /** Wrap a node ServerResponse in the {status, json, setHeader} shim the
  *  serverless handlers expect (same shape as tests/posts-api.test.ts). */
 function adapt(res) {
   return {
     statusCode: 200,
+    _headers: {},
     setHeader(k, v) {
+      this._headers[k] = v;
       try {
         res.setHeader(k, v);
       } catch {
@@ -168,10 +184,20 @@ function adapt(res) {
       this.statusCode = c;
       return this;
     },
+    // Binary response (W4-D1: GET snapshot JPEG). Headers come from
+    // setHeader calls made before end().
+    end(body) {
+      if (!res.headersSent) {
+        res.writeHead(this.statusCode, this._headers);
+      }
+      res.end(body);
+      return this;
+    },
     json(obj) {
       const body = Buffer.from(JSON.stringify(obj), 'utf8');
       if (!res.headersSent) {
         res.writeHead(this.statusCode, {
+          ...this._headers,
           'content-type': 'application/json',
           'content-length': body.length,
           'access-control-allow-origin': '*',
@@ -195,6 +221,8 @@ function routeFor(url) {
   if (p === '/api/weather') return weatherHandler;
   if (p === '/api/alerts') return alertsHandler;
   if (p === '/api/probe') return probeHandler;
+  if (p === '/api/snapshot') return snapshotHandler;
+  if (p === '/api/snapshots') return snapshotHandler;
   return null;
 }
 

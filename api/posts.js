@@ -32,6 +32,10 @@ export const FLAG_HIDE_COUNT = 3; // hidden from feeds after 3 distinct flags
 export const HOT_SCORE_MIN = 3; // hot = replies*2 + reactions*1 + recency decay
 export const REACTION_EMOJIS = ['👍', '❤️', '😂'];
 
+/** W4-D1 snapshot id shape (api/snapshot.js ids; mirrored here to avoid a
+ *  circular import — snapshot.js already imports parseSession from here). */
+export const SNAP_ID_RE = /^snap_[0-9a-z]+$/;
+
 const SNAPSHOT_PREFIX = 'data:image/jpeg;base64,';
 
 // ---------------------------------------------------------------------------
@@ -130,6 +134,10 @@ export function createHandler({ db, gazetteer, now = () => new Date(), ipOf = cl
       town: row.town,
       text: row.text,
       snapshot: row.snapshot ?? null,
+      snapshotId: row.snapshotId ?? null,
+      lat: row.lat ?? null,
+      lon: row.lon ?? null,
+      zoom: row.zoom ?? null,
       createdAt: isoOf(row.createdAt),
       reactions: { '👍': 0, '❤️': 0, '😂': 0, ...(row.emojis ?? {}) },
       myReaction: myReaction ?? null,
@@ -177,13 +185,35 @@ export function createHandler({ db, gazetteer, now = () => new Date(), ipOf = cl
       const snap = snapshotProblem(body.json?.snapshot);
       if (snap === 'type') return json(415, { error: 'snapshot must be data:image/jpeg;base64, data URL' });
       if (snap === 'size') return json(413, { error: `snapshot exceeds ${SNAPSHOT_MAX_BYTES} bytes` });
+      // W4-D1: server-composited snapshot reference. snapshotId (from
+      // POST /api/snapshot) must exist in the snapshots table — loud 400,
+      // never a silent drop. lat/lon/zoom record the poster's view.
+      let snapshotRef = body.json?.snapshot ?? null;
+      let snapshotId = null;
+      let lat = null;
+      let lon = null;
+      let zoom = null;
+      const rawSnapId = body.json?.snapshotId;
+      if (rawSnapId !== undefined && rawSnapId !== null) {
+        if (typeof rawSnapId !== 'string' || !SNAP_ID_RE.test(rawSnapId)) {
+          return json(400, { error: 'snapshotId must be a snapshot id (snap_*)' });
+        }
+        const stored = await db.getSnapshot(rawSnapId);
+        if (!stored) return json(400, { error: 'unknown snapshotId' });
+        snapshotId = rawSnapId;
+        snapshotRef = `/api/snapshots?path=${encodeURIComponent(rawSnapId)}`;
+        lat = Number.isFinite(Number(body.json?.lat)) ? Number(body.json.lat) : null;
+        lon = Number.isFinite(Number(body.json?.lon)) ? Number(body.json.lon) : null;
+        zoom = Number.isFinite(Number(body.json?.zoom)) ? Number(body.json.zoom) : null;
+      }
       const rate = await db.bumpRate(`ip:${ipOf(req)}`, 'posts', now());
       if (!rate.allowed) return json(429, { error: 'rate limited: 5 posts/hour' });
       const createdAt = now().toISOString();
       const id = hashId('p', session.nickname, town, text, createdAt);
       const row = {
         id, town, author: session.nickname, text,
-        snapshot: body.json?.snapshot ?? null,
+        snapshot: snapshotRef,
+        snapshotId, lat, lon, zoom,
         createdAt, commentsCount: 0, reactionCount: 0, flagCount: 0, emojis: {},
       };
       await db.insertPost(row);
@@ -298,10 +328,28 @@ export function createPgDb(pool) {
   return {
     async insertPost(row) {
       await q(
-        `insert into posts (id, town, author, text, snapshot, created_at)
-         values ($1,$2,$3,$4,$5,$6)`,
-        [row.id, row.town, row.author, row.text, row.snapshot, row.createdAt],
+        `insert into posts (id, town, author, text, snapshot, snapshot_id, lat, lon, zoom, created_at)
+         values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,
+        [
+          row.id, row.town, row.author, row.text, row.snapshot,
+          row.snapshotId ?? null, row.lat ?? null, row.lon ?? null, row.zoom ?? null,
+          row.createdAt,
+        ],
       );
+    },
+    // W4-D1: stored snapshot JPEGs (snapshots table, api/snapshot.js).
+    async insertSnapshot({ id, jpeg, lat, lon, zoom }) {
+      await q(
+        `insert into snapshots (id, jpeg, lat, lon, zoom) values ($1,$2,$3,$4,$5)
+         on conflict (id) do nothing`,
+        [id, jpeg, lat, lon, zoom],
+      );
+    },
+    async getSnapshot(id) {
+      const r = await q(`select id, jpeg, lat, lon, zoom from snapshots where id = $1`, [id]);
+      const x = r.rows[0];
+      if (!x) return null;
+      return { id: x.id, jpeg: x.jpeg, lat: x.lat, lon: x.lon, zoom: x.zoom };
     },
     async getPost(id) {
       const r = await q(`select 1 from posts where id = $1`, [id]);
@@ -310,7 +358,7 @@ export function createPgDb(pool) {
     /** W3-D3: full single-post row for /api/posts?path=<id> (detail page). */
     async getPostRow(id) {
       const r = await q(
-        `select p.id, p.town, p.author, p.text, p.snapshot, p.created_at,
+        `select p.id, p.town, p.author, p.text, p.snapshot, p.snapshot_id, p.lat, p.lon, p.zoom, p.created_at,
                 (select count(*) from post_comments c where c.post_id = p.id)::int as "commentsCount",
                 (select count(*) from post_reactions x where x.post_id = p.id)::int as "reactionCount",
                 (select count(distinct f.nickname) from post_flags f where f.post_id = p.id)::int as "flagCount"
@@ -327,14 +375,15 @@ export function createPgDb(pool) {
       for (const e of emo) emojis[e.emoji] = e.n;
       return {
         id: x.id, town: x.town, author: x.author, text: x.text,
-        snapshot: x.snapshot, createdAt: x.created_at.toISOString(),
+        snapshot: x.snapshot, snapshotId: x.snapshot_id, lat: x.lat, lon: x.lon, zoom: x.zoom,
+        createdAt: x.created_at.toISOString(),
         commentsCount: x.commentsCount, reactionCount: x.reactionCount,
         flagCount: x.flagCount, emojis,
       };
     },
     async listPosts(town) {
       const r = await q(
-        `select p.id, p.town, p.author, p.text, p.snapshot, p.created_at,
+        `select p.id, p.town, p.author, p.text, p.snapshot, p.snapshot_id, p.lat, p.lon, p.zoom, p.created_at,
                 (select count(*) from post_comments c where c.post_id = p.id)::int as "commentsCount",
                 (select count(*) from post_reactions x where x.post_id = p.id)::int as "reactionCount",
                 (select count(distinct f.nickname) from post_flags f where f.post_id = p.id)::int as "flagCount"
@@ -354,7 +403,8 @@ export function createPgDb(pool) {
         for (const e of emo.filter((y) => y.post_id === x.id)) emojis[e.emoji] = e.n;
         return {
           id: x.id, town: x.town, author: x.author, text: x.text,
-          snapshot: x.snapshot, createdAt: x.created_at.toISOString(),
+          snapshot: x.snapshot, snapshotId: x.snapshot_id, lat: x.lat, lon: x.lon, zoom: x.zoom,
+          createdAt: x.created_at.toISOString(),
           commentsCount: x.commentsCount, reactionCount: x.reactionCount,
           flagCount: x.flagCount, emojis,
         };
