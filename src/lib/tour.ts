@@ -39,7 +39,7 @@ export const TOUR_STEPS: readonly TourStep[] = [
   {
     id: 'welcome-map',
     title: 'Welcome to NextDoor Skies',
-    body: 'The map is home: every town badge shows its current temperature and condition icon. Tap a badge to open that town\u2019s panel.',
+    body: 'The map is home: every town badge shows its current temperature (°F by default — flip to °C with the units pill) and condition icon. Tap a badge to open that town\u2019s panel.',
     targets: ['[data-testid="map-view"]'],
   },
   {

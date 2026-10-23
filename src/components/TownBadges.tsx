@@ -2,6 +2,8 @@ import { useEffect, useState, type MouseEvent as ReactMouseEvent, type ReactNode
 import { useMap } from '../lib/map/map-context'
 import type { TownCoord } from '../lib/weather/openmeteo-batch'
 import { weathercodeToIcon } from '../lib/weather/weathercode'
+import { formatTemp } from '../lib/weather/units'
+import { useUnits } from '../lib/weather/useUnits'
 
 /**
  * L6 TOWN-WEATHER-BADGES — HTML overlay badges positioned via map.project().
@@ -86,6 +88,7 @@ export function TownBadges({
   onAlertOpen,
 }: TownBadgesProps) {
   const map = useMap()
+  const unit = useUnits()
   const [tick, setTick] = useState(0)
 
   useEffect(() => {
@@ -139,7 +142,7 @@ export function TownBadges({
                   <Icon size={14} aria-hidden="true" />
                 </span>
               ) : null}
-              {hasTemp ? <span className="town-badge-temp">{`${Math.round(temp)}°`}</span> : null}
+              {hasTemp ? <span className="town-badge-temp">{formatTemp(temp, unit)}</span> : null}
             </span>
             {hasTemp ? null : <span className="town-badge-temp">awaiting feed</span>}
           </>
