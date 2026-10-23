@@ -139,6 +139,22 @@ palette = Ctrl/Cmd+K with discoverable chip (owner first-try law).
   Nothing needs owner attention.
 
 ## Heartbeat checks (cont.)
+- 17:24 CDT — hourly sweep. Ledger vs sessions: all 16 lanes MERGED/closed;
+  zero running subagents (sessions_list shows only heartbeat). No merges
+  since last check → no gates. Process hygiene: no anchors >1h (max 31min),
+  no chrome-headless zombies; load 2.17/1.91/1.58 trending idle. Wave
+  gate-clean (192/0); wave-end deploy already live (16:54 entry).
+  seed-wave3.yml still queued (NDS_ADMIN_SECRET unset). Nothing needs owner
+  attention.
+
+- 18:43 CDT — hourly sweep. Ledger vs sessions: all 16 lanes MERGED/closed,
+  zero running subagents. No merges → no gates. Process hygiene: no anchors
+  >1h, no chrome-headless zombies; load 0.45/0.37/0.42 idle. Production
+  smoke healthy: app 200, /api/posts?town= 200, /api/alerts?bbox= 200 (bare
+  param-less 400s are the contract shape, not a regression). NO deploys
+  (wave-end deploy live). seed-wave3.yml still queued (NDS_ADMIN_SECRET
+  unset — known owner-side item). Nothing needs owner attention.
+
 - 16:54 CDT — **WAVE-END DEPLOY DONE** (owner logged the host into Vercel as
   `gwl123`; VERCEL_TOKEN env was a broken secret-ref string -> unset per
   shell). `vercel --prod` -> production Ready:
@@ -148,3 +164,11 @@ palette = Ctrl/Cmd+K with discoverable chip (owner first-try law).
   ON for the project — owner demo needs it disabled (Settings -> Deployment
   Protection) or bypass tokens. seed-wave3.yml still queued (NDS_ADMIN_SECRET
   unset).
+
+- 19:43 CDT — hourly sweep. Ledger vs sessions: all 16 lanes MERGED/closed,
+  zero running subagents (heartbeat only). No merges → no gates. Process
+  hygiene: no anchors >1h (2 fresh, current session), no chrome-headless
+  zombies; load 0.98/0.53/0.49 idle. Production smoke healthy: app 200,
+  /api/posts?town= 200. NO deploys (wave-end deploy live). seed-wave3.yml
+  still queued (NDS_ADMIN_SECRET unset — known owner-side item). Nothing
+  needs owner attention.
