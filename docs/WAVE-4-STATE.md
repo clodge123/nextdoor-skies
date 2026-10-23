@@ -260,3 +260,20 @@ stays ON.
   /api/alerts per 09:35 note) — app shell 200. Deploy still blocked on
   owner: Vercel CLI token (`invalidToken`) + empty repo secrets
   (`NDS_ADMIN_SECRET`). NO deploy during wave (round 4 owns it).
+
+## Closeout (cont.) — owner setup received
+- 11:00 CDT — owner added `NDS_ADMIN_SECRET` to GitHub repo secrets (verified:
+  `["NDS_ADMIN_SECRET"]`) and Vercel env.
+- **Merge-disease found during closeout**: the admin `PATCH /api/posts?path=<id>`
+  route (W3-D2, C7 re-seed) is NOT on main — the W3-D3 merge dropped it
+  (`git log -S"x-nds-admin"` shows it added at `da5b9f7`, absent from
+  `303084a..main`; production PATCH -> 404). `seed-wave3.yml` depends on it,
+  so the seed run could not have worked. Restored (503 unset / 401 / 403 /
+  429 / 404 / 415 / 413 gates, 30-per-hour bucket), +1 test, vitest
+  **585/585**, tsc/build/determinism clean. Pushed `db2ed59316de`.
+- `api/migrate.js` embedded schema was stale (wave-2 only) — refreshed to the
+  canonical `db/schema.sql` (adds `snapshot_id/lat/lon/zoom` + `snapshots`
+  table); expected-tables list now includes `snapshots`.
+- **Ordering law**: seed-wave3 MUST run AFTER the deploy (the PATCH route has
+  to be live in production). Deploy is blocked on owner Vercel login
+  (`vercel login` as gwl123; CLI token expired, `invalidToken`).
