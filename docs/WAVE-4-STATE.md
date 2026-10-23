@@ -19,7 +19,7 @@ Tip at kickoff: `f08d33b` (wave-4 lane plan merged). Remote tip at spawn:
 | W4-B1 badge-above-label | r4w4/B1-badge-pos | ▶️ spawned | bbox law badge.bottom ≤ label.top |
 | W4-B2 zoom-match | r4w4/B2-zoom-match | ▶️ spawned | per-town label zoom from tiers.ts |
 | W4-C1 fetch-hygiene | r4w4/C1-fetch @ f08d33b | ⚠️ RECON ONLY — lane session ended after read-only pass (no code/gates/push). Root cause + seams verified (TownPanel:78 fetchPosts no timeout/abort; alerts refresher lacks abort; feed apiJson seam clean). Locked plan recorded in lane report; follow-up dispatched to the kept child session | follow-up running |
-| W4-D1 snapshot-compositor | r4w4/D1-compositor | ▶️ spawned | api/snapshot.js 3×3 stitch, variance gate |
+| W4-D1 snapshot-compositor | r4w4/D1-compositor @ b27cf8d+9adf55a | ✅ MERGED `9ea02e9` (remote `d671a68`) — api/snapshot.js serverless 3×3 ne2sr tile stitch (16:9 640x360 JPEG q72, zero browser/canvas/cross-origin), variance gate >=16 (measured: Springfield 144, Seattle 1278, ocean 282 vs black ~0) + one refetch then loud 502 — NO fallbacks; GET /api/snapshots query-param + path-param twins (C6); posts.snapshotId wiring, snapshots table (bytea); FNV-1a ids, byte-identical determinism proven; vitest 450/450, tsc/build/determinism clean. Deviation: zoom clamp [1,6] (ne2sr pyramid tops at z6; raster bright endpoints 403 server-side — vector pbf rasterizing banned by method law). Contract for D2: docs/SNAPSHOT-API.md | closed |
 
 Worktrees: `~/.openclaw/worktrees/r4/w4-<lane>` (node_modules + .e2e
 symlinked). Merge each on completion report + merge-disease diff vs
@@ -72,3 +72,10 @@ stays ON.
   A1's canonical `useUnits`+`formatTemp` (A2's authorized stopgap hook
   dropped per lane's own migration note). B1/B2/D1 running; C1
   implementation follow-up running.
+
+## Heartbeat checks (cont.)
+- 02:15 CDT — **D1 merged** (`9ea02e9`, remote `d671a68`): merged-tree vitest
+  450/450, tsc/build/determinism clean. Fix applied during merge: installed
+  pngjs/jpeg-js into shared node_modules (declared in package.json, absent
+  from the tree — lane ran in its own worktree install). B1/B2 running;
+  C1 implementation follow-up running.
