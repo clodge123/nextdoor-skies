@@ -26,7 +26,7 @@ symlinked). Merge each on completion report + merge-disease diff vs
 previous main tip.
 
 ## Round 2 — features (spawn after round 1 merges)
-W4-B3 de-cluster ✅ MERGED `1345a99` (remote `f783f2b`) — cluster.ts pure same-temp 96px-radius grouping (R17 id tie-break, NaN never merges), "Moore +N" badge below z9 composing after B2 gate, zoom-in/tap-fly-to expand (zero sticky state), cluster = real button ≥44px square; vitest 554/554. Merged via 3-way blob merge (lane branch base 631c84b, git transport dead on remote ref) · W4-C2 feed-load (prefetch/infinite scroll/
+W4-B3 de-cluster ✅ MERGED `1345a99` (remote `f783f2b`) — cluster.ts pure same-temp 96px-radius grouping (R17 id tie-break, NaN never merges), "Moore +N" badge below z9 composing after B2 gate, zoom-in/tap-fly-to expand (zero sticky state), cluster = real button ≥44px square; vitest 554/554. Merged via 3-way blob merge (lane branch base 631c84b, git transport dead on remote ref) · W4-C2 feed-load ✅ MERGED (remote `1a2d665`) — server page param (PAGE_SIZE=30, sort-before-slice, junk→loud 400, absent=byte-identical), prefetch ring law (isolated keys, LRU cap 3), infinite scroll (IO sentinel + keyboard Load-more, ≤3 pages, appendUnique, honest end marker), content-visibility rows, per-page cached-first; vitest 584/584, gated PW 6/6
 content-visibility) ✅ SPAWNED 07:35 @ 1345a99 (net.ts landed) · W4-D2 snapshot-overlay ✅ MERGED `3517f7f` (remote `0a34ff3`) — composer CAPTURE via /api/snapshot (zoom 11, server clamps z6), V1 bottom-bar burn-in client-side once at upload (town·time·°F·glyph, units-law, R17 epoch math), inline burned JPEG + snapshotId provenance, C-03 author/time BELOW image, loud 502/401 + RETRY/POST-WITHOUT-IMAGE; vitest 518/518, gated PW 6/6, burn variance 2720
 
 burn-in, composer, author/time below image) ▶️ · W4-E1 all-feed (Hot|Latest
@@ -41,7 +41,7 @@ never existed on main (verified), real scheme ?panel= kept.
 ## Round 3 — polish + proof (spawn after round 2 merges)
 W4-F1 tour-fixes ✅ MERGED (remote `8a2db93`) — step 1 copy "°F by default … units pill in the header" (copy-law test), placeBubble() pure seam (measure rect → below/flip-above/slide-beside → clamp 16px insets; mobile bottom→top dock flip) fixes desktop hides/too-high/too-low, replay seams intact, zero CSS changes; vitest 562/562, gated tour PW 7 pass/1 skip
 
-owner: hides/too high/too low, not viewport-responsive) · W4-G1 qa-gates ▶️ SPAWNED 07:52 @ 988504a (5 wave-4 specs in ONE gated run, no-rounded-corners scan, neon-token audit)
+owner: hides/too high/too low, not viewport-responsive) · W4-G1 qa-gates ✅ MERGED (remote `c6c786c`) — WAVE4=1 one-gated-run target (13/13), check-neon-tokens.mjs audit, units persistence case, badge-label-bbox retargeted to zoom-match bands, E1 feed-tabs CSS restored (B3 merge-disease)
 
 (5 new specs + harness routes + no-rounded-corners scan + neon-token audit).
 
@@ -228,3 +228,10 @@ stays ON.
   merged state (placeBubble seam, °F copy, replay intact). Root cause of the
   owner's desktop complaint: fixed 150px bubble reservation, never clamped.
   Round 3: F1 ✅ · G1 running. Round 2: C2 running.
+
+## Heartbeat checks (cont.)
+- 09:20 CDT — **C2 merged** (`1a2d665`): round 2 six-of-six closed. All 12
+  lanes merged (rounds 1–3). Merged-tree: vitest 584/584 (50 files), tsc/
+  build/determinism clean, radius + neon-token scans OK. **Round 4 closeout
+  begins**: full-suite gate → merge-disease diff → ledger → ONE deploy →
+  seed run (owner NDS_ADMIN_SECRET) → demo.
