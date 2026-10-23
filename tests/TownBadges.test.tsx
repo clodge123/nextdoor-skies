@@ -1,8 +1,9 @@
 // @vitest-environment jsdom
 import { describe, expect, it, vi } from 'vitest'
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, cleanup } from '@testing-library/react'
 import { MapContext, type MapLike } from '../src/lib/map/map-context'
-import { TownBadges } from '../src/components/TownBadges'
+import { TownBadges, badgesForZoom, visibleBadges, type TownBadgeCoord } from '../src/components/TownBadges'
+import { labelVisibleAtZoom } from '../src/lib/map/tiers'
 import type { TownCoord } from '../src/lib/weather/openmeteo-batch'
 
 const towns: TownCoord[] = [
@@ -26,8 +27,8 @@ describe('TownBadges', () => {
       </MapContext.Provider>,
     )
     const badge = screen.getByTestId('town-badge-springfield')
-    expect(badge.textContent).toBe('71°F')
-    expect(screen.getByTestId('town-badge-faraway').textContent).toBe('39°F')
+    expect(badge.textContent).toBe('22°')
+    expect(screen.getByTestId('town-badge-faraway').textContent).toBe('4°')
   })
 
   it('shows honest "awaiting feed" for towns without data (R19)', () => {
@@ -240,7 +241,7 @@ describe('TownBadges', () => {
     // A real lucide <svg> is mounted inside the chip.
     expect(icon.querySelector('svg')).not.toBeNull()
     // Temp is still rendered next to the icon.
-    expect(screen.getByTestId('town-badge-springfield').textContent).toContain('71°F')
+    expect(screen.getByTestId('town-badge-springfield').textContent).toContain('22°')
   })
 
   it('renders NO icon for a town with no weathercode data (R19 honest)', () => {
@@ -250,7 +251,7 @@ describe('TownBadges', () => {
       </MapContext.Provider>,
     )
     expect(screen.queryByTestId('weather-icon-springfield')).toBeNull()
-    expect(screen.getByTestId('town-badge-springfield').textContent).toContain('71°F')
+    expect(screen.getByTestId('town-badge-springfield').textContent).toContain('22°')
   })
 
   it('renders the neutral unknown glyph for an out-of-table code', () => {
@@ -262,6 +263,91 @@ describe('TownBadges', () => {
     const icon = screen.getByTestId('weather-icon-springfield')
     expect(icon.getAttribute('data-weather-bucket')).toBe('unknown')
     expect(icon.querySelector('svg')).not.toBeNull()
+  })
+
+  // -------------------------------------------------------------------------
+  // W4-B2 ZOOM-MATCH (session-1 law #4): per-town badge gate == the map's
+  // own label visibility. Thresholds are MEASURED (probe table), not guessed.
+  // -------------------------------------------------------------------------
+  describe('W4-B2 per-town zoom-match gate', () => {
+    const tieredTowns: TownBadgeCoord[] = [
+      { id: 'metro', name: 'Metro', lat: 40.71, lon: -74.01, tier: 'country' },
+      { id: 'capital', name: 'Capital', lat: 30.27, lon: -97.74, tier: 'state' },
+      { id: 'midtown', name: 'Midtown', lat: 42.58, lon: -87.82, tier: 'city' },
+      { id: 'hamlet', name: 'Hamlet', lat: 38.42, lon: -81.79, tier: 'town' },
+    ]
+
+    it('badgesForZoom: tier -> exact label band (measured z1-3/4-6/7-9/10+)', () => {
+      const idsAt = (z: number) => badgesForZoom(tieredTowns, z, 9).map((t) => t.id)
+      expect(idsAt(2)).toEqual(['metro'])
+      expect(idsAt(3)).toEqual(['metro'])
+      expect(idsAt(3.9)).toEqual(['metro'])
+      expect(idsAt(4)).toEqual(['capital'])
+      expect(idsAt(6)).toEqual(['capital'])
+      expect(idsAt(7)).toEqual(['midtown'])
+      expect(idsAt(9)).toEqual(['midtown'])
+      expect(idsAt(10)).toEqual(['hamlet'])
+      expect(idsAt(14)).toEqual(['hamlet'])
+      expect(idsAt(18)).toEqual(['hamlet'])
+    })
+
+    it('badge visible <=> map label visible for one town per tier at z in {6,8,10,12,14}', () => {
+      // The acceptance law, unit-level: badge presence mirrors
+      // labelVisibleAtZoom(tier, z) exactly — no extra, no missing towns.
+      for (const z of [6, 8, 10, 12, 14]) {
+        cleanup() // one tree per zoom — stale trees must not pollute the query
+        render(
+          <MapContext.Provider value={stubMap(z)}>
+            <TownBadges towns={tieredTowns} temps={{ metro: 10, capital: 10, midtown: 10, hamlet: 10 }} />
+          </MapContext.Provider>,
+        )
+        for (const t of tieredTowns) {
+          const el = screen.queryByTestId(`town-badge-${t.id}`)
+          const expected = t.tier ? labelVisibleAtZoom(t.tier, z) : true
+          if (expected) expect(el, `${t.id}@${z}`).not.toBeNull()
+          else expect(el, `${t.id}@${z}`).toBeNull()
+        }
+      }
+    })
+
+    it('tier-less towns keep the legacy global gate (unit-test seam)', () => {
+      render(
+        <MapContext.Provider value={stubMap(9)}>
+          <TownBadges towns={towns} temps={{ springfield: 10 }} />
+        </MapContext.Provider>,
+      )
+      expect(screen.getByTestId('town-badge-springfield')).toBeTruthy()
+      cleanup()
+      render(
+        <MapContext.Provider value={stubMap(8)}>
+          <TownBadges towns={towns} temps={{ springfield: 10 }} />
+        </MapContext.Provider>,
+      )
+      expect(screen.queryByTestId('town-badge-springfield')).toBeNull()
+    })
+
+    it('gate is memoized per zoom frame: same inputs -> identical array (no per-frame work)', () => {
+      const a = visibleBadges(tieredTowns, 10, 9)
+      const b = visibleBadges(tieredTowns, 10, 9)
+      expect(b).toBe(a) // cache hit: identical reference, zero recomputation
+      const c = visibleBadges(tieredTowns, 11, 9)
+      expect(c).not.toBe(a) // zoom changed -> recompute
+      const d = visibleBadges(tieredTowns, 11, 9)
+      expect(d).toBe(c) // memoized again
+      const e = visibleBadges([...tieredTowns], 11, 9)
+      expect(e).not.toBe(c) // new towns reference -> recompute
+      expect(e.map((t) => t.id)).toEqual(c.map((t) => t.id))
+    })
+
+    it('no global cutoff: zoom 4 renders state-tier badges (old gate hid everything < 9)', () => {
+      render(
+        <MapContext.Provider value={stubMap(4)}>
+          <TownBadges towns={tieredTowns} temps={{ capital: 7 }} />
+        </MapContext.Provider>,
+      )
+      expect(screen.getByTestId('town-badge-capital')).toBeTruthy()
+      expect(screen.queryByTestId('town-badge-hamlet')).toBeNull()
+    })
   })
 
   it('fade-in law: chip carries is-live ONLY when data has arrived (CSS keyed on data, no JS timers)', () => {
@@ -286,7 +372,7 @@ describe('TownBadges', () => {
     const live = screen.getByTestId('town-badge-springfield')
     expect(live.className).toContain('is-live')
     expect(live.querySelector('.town-badge-data')).not.toBeNull()
-    expect(live.textContent).toContain('50°F')
+    expect(live.textContent).toContain('10°')
     // "awaiting feed" is gone once real data exists.
     expect(live.textContent).not.toContain('awaiting feed')
   })

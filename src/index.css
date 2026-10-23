@@ -68,56 +68,6 @@ body {
   display: block;
 }
 
-/* W4-A2 UNIT-TOGGLE pill (session 1 decision 2). Square geometry (R20/C-02):
-   border-radius ONLY var(--radius). >=44px per segment (R13). Active segment
-   painted neon-green via var(--current-accent) (C-01); ~200ms transition
-   (animation law). */
-.unit-toggle {
-  display: inline-flex;
-  align-items: stretch;
-  /* 44px CONTENT per segment (R13): 46px box = 44 + 2px border frame. */
-  height: 46px;
-  margin-right: 8px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-
-.unit-segment {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 44px;
-  padding: 0 10px;
-  font: 700 14px/1 ui-sans-serif, system-ui, sans-serif;
-  letter-spacing: 0.04em;
-  background: transparent;
-  color: var(--text);
-  border: 0;
-  border-radius: var(--radius);
-  cursor: pointer;
-  transition: background-color 200ms linear, color 200ms linear;
-}
-
-.unit-segment + .unit-segment {
-  border-left: 1px solid var(--border);
-}
-
-.unit-segment:hover {
-  color: var(--current-accent);
-}
-
-.unit-segment:focus-visible {
-  outline: 2px solid var(--current-accent);
-  outline-offset: -2px;
-}
-
-.unit-segment.is-active {
-  background: var(--current-accent);
-  color: var(--bg);
-}
-
 /* L6 TOWN-WEATHER-BADGES — overlay + map stub (square geometry, R20). */
 .town-badges {
   position: absolute;

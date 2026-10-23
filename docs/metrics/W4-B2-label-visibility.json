@@ -1,0 +1,122 @@
+[
+  {
+    "tier": "country",
+    "name": "New York City",
+    "visibleAt": {
+      "3": true,
+      "4": false,
+      "5": false,
+      "6": false,
+      "7": false,
+      "8": false,
+      "9": false,
+      "10": false,
+      "11": false,
+      "12": false,
+      "13": false,
+      "14": false
+    },
+    "layers": {
+      "3": [
+        "nds-labels-country"
+      ]
+    },
+    "firstVisible": "3"
+  },
+  {
+    "tier": "state",
+    "name": "Austin",
+    "visibleAt": {
+      "3": false,
+      "4": true,
+      "5": true,
+      "6": true,
+      "7": false,
+      "8": false,
+      "9": false,
+      "10": false,
+      "11": false,
+      "12": false,
+      "13": false,
+      "14": false
+    },
+    "layers": {
+      "4": [
+        "nds-labels-state"
+      ],
+      "5": [
+        "nds-labels-state"
+      ],
+      "6": [
+        "nds-labels-state"
+      ]
+    },
+    "firstVisible": "4"
+  },
+  {
+    "tier": "city",
+    "name": "Kenosha",
+    "visibleAt": {
+      "3": false,
+      "4": false,
+      "5": false,
+      "6": false,
+      "7": true,
+      "8": true,
+      "9": true,
+      "10": false,
+      "11": false,
+      "12": false,
+      "13": false,
+      "14": false
+    },
+    "layers": {
+      "7": [
+        "nds-labels-city"
+      ],
+      "8": [
+        "nds-labels-city"
+      ],
+      "9": [
+        "nds-labels-city"
+      ]
+    },
+    "firstVisible": "7"
+  },
+  {
+    "tier": "town",
+    "name": "Cross Lanes",
+    "visibleAt": {
+      "3": false,
+      "4": false,
+      "5": false,
+      "6": false,
+      "7": false,
+      "8": false,
+      "9": false,
+      "10": true,
+      "11": true,
+      "12": true,
+      "13": true,
+      "14": true
+    },
+    "layers": {
+      "10": [
+        "nds-labels-town"
+      ],
+      "11": [
+        "nds-labels-town"
+      ],
+      "12": [
+        "nds-labels-town"
+      ],
+      "13": [
+        "nds-labels-town"
+      ],
+      "14": [
+        "nds-labels-town"
+      ]
+    },
+    "firstVisible": "10"
+  }
+]

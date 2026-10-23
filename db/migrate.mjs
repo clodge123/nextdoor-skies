@@ -12,8 +12,6 @@ const EXPECTED_TABLES = [
   'reports', 'comments', 'flags', 'reactions', 'rate_limit',
   // wave-2 (W4-POSTS): prefixed post_* to avoid collision with run-1 tables
   'posts', 'post_comments', 'post_reactions', 'post_flags',
-  // wave-4 (W4-D1): server-composited snapshot JPEGs
-  'snapshots',
 ];
 
 function die(msg) {

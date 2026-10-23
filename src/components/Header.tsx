@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { ThemeToggle } from './ThemeToggle'
-import { UnitToggle } from './UnitToggle'
 import { TownSearch } from './TownSearch'
 import { requestPanelOpen } from './SidePanel'
 import { requestPaletteOpen } from './CommandPalette'
@@ -107,12 +106,6 @@ export default function Header() {
         >
           <span aria-hidden="true">⌘K</span>
         </button>
-        {/* W4-A2 UNIT-TOGGLE (session 1 decision 2): °F/°C pill beside the
-            theme toggle — two >=44px segments, neon-green active (C-01),
-            square (C-02), persists via localStorage 'nds-units' + fires
-            'nds-units-changed'. Private mode: honest F default, no fake
-            persistence. */}
-        <UnitToggle />
         <ThemeToggle />
       </div>
 
@@ -183,12 +176,6 @@ export default function Header() {
         >
           Take the tour
         </button>
-        {/* W4-A2: units pill on the phone surface too (discoverability law:
-            controls first-try on every viewport). */}
-        <div className="nav-drawer-theme" data-drawer-item="units">
-          <span className="nav-drawer-theme-label">Units</span>
-          <UnitToggle />
-        </div>
         <div className="nav-drawer-theme" data-drawer-item="theme">
           <span className="nav-drawer-theme-label">Theme</span>
           <ThemeToggle />

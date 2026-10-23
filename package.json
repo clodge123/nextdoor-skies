@@ -23,11 +23,9 @@
     "smoke:prod": "node scripts/smoke-prod.mjs"
   },
   "dependencies": {
-    "jpeg-js": "^0.4.4",
     "lucide-react": "^0.545.0",
     "maplibre-gl": "^5.9.0",
     "pg": "^8.13.1",
-    "pngjs": "^7.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.0"

@@ -1,9 +1,8 @@
 import { useEffect, useState, type MouseEvent as ReactMouseEvent, type ReactNode } from 'react'
 import { useMap } from '../lib/map/map-context'
 import type { TownCoord } from '../lib/weather/openmeteo-batch'
+import { labelVisibleAtZoom, type Tier } from '../lib/map/tiers'
 import { weathercodeToIcon } from '../lib/weather/weathercode'
-import { formatTemp } from '../lib/weather/units'
-import { useUnits } from '../lib/weather/useUnits'
 
 /**
  * L6 TOWN-WEATHER-BADGES — HTML overlay badges positioned via map.project().
@@ -18,7 +17,13 @@ import { useUnits } from '../lib/weather/useUnits'
  * - W3-A2 FADE-IN LAW (~200ms CSS): the chip content animates opacity 0->1
  *   when data arrives. Keyed purely on the presence of data via the
  *   `is-live` class — CSS transition only, zero JS timers (determinism R17).
- * - Zoom-graded visibility: badges render only at/above TOWN_BADGE_MIN_ZOOM.
+ * - W4-B2 ZOOM-MATCH (session-1 law #4): NO global zoom gate. A town's badge
+ *   appears EXACTLY when the basemap renders that town's label — per-town,
+ *   from its gazetteer tier (country/state/city/town, tiers.ts). Thresholds
+ *   are MEASURED against the rendered nds-labels-* layers
+ *   (scripts/probe-label-visibility.mjs, docs/metrics/W4-B2-label-visibility.json):
+ *   country z1-3, state z4-6, city z7-9, town z10+. Towns WITHOUT tier data
+ *   (unit-test seam) keep the legacy TOWN_BADGE_MIN_ZOOM=9 global gate.
  * - W3-B2 TOWN PANEL: clicking a badge opens the in-map town panel for that
  *   town (session 2 decision 1+4). The badge is an <a> whose href carries
  *   `?panel=<townSlug>` (lib/panel.ts scheme); discoverability affordances
@@ -37,8 +42,60 @@ import { useUnits } from '../lib/weather/useUnits'
 
 export const TOWN_BADGE_MIN_ZOOM = 9
 
+/**
+ * W4-B2: badge input = TownCoord + the town's gazetteer tier (optional; the
+ * unit-test seam omits it, falling back to the legacy global gate).
+ */
+export interface TownBadgeCoord extends TownCoord {
+  tier?: Tier
+}
+
+/**
+ * W4-B2 ZOOM-MATCH gate — PURE, exported for unit tests. Selects the towns
+ * whose LABEL the map renders at this zoom: tiered towns pass iff their tier
+ * band contains the zoom (labelVisibleAtZoom); tier-less towns fall back to
+ * the legacy global minZoom. O(towns), NO sort — output keeps input order.
+ * (B1 owns stacking/de-cluster geometry; this gate is visibility only.)
+ */
+export function badgesForZoom(
+  towns: readonly TownBadgeCoord[],
+  zoom: number,
+  fallbackMinZoom: number,
+): TownBadgeCoord[] {
+  const out: TownBadgeCoord[] = []
+  for (const t of towns) {
+    if (t.tier ? labelVisibleAtZoom(t.tier, zoom) : zoom >= fallbackMinZoom) out.push(t)
+  }
+  return out
+}
+
+// Memoization (performance law): the overlay re-renders every move/zoom
+// frame; the gate recomputes ONLY when inputs change (towns reference, zoom,
+// fallback). One O(towns) pass per change, zero work per frame. Pure
+// reference/equality keyed (R17: no Date.now / Math.random).
+let memoTowns: readonly TownBadgeCoord[] | null = null
+let memoZoom = Number.NaN
+let memoFallback = Number.NaN
+let memoOut: TownBadgeCoord[] = []
+
+/** Memoized wrapper around badgesForZoom — call from the render path. */
+export function visibleBadges(
+  towns: readonly TownBadgeCoord[],
+  zoom: number,
+  fallbackMinZoom: number,
+): TownBadgeCoord[] {
+  if (towns === memoTowns && zoom === memoZoom && fallbackMinZoom === memoFallback) {
+    return memoOut
+  }
+  memoTowns = towns
+  memoZoom = zoom
+  memoFallback = fallbackMinZoom
+  memoOut = badgesForZoom(towns, zoom, fallbackMinZoom)
+  return memoOut
+}
+
 export interface TownBadgesProps {
-  towns: readonly TownCoord[]
+  towns: readonly TownBadgeCoord[]
   /** townId -> Celsius, last-data-wins from the weather refresher. */
   temps: Readonly<Record<string, number>>
   /**
@@ -88,7 +145,6 @@ export function TownBadges({
   onAlertOpen,
 }: TownBadgesProps) {
   const map = useMap()
-  const unit = useUnits()
   const [tick, setTick] = useState(0)
 
   useEffect(() => {
@@ -103,11 +159,15 @@ export function TownBadges({
   void tick
 
   const zoom = map.getZoom()
-  if (zoom < minZoom) return null
+  // W4-B2: per-town zoom-match gate (no global cutoff) — a badge renders
+  // exactly while the basemap renders that town's label. Memoized per zoom
+  // frame: O(towns) once per change, zero per-frame work, no sort.
+  const visible = visibleBadges(towns, zoom, minZoom)
+  if (visible.length === 0) return null
 
   return (
     <div className="town-badges" data-testid="town-badges">
-      {towns.map((town) => {
+      {visible.map((town) => {
         const p = map.project([town.lon, town.lat])
         const temp = temps[town.id]
         const hasTemp = typeof temp === 'number' && Number.isFinite(temp)
@@ -142,7 +202,7 @@ export function TownBadges({
                   <Icon size={14} aria-hidden="true" />
                 </span>
               ) : null}
-              {hasTemp ? <span className="town-badge-temp">{formatTemp(temp, unit)}</span> : null}
+              {hasTemp ? <span className="town-badge-temp">{`${Math.round(temp)}°`}</span> : null}
             </span>
             {hasTemp ? null : <span className="town-badge-temp">awaiting feed</span>}
           </>

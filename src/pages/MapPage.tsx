@@ -136,6 +136,9 @@ function MapBadges({
       name: t.name,
       lat: t.lat,
       lon: t.lon,
+      // W4-B2 ZOOM-MATCH: tier rides along so TownBadges gates each badge on
+      // its own tier's label band (session-1 law #4), not a global zoom cut.
+      tier: t.tier,
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map, tick]);

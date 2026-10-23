@@ -53,8 +53,8 @@ describe('TownPanel', () => {
 
     expect(screen.getByTestId('town-panel')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Salina' })).toBeInTheDocument();
-    // Temp converted+rounded (21.5°C -> 71°F, F default) + lucide icon mapped from WMO 61 (rain).
-    expect(screen.getByTestId('town-panel-temp')).toHaveTextContent('71°F');
+    // Temp rounded (21.5C -> 22°) + lucide icon mapped from WMO 61 (rain).
+    expect(screen.getByTestId('town-panel-temp')).toHaveTextContent('22°');
     const icon = screen.getByTestId('town-panel-icon');
     expect(icon).toHaveAttribute('data-weathercode', '61');
     expect(icon).toHaveAttribute('data-weather-bucket', 'rain');
