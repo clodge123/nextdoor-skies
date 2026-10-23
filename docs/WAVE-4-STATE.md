@@ -1,0 +1,60 @@
+# Wave 4 State Ledger (orchestrator)
+
+Brief: `docs/WAVE-4-BRAINSTORM.md` (all 8 sessions DECIDED, moodboards
+approved C-01/C-02/C-03) · Greenlight: owner 2026-10-22 23:24 CDT.
+Laws: deploy-once-at-wave-end · closeout sweep every lane · browser
+serialization (e2e-gate.sh) · live-egress · author clodge123 · survival
+commit ≤15 min · REST push (python3 /tmp/push_tree.py) · smaller chunks
+(12 lanes × 3 rounds) · neon-green terminal theme · square corners ·
+honest states · fly-to law · ≥44px · determinism.
+
+Tip at kickoff: `f08d33b` (wave-4 lane plan merged). Remote tip at spawn:
+`c00a1ac759e0`.
+
+## Round 1 — foundations (spawned 2026-10-22 23:26 CDT)
+| Lane | Branch | Status | Next step |
+| --- | --- | --- | --- |
+| W4-A1 units-core | r4w4/A1-units | ▶️ spawned | units lib + all surfaces F; vitest matrix |
+| W4-A2 unit-toggle | r4w4/A2-toggle | ▶️ spawned | header pill + persistence; Playwright toggle |
+| W4-B1 badge-above-label | r4w4/B1-badge-pos | ▶️ spawned | bbox law badge.bottom ≤ label.top |
+| W4-B2 zoom-match | r4w4/B2-zoom-match | ▶️ spawned | per-town label zoom from tiers.ts |
+| W4-C1 fetch-hygiene | r4w4/C1-fetch | ▶️ spawned | timeout/retry/abort + skeletons |
+| W4-D1 snapshot-compositor | r4w4/D1-compositor | ▶️ spawned | api/snapshot.js 3×3 stitch, variance gate |
+
+Worktrees: `~/.openclaw/worktrees/r4/w4-<lane>` (node_modules + .e2e
+symlinked). Merge each on completion report + merge-disease diff vs
+previous main tip.
+
+## Round 2 — features (spawn after round 1 merges)
+W4-B3 de-cluster · W4-C2 feed-load (prefetch/infinite scroll/
+content-visibility) · W4-D2 snapshot-overlay (V1 strip burn-in, composer,
+author/time below image) · W4-E1 all-feed (Hot|Latest tabs, ?scope=, town
+chips) · W4-E2 alerts-whole-row (whole-row fly-to).
+
+## Round 3 — polish + proof (spawn after round 2 merges)
+W4-F1 tour-fixes (step 1 copy °F+toggle; desktop spotlight placement —
+owner: hides/too high/too low, not viewport-responsive) · W4-G1 qa-gates
+(5 new specs + harness routes + no-rounded-corners scan + neon-token audit).
+
+## Round 4 — closeout (orchestrator)
+full-suite gate (host quiet) → merge-disease diff → ledger → single deploy
+→ seed-wave3.yml run (owner setting NDS_ADMIN_SECRET; seed roster YES) →
+owner demo.
+
+## Host conditions (2026-10-22 23:25 CDT)
+Healthy: load ~0.6, ports clean (moodboard strays killed), anchors swept.
+Browser runs serialized through e2e-gate.sh. NO deploys during the wave
+(round 4 owns the one deploy).
+
+## Heartbeat checks
+- 23:26 CDT — kickoff: 6 round-1 worktrees created from f08d33b, lanes
+  spawned, ledger armed.
+
+## Decisions carried
+F default + header toggle (S1) · badge ABOVE label + zoom-match + cluster
+badge (S1) · skeletons/timeout/abort/prefetch/infinite-scroll (S2) ·
+serverless compositor, your-view capture, bottom strip, loud errors,
+stored JPEGs (S7) · author/time BELOW image (C-03) · Hot|Latest tabs (S4) ·
+whole-row alert fly-to (S5) · tour desktop fix (owner 23:11) · neon-green
+(C-01) + square corners (C-02) · seed roster YES · Deployment Protection
+stays ON.
