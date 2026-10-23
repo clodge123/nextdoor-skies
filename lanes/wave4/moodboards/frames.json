@@ -1,0 +1,47 @@
+[
+  {
+    "file": "A1-map-current-okc.png",
+    "label": "CURRENT: Oklahoma City metro zoom-10 — badges, temps (C), label coverage",
+    "kind": "real-engine"
+  },
+  {
+    "file": "A2-panel-jeffersonville.png",
+    "label": "CURRENT: Jeffersonville town panel — the \"awaiting feed\" stall surface",
+    "kind": "real-engine"
+  },
+  {
+    "file": "A3-feed-hot-current.png",
+    "label": "CURRENT: /feed Hot view — seeded images vs user-post images",
+    "kind": "real-engine"
+  },
+  {
+    "file": "A4-alerts-rows.png",
+    "label": "CURRENT: /alerts rows — click target scope today",
+    "kind": "real-engine"
+  },
+  {
+    "file": "M1-badge-above-label.png",
+    "label": "TARGET: badges ABOVE town labels, °F, zoom-matched, same-temp cluster badge",
+    "kind": "mockup-target"
+  },
+  {
+    "file": "M2-loading-law.png",
+    "label": "TARGET: skeleton shimmer while fetching · honest error + retry · cached-first",
+    "kind": "mockup-target"
+  },
+  {
+    "file": "M3-snapshot-overlay.png",
+    "label": "TARGET: user-post snapshot — real map render, weather strip, location chip, NO fallback",
+    "kind": "mockup-target"
+  },
+  {
+    "file": "M4-all-feed.png",
+    "label": "TARGET: Feed tabs Hot | Latest (global stream), town chips, infinite scroll",
+    "kind": "mockup-target"
+  },
+  {
+    "file": "M5-alerts-whole-row.png",
+    "label": "TARGET: entire alert row = fly-to target, hover/focus affordance",
+    "kind": "mockup-target"
+  }
+]
