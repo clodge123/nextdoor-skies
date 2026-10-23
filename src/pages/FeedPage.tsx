@@ -8,6 +8,15 @@
 // tabs, scoped to that town. Every post row carries a town chip that opens
 // that town's panel (`?panel=<slug>` on the map — src/lib/panel.ts).
 //
+// W4-C2 FEED-LOAD (session 2 laws 3+4): infinite scroll — an
+// IntersectionObserver sentinel nears the viewport and appends the NEXT
+// page (`page=` param, ≤3 pages in flight, per-page SWR cache keys,
+// id-dedupe so appends never churn existing rows). A short page (<
+// POSTS_PAGE_SIZE rows) is the honest END OF LIST: "You're all caught up",
+// never fake rows. A keyboard-reachable Load-more button is the honest
+// fallback where IntersectionObserver can't fire (and the deterministic
+// test seam).
+//
 // Honest states (R19): loading / ready / empty ("Awaiting feed…" style,
 // never fake rows) / error with retry. No session => global browsing is
 // allowed (browsing is town-free); posting needs identity (inline picker).
@@ -19,6 +28,7 @@ import {
   fetchPosts,
   getSession,
   partitionHot,
+  POSTS_PAGE_SIZE,
   sortByNewest,
   type FetchLike,
   type Post,
@@ -42,6 +52,21 @@ export interface FeedPageProps {
   townName?: string
 }
 
+/** W4-C2 append dedupe (PURE): keep existing rows byte-identical (React
+ *  keys stable — no re-render churn), drop rows already seen (a live list
+ *  can straddle a page boundary), append the rest in server order. No
+ *  sorting, no mutation, deterministic. Exported for unit tests. */
+export function appendUnique(existing: readonly Post[], incoming: readonly Post[]): Post[] {
+  const seen = new Set(existing.map((p) => p.id))
+  const out: Post[] = [...existing]
+  for (const post of incoming) {
+    if (seen.has(post.id)) continue
+    seen.add(post.id)
+    out.push(post)
+  }
+  return out
+}
+
 export default function FeedPage({ fetchImpl, townSlug, townName: townNameProp }: FeedPageProps = {}) {
   const [session, setSession] = useState<Session | null>(() => getSession())
   const location = useLocation()
@@ -54,6 +79,19 @@ export default function FeedPage({ fetchImpl, townSlug, townName: townNameProp }
   const [posts, setPosts] = useState<Post[]>([])
   const [status, setStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>('idle')
   const [error, setError] = useState('')
+
+  // W4-C2 INFINITE SCROLL state (session 2 law 4):
+  // pagesRef = pages currently rendered; seenIdsRef = ids already shown
+  // (append dedupe — the server pages a live list, so a boundary row can
+  // legitimately repeat; keys stay stable, no churn). hasMore drives the
+  // sentinel + end marker; ≤3 page requests in flight (MAX_PAGES_IN_FLIGHT).
+  const pagesRef = useRef(1)
+  const seenIdsRef = useRef<Set<string>>(new Set())
+  const inFlightRef = useRef(0)
+  const [hasMore, setHasMore] = useState(false)
+  const [loadingMore, setLoadingMore] = useState(false)
+  const [moreError, setMoreError] = useState('')
+  const sentinelRef = useRef<HTMLDivElement | null>(null)
 
   // Routing override: /t/<slug>/feed shows that town's feed regardless of
   // the session town. Plain /feed: Hot = session town when one exists
@@ -70,15 +108,22 @@ export default function FeedPage({ fetchImpl, townSlug, townName: townNameProp }
   const load = useCallback(async () => {
     // W4-C1 cached-first (SWR law 3): last-good posts stay on screen while
     // revalidating; skeletons only when NOTHING is cached.
-    const cacheKey = postsCacheKey(feedTown, sort)
+    // W4-C2: page 1 ONLY — appends ride appendNextPage, never this path.
+    // Revalidation REPLACES page-1 rows (pages beyond 1 are dropped and
+    // re-appended from cache, so a fresh view never mixes stale pages).
+    const cacheKey = postsCacheKey(feedTown, sort, 1)
     const cached = readPostsCache(cacheKey)
     if (!cached) setStatus('loading')
     setError('')
-    const res = await fetchPosts({ town: feedTown || undefined, sort, fetchImpl })
+    const res = await fetchPosts({ town: feedTown || undefined, sort, page: 1, fetchImpl })
     if (!res.ok && res.aborted) return // superseded: keep current state, no noise.
     if (res.ok) {
       writePostsCache(cacheKey, res.data)
+      pagesRef.current = 1
+      seenIdsRef.current = new Set(res.data.map((p) => p.id))
       setPosts(res.data)
+      setHasMore(res.data.length >= POSTS_PAGE_SIZE)
+      setMoreError('')
       setStatus('ready')
     } else if (!cached) {
       setPosts([])
@@ -91,8 +136,13 @@ export default function FeedPage({ fetchImpl, townSlug, townName: townNameProp }
 
   useEffect(() => {
     let ignore = false
-    const cacheKey = postsCacheKey(feedTown, sort)
+    const cacheKey = postsCacheKey(feedTown, sort, 1)
     const cached = readPostsCache(cacheKey)
+    pagesRef.current = 1
+    seenIdsRef.current = new Set((cached ?? []).map((p) => p.id))
+    setHasMore(false)
+    setMoreError('')
+    setLoadingMore(false)
     if (cached) {
       setPosts(cached)
       setStatus('ready') // cached-first: show last-good NOW, revalidate below.
@@ -100,12 +150,15 @@ export default function FeedPage({ fetchImpl, townSlug, townName: townNameProp }
       setStatus('loading')
     }
     setError('')
-    void fetchPosts({ town: feedTown || undefined, sort, fetchImpl }).then((res) => {
+    void fetchPosts({ town: feedTown || undefined, sort, page: 1, fetchImpl }).then((res) => {
       if (ignore) return
       if (!res.ok && res.aborted) return // superseded by a newer request: keep state.
       if (res.ok) {
         writePostsCache(cacheKey, res.data)
+        pagesRef.current = 1
+        seenIdsRef.current = new Set(res.data.map((p) => p.id))
         setPosts(res.data)
+        setHasMore(res.data.length >= POSTS_PAGE_SIZE)
         setStatus('ready')
       } else if (!cached) {
         setPosts([])
@@ -118,10 +171,91 @@ export default function FeedPage({ fetchImpl, townSlug, townName: townNameProp }
     }
   }, [feedTown, sort, fetchImpl])
 
+  // W4-C2 APPEND: fetch the NEXT page and append it. Rows already on
+  // screen are dropped by id (the server pages a live, mutable list, so a
+  // boundary row can straddle pages — dedupe keeps keys unique and React
+  // never churns existing rows). A short page = END OF LIST (honest marker,
+  // never fake rows). ≤3 page requests in flight (session 2 law 4).
+  const appendNextPage = useCallback(async () => {
+    if (status !== 'ready') return
+    if (!hasMore || loadingMore) return
+    if (inFlightRef.current >= 3) return
+    const nextPage = pagesRef.current + 1
+    const cacheKey = postsCacheKey(feedTown, sort, nextPage)
+    const cached = readPostsCache(cacheKey)
+    if (cached) {
+      // Cached-first append: show the cached page NOW, no spinner.
+      pagesRef.current = nextPage
+      seenIdsRef.current = new Set([
+        ...seenIdsRef.current,
+        ...cached.map((p) => p.id),
+      ])
+      setPosts((prev) => appendUnique(prev, cached))
+      setHasMore(cached.length >= POSTS_PAGE_SIZE)
+      return
+    }
+    inFlightRef.current += 1
+    setLoadingMore(true)
+    setMoreError('')
+    const res = await fetchPosts({
+      town: feedTown || undefined,
+      sort,
+      page: nextPage,
+      fetchImpl,
+    })
+    inFlightRef.current -= 1
+    setLoadingMore(false)
+    if (!res.ok) {
+      if (!res.aborted) setMoreError(res.error) // superseded: silent, sentinel retries
+      return
+    }
+    writePostsCache(cacheKey, res.data)
+    pagesRef.current = nextPage
+    seenIdsRef.current = new Set([
+      ...seenIdsRef.current,
+      ...res.data.map((p) => p.id),
+    ])
+    setPosts((prev) => appendUnique(prev, res.data))
+    setHasMore(res.data.length >= POSTS_PAGE_SIZE)
+  }, [feedTown, sort, fetchImpl, status, hasMore, loadingMore])
+
+  // Keep the latest append closure for the observer (which must not
+  // re-subscribe on every posts mutation).
+  const appendRef = useRef(appendNextPage)
+  appendRef.current = appendNextPage
+
+  // IntersectionObserver sentinel: when it NEARS the viewport (800px
+  // rootMargin — the "nears" law), append the next page. The Load-more
+  // button is the honest keyboard fallback (and the deterministic seam).
+  useEffect(() => {
+    const el = sentinelRef.current
+    if (!el || !hasMore || typeof IntersectionObserver !== 'function') return
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) void appendRef.current()
+        }
+      },
+      { rootMargin: '800px 0px' },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [hasMore, posts.length, status])
+
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([])
 
   const selectScope = (next: FeedScope) => {
     navigate(scopeHref(location.pathname, location.search, next))
+  }
+
+  // W4-C2: one feed-footer bundle for both render branches (session-gate
+  // branch + normal) — sentinel, load-more, end marker, append errors.
+  const footer = {
+    hasMore,
+    loadingMore,
+    moreError,
+    onAppend: () => void appendNextPage(),
+    sentinelRef,
   }
 
   // Keyboard law (R13): arrow keys move between tabs (activating on move —
@@ -166,6 +300,7 @@ export default function FeedPage({ fetchImpl, townSlug, townName: townNameProp }
           session={null}
           fetchImpl={fetchImpl}
           onRetry={() => void load()}
+          footer={footer}
         />
       </section>
     )
@@ -195,6 +330,7 @@ export default function FeedPage({ fetchImpl, townSlug, townName: townNameProp }
         session={session}
         fetchImpl={fetchImpl}
         onRetry={() => void load()}
+        footer={footer}
       />
     </section>
   )
@@ -264,6 +400,7 @@ function FeedList({
   session,
   fetchImpl,
   onRetry,
+  footer,
 }: {
   posts: Post[]
   status: 'idle' | 'loading' | 'ready' | 'error'
@@ -274,9 +411,49 @@ function FeedList({
   session: Session | null
   fetchImpl?: FetchLike
   onRetry: () => void
+  footer: {
+    hasMore: boolean
+    loadingMore: boolean
+    moreError: string
+    onAppend: () => void
+    sentinelRef: React.MutableRefObject<HTMLDivElement | null>
+  }
 }) {
   const { pinned, rest } = partitionHot(posts)
   const newest = sortByNewest(posts)
+
+  // W4-C2 feed footer — ONE place, both tabs. The sentinel is the
+  // IntersectionObserver target; Load-more is the honest keyboard fallback
+  // (≥44px, R13); the end marker is the honest END OF LIST (R19 — a real
+  // signal, never fake rows).
+  const listFooter = (
+    <div className="feed-footer" data-testid="feed-footer">
+      {footer.hasMore && (
+        <div ref={footer.sentinelRef} className="feed-sentinel" data-testid="feed-sentinel" aria-hidden="true" />
+      )}
+      {footer.hasMore && !footer.loadingMore && (
+        <button type="button" className="feed-load-more" data-testid="feed-load-more" onClick={footer.onAppend}>
+          Load more
+        </button>
+      )}
+      {footer.hasMore && footer.loadingMore && (
+        <SkeletonFeed count={2} testId="feed-loading-more" />
+      )}
+      {footer.hasMore && footer.moreError && (
+        <p className="feed-append-error" role="status" data-testid="feed-append-error" title={footer.moreError}>
+          Couldn't load more posts —{' '}
+          <button type="button" data-testid="feed-append-retry" onClick={footer.onAppend}>
+            Try again
+          </button>
+        </p>
+      )}
+      {!footer.hasMore && posts.length > 0 && status === 'ready' && (
+        <p className="feed-end-marker" data-testid="feed-end-marker">
+          You're all caught up
+        </p>
+      )}
+    </div>
+  )
 
   return (
     <>
@@ -324,6 +501,7 @@ function FeedList({
               ))}
             </section>
           )}
+          {listFooter}
         </div>
       )}
     </>

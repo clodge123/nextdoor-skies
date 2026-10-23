@@ -52,6 +52,12 @@ export interface Session {
 
 export const SESSION_STORAGE_KEY = 'nds-session'
 
+/** W4-C2 FEED-LOAD: client mirror of api/posts.js PAGE_SIZE (the contract
+ *  number — a page SHORTER than this is the honest END OF LIST). Exported so
+ *  FeedPage's sentinel logic and tests read ONE constant; kept in lockstep
+ *  by posts-api.test.ts's page-matrix (server) + FeedPage.test (client). */
+export const POSTS_PAGE_SIZE = 30
+
 /**
  * Read the session per the S1 contract (localStorage 'nds-session').
  * Returns null when absent/corrupt — the caller must degrade gracefully
@@ -207,24 +213,38 @@ export function parseComments(body: unknown): Comment[] {
   return out
 }
 
-/** S2: GET /api/posts?town=<slug>&sort=hot|new.
+/** S2: GET /api/posts?town=<slug>&sort=hot|new[&page=N].
  *  Optional `key` overrides the supersession key (panel uses one shared
  *  'panel-posts' key so fast pans between towns cancel the previous town's
- *  request — Google Maps rule). */
+ *  request — Google Maps rule).
+ *  W4-C2 FEED-LOAD: optional `page` (>=1). Absent page = legacy full list
+ *  (byte-identical law); page=N asks the server for the Nth deterministic
+ *  slice. The supersession key gains a `:p<N>` suffix for page>=2 so an
+ *  append NEVER aborts the page-1 request (and vice versa) — each page owns
+ *  its own key, the newest request per key still wins (Google Maps rule). */
 export async function fetchPosts(
-  params: { town?: string; sort: 'hot' | 'new'; fetchImpl?: FetchLike; key?: string },
+  params: {
+    town?: string
+    sort: 'hot' | 'new'
+    page?: number
+    fetchImpl?: FetchLike
+    key?: string
+  },
 ): Promise<ApiResult<Post[]>> {
   const fetchImpl = params.fetchImpl ?? defaultFetch
   // W4-E1 ALL-FEED: omit `town` for the global stream (API lists every town).
   const townQ = params.town ? `town=${encodeURIComponent(params.town)}&` : ''
-  const url = `/api/posts?${townQ}sort=${params.sort}`
+  const pageQ = params.page ? `&page=${params.page}` : ''
+  const url = `/api/posts?${townQ}sort=${params.sort}${pageQ}`
   // Supersession key: a fast pan (panel slug change / sort toggle) cancels
-  // the older in-flight posts request — Google Maps rule.
+  // the older in-flight posts request — Google Maps rule. Pages are keyed
+  // separately (W4-C2): appending page 2 must not kill the page-1 view.
+  const pageSuffix = params.page && params.page > 1 ? `:p${params.page}` : ''
   const res = await apiJson<unknown>(
     url,
     { method: 'GET' },
     fetchImpl,
-    params.key ?? `posts:${params.town ?? 'all'}:${params.sort}`,
+    params.key ?? `posts:${params.town ?? 'all'}:${params.sort}${pageSuffix}`,
   )
   if (!res.ok) return res
   return { ok: true, data: parsePosts(res.data) }

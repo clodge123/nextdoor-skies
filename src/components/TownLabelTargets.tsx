@@ -43,6 +43,11 @@ export interface TownLabelTargetsProps {
   panelHrefFor?: (townId: string) => string
   /** Client-side panel open (no reload, no view reset). */
   onPanelOpen?: (townId: string) => void
+  /**
+   * W4-C2 FEED-LOAD PREFETCH seam: hover/focus on a label target announces
+   * the town (the prefetch layer dedupes/LRUs downstream).
+   */
+  onTownFocus?: (townId: string) => void
   /** Hide targets at/above this zoom (badges own that range). */
   maxZoom?: number
 }
@@ -60,6 +65,7 @@ export function TownLabelTargets({
   towns,
   panelHrefFor,
   onPanelOpen,
+  onTownFocus,
   maxZoom = TOWN_BADGE_MIN_ZOOM,
 }: TownLabelTargetsProps) {
   const map = useMap()
@@ -92,6 +98,9 @@ export function TownLabelTargets({
           style: { left: `${p.x}px`, top: `${p.y}px` },
           'aria-label': label,
           title: town.name,
+          // W4-C2 prefetch seam: hover/focus announces the town.
+          onMouseEnter: () => onTownFocus?.(town.id),
+          onFocus: () => onTownFocus?.(town.id),
         }
         // Inert (unit tests / no panel wiring): a focusable button with no
         // navigation — the affordance is real, the destination is not wired.

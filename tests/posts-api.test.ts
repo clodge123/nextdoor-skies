@@ -680,3 +680,96 @@ describe('determinism', () => {
     expect(hashId('p', 'a', 'b', 'c')).not.toBe(hashId('p', 'a', 'b', 'd'));
   });
 });
+
+// ---------------------------------------------------------------------------
+// W4-C2 FEED-LOAD — page param (infinite scroll contract)
+// ---------------------------------------------------------------------------
+
+describe('page param (W4-C2 infinite scroll)', () => {
+  /** Seed n posts newest-first (ageMin ascending => p1 newest). */
+  function seedMany(h, n, town = TOWN) {
+    for (let i = 1; i <= n; i++) {
+      seedPost(h, { id: `p${i}`, town, ageMin: i });
+    }
+  }
+
+  it('absent page returns the FULL list — byte-identical to pre-C2', async () => {
+    const h = harness();
+    seedMany(h, 35);
+    const full = await h.call(makeReq({ url: `/api/posts?town=${TOWN}&sort=new` }));
+    expect(full.statusCode).toBe(200);
+    expect(full.body.posts).toHaveLength(35);
+    expect(Object.keys(full.body)).toEqual(['posts']);
+    // Legacy consumers (TownPanel/feed-all) never send page — unchanged.
+    const legacy = await h.call(makeReq({ url: '/api/posts?sort=new' }));
+    expect(legacy.body.posts).toHaveLength(35);
+  });
+
+  it('page=1 is the first slice (same rows as the full list head)', async () => {
+    const h = harness();
+    seedMany(h, 35);
+    const p1 = await h.call(makeReq({ url: `/api/posts?town=${TOWN}&sort=new&page=1` }));
+    expect(p1.statusCode).toBe(200);
+    expect(p1.body.posts).toHaveLength(30);
+    const full = await h.call(makeReq({ url: `/api/posts?town=${TOWN}&sort=new` }));
+    expect(p1.body.posts.map((p) => p.id)).toEqual(full.body.posts.slice(0, 30).map((p) => p.id));
+  });
+
+  it('pages tile the list exactly — no overlap, no skips', async () => {
+    const h = harness();
+    seedMany(h, 35);
+    const p1 = await h.call(makeReq({ url: `/api/posts?town=${TOWN}&sort=new&page=1` }));
+    const p2 = await h.call(makeReq({ url: `/api/posts?town=${TOWN}&sort=new&page=2` }));
+    expect(p1.body.posts).toHaveLength(30);
+    expect(p2.body.posts).toHaveLength(5); // short page = end of list
+    const ids = [...p1.body.posts, ...p2.body.posts].map((p) => p.id);
+    expect(new Set(ids).size).toBe(35);
+    const full = await h.call(makeReq({ url: `/api/posts?town=${TOWN}&sort=new` }));
+    expect(ids).toEqual(full.body.posts.map((p) => p.id));
+  });
+
+  it('page beyond the end is an honest empty page (never fake rows)', async () => {
+    const h = harness();
+    seedMany(h, 35);
+    const p9 = await h.call(makeReq({ url: `/api/posts?town=${TOWN}&sort=new&page=9` }));
+    expect(p9.statusCode).toBe(200);
+    expect(p9.body.posts).toEqual([]);
+  });
+
+  it('page slices the SORTED list (hot sort stable across pages)', async () => {
+    const h = harness();
+    seedMany(h, 35);
+    const p1 = await h.call(makeReq({ url: `/api/posts?town=${TOWN}&sort=hot&page=1` }));
+    const p2 = await h.call(makeReq({ url: `/api/posts?town=${TOWN}&sort=hot&page=2` }));
+    expect(p1.statusCode).toBe(200);
+    const ids = [...p1.body.posts, ...p2.body.posts].map((p) => p.id);
+    expect(new Set(ids).size).toBe(35); // tiles, no overlap
+  });
+
+  it('junk page values are loud 400s — never a silent fallback to page 1', async () => {
+    const h = harness();
+    seedMany(h, 5);
+    for (const bad of ['0', '-1', 'abc', '1.5']) {
+      const res = await h.call(makeReq({ url: `/api/posts?town=${TOWN}&sort=new&page=${bad}` }));
+      expect(res.statusCode, `page=${bad}`).toBe(400);
+    }
+    // Empty page= is the LEGACY full-list behavior (byte-identical law).
+    const empty = await h.call(makeReq({ url: `/api/posts?town=${TOWN}&sort=new&page=` }));
+    expect(empty.statusCode).toBe(200);
+    expect(empty.body.posts).toHaveLength(5);
+  });
+
+  it('global stream pages too (town omitted)', async () => {
+    const h = harness();
+    seedMany(h, 31, TOWN);
+    // Unique ids per town (the db stub keys posts by id — shared ids would
+    // collide and silently overwrite).
+    for (let i = 1; i <= 10; i++) {
+      seedPost(h, { id: `s${i}`, town: 'salina-38.84--97.61', ageMin: i });
+    }
+    const p1 = await h.call(makeReq({ url: '/api/posts?sort=new&page=1' }));
+    const p2 = await h.call(makeReq({ url: '/api/posts?sort=new&page=2' }));
+    expect(p1.body.posts).toHaveLength(30);
+    expect(p2.body.posts).toHaveLength(11);
+  });
+});

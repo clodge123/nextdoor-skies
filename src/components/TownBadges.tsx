@@ -217,6 +217,14 @@ export interface TownBadgesProps {
    * pre-panel) => the dot stays the S6 decorative span inside the badge.
    */
   onAlertOpen?: (townId: string) => void
+  /**
+   * W4-C2 FEED-LOAD PREFETCH seam (session 2 law 3): fired when a badge
+   * (or any member of a cluster badge) is HOVERED or FOCUSED — the map
+   * "town ring" the Google Maps rule prefetches from. Fired once per
+   * interaction; the prefetch layer dedupes/LRUs, so this component just
+   * announces attention. Cluster badges announce EVERY member town.
+   */
+  onTownFocus?: (townId: string) => void
 }
 
 export function TownBadges({
@@ -228,6 +236,7 @@ export function TownBadges({
   panelHrefFor,
   onPanelOpen,
   onAlertOpen,
+  onTownFocus,
 }: TownBadgesProps) {
   const map = useMap()
   const unit = useUnits()
@@ -382,6 +391,10 @@ export function TownBadges({
         data-panel="1"
         aria-label={`Open ${town.name} town panel`}
         onClick={badgeClick}
+        // W4-C2: hovering/focusing the badge = attention on the town —
+        // announce it to the prefetch seam (deduped downstream).
+        onMouseEnter={() => onTownFocus?.(town.id)}
+        onFocus={() => onTownFocus?.(town.id)}
       >
         {dotSev && !dotLink ? dotSpan : null}
         {children}
@@ -447,6 +460,14 @@ export function TownBadges({
             data-cluster-size={group.members.length}
             aria-label={`${label}: ${tempText} — expand ${group.members.length} same-temp towns`}
             title={`Same-temp group: ${group.members.map((m) => m.name).join(', ')} — click to expand`}
+            // W4-C2: a cluster badge is attention on EVERY member town —
+            // announce each one (the LRU cap keeps the ring ≤3).
+            onMouseEnter={() => {
+              for (const m of group.members) onTownFocus?.(m.id)
+            }}
+            onFocus={() => {
+              for (const m of group.members) onTownFocus?.(m.id)
+            }}
             onClick={() => {
               // Fly-to law: centroid + zoom bump = expand in place.
               requestFlyTo({ lon: group.centroid.lon, lat: group.centroid.lat, zoom: CLUSTER_MAX_ZOOM })

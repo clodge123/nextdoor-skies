@@ -30,6 +30,11 @@ export const TEXT_MAX = 1000;
 export const COMMENT_TEXT_MAX = 500;
 export const FLAG_HIDE_COUNT = 3; // hidden from feeds after 3 distinct flags
 export const HOT_SCORE_MIN = 3; // hot = replies*2 + reactions*1 + recency decay
+/** W4-C2 FEED-LOAD: infinite-scroll page size. The client's sentinel asks
+ *  for page=2,3,...; a page shorter than this means END OF LIST (honest
+ *  marker, never fake rows). Deterministic: the full sorted list is sliced,
+ *  never re-queried, so pages never overlap and never skip. */
+export const PAGE_SIZE = 30;
 export const REACTION_EMOJIS = ['👍', '❤️', '😂'];
 
 /** W4-D1 snapshot id shape (api/snapshot.js ids; mirrored here to avoid a
@@ -145,14 +150,30 @@ export function createHandler({ db, gazetteer, now = () => new Date(), ipOf = cl
       hot: row.hot === true,
     });
 
-    // ---- GET /api/posts?town=&sort= ----------------------------------------
+    // ---- GET /api/posts?town=&sort=&page= ----------------------------------
     // W4-E1 ALL-FEED: town is OPTIONAL. Omitting it lists EVERY town (the
     // global stream, S4 brainstorm: "Latest IS the all feed"). Same sort,
     // flag-hide, and session myReaction paths either way — no second route.
+    // W4-C2 FEED-LOAD: `page` is OPTIONAL and defaults to the LEGACY
+    // behavior — an absent page param returns the FULL list, byte-identical
+    // to every pre-C2 response (panel/feed-all/detail consumers unchanged).
+    // An explicit page=N (N>=1) slices the SAME deterministically sorted
+    // list [(N-1)*PAGE_SIZE, N*PAGE_SIZE) — no overlap, no skips (sort
+    // happens before slicing, id tie-break makes it stable). A junk page
+    // value is a loud 400, never a silent fallback to page 1.
     if (!seg.length && method === 'GET') {
       const town = url.searchParams.get('town');
       const sort = url.searchParams.get('sort') ?? 'new';
       if (sort !== 'new' && sort !== 'hot') return json(400, { error: 'sort must be hot|new' });
+      const pageRaw = url.searchParams.get('page');
+      let page = 1;
+      if (pageRaw !== null && pageRaw !== '') {
+        const n = Number(pageRaw);
+        if (!Number.isInteger(n) || n < 1) {
+          return json(400, { error: 'page must be a positive integer' });
+        }
+        page = n;
+      }
       const { session } = parseSession(req, gazetteer); // optional: myReaction only
       const rows = (await db.listPosts(town || null)).filter((r) => r.flagCount < FLAG_HIDE_COUNT);
       const mine = session ? await db.myReactions(rows.map((r) => r.id), session.nickname) : new Map();
@@ -171,7 +192,14 @@ export function createHandler({ db, gazetteer, now = () => new Date(), ipOf = cl
       } else {
         posts.sort((a, b) => cmpNewest(a, b));
       }
-      return json(200, { posts: posts.map((r) => postView(r, mine.get(r.id) ?? null)) });
+      // W4-C2: explicit page -> deterministic slice of the sorted list.
+      // Absent page -> the full list (legacy, byte-identical law).
+      const view = posts.map((r) => postView(r, mine.get(r.id) ?? null));
+      const body =
+        pageRaw === null || pageRaw === ''
+          ? { posts: view }
+          : { posts: view.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE) };
+      return json(200, body);
     }
 
     // ---- POST /api/posts ----------------------------------------------------
