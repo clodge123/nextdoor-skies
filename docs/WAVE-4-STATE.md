@@ -321,3 +321,54 @@ stays ON.
   houston patched 8/8 variance=82 delta=76.
 - Wave 4 COMPLETE. Handoff: owner demo at https://nextdoor-skies-run2.vercel.app
 
+
+## Heartbeat checks (cont.)
+- 14:16 CDT — ops sweep: wave 4 COMPLETE per ledger (deploy + seed-wave3
+  25/25 landed, 181 posts / 151 snapshots / 0 black canvases). All 12 lane
+  branches merged into main (`60c1514`) — content diff verified; nothing
+  new to merge, merge-disease diff clean. Host: load ~3.1 (1m) trending
+  down, ports 431xx clean, chrome-headless zombies 0. Leaked anchors >1h:
+  17 killed (13 live <1h anchors kept). No deploys (wave closed; remote
+  git push blocked on GitHub token auth — REST-push path unchanged).
+
+## Heartbeat checks (cont.)
+- 14:20 CDT — ops sweep: wave 4 remains COMPLETE; lane-content re-verified
+  (cluster.ts, feed-prefetch.ts, check-neon-tokens.mjs, tour placeBubble,
+  WAVE4 gate all present on main) — the 4 non-ancestor branch tips
+  (B3/C2/F1/G1) are stale post-blob-merge pointers, nothing new to merge,
+  merge-disease diff clean. Host: load 1.32 (1m) trending down, ports 431xx
+  clean, chrome-headless zombies 0. Leaked anchors >1h: 2 killed
+  (111389/111926, ~61min, each with a defunct git child), 10 live anchors
+  kept. No deploys (wave closed).
+
+## Bug-fix round (owner demo feedback, 2026-10-23)
+- **Alert center dark-mode white-on-white + ragged rows**: `.alert-row-control`
+  had NO CSS at all — UA default painted a white box, child spans rendered
+  `var(--text)` (white) on it in dark mode, and each row shrank to content
+  width. Fix: transparent, full-width, inherit-color control (whole row is
+  ONE button, E2 law kept). Text sits on `var(--surface)` in both themes.
+- **Map labels white in dark mode**: basemap is the SAME light bright style
+  in both themes; `.town-marker-label` used `var(--text)` (flips white).
+  Pinned to ink `#101014` + white halo, matching the canvas label layers.
+- **"All feed unreachable"**: on `/t/<slug>/feed`, `Latest` was town-scoped
+  (`feedTown = townSlug ?? ...`). Now `scope === 'latest'` ignores the slug
+  entirely — Latest IS the all feed everywhere. Header Feed -> Latest is the
+  global stream; every town page's Latest tab joins it.
+- **Weather "always awaiting feed"**: per-town fan-out (50 calls x 1-2s /
+  conc 10) = 5-10s cold start. Open-Meteo accepts comma-separated
+  lat/lon lists — served path, SWR refresh, and ring prefetch now BATCH
+  <=50 towns per upstream call. Prod probe: 10 temps in **0.7s** (was
+  multi-second). Cache/SWR/ring laws unchanged; tests updated (30/30).
+- **Composer snapshot error (the real bug)**: stored-snapshot URL
+  `/api/snapshots?path=<id>` had NO file (only api/snapshot.js +
+  api/snapshots/[id].js) -> prod 404 -> "snapshot fetch failed". Added
+  api/snapshots.js; [id].js also had a broken relative import
+  ('./snapshot.js' from api/snapshots/ = nonexistent) -> prod 500. Both
+  imported loadGazetteer from api/snapshot.js which re-exports nothing —
+  now imported from posts.js. Prod verified: POST 201 -> GET 200 JPEG
+  (14,636B) both URL forms. Capture is server-side AT THE SESSION TOWN
+  (parseTownCoords) — never the user's screen.
+- Deploy blocker (Vercel commit-author permission) still open: git-less
+  prebuilt deploys work (3x today); re-authorizing the GitHub App on the
+  repo would restore normal deploys.
+
