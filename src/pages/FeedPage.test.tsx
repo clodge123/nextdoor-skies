@@ -141,11 +141,121 @@ describe('FeedPage interactions', () => {
       </MemoryRouter>,
     )
     await screen.findByTestId('post-p_hot')
-    await fireEvent.click(screen.getByTestId('sort-new'))
+    await fireEvent.click(screen.getByTestId('feed-tab-latest'))
     // new view: no separate pinned section, newest-first ordering
     expect(screen.queryByTestId('hot-pinned')).toBeNull()
     await screen.findByTestId('post-p_new')
     const cards = screen.getAllByTestId(/^post-p_/)
     expect(cards[0]).toHaveAttribute('data-post-id', 'p_new')
+  })
+})
+
+// W4-E1 ALL-FEED: global stream, ?scope= deep link, town chip -> panel.
+describe('W4-E1 all-feed', () => {
+  const GLOBAL_POSTS = [
+    {
+      id: 'g_a',
+      author: 'maria',
+      town: 'salina-38.84--97.61',
+      text: 'prairie fire cookoff tonight',
+      snapshot: null,
+      createdAt: '2026-10-21T10:00:00.000Z',
+      reactions: { '👍': 3, '❤️': 1, '😂': 0 },
+      myReaction: null,
+      commentsCount: 2,
+      hot: true,
+    },
+    {
+      id: 'g_b',
+      author: 'jorge',
+      town: 'springfield-37.22--93.3',
+      text: 'storm cell over the courthouse',
+      snapshot: null,
+      createdAt: '2026-10-21T14:00:00.000Z',
+      reactions: { '👍': 0, '❤️': 0, '😂': 0 },
+      myReaction: null,
+      commentsCount: 0,
+      hot: false,
+    },
+  ]
+
+  it('global stream: no session browses all towns, fetch omits town=', async () => {
+    const fetchImpl: FetchLike = vi.fn(async (url) => {
+      expect(String(url)).toBe('/api/posts?sort=new')
+      return jsonResponse({ posts: GLOBAL_POSTS })
+    })
+    render(
+      <MemoryRouter initialEntries={['/feed?scope=latest']}>
+        <FeedPage fetchImpl={fetchImpl} />
+      </MemoryRouter>,
+    )
+    // Latest tab active from the deep link; newest-first across towns.
+    expect(screen.getByTestId('feed-tab-latest')).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByTestId('feed-tab-hot')).toHaveAttribute('aria-selected', 'false')
+    const cards = await screen.findAllByTestId(/^post-g_/)
+    expect(cards.map((c) => c.getAttribute('data-post-id'))).toEqual(['g_b', 'g_a'])
+    expect(screen.getByTestId('feed-town')).toHaveTextContent('All towns')
+  })
+
+  it('tab click writes ?scope= into the URL (deep link restores the tab)', async () => {
+    setSession()
+    const fetchImpl: FetchLike = vi.fn(async () => jsonResponse({ posts: SEED_POSTS }))
+    render(
+      <MemoryRouter initialEntries={['/feed']}>
+        <FeedPage fetchImpl={fetchImpl} />
+      </MemoryRouter>,
+    )
+    await screen.findByTestId('post-p_hot')
+    expect(screen.getByTestId('feed-tab-hot')).toHaveAttribute('aria-selected', 'true')
+    await fireEvent.click(screen.getByTestId('feed-tab-latest'))
+    expect(screen.getByTestId('feed-tab-latest')).toHaveAttribute('aria-selected', 'true')
+    // URL carries the scope (location.search drives parseScope).
+    expect(await screen.findByTestId('feed-tab-latest')).toHaveAttribute('aria-selected', 'true')
+  })
+
+  it('each post row carries a town chip linking to the panel (?panel=<slug>)', async () => {
+    const fetchImpl: FetchLike = vi.fn(async () => jsonResponse({ posts: GLOBAL_POSTS }))
+    render(
+      <MemoryRouter initialEntries={['/feed?scope=latest']}>
+        <FeedPage fetchImpl={fetchImpl} />
+      </MemoryRouter>,
+    )
+    const chip = await screen.findByTestId('town-chip-g_a')
+    expect(chip).toHaveAttribute('href', '/?panel=salina-38.84--97.61')
+    expect(chip).toHaveTextContent('salina-38.84--97.61')
+    const chipB = screen.getByTestId('town-chip-g_b')
+    expect(chipB).toHaveAttribute('href', '/?panel=springfield-37.22--93.3')
+  })
+
+  it('keyboard: arrow keys move between tabs (activating), Tab reaches them', async () => {
+    setSession()
+    const fetchImpl: FetchLike = vi.fn(async () => jsonResponse({ posts: SEED_POSTS }))
+    render(
+      <MemoryRouter initialEntries={['/feed']}>
+        <FeedPage fetchImpl={fetchImpl} />
+      </MemoryRouter>,
+    )
+    await screen.findByTestId('post-p_hot')
+    const hot = screen.getByTestId('feed-tab-hot')
+    const latest = screen.getByTestId('feed-tab-latest')
+    hot.focus()
+    fireEvent.keyDown(hot, { key: 'ArrowRight' })
+    expect(latest).toHaveAttribute('aria-selected', 'true')
+    fireEvent.keyDown(latest, { key: 'ArrowLeft' })
+    expect(hot).toHaveAttribute('aria-selected', 'true')
+    // tabs are real buttons (Tab reaches them as a group)
+    expect(hot.tagName).toBe('BUTTON')
+    expect(latest.tagName).toBe('BUTTON')
+  })
+
+  it('global empty state is honest (awaiting feed, never fake rows)', async () => {
+    const fetchImpl: FetchLike = vi.fn(async () => jsonResponse({ posts: [] }))
+    render(
+      <MemoryRouter initialEntries={['/feed']}>
+        <FeedPage fetchImpl={fetchImpl} />
+      </MemoryRouter>,
+    )
+    expect(await screen.findByTestId('feed-empty')).toHaveTextContent('Awaiting feed')
+    expect(screen.queryAllByTestId(/^post-/)).toHaveLength(0)
   })
 })

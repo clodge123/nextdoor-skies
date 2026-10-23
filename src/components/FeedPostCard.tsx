@@ -21,6 +21,7 @@ import {
   type ReactionEmoji,
   type Session,
 } from '../lib/feed'
+import { panelOpenHref } from '../lib/panel'
 import { Lightbox } from './Lightbox'
 
 export interface FeedPostCardProps {
@@ -33,6 +34,14 @@ export interface FeedPostCardProps {
 export function FeedPostCard({ post, session, fetchImpl }: FeedPostCardProps) {
   const [view, setView] = useState<Post>(post)
   useEffect(() => setView(post), [post])
+
+  // W4-E1 ALL-FEED: the town chip opens that town's panel via the existing
+  // ?panel=<slug> scheme (src/lib/panel.ts) — same key (canonical gazetteer
+  // slug) the badges/search use, so chip -> panel -> fly-to all just work.
+  // The href is built from an EMPTY search: the feed's own query params
+  // (?scope=) belong to the feed route, not the map — the panel URL stays
+  // canonical (`/?panel=<slug>`).
+  const panelHref = (slug: string) => panelOpenHref('', slug)
 
   const [replyOpen, setReplyOpen] = useState(false)
   const [comments, setComments] = useState<Comment[]>([])
@@ -109,7 +118,18 @@ export function FeedPostCard({ post, session, fetchImpl }: FeedPostCardProps) {
           <strong className="feed-author">{view.author}</strong>
           <span className="feed-stamp">{formatStamp(view.createdAt)}</span>
         </Link>
-        <span className="feed-town">{view.town}</span>
+        {view.town ? (
+          <Link
+            className="feed-town-chip"
+            data-testid={`town-chip-${post.id}`}
+            to={panelHref(view.town)}
+            title={`Open ${view.town} panel`}
+          >
+            {view.town}
+          </Link>
+        ) : (
+          <span className="feed-town">(no town)</span>
+        )}
         {view.hot && (
           <span className="feed-hot-badge" title="Hot in this town">
             hot

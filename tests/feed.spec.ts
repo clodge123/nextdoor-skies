@@ -131,7 +131,10 @@ function mockPostsApi(page: Page, posts: ReturnType<typeof fixturePosts>): void 
       await route.fulfill({ status: 405, body: 'method not allowed' })
       return
     }
-    if (town !== TOWN_SLUG) {
+    // W4-E1: town omitted = GLOBAL list. The fixture rows all carry
+    // TOWN_SLUG, so global and town-filtered return the same rows (the
+    // real API behaves identically for this fixture set).
+    if (town !== null && town !== TOWN_SLUG) {
       await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ posts: [] }) })
       return
     }
@@ -202,10 +205,10 @@ test('feed renders hot-pinned then newest with real content', async ({ page }, t
   const cards = page.locator('[data-testid^="post-p_"]')
   await expect(cards.first()).toHaveAttribute('data-post-id', 'p_hot')
 
-  // town context + sort controls discoverable first-click
+  // town context + tab controls discoverable first-click
   await expect(page.getByTestId('feed-town')).toContainText('Springfield')
-  await expect(page.getByTestId('sort-hot')).toBeVisible()
-  await expect(page.getByTestId('sort-new')).toBeVisible()
+  await expect(page.getByTestId('feed-tab-hot')).toBeVisible()
+  await expect(page.getByTestId('feed-tab-latest')).toBeVisible()
 
   await shot(page, `feed-render-${testInfo.project.name}`)
   expect(errors).toEqual([])
@@ -218,7 +221,7 @@ test('sort toggle switches hot/new ordering', async ({ page }, testInfo) => {
   await page.goto('/feed', { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('post-p_hot')).toBeVisible()
 
-  await page.getByTestId('sort-new').click()
+  await page.getByTestId('feed-tab-latest').click()
   const cards = page.locator('[data-testid^="post-p_"]')
   await expect(cards.first()).toHaveAttribute('data-post-id', 'p_new')
   await expect(page.getByTestId('hot-pinned')).toHaveCount(0)

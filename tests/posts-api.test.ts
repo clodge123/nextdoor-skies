@@ -53,8 +53,9 @@ function makeDb() {
       };
     },
     async listPosts(town) {
+      // W4-E1: town=null/undefined -> every town (global stream).
       return [...posts.values()]
-        .filter((p) => p.town === town)
+        .filter((p) => !town || p.town === town)
         .map((p) => {
           const emojis = Object.fromEntries(REACTION_EMOJIS.map((e) => [e, 0]));
           for (const [key, emoji] of reactions) {
@@ -204,9 +205,14 @@ describe('CRUD', () => {
     expect(list.body.posts[0].id).toBe(p.id);
   });
 
-  it('GET requires the town param and validates sort', async () => {
+  it('GET without town is the global list (W4-E1); GET validates sort', async () => {
     const h = harness();
-    expect((await h.call(makeReq({ url: '/api/posts' }))).statusCode).toBe(400);
+    seedPost(h, { id: 'g1', town: TOWN, ageMin: 10 });
+    seedPost(h, { id: 'g2', town: 'salina-38.84--97.61', ageMin: 5 });
+    const global = await h.call(makeReq({ url: '/api/posts?sort=new' }));
+    expect(global.statusCode).toBe(200);
+    // Every town included, newest-first.
+    expect(global.body.posts.map((p) => p.id)).toEqual(['g2', 'g1']);
     expect((await h.call(makeReq({ url: `/api/posts?town=${TOWN}&sort=top` }))).statusCode).toBe(400);
   });
 
