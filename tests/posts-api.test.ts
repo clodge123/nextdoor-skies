@@ -36,6 +36,11 @@ function makeDb() {
     async getPost(id) {
       return posts.has(id);
     },
+    /** W3-D2 (C7 re-seed): in-place snapshot replacement for one post. */
+    async updateSnapshot(id, snapshot) {
+      const p = posts.get(id);
+      if (p) p.snapshot = snapshot;
+    },
     // W3-D3: full single-post row for GET /api/posts?path=<id> (detail page).
     async getPostRow(id) {
       const p = posts.get(id);
@@ -376,6 +381,51 @@ describe('single post by id (W3-D3 detail route)', () => {
       makeReq({ method: 'POST', url: '/api/posts?path=p_ro', body: { text: 'nope' } }),
     );
     expect(res.statusCode).toBe(404);
+  });
+
+  // ---- admin snapshot patch (W3-D2, C7 re-seed) ------------------------------
+  // Restored after the W3-D3 merge dropped the PATCH branch from api/posts.js
+  // (seed-wave3.yml depends on it). Gates: 503 unset -> 401 no session ->
+  // 403 bad secret -> 429 rate limit -> 404 unknown -> 415/413 shape/size.
+  describe('admin snapshot patch (W3-D2, C7 re-seed)', () => {
+    const SNAP_OK = 'data:image/jpeg;base64,' + Buffer.from('realmaptiles').toString('base64');
+
+    it('503 honest-disabled when NDS_ADMIN_SECRET unset; 403 bad secret; 401 no session', async () => {
+      const h = harness();
+      seedPost(h, { id: 'p_old' });
+      const patch = (headers) =>
+        h.call(makeReq({ method: 'PATCH', url: '/api/posts?path=p_old', headers, body: { snapshot: SNAP_OK } }));
+
+      delete process.env.NDS_ADMIN_SECRET;
+      expect((await patch({ 'x-nds-session': session(), 'x-nds-admin': 's3cret' })).statusCode).toBe(503);
+
+      process.env.NDS_ADMIN_SECRET = 's3cret';
+      try {
+        expect((await patch({ 'x-nds-session': session(), 'x-nds-admin': 'wrong!' })).statusCode).toBe(403);
+        expect((await patch({ 'x-nds-admin': 's3cret' })).statusCode).toBe(401);
+        // valid session + secret -> patches in place (owner: keep posts, fix canvases)
+        const ok = await patch({ 'x-nds-session': session(), 'x-nds-admin': 's3cret' });
+        expect(ok.statusCode).toBe(200);
+        expect(h.db.posts.get('p_old').snapshot).toBe(SNAP_OK);
+        // shape gates
+        expect((await h.call(makeReq({ method: 'PATCH', url: '/api/posts?path=p_old',
+          headers: { 'x-nds-session': session(), 'x-nds-admin': 's3cret' }, body: { snapshot: 'not-a-data-url' } }))).statusCode).toBe(415);
+        expect((await h.call(makeReq({ method: 'PATCH', url: '/api/posts?path=p_missing',
+          headers: { 'x-nds-session': session(), 'x-nds-admin': 's3cret' }, body: { snapshot: SNAP_OK } }))).statusCode).toBe(404);
+        const big = 'data:image/jpeg;base64,' + 'A'.repeat(Math.ceil((SNAPSHOT_MAX_BYTES + 1) * (4 / 3)));
+        expect((await h.call(makeReq({ method: 'PATCH', url: '/api/posts?path=p_old',
+          headers: { 'x-nds-session': session(), 'x-nds-admin': 's3cret' }, body: { snapshot: big } }))).statusCode).toBe(413);
+        // rate limit: bucket 'snapshot' 30/hour/IP -> the 31st is 429
+        let last;
+        for (let i = 0; i < 31; i++) {
+          last = await h.call(makeReq({ method: 'PATCH', url: '/api/posts?path=p_old',
+            headers: { 'x-nds-session': session(), 'x-nds-admin': 's3cret' }, body: { snapshot: SNAP_OK } }));
+        }
+        expect(last.statusCode).toBe(429);
+      } finally {
+        delete process.env.NDS_ADMIN_SECRET;
+      }
+    });
   });
 });
 

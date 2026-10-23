@@ -25,6 +25,7 @@ import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 
 export const RATE_LIMIT_MAX = 5; // posts per IP per hour (run-1 rate_limit table)
+export const SNAPSHOT_PATCH_RATE_MAX = 30; // W3-D2 admin patches per IP per hour
 export const SNAPSHOT_MAX_BYTES = 120 * 1024; // S7: data URL <= 120 KB
 export const TEXT_MAX = 1000;
 export const COMMENT_TEXT_MAX = 500;
@@ -258,6 +259,33 @@ export function createHandler({ db, gazetteer, now = () => new Date(), ipOf = cl
 
     // ---- /api/posts/:id/... --------------------------------------------------
     const [postId, action] = seg;
+
+    // ---- PATCH /api/posts?path=<id> — admin snapshot patch (W3-D2, C7) ------
+    // In-place snapshot replacement for the re-seed (owner decision: keep the
+    // posts, patch the black canvases). Gates, in order: admin secret env
+    // (503 honest-disabled when unset) -> valid session (401) -> constant-
+    // time secret compare (403) -> per-IP bucket 'snapshot' 30/hour (429) ->
+    // post exists (404) -> snapshot shape/size (415/413). Same ?path= form as
+    // every other action route (C6 law).
+    if (action === undefined && method === 'PATCH' && postId) {
+      const secret = process.env.NDS_ADMIN_SECRET;
+      if (!secret) return json(503, { error: 'admin patch disabled (NDS_ADMIN_SECRET unset)' });
+      const { session, error } = parseSession(req, gazetteer);
+      if (!session) return json(401, { error });
+      if (!timingSafeEqualStr(String(req.headers?.['x-nds-admin'] ?? ''), secret)) {
+        return json(403, { error: 'bad admin secret' });
+      }
+      const rate = await db.bumpRate(`ip:${ipOf(req)}`, 'snapshot', now());
+      if (!rate.allowed || rate.count > SNAPSHOT_PATCH_RATE_MAX) return json(429, { error: 'rate limited: 30 patches/hour' });
+      if (!(await db.getPost(postId))) return json(404, { error: 'post not found' });
+      const body = await readJson(req);
+      if (body.error) return json(body.code ?? 400, { error: body.error });
+      const snap = snapshotProblem(body.json?.snapshot);
+      if (snap) return json(snap === 'size' ? 413 : 415, { error: `snapshot must be a jpeg data URL <=${SNAPSHOT_MAX_BYTES} bytes` });
+      await db.updateSnapshot(postId, body.json.snapshot);
+      return json(200, { ok: true, id: postId });
+    }
+
     // W3-D3: bare-id GET — the single-post route /api/posts?path=<id> used by
     // the /p/<id> detail page. Same store, same shapes as the list view; a
     // flagged-out post reads as not-found (feed law), unknown id 404s honestly.
@@ -339,6 +367,14 @@ function isoOf(v) {
   return typeof v === 'string' ? v : new Date(v).toISOString();
 }
 
+/** Constant-time-ish string compare (length-checked first; no early leak). */
+function timingSafeEqualStr(a, b) {
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
+}
+
 function clientIp(req) {
   const fwd = req.headers?.['x-forwarded-for'];
   if (typeof fwd === 'string' && fwd.length) return fwd.split(',')[0].trim();
@@ -376,6 +412,10 @@ export function createPgDb(pool) {
           row.createdAt,
         ],
       );
+    },
+    /** W3-D2 (C7 re-seed): in-place snapshot replacement for one post. */
+    async updateSnapshot(id, snapshot) {
+      await q(`update posts set snapshot = $2 where id = $1`, [id, snapshot]);
     },
     // W4-D1: stored snapshot JPEGs (snapshots table, api/snapshot.js).
     async insertSnapshot({ id, jpeg, lat, lon, zoom }) {
