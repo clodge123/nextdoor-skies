@@ -44,6 +44,9 @@ export const MAX_CHUNK_TOWNS = 50
 /** Brief law 2: fetch per ~5-min window, NOT per pan. */
 export const REFRESH_INTERVAL_MS = 5 * 60_000
 
+/** W4-BF PAN-FILL: debounce after the map settles before fetching it. */
+export const SETTLE_DEBOUNCE_MS = 1500
+
 export interface TownCoord {
   id: string
   name: string
@@ -220,6 +223,8 @@ export interface WeatherRefresherOptions {
 export function createWeatherRefresher(opts: WeatherRefresherOptions): {
   start: () => void
   stop: () => void
+  /** W4-BF PAN-FILL law: call after moveend/zoomend — fetches the settled viewport. */
+  scheduleWindow: () => void
 } {
   const intervalMs = opts.intervalMs ?? REFRESH_INTERVAL_MS
   const getZoom = opts.getZoom ?? (() => WEATHER_MIN_ZOOM)
@@ -255,6 +260,25 @@ export function createWeatherRefresher(opts: WeatherRefresherOptions): {
     }
   }
 
+  // W4-BF PAN-FILL LAW (owner bug-fix round #2): law 2 said "fetch per
+  // 5-min window, NOT per pan" — that made panning show badges with NO
+  // data for up to 5 minutes (the repro: 17s on screen, 1 call, panning
+  // fired nothing). Shipping maps (Google Maps) fetch the new viewport
+  // when the user stops moving. Same rule: a debounced window fires
+  // ~1.5s after the map settles (moveend/zoomend), plus the 5-min cadence.
+  let settleTimer: ReturnType<typeof setTimeout> | null = null
+  const scheduleWindow = (): void => {
+    if (timer === null) return
+    if (settleTimer !== null) clearTimeout(settleTimer)
+    settleTimer = setTimeout(() => {
+      settleTimer = null
+      void runWindow()
+    }, SETTLE_DEBOUNCE_MS)
+    if (settleTimer && typeof settleTimer === 'object' && 'unref' in settleTimer) {
+      (settleTimer as { unref?: () => void }).unref?.()
+    }
+  }
+
   return {
     start() {
       if (timer !== null) return
@@ -266,8 +290,14 @@ export function createWeatherRefresher(opts: WeatherRefresherOptions): {
         clearInt(timer)
         timer = null
       }
+      if (settleTimer !== null) {
+        clearTimeout(settleTimer)
+        settleTimer = null
+      }
       inFlight?.abort()
       inFlight = null
     },
+    /** W4-BF: fire a window after the map settles (pan/zoom fill). */
+    scheduleWindow,
   }
 }

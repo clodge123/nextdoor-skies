@@ -1,7 +1,9 @@
-// W3-D3 POST DETAIL page tests — full render (author/text/stamp/snapshot/
-// reactions/comments), deep-link 404 -> honest NotFoundPage, lightbox
-// open/close from the detail snapshot, share copy-link feedback, optimistic
-// reply. fetchImpl seam = no real network; R17-safe (no Date.now/Math.random).
+// W3-D3 POST DETAIL page tests — full render (author/text/stamp/
+// reactions/comments), deep-link 404 -> honest NotFoundPage, share copy-link
+// feedback, optimistic reply. W4-BF: the snapshot image + lightbox are
+// REMOVED from the surface (owner round #2: "take the images out") — legacy
+// rows carrying snapshot bytes must render NO image. fetchImpl seam = no
+// real network; R17-safe (no Date.now/Math.random).
 // @vitest-environment jsdom
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
@@ -18,7 +20,7 @@ const POST = {
   author: 'maria',
   town: 'springfield-37.22--93.3',
   text: 'storm cell moving in fast',
-  snapshot: 'data:image/jpeg;base64,QUJD',
+  snapshot: null,
   createdAt: '2026-10-21T10:00:00.000Z',
   reactions: { '👍': 3, '❤️': 1, '😂': 0 },
   myReaction: null,
@@ -62,15 +64,26 @@ function renderDetail(fetchImpl: FetchLike) {
 beforeEach(() => localStorage.clear())
 
 describe('PostDetailPage render', () => {
-  it('renders the full post: author, text, timestamp, snapshot, reactions, comments', async () => {
-    renderDetail(apiFor())
+  it('renders the full post: author, text, timestamp, reactions, comments — NO image', async () => {
+    const { container } = renderDetail(apiFor())
     expect(await screen.findByTestId('post-detail-text')).toHaveTextContent('storm cell moving in fast')
     expect(screen.getByTestId('post-detail-stamp')).toHaveTextContent('2026-10-21 10:00')
     expect(screen.getByText('maria')).toBeInTheDocument()
-    expect(screen.getByTestId('snapshot-p_detail')).toHaveAttribute('src', POST.snapshot)
+    // W4-BF: text-only surface — no snapshot <img>, no snapshot controls.
+    expect(container.querySelector('img')).toBeNull()
+    expect(container.querySelector('[data-testid^="snapshot-"]')).toBeNull()
     expect(screen.getByTestId('react-p_detail-👍')).toHaveTextContent('3')
     expect(await screen.findByTestId('comment-c_1')).toHaveTextContent('how fast?')
     expect(screen.getByTestId('comment-c_2')).toHaveTextContent('seen this before')
+  })
+
+  it('legacy row carrying snapshot bytes renders NO image (surface is text-only)', async () => {
+    const { container } = renderDetail(
+      apiFor({ post: { ...POST, snapshot: 'data:image/jpeg;base64,QUJD' } }),
+    )
+    await screen.findByTestId('post-detail-text')
+    expect(container.querySelector('img')).toBeNull()
+    expect(container.querySelector('[data-testid^="snapshot-"]')).toBeNull()
   })
 
   it('unknown id -> honest NotFoundPage (deep-link law, never a fake post)', async () => {
@@ -86,22 +99,12 @@ describe('PostDetailPage render', () => {
   })
 })
 
-describe('PostDetailPage lightbox', () => {
-  it('snapshot click opens the lightbox; Esc closes it', async () => {
-    renderDetail(apiFor())
-    await screen.findByTestId('snapshot-p_detail')
-    expect(screen.queryByTestId('lightbox')).toBeNull()
-    fireEvent.click(screen.getByTestId('snapshot-button-p_detail'))
-    expect(screen.getByTestId('lightbox')).toBeInTheDocument()
-    fireEvent.keyDown(document, { key: 'Escape' })
-    await waitFor(() => expect(screen.queryByTestId('lightbox')).toBeNull())
-  })
-
-  it('close button dismisses the lightbox', async () => {
-    renderDetail(apiFor())
-    fireEvent.click(await screen.findByTestId('snapshot-button-p_detail'))
-    fireEvent.click(screen.getByTestId('lightbox-close'))
-    await waitFor(() => expect(screen.queryByTestId('lightbox')).toBeNull())
+describe('PostDetailPage has no lightbox (W4-BF image removal)', () => {
+  it('no snapshot button, no lightbox element exists', async () => {
+    const { container } = renderDetail(apiFor())
+    await screen.findByTestId('post-detail-text')
+    expect(container.querySelector('[data-testid^="snapshot-button-"]')).toBeNull()
+    expect(container.querySelector('[data-testid="lightbox"]')).toBeNull()
   })
 })
 

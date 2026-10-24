@@ -175,7 +175,16 @@ function MapBadges({
     });
     refresherRef.current = refresher;
     refresher.start();
+    // W4-BF PAN-FILL LAW: panning/zooming used to fire NOTHING (law 2: per
+    // window, not per pan) — the repro showed 17s on screen, one call, zero
+    // fills after a pan. Now a settled viewport fetches ~1.5s after the map
+    // stops moving (Google Maps rule); the 5-min cadence still runs.
+    const onSettle = () => refresher.scheduleWindow();
+    map.on('moveend', onSettle);
+    map.on('zoomend', onSettle);
     return () => {
+      map.off('moveend', onSettle);
+      map.off('zoomend', onSettle);
       refresher.stop();
       refresherRef.current = null;
     };

@@ -21,7 +21,6 @@ import {
   type ReactionEmoji,
 } from '../lib/feed'
 import { canNativeShare, copyText, nativeShare } from '../lib/share'
-import { Lightbox } from '../components/Lightbox'
 import NotFoundPage from './NotFoundPage'
 
 export interface PostDetailPageProps {
@@ -39,8 +38,6 @@ export default function PostDetailPage({ fetchImpl }: PostDetailPageProps = {}) 
   const [commentsStatus, setCommentsStatus] = useState<'loading' | 'ready' | 'error'>('loading')
   const [commentsError, setCommentsError] = useState('')
   const [reactionError, setReactionError] = useState('')
-  const [lightboxOpen, setLightboxOpen] = useState(false)
-  const [snapshotFailed, setSnapshotFailed] = useState(false)
   const [replyText, setReplyText] = useState('')
   const [replyError, setReplyError] = useState('')
   const [shareState, setShareState] = useState<'idle' | 'copied' | 'shared' | 'failed'>('idle')
@@ -215,26 +212,9 @@ export default function PostDetailPage({ fetchImpl }: PostDetailPageProps = {}) 
         <p className="feed-card-text" data-testid="post-detail-text">
           {post.text}
         </p>
-        {post.snapshot && (
-          <button
-            type="button"
-            className="feed-snapshot-button"
-            data-testid={`snapshot-button-${post.id}`}
-            aria-label="Open map snapshot full screen"
-            onClick={() => setLightboxOpen(true)}
-          >
-            <img className="feed-snapshot" data-testid={`snapshot-${post.id}`} src={post.snapshot} alt={`Map snapshot from ${post.author}`} onError={() => setSnapshotFailed(true)} />
-          </button>
-        )}
-        {post.snapshot && snapshotFailed && (
-          <p className="feed-error" role="alert" data-testid={`snapshot-error-${post.id}`}>
-            Map snapshot unavailable — the image failed to load.
-          </p>
-        )}
-        {lightboxOpen && post.snapshot && (
-          <Lightbox src={post.snapshot} alt={`Map snapshot from ${post.author}`} onClose={() => setLightboxOpen(false)} />
-        )}
-        {/* C-03 law: author + timestamp BELOW the image (detail page parity). */}
+        {/* W4-BF: snapshot image removed from the detail surface (owner
+            call: "take the images out"). Author + timestamp stay in feed
+            chrome below the text (C-03 geometry). */}
         <div className="feed-card-meta feed-card-meta-below" data-testid="post-detail-meta">
           <strong className="feed-author">{post.author}</strong>
           <span className="feed-town">{post.town}</span>

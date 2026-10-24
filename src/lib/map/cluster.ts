@@ -64,6 +64,9 @@ export interface ProjectedTown {
   y: number;
   /** Rounded display temp in the active unit; NaN when no data. */
   tempKey: number;
+  /** W4-BF COLLISION LAW: population rides along so cluster badges rank by
+   *  rep importance in the collision pass (absent => 0). */
+  pop?: number;
 }
 
 /** One badge group: 1 town (solo) or >= 2 (cluster). */

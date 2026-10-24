@@ -1,9 +1,9 @@
-// W4-D2 C-03 LAW tests — author name + timestamp render BELOW the snapshot
-// image in feed chrome (never burned into the image, never above it).
-// Covers FeedPostCard DOM order + the loud snapshot-error card (no black
-// placeholder image, no silent fallback). fetchImpl seam, R17-safe.
+// W4-BF TEXT-ONLY FEED CARD tests (owner round #2: "take the images out").
+// The snapshot image is REMOVED from the feed surface: no <img>, no
+// lightbox, no error card. Author + timestamp stay in feed chrome below
+// the text (C-03 geometry). fetchImpl seam, R17-safe.
 // @vitest-environment jsdom
-import { fireEvent, render, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it, vi } from 'vitest'
 import { FeedPostCard } from './FeedPostCard'
@@ -15,11 +15,11 @@ function post(overrides: Partial<Post> = {}): Post {
     author: 'maria',
     town: 'springfield-37.22--93.3',
     text: 'storm cell moving in fast',
-    snapshot: 'data:image/jpeg;base64,QUJD',
-    snapshotId: 'snap_k3m9d2',
-    lat: 37.22,
-    lon: -93.3,
-    zoom: 6,
+    snapshot: null,
+    snapshotId: null,
+    lat: null,
+    lon: null,
+    zoom: null,
     createdAt: '2026-10-23T07:56:00.000Z',
     reactions: { '👍': 0, '❤️': 0, '😂': 0 },
     myReaction: null,
@@ -37,19 +37,25 @@ function renderCard(p: Post) {
   )
 }
 
-describe('C-03 author-below placement (feed card)', () => {
-  it('meta row (author + stamp) appears AFTER the snapshot image in DOM order', () => {
+describe('text-only feed card (W4-BF image removal)', () => {
+  it('renders text + author + stamp, no snapshot image anywhere', () => {
     const { container } = renderCard(post())
-    const img = container.querySelector('[data-testid="snapshot-p_snap"]')
-    const meta = container.querySelector('[data-testid="meta-p_snap"]')
-    expect(img).not.toBeNull()
-    expect(meta).not.toBeNull()
-    // Both live inside the same card; meta must come later in the tree.
-    const all = Array.from(container.querySelectorAll('.feed-card > *'))
-    expect(all.indexOf(meta!)).toBeGreaterThan(all.indexOf(img!))
+    expect(screen.getByText('storm cell moving in fast')).toBeInTheDocument()
+    expect(container.querySelector('img')).toBeNull()
+    expect(container.querySelector('[data-testid^="snapshot-"]')).toBeNull()
   })
 
-  it('author + stamp render below the image with the view-post link', () => {
+  it('meta row (author + stamp) renders in feed chrome below the text', () => {
+    const { container } = renderCard(post())
+    const text = container.querySelector('.feed-card-text')
+    const meta = container.querySelector('[data-testid="meta-p_snap"]')
+    expect(text).not.toBeNull()
+    expect(meta).not.toBeNull()
+    const all = Array.from(container.querySelectorAll('.feed-card > *'))
+    expect(all.indexOf(meta!)).toBeGreaterThan(all.indexOf(text!))
+  })
+
+  it('author + stamp render with the view-post link', () => {
     renderCard(post())
     const meta = screen.getByTestId('meta-p_snap')
     expect(meta).toHaveTextContent('maria')
@@ -57,22 +63,20 @@ describe('C-03 author-below placement (feed card)', () => {
     expect(screen.getByTestId('view-post-p_snap')).toHaveAttribute('href', '/p/p_snap')
   })
 
-  it('text-only posts keep the same below-image meta placement', () => {
-    const { container } = renderCard(post({ snapshot: null, snapshotId: null }))
+  it('legacy posts that CARRY a snapshot field render NO image (surface is text-only)', () => {
+    // Old DB rows may still carry snapshot bytes; the surface must not
+    // render them (owner call: take the images out, keep text/reactions/
+    // replies). Honest absence, not a broken-image card.
+    const { container } = renderCard(post({ snapshot: 'data:image/jpeg;base64,QUJD', snapshotId: 'snap_k3m9d2' }))
+    expect(container.querySelector('img')).toBeNull()
     expect(container.querySelector('[data-testid="snapshot-p_snap"]')).toBeNull()
-    const meta = screen.getByTestId('meta-p_snap')
-    expect(meta).toHaveTextContent('maria')
-  })
-})
-
-describe('loud snapshot error state (no black placeholder)', () => {
-  it('broken image -> loud error card, the <img> is replaced, never a black box', () => {
-    renderCard(post())
-    fireEvent.error(screen.getByTestId('snapshot-p_snap'))
-    expect(screen.getByTestId('snapshot-error-p_snap')).toBeInTheDocument()
-    expect(screen.getByTestId('snapshot-error-p_snap')).toHaveTextContent('unavailable')
-    expect(screen.queryByTestId('snapshot-p_snap')).toBeNull()
-    // Author/time chrome stays honest below the failed image.
     expect(screen.getByTestId('meta-p_snap')).toHaveTextContent('maria')
+  })
+
+  it('reactions + replies controls ride the same card', () => {
+    renderCard(post())
+    expect(screen.getByTestId('react-p_snap-👍')).toBeInTheDocument()
+    expect(screen.getByTestId('reply-toggle-p_snap')).toBeInTheDocument()
+    expect(screen.getByTestId('flag-p_snap')).toBeInTheDocument()
   })
 })

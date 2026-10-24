@@ -65,8 +65,10 @@ describe('weather-proxy request shape (S5)', () => {
     await expect(fetchCurrentTemps([town('a', 1, 1)], fetchImpl, 9)).rejects.toThrow(/HTTP 500/)
   })
 
-  it('zoom gate constant matches the wave-2 contract (9)', () => {
-    expect(WEATHER_MIN_ZOOM).toBe(9)
+  it('zoom gate constant matches the W4-BF single-gate law (1)', () => {
+    // Badges render from z1 (tier bands), so the feed gate equals the
+    // LOWEST badge-visible zoom — any badge on screen has an eligible feed.
+    expect(WEATHER_MIN_ZOOM).toBe(1)
   })
 })
 

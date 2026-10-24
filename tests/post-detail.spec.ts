@@ -1,10 +1,11 @@
-// W3-D3 POST DETAIL + LIGHTBOX + SHARE Gate — real app (root vite project
+// W3-D3 POST DETAIL + SHARE Gate — real app (root vite project
 // served by scripts/e2e-serve.mjs), mocked posts API (contract shapes, same
 // harness law as feed.spec.ts). Flow: feed -> view-post link -> /p/<id>
-// renders full post + comments -> snapshot opens/closes the lightbox ->
-// copy-link writes the real /p/<id> URL to the clipboard ('Copied!').
-// Deep-link law: unknown id hard-loads the honest 404 page.
-// Run ONLY via scripts/e2e-gate.sh (fleet browser law).
+// renders full post + comments -> copy-link writes the real /p/<id> URL to
+// the clipboard ('Copied!'). Deep-link law: unknown id hard-loads the honest
+// 404 page. W4-BF: the snapshot lightbox flow is REMOVED (owner round #2:
+// "take the images out") — a legacy row carrying snapshot bytes must render
+// NO image. Run ONLY via scripts/e2e-gate.sh (fleet browser law).
 import { expect, test, type Page } from '@playwright/test'
 import { markTourSeen } from './tour-seed';
 
@@ -135,26 +136,18 @@ test('feed -> view post -> detail renders full post + comments', async ({ page }
   expect(errors).toEqual([])
 })
 
-test('detail snapshot opens the lightbox; Esc and scrim close it', async ({ page }) => {
+test('legacy snapshot bytes render NO image — text-only surface (W4-BF)', async ({ page }) => {
   const errors = await setup(page)
   mockPostsApi(page, fixturePosts())
   await markTourSeen(page);
   await page.goto('/p/p_hot', { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('post-detail-text')).toBeVisible()
 
-  await page.getByTestId('snapshot-button-p_hot').click()
-  const lightbox = page.getByTestId('lightbox')
-  await expect(lightbox).toBeVisible()
-  await expect(page.getByTestId('lightbox-image')).toBeVisible()
-
-  await page.keyboard.press('Escape')
-  await expect(lightbox).toHaveCount(0)
-
-  // Re-open and close via scrim click (X button covered by vitest unit gate).
-  await page.getByTestId('snapshot-button-p_hot').click()
-  await expect(lightbox).toBeVisible()
-  await lightbox.click({ position: { x: 5, y: 5 } })
-  await expect(lightbox).toHaveCount(0)
+  // W4-BF: the fixture post CARRIES snapshot bytes (legacy row) — the
+  // surface must render no <img>, no snapshot button, no lightbox.
+  await expect(page.locator('img[data-testid^="snapshot-"]')).toHaveCount(0)
+  await expect(page.getByTestId('snapshot-button-p_hot')).toHaveCount(0)
+  await expect(page.getByTestId('lightbox')).toHaveCount(0)
   expect(errors).toEqual([])
 })
 

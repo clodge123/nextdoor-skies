@@ -16,7 +16,6 @@ import {
   OUT_W,
   OUT_H,
   VARIANCE_MIN,
-  MAX_ZOOM,
   SNAP_ID_RE,
 } from '../api/snapshot.js';
 import { createHandler as createPostsHandler } from '../api/posts.js';
@@ -198,7 +197,7 @@ describe('variance gate', () => {
     expect(url).toBe(`/api/snapshots?path=${id}`);
     expect(lat).toBe(37.22);
     expect(lon).toBe(-93.3);
-    expect(zoom).toBe(MAX_ZOOM); // requested 11 clamped to raster ceiling
+    expect(zoom).toBe(11); // W4-BF: CARTO raster serves z11 exactly (no clamp)
     expect(bytes).toBeGreaterThan(1000);
     expect(h.snapshots.get(id).jpeg.length).toBe(bytes);
   });
@@ -320,7 +319,7 @@ describe('session gating + validation', () => {
     expect(parseSnapshotBody({ lat: 0, lon: 0, zoom: 0 }).error).toContain('zoom');
     expect(parseSnapshotBody({ lat: 0, lon: 0, zoom: 13 }).error).toContain('zoom');
     const ok = parseSnapshotBody({ lat: 37.22, lon: -93.3, zoom: 11 });
-    expect(ok.zoom).toBe(MAX_ZOOM);
+    expect(ok.zoom).toBe(11); // W4-BF: z11 rides through UNCLAMPED (ceiling is 12)
     expect(ok.lat).toBe(37.22);
   });
 });

@@ -72,14 +72,111 @@ import { requestFlyTo } from '../lib/map/fly-to'
 export const TOWN_BADGE_MIN_ZOOM = 9
 
 /**
- * W4-BF DENSITY LAW (owner bug-fix round: "way too much going on"): the
- * zoom-match gate alone puts hundreds of state/city-tier badges on screen
- * over a country view. Shipping maps (Google Maps tiering, Mapbox collision
- * detection) bound density per frame — the biggest towns win, the rest
- * appear as you zoom in. Same rule, in pixels: pop-desc (id asc on ties),
- * hard cap per frame. Deterministic (R17): sort key is data, zero RNG/clock.
+ * W4-BF COLLISION LAW (owner bug-fix round: "the one that wins is the
+ * largest, the others don't show"): the zoom-match gate alone puts hundreds
+ * of state/city-tier badges on screen over a country view. Shipping maps
+ * (Mapbox collision detection, Google Maps tiering) resolve overlap in
+ * pixels: sort by importance, place greedily, DROP any badge whose box
+ * overlaps one already placed. Biggest towns win; the losers simply don't
+ * render. Deterministic (R17): sort key is data (pop desc, id asc), zero
+ * RNG/clock. MAX_VISIBLE_BADGES stays as a hard per-frame ceiling.
  */
 export const MAX_VISIBLE_BADGES = 40
+
+/** Estimated badge+label box (px) anchored bottom-center at the town point. */
+const BADGE_BOX_W = 92
+const BADGE_BOX_H = 64
+/** Cluster badge carries "Name +N" — wider chip. */
+const CLUSTER_BOX_W = 150
+const BADGE_PAD = 6
+
+interface Box {
+  x: number
+  y: number
+  w: number
+  h: number
+}
+
+function boxesOverlap(a: Box, b: Box): boolean {
+  return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y
+}
+
+/**
+ * Greedy placement core: rank-desc, tie-break asc, keep boxes that clear
+ * everything already placed, stop at `max`. Deterministic (R17): every key
+ * is data — zero RNG/clock. Exported through collideBadges/collideGroups.
+ */
+function placeBoxes<T>(
+  items: readonly T[],
+  rank: (t: T) => number,
+  tie: (a: T, b: T) => number,
+  boxOf: (t: T) => Box,
+  max: number,
+): T[] {
+  const scored = [...items].sort((a, b) => rank(b) - rank(a) || tie(a, b))
+  const placed: Box[] = []
+  const out: T[] = []
+  for (const t of scored) {
+    const box = boxOf(t)
+    if (placed.some((b) => boxesOverlap(b, box))) continue
+    placed.push(box)
+    out.push(t)
+    if (out.length >= max) break
+  }
+  return out
+}
+
+/**
+ * W4-BF COLLISION LAW — PURE, exported for unit tests. Projects each town,
+ * sorts by importance (pop desc, id asc — the biggest towns win the fight),
+ * and greedily keeps only badges whose pixel box clears every badge already
+ * placed. O(n log n), deterministic, capped at `max`.
+ */
+export function collideBadges(
+  towns: readonly TownBadgeCoord[],
+  project: (lnglat: [number, number]) => { x: number; y: number },
+  max: number = MAX_VISIBLE_BADGES,
+): TownBadgeCoord[] {
+  return placeBoxes(
+    towns,
+    (t) => t.pop ?? 0,
+    (a, b) => a.id.localeCompare(b.id),
+    (t) => {
+      const p = project([t.lon, t.lat])
+      return { x: p.x - BADGE_BOX_W / 2 + BADGE_PAD, y: p.y - BADGE_BOX_H + BADGE_PAD, w: BADGE_BOX_W - BADGE_PAD, h: BADGE_BOX_H - BADGE_PAD }
+    },
+    max,
+  )
+}
+
+/**
+ * W4-BF COLLISION LAW applied AFTER de-clustering (B3): cluster badges
+ * collide against EACH OTHER (wider box, ranked by rep population — the
+ * biggest group wins the pixel fight; the loser's towns stay reachable via
+ * fly-to-expand). Solo badges are sparse (tier-gated) and always render —
+ * dropping a lone town's badge is data loss, not a density win. Same-temp
+ * pileups (the owner's "bunch of stuff") are clusters, so this thins the
+ * exact surface the complaint was about. Exported for tests.
+ */
+export function collideGroups(
+  groups: readonly BadgeGroup[],
+  project: (lnglat: [number, number]) => { x: number; y: number },
+  max: number = MAX_VISIBLE_BADGES,
+): BadgeGroup[] {
+  const solo = groups.filter((g) => g.members.length === 1)
+  const clusters = groups.filter((g) => g.members.length > 1)
+  const keptClusters = placeBoxes(
+    clusters,
+    (g) => g.rep.pop ?? 0,
+    (a, b) => a.rep.id.localeCompare(b.rep.id),
+    (g) => {
+      const p = project([g.rep.lon, g.rep.lat])
+      return { x: p.x - CLUSTER_BOX_W / 2 + BADGE_PAD, y: p.y - BADGE_BOX_H + BADGE_PAD, w: CLUSTER_BOX_W - BADGE_PAD, h: BADGE_BOX_H - BADGE_PAD }
+    },
+    max,
+  )
+  return [...solo, ...keptClusters]
+}
 
 /**
  * W4-B2: badge input = TownCoord + the town's gazetteer tier (optional; the
@@ -108,10 +205,7 @@ export function badgesForZoom(
   for (const t of towns) {
     if (t.tier ? labelVisibleAtZoom(t.tier, zoom) : zoom >= fallbackMinZoom) out.push(t)
   }
-  if (out.length <= MAX_VISIBLE_BADGES) return out
-  return [...out]
-    .sort((a, b) => (b.pop ?? 0) - (a.pop ?? 0) || a.id.localeCompare(b.id))
-    .slice(0, MAX_VISIBLE_BADGES)
+  return out
 }
 
 // Memoization (performance law): the overlay re-renders every move/zoom
@@ -137,6 +231,43 @@ export function visibleBadges(
   memoFallback = fallbackMinZoom
   memoOut = badgesForZoom(towns, zoom, fallbackMinZoom)
   return memoOut
+}
+
+// W4-BF COLLISION memo — same zero-per-frame pattern. Panning shifts every
+// projected point RIGIDLY, so overlap outcomes are pan-invariant: key the
+// memo on (towns reference, zoom) only, and panning does zero extra work.
+let memoCTowns: readonly TownBadgeCoord[] | null = null
+let memoCZoom = Number.NaN
+let memoCOut: TownBadgeCoord[] = []
+
+/** Memoized collision pass — call right after visibleBadges in the render path. */
+export function collidedBadges(
+  towns: readonly TownBadgeCoord[],
+  zoom: number,
+  project: (lnglat: [number, number]) => { x: number; y: number },
+): TownBadgeCoord[] {
+  if (towns === memoCTowns && zoom === memoCZoom) return memoCOut
+  memoCTowns = towns
+  memoCZoom = zoom
+  memoCOut = collideBadges(towns, project)
+  return memoCOut
+}
+
+let memoCGroups: readonly BadgeGroup[] | null = null
+let memoCGZoom = Number.NaN
+let memoCGOut: BadgeGroup[] = []
+
+/** Memoized group collision pass — call right after groupsForVisible. */
+export function collidedGroups(
+  groups: readonly BadgeGroup[],
+  zoom: number,
+  project: (lnglat: [number, number]) => { x: number; y: number },
+): BadgeGroup[] {
+  if (groups === memoCGroups && zoom === memoCGZoom) return memoCGOut
+  memoCGroups = groups
+  memoCGZoom = zoom
+  memoCGOut = collideGroups(groups, project)
+  return memoCGOut
 }
 
 // W4-B3 clustering memo — same zero-per-frame pattern. Keyed on
@@ -189,6 +320,9 @@ export function groupsForVisible(
       x: p.x,
       y: p.y,
       tempKey: displayTempKey(temps[t.id], unit === 'C' ? 'C' : 'F'),
+      // W4-BF COLLISION LAW: pop rides into the group so cluster badges
+      // rank by rep importance (biggest towns win the pixel fight).
+      pop: t.pop,
     }
   })
   memoGOut = badgeGroups(entries, zoom)
@@ -282,6 +416,16 @@ export function TownBadges({
   // zero-per-frame pattern; panning hits the cache (grouping is
   // pan-invariant — projection shifts every point rigidly).
   const groups = groupsForVisible((lnglat) => map.project(lnglat), visible, zoom, temps, unit)
+
+  // W4-BF COLLISION LAW (owner: "the one that wins is the largest, the
+  // others don't show"): AFTER de-clustering, biggest badges claim their
+  // pixel box first and overlapping smaller badges drop out. A cluster
+  // badge collides as ONE (wider) box, ranked by its rep's population.
+  // Scope: the clustered band (zoom < CLUSTER_MAX_ZOOM) — that is where the
+  // tier gate puts hundreds of state/city badges on one screen. Above it,
+  // the viewport is small and the solo path renders unchanged (pre-B3 DOM).
+  const keptGroups = groups ? collidedGroups(groups, zoom, (lnglat) => map.project(lnglat)) : null
+  if (groups && keptGroups!.length === 0) return null
 
   // W4-B1 geometry law: the whole marker column [badge][label][dot] anchors
   // with its BOTTOM at the town point (dot on the point, label above it,
@@ -521,13 +665,11 @@ export function TownBadges({
   }
 
   if (groups) {
-    // Clustering ON (zoom < CLUSTER_MAX_ZOOM): one column per group —
+    // Clustering ON (zoom < CLUSTER_MAX_ZOOM): one column per KEPT group —
     // clusters render collapsed, solo towns render exactly as before.
     return (
       <div className="town-badges" data-testid="town-badges">
-        {groups.map((g) =>
-          g.members.length > 1 ? renderCluster(g) : renderSolo(g.members[0]),
-        )}
+        {keptGroups!.map((g) => (g.members.length > 1 ? renderCluster(g) : renderSolo(g.members[0])))}
       </div>
     )
   }
