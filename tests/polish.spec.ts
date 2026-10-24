@@ -265,7 +265,10 @@ test('zoom controls tappable >=44px and badge zoom-match rule (badge follows the
   void testInfo
 })
 
-test('awaiting-feed honest state legible at zoom>=9', async ({ page }, testInfo) => {
+test('no-data renders NO placeholder badges (W4-BF display law)', async ({ page }, testInfo) => {
+  // Owner round 3: "if it says awaiting feed, simply don't show it until it
+  // actually has a value" — with zero weather data, the map shows NO badge
+  // chips at all. Honest absence, never a placeholder.
   const errors = await setup(page, /* tempsNull */ true)
 
   const zoomIn = page.getByRole('button', { name: 'zoom in' })
@@ -273,23 +276,15 @@ test('awaiting-feed honest state legible at zoom>=9', async ({ page }, testInfo)
   await tapOrClick(page, zoomIn)
   await expect.poll(() => mapZoom(page), { timeout: 10_000 }).toBeGreaterThanOrEqual(9)
 
-  const badge = page.locator('.town-badge').first()
-  await expect(badge).toBeVisible({ timeout: 10_000 })
-  const label = badge.locator('.town-badge-temp')
-  await expect(label).toContainText('awaiting feed', { timeout: 10_000 })
+  // Give any in-flight window a beat to land (it returns NO temps).
+  await page.waitForTimeout(2500)
 
-  // Legible: >=11px font, high-contrast color, square, >=40px tall.
-  const style = await label.evaluate((el) => {
-    const s = getComputedStyle(el)
-    const r = (el.closest('.town-badge') as HTMLElement).getBoundingClientRect()
-    return { size: parseFloat(s.fontSize), color: s.color, h: r.height, radius: getComputedStyle(el.closest('.town-badge')!).borderRadius }
-  })
-  expect(style.size).toBeGreaterThanOrEqual(11)
-  expect(style.color).toBe('rgb(245, 245, 245)')
-  expect(style.h).toBeGreaterThanOrEqual(40)
-  expect(style.radius).toBe('0px')
+  // No badges, no markers, no "awaiting feed" text anywhere on the map.
+  await expect(page.locator('.town-badge')).toHaveCount(0)
+  await expect(page.locator('.town-marker')).toHaveCount(0)
+  await expect(page.getByText('awaiting feed')).toHaveCount(0)
 
-  // Screenshot the polished map view (badges + header + controls) for the lane.
+  // Screenshot the clean map view (no placeholders) for the lane.
   await page.screenshot({ path: path.join(SHOT_DIR, `polish-badges-${testInfo.project.name}.png`) })
   expect(errors).toEqual([])
 })

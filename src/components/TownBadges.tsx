@@ -408,7 +408,14 @@ export function TownBadges({
   // W4-B2: per-town zoom-match gate (no global cutoff) — a badge renders
   // exactly while the basemap renders that town's label. Memoized per zoom
   // frame: O(towns) once per change, zero per-frame work, no sort.
-  const visible = visibleBadges(towns, zoom, minZoom)
+  // W4-BF DISPLAY LAW (owner round 3: "if it says awaiting feed, simply
+  // don't show it until it actually has data"): a badge renders ONLY once
+  // real weather data has arrived for its town. No data = no badge — the
+  // map shows what the feed actually knows, never a placeholder chip. The
+  // badge appears (with the is-live fade-in) the moment its window returns.
+  const visible = visibleBadges(towns, zoom, minZoom).filter((t) =>
+    Number.isFinite(temps[t.id]),
+  )
   if (visible.length === 0) return null
 
   // W4-B3 DE-CLUSTER: compose AFTER the zoom-match gate — only badge-visible

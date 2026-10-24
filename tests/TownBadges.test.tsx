@@ -32,13 +32,17 @@ describe('TownBadges', () => {
     expect(screen.getByTestId('town-badge-faraway').textContent).toBe('39°F')
   })
 
-  it('shows honest "awaiting feed" for towns without data (R19)', () => {
+  it('renders NO badge for towns without data (W4-BF display law: "if it says awaiting feed, don\'t show it")', () => {
     render(
       <MapContext.Provider value={stubMap(10)}>
         <TownBadges towns={towns} temps={{}} />
       </MapContext.Provider>,
     )
-    expect(screen.getByTestId('town-badge-springfield').textContent).toBe('awaiting feed')
+    // No placeholder chips: a badge exists ONLY once real weather data
+    // arrived for its town (owner round 3). Honest absence, not fake text.
+    expect(screen.queryByTestId('town-badge-springfield')).toBeNull()
+    expect(screen.queryByTestId('town-badge-faraway')).toBeNull()
+    expect(screen.queryByTestId(/town-marker/)).toBeNull()
   })
 
   it('hides badges below the zoom grade', () => {
@@ -123,9 +127,11 @@ describe('TownBadges', () => {
     })
 
     it('every badge-visible town gets a readable DOM label (names never covered)', () => {
+      // W4-BF display law: a badge (and its label column) renders ONLY for
+      // towns with real weather data — both towns carry temps here.
       render(
         <MapContext.Provider value={stubMap(10)}>
-          <TownBadges towns={towns} temps={{ springfield: 10 }} />
+          <TownBadges towns={towns} temps={{ springfield: 10, faraway: 5 }} />
         </MapContext.Provider>,
       )
       expect(screen.getByTestId('town-label-springfield').textContent).toBe('Springfield')
@@ -429,12 +435,12 @@ describe('TownBadges', () => {
         <TownBadges towns={towns} temps={{}} />
       </MapContext.Provider>,
     )
-    // No data yet: no is-live class, honest "awaiting feed" text visible.
-    const badge = screen.getByTestId('town-badge-springfield')
-    expect(badge.className).not.toContain('is-live')
-    expect(badge.textContent).toBe('awaiting feed')
+    // No data yet: NO badge renders (W4-BF display law — the map shows
+    // what the feed knows, never a placeholder chip).
+    expect(screen.queryByTestId('town-badge-springfield')).toBeNull()
 
-    // Data arrives: the class flips in the SAME render pass — the CSS
+    // Data arrives: the badge appears WITH is-live in the SAME render pass
+    // — the CSS
     // transition (.town-badge.is-live .town-badge-data {opacity 0->1}) does
     // the animating; the component schedules no timers.
     rerender(
@@ -446,7 +452,7 @@ describe('TownBadges', () => {
     expect(live.className).toContain('is-live')
     expect(live.querySelector('.town-badge-data')).not.toBeNull()
     expect(live.textContent).toContain('50°F')
-    // "awaiting feed" is gone once real data exists.
+    // "awaiting feed" never exists on the surface (badges hide until data).
     expect(live.textContent).not.toContain('awaiting feed')
   })
 
@@ -568,15 +574,14 @@ describe('TownBadges', () => {
       cleanup()
     })
 
-    it('awaiting-feed towns never cluster (NaN key, R19 honest)', () => {
+    it('towns without data render NO badges (W4-BF display law)', () => {
       render(
         <MapContext.Provider value={stubMap(8)}>
           <TownBadges towns={metro} temps={{}} />
         </MapContext.Provider>,
       )
-      expect(screen.queryByTestId(/town-badge-cluster-/)).toBeNull()
-      expect(screen.getByTestId('town-badge-moore')).toBeTruthy()
-      expect(screen.getByTestId('town-badge-moore').textContent).toBe('awaiting feed')
+      // No data => nothing on the map: no clusters, no solo placeholders.
+      expect(screen.queryByTestId(/town-badge/)).toBeNull()
       cleanup()
     })
 
