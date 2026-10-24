@@ -526,7 +526,15 @@ describe('TownBadges', () => {
       render(
         <MapContext.Provider value={stubMap(8)}>
           <TownBadges
-            towns={metro}
+            towns={[
+              metro[0],
+              metro[1],
+              // W4-BF COLLISION LAW: solo badges collide with cluster
+              // badges, so the odd-one-out sits >120px clear of the
+              // cluster box (stubMap: 1 deg lat = 10px) — it stays
+              // renderable instead of losing the pixel fight.
+              { ...metro[2], lat: 48.34 },
+            ]}
             temps={{ moore: 21, mustang: 21.1, okc: 4 }} // okc shows 39°F
           />
         </MapContext.Provider>,

@@ -152,30 +152,31 @@ export function collideBadges(
 /**
  * W4-BF COLLISION LAW applied AFTER de-clustering (B3): cluster badges
  * collide against EACH OTHER (wider box, ranked by rep population — the
- * biggest group wins the pixel fight; the loser's towns stay reachable via
- * fly-to-expand). Solo badges are sparse (tier-gated) and always render —
- * dropping a lone town's badge is data loss, not a density win. Same-temp
- * pileups (the owner's "bunch of stuff") are clusters, so this thins the
- * exact surface the complaint was about. Exported for tests.
+ * EVERY badge collides in pixels — solo and cluster alike — ranked by rep
+ * population (the owner's law verbatim: "the one that wins is the largest,
+ * the others don't show"; Google Maps/Mapbox collision detection). Cluster
+ * badges claim a wider box; their members stay reachable by zooming in
+ * (fly-to law). The frame cap also bounds the weather feed: the refresher
+ * serves pop-top <=50 per window, so a <=MAX_VISIBLE_BADGES frame is fully
+ * covered — no badge sits in "awaiting feed" for falling outside the
+ * served set (production repro: 85 badges on screen, 67 dead). Exported.
  */
 export function collideGroups(
   groups: readonly BadgeGroup[],
   project: (lnglat: [number, number]) => { x: number; y: number },
   max: number = MAX_VISIBLE_BADGES,
 ): BadgeGroup[] {
-  const solo = groups.filter((g) => g.members.length === 1)
-  const clusters = groups.filter((g) => g.members.length > 1)
-  const keptClusters = placeBoxes(
-    clusters,
+  return placeBoxes(
+    groups,
     (g) => g.rep.pop ?? 0,
     (a, b) => a.rep.id.localeCompare(b.rep.id),
     (g) => {
       const p = project([g.rep.lon, g.rep.lat])
-      return { x: p.x - CLUSTER_BOX_W / 2 + BADGE_PAD, y: p.y - BADGE_BOX_H + BADGE_PAD, w: CLUSTER_BOX_W - BADGE_PAD, h: BADGE_BOX_H - BADGE_PAD }
+      const w = g.members.length > 1 ? CLUSTER_BOX_W : BADGE_BOX_W
+      return { x: p.x - w / 2 + BADGE_PAD, y: p.y - BADGE_BOX_H + BADGE_PAD, w: w - BADGE_PAD, h: BADGE_BOX_H - BADGE_PAD }
     },
     max,
   )
-  return [...solo, ...keptClusters]
 }
 
 /**
