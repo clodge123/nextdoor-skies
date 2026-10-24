@@ -6,6 +6,7 @@
 //  #7 coordinate-key debounce ~0.005 deg (panning within a cell emits nothing)
 //  R17 determinism: no Math.random / Date.now / new Date in this file.
 import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import townsData from '../../data/towns/us-towns.json';
@@ -70,6 +71,16 @@ export default function MapView({ center = [-98.5, 39.8], zoom = 3, children }: 
   const lastKeyRef = useRef<string>('');
   const [map, setMap] = useState<maplibregl.Map | null>(null);
   const [ready, setReady] = useState(false);
+  // W4-BF TOUCH-PAN-FIX (owner bug-fix round): overlay children (badges,
+  // label targets, tint) mount INSIDE map.getCanvasContainer() via portal.
+  // MapLibre's pan handlers live on the canvas container, so any
+  // touchstart/mousedown that lands on an overlay element BUBBLES to the
+  // container and starts a real map pan; DragHandler suppresses the click
+  // once the pointer travels past clickTolerance, and a stationary tap
+  // still fires the badge/label click (panel opens). Rendering the overlay
+  // OUTSIDE the container (the old shape) meant a finger/mouse on a temp
+  // badge could never start a pan — the gesture died as a plain click.
+  const [canvasContainer, setCanvasContainer] = useState<HTMLElement | null>(null);
   const [tileWarnings, setTileWarnings] = useState(0);
   const [tier, setTier] = useState<Tier>('country');
 
@@ -85,6 +96,12 @@ export default function MapView({ center = [-98.5, 39.8], zoom = 3, children }: 
     });
     mapRef.current = m;
     setMap(m);
+    // Pan-through overlay seam (see canvasContainer note above). Guarded:
+    // jsdom map mocks may not implement getCanvasContainer; children then
+    // render in place (pre-portal shape) so unit tests stay green.
+    if (typeof m.getCanvasContainer === 'function') {
+      setCanvasContainer(m.getCanvasContainer());
+    }
     // Debug/e2e seam (documented): lets tests + L6 inspect layers via
     // window.ndsMap.queryRenderedFeatures(...).
     (window as { ndsMap?: maplibregl.Map }).ndsMap = m;
@@ -215,7 +232,9 @@ export default function MapView({ center = [-98.5, 39.8], zoom = 3, children }: 
           zoom out
         </button>
       </div>
-      {children}
+      {/* Overlay children ride INSIDE the canvas container once it exists
+          (pan-through law); before that / under mocked maps, render in place. */}
+      {canvasContainer ? createPortal(children, canvasContainer) : children}
     </MapProvider>
   );
 }
