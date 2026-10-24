@@ -29,7 +29,9 @@ import type { ApiResult, Session } from './feed'
 /** Session-gated compositor endpoint (api/snapshot.js). */
 export const SNAPSHOT_ENDPOINT = '/api/snapshot'
 
-/** Poster's requested view zoom (S7: ~12; server clamps raster to [1,6]). */
+/** Poster's requested view zoom (S7: ~12). W4-BF: the server honors it now
+ *  (CARTO raster z14+); the old ne2sr source clamped everything to z6 and
+ *  every snapshot showed a continent, not the town (owner critique). */
 export const CAPTURE_ZOOM = 11
 
 /** Fixed normalized canvas — MUST match api/snapshot.js OUT_W/OUT_H (S7#2). */
@@ -338,6 +340,15 @@ export function drawStrip(ctx: CanvasRenderingContext2D, strip: StripData, layou
   ctx.fillStyle = NEON
   ctx.font = 'bold 16px ui-monospace, SFMono-Regular, Menlo, monospace'
   ctx.fillText(strip.temp, layout.tempRight, midY)
+
+  // W4-BF attribution law (CARTO basemap ToS §13: static images must carry
+  // legible attribution): burned once, bottom-left under the town line,
+  // 9px — legible, non-intrusive. Mirrors the OSM credit the app shows in
+  // the map corner.
+  ctx.font = '9px system-ui, sans-serif'
+  ctx.textAlign = 'left'
+  ctx.fillStyle = 'rgba(255,255,255,0.72)'
+  ctx.fillText('© CARTO © OpenStreetMap', layout.townX, layout.barY + layout.barH - 7)
 
   if (strip.bucket) {
     drawWeatherGlyph(ctx, strip.bucket, layout.iconBox.x, layout.iconBox.y, layout.iconBox.size)

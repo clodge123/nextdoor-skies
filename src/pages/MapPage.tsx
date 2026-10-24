@@ -14,7 +14,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type MutableRefObjec
 import { useLocation, useNavigate } from 'react-router-dom';
 import townsData from '../../data/towns/us-towns.json';
 import MapView from '../components/MapView';
-import { TownBadges, TOWN_BADGE_MIN_ZOOM } from '../components/TownBadges';
+import { TownBadges } from '../components/TownBadges';
 import { TownLabelTargets, type TownTargetCoord } from '../components/TownLabelTargets';
 import { MapTint } from '../components/MapTint';
 import { TownPanel } from '../components/TownPanel';
@@ -143,6 +143,9 @@ function MapBadges({
       // W4-B2 ZOOM-MATCH: tier rides along so TownBadges gates each badge on
       // its own tier's label band (session-1 law #4), not a global zoom cut.
       tier: t.tier,
+      // W4-BF DENSITY LAW: pop rides along for the per-frame badge cap and
+      // the refresher's pop-top <=50 window (deterministic, data-sorted).
+      pop: t.pop,
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map, tick]);
@@ -154,8 +157,12 @@ function MapBadges({
   useEffect(() => {
     if (!map || !ready) return;
     const refresher = createWeatherRefresher({
-      getTowns: () =>
-        map.getZoom() >= TOWN_BADGE_MIN_ZOOM ? visibleRef.current : [],
+      // W4-BF SINGLE-GATE LAW: badges render from z1 (tier bands), so the
+      // refresher feeds them at EVERY zoom — the old z9 gate left every
+      // badge below z9 permanently "awaiting feed" (owner critique). The
+      // refresher's own pop-top <=50 window bounds the request; the server
+      // gate (MIN_ZOOM=1) matches.
+      getTowns: () => visibleRef.current,
       getViewport: () => boundsOf(map),
       getZoom: () => map.getZoom(),
       fetchImpl: (input, init) => fetch(input, init),
@@ -174,24 +181,10 @@ function MapBadges({
     };
   }, [map, ready, onTemps, onCodes]);
 
-  // Crossing minZoom upward restarts the window (immediate first fetch).
-  useEffect(() => {
-    if (!map) return;
-    const onZoom = () => {
-      const z = map.getZoom();
-      if (z >= TOWN_BADGE_MIN_ZOOM && belowRef.current) {
-        belowRef.current = false;
-        refresherRef.current?.stop();
-        refresherRef.current?.start();
-      } else if (z < TOWN_BADGE_MIN_ZOOM) {
-        belowRef.current = true;
-      }
-    };
-    map.on('zoomend', onZoom);
-    return () => {
-      map.off('zoomend', onZoom);
-    };
-  }, [map]);
+  // W4-BF: the old zoom-crossing restart existed because the refresher was
+  // gated at z9. Single-gate law: the refresher runs continuously at every
+  // zoom (badges render from z1), so no gate-crossing exists to restart on.
+  void belowRef;
 
   if (!ready) return null;
   // Badge alert-dots (contract consumer seam): highest active severity per

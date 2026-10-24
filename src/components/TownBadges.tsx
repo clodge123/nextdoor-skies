@@ -72,19 +72,32 @@ import { requestFlyTo } from '../lib/map/fly-to'
 export const TOWN_BADGE_MIN_ZOOM = 9
 
 /**
+ * W4-BF DENSITY LAW (owner bug-fix round: "way too much going on"): the
+ * zoom-match gate alone puts hundreds of state/city-tier badges on screen
+ * over a country view. Shipping maps (Google Maps tiering, Mapbox collision
+ * detection) bound density per frame — the biggest towns win, the rest
+ * appear as you zoom in. Same rule, in pixels: pop-desc (id asc on ties),
+ * hard cap per frame. Deterministic (R17): sort key is data, zero RNG/clock.
+ */
+export const MAX_VISIBLE_BADGES = 40
+
+/**
  * W4-B2: badge input = TownCoord + the town's gazetteer tier (optional; the
- * unit-test seam omits it, falling back to the legacy global gate).
+ * unit-test seam omits it, falling back to the legacy global gate) + pop
+ * (W4-BF density law; absent => 0, ranks last among equals).
  */
 export interface TownBadgeCoord extends TownCoord {
   tier?: Tier
+  pop?: number
 }
 
 /**
  * W4-B2 ZOOM-MATCH gate — PURE, exported for unit tests. Selects the towns
  * whose LABEL the map renders at this zoom: tiered towns pass iff their tier
  * band contains the zoom (labelVisibleAtZoom); tier-less towns fall back to
- * the legacy global minZoom. O(towns), NO sort — output keeps input order.
- * (B1 owns stacking/de-cluster geometry; this gate is visibility only.)
+ * the legacy global minZoom. W4-BF: results are density-capped — pop-desc
+ * (id asc on ties), max MAX_VISIBLE_BADGES per frame. (B1 owns stacking/
+ * de-cluster geometry; this gate is visibility + density only.)
  */
 export function badgesForZoom(
   towns: readonly TownBadgeCoord[],
@@ -95,7 +108,10 @@ export function badgesForZoom(
   for (const t of towns) {
     if (t.tier ? labelVisibleAtZoom(t.tier, zoom) : zoom >= fallbackMinZoom) out.push(t)
   }
-  return out
+  if (out.length <= MAX_VISIBLE_BADGES) return out
+  return [...out]
+    .sort((a, b) => (b.pop ?? 0) - (a.pop ?? 0) || a.id.localeCompare(b.id))
+    .slice(0, MAX_VISIBLE_BADGES)
 }
 
 // Memoization (performance law): the overlay re-renders every move/zoom

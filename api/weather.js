@@ -54,8 +54,16 @@ export const CACHE_TTL_MS = 60 * 60_000
 export const MAX_PREFETCH_TOWNS = 50
 /** Ring thickness: expand the viewport by this factor on every side. */
 export const PREFETCH_RING_FACTOR = 1
-/** Zoom gate (matches TOWN_BADGE_MIN_ZOOM on main). */
-export const MIN_ZOOM = 9
+/**
+ * W4-BF SINGLE-GATE LAW (owner bug-fix round): the old gate (9) matched
+ * badge rendering (which starts at z1 via tier bands — country tier labels
+ * render from z1), so every badge below z9 was permanently "awaiting feed"
+ * — the refresher never asked, the server refused. The gate now equals the
+ * LOWEST badge-visible zoom (1): any badge on screen has an eligible feed.
+ * Density is bounded downstream (client sends <=50 pop-top towns per
+ * window; MAX_TOWNS_PER_REQUEST caps the served set here).
+ */
+export const MIN_ZOOM = 1
 /** Per-town upstream timeout; slow towns degrade to absent, not a hung request. */
 export const UPSTREAM_TIMEOUT_MS = 4000
 

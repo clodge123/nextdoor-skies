@@ -8,12 +8,15 @@
 // fallback: a snapshot request gets a real map JPEG (201) or a loud 502 JSON
 // error — never a black image, never a text stand-in.
 //
-// Tile source: https://tiles.openfreemap.org/natural_earth/ne2sr/{z}/{x}/{y}.png
-// — the `ne2_shaded` raster source of the app's `bright` style (the same
-// tiles.openfreemap.org basemap layer MapPage paints). Its pyramid tops out
-// at zoom 6; requested zoom is clamped [1,6] (center is EXACT, zoom is
-// capped — documented deviation in docs/SNAPSHOT-API.md). Attribution per
-// OpenFreeMap ToS: OpenFreeMap / OpenMapTiles / OpenStreetMap.
+// Tile source (W4-BF fix, 2026-10-23): CARTO `light_all` raster —
+// https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png. The previous
+// source (tiles.openfreemap.org ne2sr) topped out at zoom 6, so a z11
+// capture was CLAMPED to z6: the JPEG showed a continental view, not the
+// town the post is about (owner demo critique). CARTO's pyramid serves
+// z14+ (verified live: z11 tiles = HTTP 200 PNG), free tier 5M tiles/mo,
+// and its ToS explicitly permits static images with legible attribution —
+// burned into the strip by the composer (src/lib/snapshot-overlay.ts).
+// Center is EXACT, zoom honored up to MAX_ZOOM.
 //
 // Determinism (R17): no Math.random / Date.now / new Date anywhere in this
 // file. Ids are content-hashed (FNV-1a of normalized coords + JPEG bytes);
@@ -37,17 +40,18 @@ import { parseSession, loadGazetteer, createPgDb, hashId } from './posts.js';
 // Constants (fixed — determinism law)
 // ---------------------------------------------------------------------------
 
-export const TILE_PX = 256; // nominal web-map tile edge (ne2sr serves 2x: 512)
+export const TILE_PX = 256; // web-map tile edge (CARTO light_all serves 256px)
 export const GRID_TILES = 3; // 3x3 grid (S3 law)
 export const OUT_W = 640; // fixed normalized canvas (S7#2: 16:9)
 export const OUT_H = 360;
 export const MIN_ZOOM = 1;
-export const MAX_ZOOM = 6; // ne2sr raster pyramid ceiling (z7+ 404s upstream)
+export const MAX_ZOOM = 12; // W4-BF: CARTO pyramid z14+; z12 keeps the tile
+// budget sane (composer CAPTURE_ZOOM=11 rides through UNCLAMPED now)
 export const VARIANCE_MIN = 16; // C7 freshness bar (seed-wave2.mjs precedent)
 export const JPEG_QUALITY = 72;
 export const TILE_TIMEOUT_MS = 8000;
 export const TILE_URL_TEMPLATE =
-  'https://tiles.openfreemap.org/natural_earth/ne2sr/{z}/{x}/{y}.png';
+  'https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
 export const TILE_USER_AGENT = 'nextdoor-skies-compositor/1.0 (+https://nextdoor-skies.app)';
 export const SNAP_ID_RE = /^snap_[0-9a-z]+$/;
 

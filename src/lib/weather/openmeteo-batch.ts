@@ -29,8 +29,14 @@ import { netFetch } from '../net'
 /** Same-origin weather proxy (api/weather.js). Never a third-party origin. */
 export const WEATHER_PROXY_PATH = '/api/weather'
 
-/** Server-side zoom gate (mirrors TOWN_BADGE_MIN_ZOOM). */
-export const WEATHER_MIN_ZOOM = 9
+/**
+ * Server-side zoom gate (W4-BF single-gate law): equals the lowest
+ * badge-visible zoom (1 — country-tier labels/badges render from z1), NOT
+ * the old z9 badge gate. Mirrors api/weather.js MIN_ZOOM; any badge on
+ * screen has an eligible feed. Density is bounded client-side (pop-top
+ * <=50 towns per window) and server-side (MAX_TOWNS_PER_REQUEST).
+ */
+export const WEATHER_MIN_ZOOM = 1
 
 /** Contract §S5: <=50 towns per proxy request. */
 export const MAX_CHUNK_TOWNS = 50
@@ -43,6 +49,10 @@ export interface TownCoord {
   name: string
   lat: number
   lon: number
+  /** Population (W4-BF density law): when present, the refresher window
+   *  sends the pop-top <=50 towns (deterministic: pop desc, id asc) so the
+   *  map shows the biggest towns' weather first, like Google Maps tiering. */
+  pop?: number
 }
 
 export interface CurrentTemp {
@@ -221,12 +231,21 @@ export function createWeatherRefresher(opts: WeatherRefresherOptions): {
   const runWindow = async (): Promise<void> => {
     const visible = filterVisibleTowns(opts.getTowns(), opts.getViewport())
     if (visible.length === 0) return
+    // W4-BF DENSITY LAW: a window asks for at most MAX_CHUNK_TOWNS towns,
+    // pop-desc (id asc on ties) — the biggest towns in view load first, the
+    // rest arrive next window. Bounded request, bounded clutter, deterministic.
+    const served =
+      visible.length <= MAX_CHUNK_TOWNS
+        ? visible
+        : [...visible]
+            .sort((a, b) => (b.pop ?? 0) - (a.pop ?? 0) || a.id.localeCompare(b.id))
+            .slice(0, MAX_CHUNK_TOWNS)
     // Pan-cancels-stale: this window supersedes any older in-flight request.
     inFlight?.abort()
     const controller = new AbortController()
     inFlight = controller
     try {
-      const temps = await fetchCurrentTemps(visible, opts.fetchImpl, getZoom(), controller.signal)
+      const temps = await fetchCurrentTemps(served, opts.fetchImpl, getZoom(), controller.signal)
       if (controller.signal.aborted) return
       if (temps.length > 0) opts.onTemps(temps)
     } catch {
